@@ -1,0 +1,11 @@
+#name : Max map function
+# --
+public static int max${1:FUNCTION}(int x, int y) {
+  int max = 0;
+  int curr;
+  for (int i=x; i<y; ++i) {
+    curr = ${2:FUNCTION}(i);
+    if (curr > max) max = curr;
+  }
+  return max;
+}

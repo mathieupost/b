@@ -1,0 +1,16 @@
+/*
+!/.gitignore
+!/.gitmodules
+!/.config.d
+!/.emacs
+!/.emacs.d
+!/.gdbinit
+!/.gdb
+!/.gdb/*
+!/.screenrc
+!/.zshrc
+!/.irbrc
+!/Library/Fonts/pragmata.ttf
+!/.gemrc
+!/Library/profile.jpg
+!/lib
