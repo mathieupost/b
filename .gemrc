@@ -1,6 +1,10 @@
 --- 
 :sources: 
 - http://rubygems.org
+<<<<<<< HEAD
+- http://cdscm
+=======
+>>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 :bulk_threshold: 1000
 :benchmark: false
 gem: --no-ri --no-rdoc

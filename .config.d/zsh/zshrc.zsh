@@ -13,7 +13,11 @@ export GIT_AUTHOR_NAME=$NAME
 export GIT_COMMITTER_NAME=$NAME
 export GIT_AUTHOR_EMAIL=$EMAIL
 export GIT_COMMITTER_EMAIL=$EMAIL
+<<<<<<< HEAD
+export RUBYOPT=""
+=======
 export RUBYOPT="rubygems"
+>>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 
 # Head of PATH
 P="$HOME/bin"

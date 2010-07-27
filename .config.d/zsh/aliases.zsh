@@ -8,6 +8,11 @@ alias bp="bundle pack"
 alias bu="bundle unlock"
 alias  x="bundle exec"
 
+<<<<<<< HEAD
+alias ru="rackup"
+
+=======
+>>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 function gc () {
     if [ x$1 != x ]; then
         git commit -a -m "$*"
@@ -34,9 +39,13 @@ alias   gcd="git clean -d"
 alias   gcm="git commit -m"
 alias   gco="git checkout"
 alias  gcob="git checkout -b"
+<<<<<<< HEAD
+alias  gcom="git checkout master"
+=======
 alias  gcol="git checkout lazer"
 alias  gcom="git checkout master"
 alias  gcow="git checkout wookie"
+>>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 alias   gcp="git cherry-pick"
 alias   gcr="git commit --reuse-message=HEAD --amend"
 alias    gd="git pull"
@@ -73,6 +82,19 @@ alias  rgi="rake gems:install"
 
 alias r="ruby"
 
+<<<<<<< HEAD
+alias se="spec"
+
+function share() {
+  src=$1
+  dest=$2
+  [ $# = 1 ] && dest=$(basename $src)
+  echo "http://panda-build/$dest" | pbcopy
+  scp $src web@panda-build:apps/panda_inventory/current/public/$dest
+}
+
+=======
+>>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 function e () {
     $EDITOR --no-wait $*
 }
