@@ -1,13 +1,9 @@
 --- 
 :sources: 
-- http://rubygems.org
-<<<<<<< HEAD
+- http://rubygems.org/
 - http://cdscm
-=======
->>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
-:bulk_threshold: 1000
 :benchmark: false
-gem: --no-ri --no-rdoc
-:update_sources: true
-:verbose: true
 :backtrace: false
+:update_sources: true
+:bulk_threshold: 1000
+:verbose: true

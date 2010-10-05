@@ -1,9 +1,6 @@
 /*
+!/.tmux.conf
 !/.gitignore
-<<<<<<< HEAD
-!/.gitconfig
-=======
->>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 !/.gitmodules
 !/.config.d
 !/.emacs
@@ -18,8 +15,5 @@
 !/.gemrc
 !/Library/profile.jpg
 !/lib
-<<<<<<< HEAD
 *.rbc
-=======
->>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 .gitconfig

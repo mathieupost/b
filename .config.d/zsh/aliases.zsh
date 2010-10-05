@@ -8,11 +8,8 @@ alias bp="bundle pack"
 alias bu="bundle unlock"
 alias  x="bundle exec"
 
-<<<<<<< HEAD
 alias ru="rackup"
 
-=======
->>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 function gc () {
     if [ x$1 != x ]; then
         git commit -a -m "$*"
@@ -39,13 +36,7 @@ alias   gcd="git clean -d"
 alias   gcm="git commit -m"
 alias   gco="git checkout"
 alias  gcob="git checkout -b"
-<<<<<<< HEAD
 alias  gcom="git checkout master"
-=======
-alias  gcol="git checkout lazer"
-alias  gcom="git checkout master"
-alias  gcow="git checkout wookie"
->>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 alias   gcp="git cherry-pick"
 alias   gcr="git commit --reuse-message=HEAD --amend"
 alias    gd="git pull"
@@ -62,7 +53,7 @@ alias   gsa="git stash apply"
 alias   gsd="git stash drop"
 alias   gsl="git stash list"
 alias   gsp="git stash pop"
-alias    gt="git status"
+alias    gt="git status -sb"
 alias    gu="git push"
 alias   gwc="git whatchanged"
 alias    gx="open -a gitx ."
@@ -80,9 +71,11 @@ alias rdmr="rake db:migrate:redo"
 alias rdmd="rake db:migrate:down"
 alias  rgi="rake gems:install"
 
+
+alias xts="bundle exec thin start"
+
 alias r="ruby"
 
-<<<<<<< HEAD
 alias se="spec"
 
 function share() {
@@ -93,8 +86,6 @@ function share() {
   scp $src web@panda-build:apps/panda_inventory/current/public/$dest
 }
 
-=======
->>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 function e () {
     $EDITOR --no-wait $*
 }

@@ -104,6 +104,11 @@
 
 (require 'peepopen)
 
+
+(require 'undo-tree)
+(global-undo-tree-mode)
+
+
 ;;-----[ Jabber ]-------------------------------------------------------
 
 ;; adjust this path:
@@ -401,11 +406,8 @@
 
 ;;-----[ Miscellaneous Keybinds ]----------------------------------------------
 
-<<<<<<< HEAD
 (global-set-key "\C-c\C-R" 'align-regexp)
 
-=======
->>>>>>> c6373641951c8451086c6bfd9f8bfeedb2d9fcf4
 (put 'scroll-left 'disabled nil)
 
 (defun dbl:dired (&optional arg)
