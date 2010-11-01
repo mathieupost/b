@@ -1,6 +1,10 @@
 function linux() { [[ `uname -s` = "Linux"  ]] }
 function mac()   { [[ `uname -s` = "Darwin" ]] }
 
+alias gco7="git-nohub checkout version-1.0.7"
+alias gco8="git-nohub checkout version-1.0.8"
+alias gco9="git-nohub checkout version-1.0.9"
+
 # Bundler
 alias bi="bundle install"
 alias bl="bundle lock"
@@ -9,6 +13,12 @@ alias bu="bundle unlock"
 alias  x="bundle exec"
 
 alias ru="rackup"
+
+
+function def () {
+    ack "def $*"
+}
+
 
 function gc () {
     if [ x$1 != x ]; then
@@ -23,39 +33,41 @@ function gam () {
 }
 
 # Git
+alias git-nohub=$(which git)
 alias   git="hub" # Hub gem.
-alias    ga="git add"
-alias  gaac="git add .; gac"
+alias    ga="git-nohub add"
+alias  gaac="git-nohub add .; gac"
 alias   gac="gc"
-alias   gap="git add -p"
-alias    gb="git branch"
-alias   gbl="git branch -l"
-alias gcaar="git add .; git commit -a --reuse-message=HEAD --amend"
-alias  gcar="git commit -a --reuse-message=HEAD --amend"
-alias   gcd="git clean -d"
-alias   gcm="git commit -m"
+alias   gap="git-nohub add -p"
+alias    gb="git-nohub branch"
+alias   gbl="git-nohub branch -l"
+alias gcaar="git-nohub add .; git-nouhub commit -a --reuse-message=HEAD --amend"
+alias  gcar="git-nohub commit -a --reuse-message=HEAD --amend"
+alias   gcd="git-nohub clean -d"
+alias   gcm="git-nohub commit -m"
 alias   gco="git checkout"
 alias  gcob="git checkout -b"
 alias  gcom="git checkout master"
-alias   gcp="git cherry-pick"
-alias   gcr="git commit --reuse-message=HEAD --amend"
-alias    gd="git pull"
-alias   gdu="git push; git pull"
-alias  gdts="git stash; git pull; git stash pop"
-alias    gf="git diff"
-alias    gl="git log"
-alias    gm="git merge"
+alias   gcp="git-nohub cherry-pick"
+alias   gcr="git-nohub commit --reuse-message=HEAD --amend"
+alias    gd="git-nohub pull"
+alias   gdu="git-nohub push; git-nohub pull"
+alias  gdts="git-nohub stash; git-nohub pull; git-nohub stash pop"
+alias    gf="git-nohub diff"
+alias    gl="git-nohub log"
+alias   glp="git-nohub log -p" 
+alias    gm="git-nohub merge"
 alias    gn="git clone"
-alias   grh="git reset HEAD"
-alias   gri="git rebase -i"
-alias    gs="git stash"
-alias   gsa="git stash apply"
-alias   gsd="git stash drop"
-alias   gsl="git stash list"
-alias   gsp="git stash pop"
-alias    gt="git status -sb"
-alias    gu="git push"
-alias   gwc="git whatchanged"
+alias   grh="git-nohub reset HEAD"
+alias   gri="git-nohub rebase -i"
+alias    gs="git-nohub stash"
+alias   gsa="git-nohub stash apply"
+alias   gsd="git-nohub stash drop"
+alias   gsl="git-nohub stash list"
+alias   gsp="git-nohub stash pop"
+alias    gt="git-nohub status -sb"
+alias    gu="git-nohub push"
+alias   gwc="git-nohub whatchanged"
 alias    gx="open -a gitx ."
 
 # Rubygems
@@ -115,27 +127,6 @@ gfl() {
     sort -n -k1
 }
 
-gcpall() {
-    COMMITISH=$1
-    git checkout wookie
-    git pull
-    git cherry-pick $COMMITISH
-    git checkout lazer
-    git pull
-    git cherry-pick $COMMITISH
-    git checkout master
-    git pull
-    git cherry-pick $COMMITISH
-    git checkout wookie
-}
-
-gpall() {
-    curr=$(git branch -l | grep '*' | awk '{print $2}')
-    git pull
-    for i in {wookie,master,lazer}; do git checkout $i; git merge origin/$i; done
-    git checkout $curr
-}
-
 gbt() {
   git branch --track $1 origin/$1
 }
@@ -174,9 +165,22 @@ sc () { rails-script "console"  $argv }
 ss () { rails-script "server"   $argv }
 sg () { rails-script "generate" $argv }
 sr () { rails-script "runner"   $argv }
+
 sgm() { rails-script "generate" "migration" $argv }
 sgs() { rails-script "generate" "scaffold"  $argv }
 sgr() { rails-script "generate" "resource"  $argv }
+
+ss-b() { DB_ENV=build ss      }
+ss-s() { DB_ENV=staging ss    }
+ss-p() { DB_ENV=production ss }
+
+sc-b() { DB_ENV=build sc      }
+sc-s() { DB_ENV=staging sc    }
+sc-p() { DB_ENV=production sc }
+
+sr-b() { DB_ENV=build sr      }
+sr-s() { DB_ENV=staging sr    }
+sr-p() { DB_ENV=production sr }
 
 alias cd..='cd ..'
 alias ..='cd ..'
