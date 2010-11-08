@@ -41,7 +41,7 @@ alias   gac="gc"
 alias   gap="git-nohub add -p"
 alias    gb="git-nohub branch"
 alias   gbl="git-nohub branch -l"
-alias gcaar="git-nohub add .; git-nouhub commit -a --reuse-message=HEAD --amend"
+alias gcaar="git-nohub add .; git-nohub commit -a --reuse-message=HEAD --amend"
 alias  gcar="git-nohub commit -a --reuse-message=HEAD --amend"
 alias   gcd="git-nohub clean -d"
 alias   gcm="git-nohub commit -m"
@@ -206,6 +206,8 @@ alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 
 alias a='ack'
+alias aa='ack -a'
+alias aai='ack -ai'
 alias g='grep'
 alias t='tail'
 alias h='head'
