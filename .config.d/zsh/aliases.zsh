@@ -60,6 +60,7 @@ alias    gm="git-nohub merge"
 alias    gn="git clone"
 alias   grh="git-nohub reset HEAD"
 alias   gri="git-nohub rebase -i"
+alias   grc="git-nohub rebase --continue"
 alias    gs="git-nohub stash"
 alias   gsa="git-nohub stash apply"
 alias   gsd="git-nohub stash drop"
@@ -74,6 +75,11 @@ alias    gx="open -a gitx ."
 alias   mp="gem push"
 alias   mi="gem install --no-ri --no-rdoc"
 alias   mu="gem uninstall"
+
+function mibi() {
+    gem install --no-ri --no-rdoc $1
+    bundle install
+}
 
 # Rake
 alias   rs="rake spec"
