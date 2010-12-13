@@ -44,6 +44,13 @@
      (dired-perm-write ((t (:foreground "#f6f3e8" :background "#242424"))))
      (dired-symlink ((t (:foreground "#8ac6f2"))))
      (dired-warning ((t (:bold t :weight bold :foreground "#cc0000"))))
+
+     (magit-diff-add ((t (:foreground "#95e454"))))
+     (magit-diff-del ((t (:foreground "Red"))))
+     (magit-diff-hunk-header ((t (:foreground "cyan"))))
+     (magit-item-highlight ((t (:background "#333333"))))
+     (magit-header ((t (:foreground "#e5786d"))))
+
      (escape-glyph ((t (:foreground "cyan"))))
      (file-name-shadow ((t (:foreground "grey70"))))
      (fixed-pitch ((t (nil))))

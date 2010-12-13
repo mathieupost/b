@@ -248,9 +248,13 @@
 
 ;;-----[ Magit ]---------------------------------------------------------------
 
+(global-set-key "\C-q" (make-sparse-keymap))
+(global-set-key "\C-q\C-q" 'quoted-insert)
+
 (when *magit*
   (autoload 'magit-status "magit" nil t)
-  (global-set-key "\C-xg" 'magit-status))
+  (global-set-key "\C-qs" 'magit-status)
+  (global-set-key "\C-ql" 'magit-log))
 
 ;;-----[ Ido ]-----------------------------------------------------------------
 
