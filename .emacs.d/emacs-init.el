@@ -1,6 +1,32 @@
 ;; File:     ~/.emacs.d/emacs-init.el
 ;; Author:   Burke Libbey <burke@burkelibbey.org>
 
+;;-----[ Feature Selection ]---------------------------------------------------
+
+(defvar *html5*           t)
+(defvar *textmate*        t)
+(defvar *linum*           t)
+(defvar *ack*             t)
+(defvar *rvm*             t)
+(defvar *erlang*          nil)
+(defvar *rails*           t)
+(defvar *speedbar*        nil)
+(defvar *eshell*          t)
+(defvar *cedet*           nil) 
+(defvar *clojure*         t)
+(defvar *color-theme*     t)
+(defvar *edit-server*     nil) 
+(defvar *gist*            t)
+(defvar *ido*             t)
+(defvar *starter-kit-js*  t)
+(defvar *jabber*          nil) 
+(defvar *magit*           t)
+(defvar *slime*           nil)
+(defvar *smart-tab*       t)
+(defvar *timestamp*       t)
+(defvar *training-wheels* nil)
+(defvar *yasnippet*       t) 
+
 ;;-----[ Housekeeping ]--------------------------------------------------------
 (easy-menu-define yas/minor-mode-menu nil "Workaround for ELPA version" nil)
 
@@ -24,46 +50,11 @@
   (when (file-exists-p private-el)
     (load-file private-el)))
 
-;;-----[ Feature Selection ]---------------------------------------------------
-
-(defvar *cedet*           nil) ;; Common emacs development tools.
-(defvar *clojure*         t)   ;; Using clojure? (Select slime as well.)
-(defvar *color-theme*     t)   ;; Probably disable for GNU Emacs <22
-(defvar *edit-server*     nil) 
-(defvar *gist*            t)   ;; Post code to gist.github
-(defvar *ido*             t)   ;; Minibuffer enhancement
-(defvar *magit*           t)   ;; Git interface
-(defvar *slime*           nil) ;; Lisp repl++
-(defvar *smart-tab*       t)   ;; Hippie-expand with indentation fallback
-(defvar *timestamp*       t)   ;; Update "Modified: <2008-12-23 01:06:57 CST>"
-(defvar *training-wheels* nil) ;; Unbind arrow keys
-(defvar *spinnerz*        t)
-(defvar *yasnippet*       t)   ;; Textmate-style snippets
 
 (setq max-lisp-eval-depth 5000)
 (setq max-specpdl-size 5000)
 
-(global-set-key "\C-]" 'other-frame)
-
-
-(global-set-key (kbd "C-=") 'undo)
-(global-set-key "\C-h" 'delete-backward-char)
-
 (setq mac-option-modifier 'meta)
-
-(defun color-theme-random ()
-  (interactive)
-  (let* ((theme-number (number-to-string (random 999999999)))
-         (buffer (url-retrieve-synchronously (concat "http://inspiration.sweyla.com/code/emacs/inspiration" theme-number ".el"))))
-    (set-buffer buffer)
-    (beginning-of-buffer)
-    (replace-string (concat "inspiration-" theme-number) "color-theme-install-random")
-    (delete-region (point-min) url-http-end-of-headers)
-    (eval-buffer buffer)
-    (color-theme-install-random)))
-
-(global-set-key [f5] 'color-theme-random)
- (setq mac-option-modifier 'meta)
 
 ;;-----[ Configure Load Path ]-------------------------------------------------
 
@@ -87,63 +78,73 @@
 
 ;;-----[ HTML5 ]---------------------------------------------------------------
 
-(add-path "html5-el")
-
-(eval-after-load "rng-loc"
-  '(add-to-list 'rng-schema-locating-files (concat site-lisp-path "/html5-el/schemas.xml")))
-
-(require 'whattf-dt)
+(when *html5*
+  (add-path "html5-el")
+   
+  (eval-after-load "rng-loc"
+    '(add-to-list 'rng-schema-locating-files (concat site-lisp-path "/html5-el/schemas.xml")))
+   
+  (require 'whattf-dt))
 
 ;;-----[ Textmate Mode ]-------------------------------------------------------
 
-(when window-system
-  (add-path "textmate.el")
-  (require 'textmate)
-  (textmate-mode))
-
-
-(require 'peepopen)
-
-
-(require 'undo-tree)
-(global-undo-tree-mode)
-
+(when *textmate*
+  (when window-system
+    (add-path "textmate.el")
+    (require 'textmate)
+    (textmate-mode))
+   
+   
+  (require 'peepopen)
+   
+   
+  (require 'undo-tree)
+  (global-undo-tree-mode))
 
 ;;-----[ Jabber ]-------------------------------------------------------
 
-;; adjust this path:
-(add-path "emacs-jabber-0.8.0")
-(require 'jabber-autoloads)
+(when *jabber*
+  ;; adjust this path:
+  (add-path "emacs-jabber-0.8.0")
+  (require 'jabber-autoloads)
 
-(setq jabber-account-list
-    '(("burke@burkelibbey.org" 
-       (:network-server . "talk.google.com")
-       (:connection-type . ssl))
-      ("blibbey@cdebiz005" 
-       (:network-server . "cdebiz005"))))
-
+  (setq jabber-account-list
+      '(("burke@burkelibbey.org" 
+         (:network-server . "talk.google.com")
+         (:connection-type . ssl))
+        ("blibbey@cdebiz005" 
+         (:network-server . "cdebiz005")))))
 
 ;;-----[ Linum ]----------------------------------------------------------
 
-(require 'linum)
-
+(when *linum*
+  (require 'linum))
 
 ;;-----[ Ack ]------------------------------------------------------------
 
-(require 'ack)
-(global-set-key (kbd "A-F") 'ack)
+(when *ack*
+  (require 'ack)
+  (global-set-key (kbd "A-F") 'ack))
 
 ;;-----[ Aquamacs ]------------------------------------------------------------
 
 (when (boundp 'aquamacs-version)
-  (tabbar-mode nil)
-  (when *edit-server*
+  (tabbar-mode nil))
+
+(when *edit-server*
+  (when (boundp 'aquamacs-version)
     (require 'edit-server)
     (setq edit-server-new-frame nil)
-    (edit-server-start))
-  (when *ido*
+    (edit-server-start)))
+
+
+;;-----[ Ido ]------------------------------------------------------------
+
+(when *ido*
+  (when (boundp 'aquamacs-version)
     (require 'ido)
     (ido-mode t)
+    (setq ido-create-new-buffer 'always)
     (setq ido-enable-flex-matching t)))
 
 ;;-----[ Yasnippet ]-----------------------------------------------------------
@@ -155,16 +156,18 @@
 
 ;;-----[ erlang ]---------------------------------------------------------------
 
-; (setq load-path (cons "/usr/local/lib/erlang/lib/tools-2.6.4/emacs" load-path))
-; (setq erlang-root-dir "/usr/local/lib/erlang")
-; (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
-; (require 'erlang-start)
+(when *erlang*
+  (setq load-path (cons "/usr/local/lib/erlang/lib/tools-2.6.4/emacs" load-path))
+  (setq erlang-root-dir "/usr/local/lib/erlang")
+  (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
+  (require 'erlang-start))
 
 ;;-----[ rails ]---------------------------------------------------------------
 
-(when window-system
-  (add-path "emacs-rails")
-  (require 'rails))
+(when *rails*
+  (when window-system
+    (add-path "emacs-rails")
+    (require 'rails)))
 
 ;; (add-path "rinari")
 ;; (add-path "rhtml")
@@ -174,27 +177,29 @@
 
 ;;-----[ Speedbar ]------------------------------------------------------------
 
-(when window-system
-  (autoload 'speedbar "speedbar" nil t)
-  (eval-after-load "speedbar"
-    '(progn (speedbar-disable-update)))
-  (global-set-key "\C-c\C-s" 'speedbar))
+(when *speedbar*
+  (when window-system
+    (autoload 'speedbar "speedbar" nil t)
+    (eval-after-load "speedbar"
+      '(progn (speedbar-disable-update)))
+    (global-set-key "\C-c\C-s" 'speedbar)))
 
 ;;-----[ Color Theme ]---------------------------------------------------------
 
-(when (and window-system *color-theme*)
-  (require 'color-theme)
-  (when (fboundp 'color-theme-initialize)
-    (color-theme-initialize))
-  (setq color-theme-is-global t)
-  (load-file (concat site-lisp-path "/color-theme-wombat.el"))
-  (load-file (concat site-lisp-path "/color-theme-bombat.el"))
-  (load-file (concat site-lisp-path "/color-theme-github.el"))
-; (load-file (concat site-lisp-path "/color-theme-twilight/color-theme-twilight.el"))
-; (load-file (concat site-lisp-path "/color-theme-ir-black/color-theme-ir-black.el"))
-;  (color-theme-twilight))
-;  (color-theme-ir-black))
-  (color-theme-github))
+(when *color-theme*
+  (when window-system
+    (require 'color-theme)
+    (when (fboundp 'color-theme-initialize)
+      (color-theme-initialize))
+    (setq color-theme-is-global t)
+    (load-file (concat site-lisp-path "/color-theme-wombat.el"))
+    (load-file (concat site-lisp-path "/color-theme-bombat.el"))
+    (load-file (concat site-lisp-path "/color-theme-github.el"))
+  ; (load-file (concat site-lisp-path "/color-theme-twilight/color-theme-twilight.el"))
+  ; (load-file (concat site-lisp-path "/color-theme-ir-black/color-theme-ir-black.el"))
+  ;  (color-theme-twilight))
+  ;  (color-theme-ir-black))
+    (color-theme-bombat)))
 
 ;;-----[ Font Settings ]-------------------------------------------------------
 
@@ -220,9 +225,7 @@
                              "-apple-pragmata tt-medium-r-normal--12-0-72-72-m-0-iso10646-1")))
 
 
-
-(require 'mustache-mode)
-
+;;-----[ Custom ]--------------------------------------------------------------
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
@@ -246,41 +249,39 @@
  '(echo-area ((t (:inherit default))) t)
  '(mode-line-inactive ((t (:inherit default))) t))
 
+;;-----[ RVM ]-----------------------------------------------------------------
+
+(when *rvm*
+  (require 'rvm)
+  (rvm-use-default))
+
 ;;-----[ Eshell ]--------------------------------------------------------------
 
-(require 'rvm)
-(rvm-use-default)
-
-(require 'eshell)
-(require 'em-smart)
-(setq eshell-where-to-jump 'begin)
-(setq eshell-review-quick-commands nil)
-(setq eshell-smart-space-goes-to-end t)
-
-(defmacro runner-genner (alias command title)
-  `(defun ,alias (&rest args)
-     (let* ((cmd1 (cons ,command args))
-            (cmd2 (eshell-flatten-and-stringify cmd1))
-            (display-type (framep (selected-frame))))
-       (cond
-        ((and (eq display-type 't) (getenv "STY"))
-         (send-string-to-terminal (format "\033]83;screen %s\007" cmd2)))
-        ((eq display-type 'x)
-         (eshell-do-eval (eshell-parse-command (format "rxvt -e %s &" cmd2)))
-         nil)
-        (t
-         (apply 'eshell-exec-visual cmd1))))))
-
-(runner-genner eshell/ss "script/server"  "%SERVER")
-(runner-genner eshell/sc "script/console" "%CONSOLE")
+(when *eshell*
+  (require 'eshell)
+  (require 'em-smart)
+  (setq eshell-where-to-jump 'begin)
+  (setq eshell-review-quick-commands nil)
+  (setq eshell-smart-space-goes-to-end t)
+   
+  (defmacro runner-genner (alias command title)
+    `(defun ,alias (&rest args)
+       (let* ((cmd1 (cons ,command args))
+              (cmd2 (eshell-flatten-and-stringify cmd1))
+              (display-type (framep (selected-frame))))
+         (cond
+          ((and (eq display-type 't) (getenv "STY"))
+           (send-string-to-terminal (format "\033]83;screen %s\007" cmd2)))
+          ((eq display-type 'x)
+           (eshell-do-eval (eshell-parse-command (format "rxvt -e %s &" cmd2)))
+           nil)
+          (t
+           (apply 'eshell-exec-visual cmd1))))))
+   
+  (runner-genner eshell/ss "script/server"  "%SERVER")
+  (runner-genner eshell/sc "script/console" "%CONSOLE"))
 
 ;;-----[ Magit ]---------------------------------------------------------------
-
-(global-set-key "\C-q" (make-sparse-keymap))
-(global-set-key "\C-q\C-q" 'quoted-insert)
-
-(global-set-key "\C-q\C-c" 'eshell)
-(global-set-key "\C-q0" 'linum-mode)
 
 (when *magit*
   (autoload 'magit-status "magit" nil t)
@@ -291,10 +292,6 @@
   (global-set-key "\C-q\C-r" 'magit-goto-next-section)
   (global-set-key "\C-q\C-]" 'magit-toggle-section)
   (global-set-key "\C-qh"    'magit-reflog))
-
-;;-----[ Ido ]-----------------------------------------------------------------
-
-(setq ido-create-new-buffer 'always)
 
 ;;-----[ Gist ]----------------------------------------------------------------
 
@@ -314,14 +311,6 @@
 (when *cedet*
   (load-file (concat site-lisp-path "cedet-1.0pre4/common/cedet.el"))
   (semantic-load-enable-code-helpers))
-
-
-(require 'starter-kit-js)
-(require 'yaml-mode)
-(require 'textile-mode)
-(server-start)
-
-
 
 ;;-----[ Clojure ]-------------------------------------------------------------
 
@@ -378,8 +367,6 @@
   (setq time-stamp-start  "Modified:[   ]+\\\\?[\"<]+")
   (setq time-stamp-end    "\\\\?[\">]")
   (setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %Z"))
-
-(require 'mapreplace)
 
 ;;-----[ Tab key behaviour ]---------------------------------------------------
 
@@ -446,9 +433,20 @@
     (insert (format-time-string format))))
 (global-set-key "\C-cd" 'dbl:insert-date)
 
+
 ;;-----[ Miscellaneous Keybinds ]----------------------------------------------
 
-(global-set-key "\C-c\C-R" 'align-regexp)
+(global-set-key "\C-q" (make-sparse-keymap))
+(global-set-key "\C-q\C-q" 'quoted-insert)
+
+(global-set-key "\C-q\C-c" 'eshell)
+(global-set-key "\C-q0" 'linum-mode)
+
+(global-set-key (kbd "C-=") 'undo)
+(global-set-key "\C-h" 'delete-backward-char)
+
+
+(global-set-key "\C-c\C-r" 'align-regexp)
 
 (put 'scroll-left 'disabled nil)
 
@@ -525,43 +523,51 @@
 
 ;;-----[ Autoload and auto-mode ]----------------------------------------------
 
+(when *starter-kit-js*
+  (require 'starter-kit-js))
+
 (autoload 'js2-mode  "js2-mode"  nil t)
 (setq js2-basic-offset 2)
 
 (setq-default c-basic-offset 2)
 
-(autoload 'ruby-mode "ruby-mode" nil t)
-(autoload 'objj-mode "objj-mode" nil t)
-(autoload 'haml-mode "haml-mode" nil t)
+(autoload 'ruby-mode     "ruby-mode" nil t)
+(autoload 'objj-mode     "objj-mode" nil t)
+(autoload 'haml-mode     "haml-mode" nil t)
 (autoload 'markdown-mode "markdown-mode" nil t)
+(autoload 'textile-mode  "textile-mode" nil t)
+(autoload 'yaml-mode     "yaml-mode" nil t)
+(autoload 'sass-mode     "sass-mode" nil t)
 
 (setq auto-mode-alist
   (nconc
     '(("COMMIT_EDITMSG$" . diff-mode))
-    '(("\\.xml$"   . nxml-mode))
-    '(("\\.html$"  . nxml-mode))
-    '(("\\.erl$"  . erlang-mode))
-    '(("\\.m$"     . objc-mode))
-    '(("\\.haml$"  . haml-mode))
-    '(("\\.yml$"   . yaml-mode))
-    '(("\\.json$"  . yaml-mode))
-    '(("\\.rb$"    . ruby-mode))
-    '(("\\.gemspec$" . ruby-mode))
-    '(("\\.md$"    . markdown-mode))
-    '(("\\.zsh$"   . sh-mode))
-    '(("\\.js$"    . js2-mode))
-    '(("\\.j$"     . objj-mode))
-    '(("\\.rake$"  . ruby-mode))
-    '(("Gemfile$"  . ruby-mode))
-    '(("Rakefile$" . ruby-mode))
-    '(("Capfile$"  . ruby-mode))
+    '(("\\.xml$"         . nxml-mode))
+    '(("\\.html$"        . nxml-mode))
+    '(("\\.erl$"         . erlang-mode))
+    '(("\\.m$"           . objc-mode))
+    '(("\\.haml$"        . haml-mode))
+    '(("\\.yml$"         . yaml-mode))
+    '(("\\.yaml$"        . yaml-mode))
+    '(("\\.json$"        . yaml-mode))
+    '(("\\.mustache$"    . mustache-mode))
+    '(("\\.rb$"          . ruby-mode))
+    '(("\\.gemspec$"     . ruby-mode))
+    '(("\\.md$"          . markdown-mode))
+    '(("\\.textile$"     . textile-mode))
+    '(("\\.zsh$"         . sh-mode))
+    '(("\\.sass$"        . sass-mode))
+    '(("\\.js$"          . js2-mode))
+    '(("\\.j$"           . objj-mode))
+    '(("\\.rake$"        . ruby-mode))
+    '(("Gemfile$"        . ruby-mode))
+    '(("Rakefile$"       . ruby-mode))
+    '(("Capfile$"        . ruby-mode))
     auto-mode-alist))
 
 (setq magic-mode-alist ())
 
 ;;-----[ Very miscellaneous ]--------------------------------------------------
-
-(require 'sass-mode)
 
 (when window-system
   (global-unset-key "\C-z"))
@@ -585,8 +591,6 @@
 
 
 (global-set-key (kbd "<f8>") 'recompile)
-
-
 
 ;;-----[ Housekeeping ]--------------------------------------------------------
 
