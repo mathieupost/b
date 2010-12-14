@@ -246,10 +246,41 @@
  '(echo-area ((t (:inherit default))) t)
  '(mode-line-inactive ((t (:inherit default))) t))
 
+;;-----[ Eshell ]--------------------------------------------------------------
+
+(require 'rvm)
+(rvm-use-default)
+
+(require 'eshell)
+(require 'em-smart)
+(setq eshell-where-to-jump 'begin)
+(setq eshell-review-quick-commands nil)
+(setq eshell-smart-space-goes-to-end t)
+
+(defmacro runner-genner (alias command title)
+  `(defun ,alias (&rest args)
+     (let* ((cmd1 (cons ,command args))
+            (cmd2 (eshell-flatten-and-stringify cmd1))
+            (display-type (framep (selected-frame))))
+       (cond
+        ((and (eq display-type 't) (getenv "STY"))
+         (send-string-to-terminal (format "\033]83;screen %s\007" cmd2)))
+        ((eq display-type 'x)
+         (eshell-do-eval (eshell-parse-command (format "rxvt -e %s &" cmd2)))
+         nil)
+        (t
+         (apply 'eshell-exec-visual cmd1))))))
+
+(runner-genner eshell/ss "script/server"  "%SERVER")
+(runner-genner eshell/sc "script/console" "%CONSOLE")
+
 ;;-----[ Magit ]---------------------------------------------------------------
 
 (global-set-key "\C-q" (make-sparse-keymap))
 (global-set-key "\C-q\C-q" 'quoted-insert)
+
+(global-set-key "\C-q\C-c" 'eshell)
+(global-set-key "\C-q0" 'linum-mode)
 
 (when *magit*
   (autoload 'magit-status "magit" nil t)
@@ -257,10 +288,13 @@
   (global-set-key "\C-q\C-s" 'magit-status)
   (global-set-key "\C-ql"    'magit-log)
   (global-set-key "\C-q\C-l" 'magit-log)
+  (global-set-key "\C-q\C-r" 'magit-goto-next-section)
   (global-set-key "\C-q\C-]" 'magit-toggle-section)
   (global-set-key "\C-qh"    'magit-reflog))
 
 ;;-----[ Ido ]-----------------------------------------------------------------
+
+(setq ido-create-new-buffer 'always)
 
 ;;-----[ Gist ]----------------------------------------------------------------
 

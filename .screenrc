@@ -3,6 +3,9 @@
 # At all.
 escape ^oo
 
+acladd :window:
+
+
 autodetach            on
 crlf                  off
 #deflogin              off
