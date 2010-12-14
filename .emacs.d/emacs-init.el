@@ -253,8 +253,12 @@
 
 (when *magit*
   (autoload 'magit-status "magit" nil t)
-  (global-set-key "\C-qs" 'magit-status)
-  (global-set-key "\C-ql" 'magit-log))
+  (global-set-key "\C-qs"    'magit-status)
+  (global-set-key "\C-q\C-s" 'magit-status)
+  (global-set-key "\C-ql"    'magit-log)
+  (global-set-key "\C-q\C-l" 'magit-log)
+  (global-set-key "\C-q\C-]" 'magit-toggle-section)
+  (global-set-key "\C-qh"    'magit-reflog))
 
 ;;-----[ Ido ]-----------------------------------------------------------------
 
