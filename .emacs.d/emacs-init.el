@@ -3,29 +3,34 @@
 
 ;;-----[ Feature Selection ]---------------------------------------------------
 
-(defvar *html5*           t)
-(defvar *textmate*        t)
-(defvar *linum*           t)
-(defvar *ack*             t)
-(defvar *rvm*             t)
-(defvar *erlang*          nil)
-(defvar *rails*           t)
-(defvar *speedbar*        nil)
-(defvar *eshell*          t)
-(defvar *cedet*           nil) 
-(defvar *clojure*         t)
-(defvar *color-theme*     t)
-(defvar *edit-server*     nil) 
-(defvar *gist*            t)
-(defvar *ido*             t)
-(defvar *starter-kit-js*  t)
-(defvar *jabber*          nil) 
-(defvar *magit*           t)
-(defvar *slime*           nil)
-(defvar *smart-tab*       t)
-(defvar *timestamp*       t)
-(defvar *training-wheels* nil)
-(defvar *yasnippet*       t) 
+(setq features 
+      '((ack             . t)
+        (cedet           . nil)
+        (clojure         . t)
+        (color-theme     . t)
+        (edit-server     . nil)
+        (erlang          . nil)
+        (eshell          . t)
+        (gist            . t)
+        (html5           . t)
+        (ido             . t)
+        (jabber          . nil)
+        (linum           . t)
+        (magit           . t)
+        (rails           . t)
+        (rvm             . t)
+        (slime           . nil)
+        (smart-tab       . t)
+        (speedbar        . nil)
+        (starter-kit-js  . t)
+        (textmate        . t)
+        (timestamp       . t)
+        (training-wheels . nil)
+        (yasnippet       . t)))
+
+(defmacro feature (feature &rest args)
+  `(when (cdr (assoc (quote ,feature) features))
+     ,@args))
 
 ;;-----[ Housekeeping ]--------------------------------------------------------
 (easy-menu-define yas/minor-mode-menu nil "Workaround for ELPA version" nil)
@@ -78,7 +83,7 @@
 
 ;;-----[ HTML5 ]---------------------------------------------------------------
 
-(when *html5*
+(feature html5
   (add-path "html5-el")
    
   (eval-after-load "rng-loc"
@@ -88,22 +93,20 @@
 
 ;;-----[ Textmate Mode ]-------------------------------------------------------
 
-(when *textmate*
+(feature textmate
   (when window-system
     (add-path "textmate.el")
     (require 'textmate)
     (textmate-mode))
    
-   
   (require 'peepopen)
-   
    
   (require 'undo-tree)
   (global-undo-tree-mode))
 
 ;;-----[ Jabber ]-------------------------------------------------------
 
-(when *jabber*
+(feature jabber
   ;; adjust this path:
   (add-path "emacs-jabber-0.8.0")
   (require 'jabber-autoloads)
@@ -117,12 +120,12 @@
 
 ;;-----[ Linum ]----------------------------------------------------------
 
-(when *linum*
+(feature linum
   (require 'linum))
 
 ;;-----[ Ack ]------------------------------------------------------------
 
-(when *ack*
+(feature ack
   (require 'ack)
   (global-set-key (kbd "A-F") 'ack))
 
@@ -131,7 +134,7 @@
 (when (boundp 'aquamacs-version)
   (tabbar-mode nil))
 
-(when *edit-server*
+(feature edit-server
   (when (boundp 'aquamacs-version)
     (require 'edit-server)
     (setq edit-server-new-frame nil)
@@ -140,7 +143,7 @@
 
 ;;-----[ Ido ]------------------------------------------------------------
 
-(when *ido*
+(feature ido
   (when (boundp 'aquamacs-version)
     (require 'ido)
     (ido-mode t)
@@ -149,14 +152,15 @@
 
 ;;-----[ Yasnippet ]-----------------------------------------------------------
 
-(when (and window-system *yasnippet*)
-  (require 'yasnippet)
-  (yas/initialize)
-  (yas/load-directory (concat *emacs-config-directory* "/snippets")))
+(feature yasnippet
+  (when window-system
+    (require 'yasnippet)
+    (yas/initialize)
+    (yas/load-directory (concat *emacs-config-directory* "/snippets"))))
 
 ;;-----[ erlang ]---------------------------------------------------------------
 
-(when *erlang*
+(feature erlang
   (setq load-path (cons "/usr/local/lib/erlang/lib/tools-2.6.4/emacs" load-path))
   (setq erlang-root-dir "/usr/local/lib/erlang")
   (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
@@ -164,7 +168,7 @@
 
 ;;-----[ rails ]---------------------------------------------------------------
 
-(when *rails*
+(feature rails
   (when window-system
     (add-path "emacs-rails")
     (require 'rails)))
@@ -177,7 +181,7 @@
 
 ;;-----[ Speedbar ]------------------------------------------------------------
 
-(when *speedbar*
+(feature speedbar
   (when window-system
     (autoload 'speedbar "speedbar" nil t)
     (eval-after-load "speedbar"
@@ -186,7 +190,7 @@
 
 ;;-----[ Color Theme ]---------------------------------------------------------
 
-(when *color-theme*
+(feature color-theme
   (when window-system
     (require 'color-theme)
     (when (fboundp 'color-theme-initialize)
@@ -251,13 +255,13 @@
 
 ;;-----[ RVM ]-----------------------------------------------------------------
 
-(when *rvm*
+(feature rvm
   (require 'rvm)
   (rvm-use-default))
 
 ;;-----[ Eshell ]--------------------------------------------------------------
 
-(when *eshell*
+(feature eshell
   (require 'eshell)
   (require 'em-smart)
   (setq eshell-where-to-jump 'begin)
@@ -283,7 +287,7 @@
 
 ;;-----[ Magit ]---------------------------------------------------------------
 
-(when *magit*
+(feature magit
   (autoload 'magit-status "magit" nil t)
   (global-set-key "\C-qs"    'magit-status)
   (global-set-key "\C-q\C-s" 'magit-status)
@@ -297,7 +301,7 @@
 
 ;; Gist.el defvar's github-username and github-api-key to "", so I do a little
 ;; trickery here to use the previously assigned values, if any.
-(when *gist*
+(feature gist
   (if (and (boundp 'github-username) (boundp 'github-api-key))
     (let ((user-username github-username)
           (user-api-key  github-api-key))
@@ -308,13 +312,13 @@
 
 ;;-----[ Cedet ]---------------------------------------------------------------
 
-(when *cedet*
+(feature cedet
   (load-file (concat site-lisp-path "cedet-1.0pre4/common/cedet.el"))
   (semantic-load-enable-code-helpers))
 
 ;;-----[ Clojure ]-------------------------------------------------------------
 
-(when *slime*
+(feature clojure
   (add-path "slime")
   (add-path "swank-clojure")
   (add-path "clojure-mode")
@@ -361,7 +365,7 @@
 
 ;;-----[ Timestamp autoupdating ]----------------------------------------------
 
-(when *timestamp*
+(feature timestamp
   ;; When files have "Modified: <>" in their first 8 lines, fill it in on save.
   (add-hook 'before-save-hook 'time-stamp)
   (setq time-stamp-start  "Modified:[   ]+\\\\?[\"<]+")
@@ -370,7 +374,7 @@
 
 ;;-----[ Tab key behaviour ]---------------------------------------------------
 
-(when *smart-tab*
+(feature smart-tab
   (require 'hippie-exp)
 
   (setq hippie-expand-try-functions-list
@@ -401,7 +405,7 @@
 
 ;;-----[ Training wheels ]-----------------------------------------------------
 
-(when *training-wheels*
+(feature training-wheels
   (global-set-key (kbd "<down>")  '())
   (global-set-key (kbd "<up>")    '())
   (global-set-key (kbd "<right>") '())
@@ -523,7 +527,7 @@
 
 ;;-----[ Autoload and auto-mode ]----------------------------------------------
 
-(when *starter-kit-js*
+(feature starter-kit-js
   (require 'starter-kit-js))
 
 (autoload 'js2-mode  "js2-mode"  nil t)
