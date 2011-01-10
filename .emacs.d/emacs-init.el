@@ -4,64 +4,62 @@
 ;;-----[ Feature Selection ]---------------------------------------------------
 
 (setq features 
-      '((ack             . t)
-        (cedet           . nil)
-        (clojure         . t)
-        (color-theme     . t)
-        (edit-server     . nil)
-        (erlang          . nil)
-        (eshell          . t)
-        (gist            . t)
-        (html5           . t)
-        (ido             . t)
-        (jabber          . nil)
-        (linum           . t)
-        (magit           . t)
-        (rails           . t)
-        (rvm             . t)
-        (slime           . nil)
-        (smart-tab       . t)
-        (speedbar        . nil)
-        (starter-kit-js  . t)
-        (textmate        . t)
-        (timestamp       . t)
-        (training-wheels . nil)
-        (yasnippet       . t)))
+      `((ack              . t)
+        (aquamacs         . ,(boundp 'aquamacs-version))
+        (browse-kill-ring . t)
+        (cedet            . nil)
+        (clojure          . nil)
+        (color-theme      . ,window-system)
+        (edit-server      . ,(boundp 'aquamacs-version))
+        (erlang           . nil)
+        (eshell           . t)
+        (gist             . t)
+        (html5            . t)
+        (ido              . t)
+        (jabber           . nil)
+        (linum            . t)
+        (magit            . t)
+        (rails            . ,window-system)
+        (rdebug           . t)
+        (rvm              . t)
+        (slime            . nil)
+        (smart-tab        . t)
+        (speedbar         . nil)
+        (starter-kit-js   . t)
+        (textmate         . ,window-system)
+        (timestamp        . t)
+        (training-wheels  . nil)
+        (yasnippet        . t)))
 
 (defmacro feature (feature &rest args)
   `(when (cdr (assoc (quote ,feature) features))
      ,@args))
 
-;;-----[ Housekeeping ]--------------------------------------------------------
-(easy-menu-define yas/minor-mode-menu nil "Workaround for ELPA version" nil)
+;;-----[ ELPA ]--------------------------------------------------------
 
-(require 'cl)
+(feature yasnippet
+         (easy-menu-define yas/minor-mode-menu nil "Workaround for ELPA version" nil))
 (add-to-list 'load-path "~/.emacs.d/elpa/")
 (require 'package)
 (package-initialize)
 
-(defvar *emacs-load-start* (current-time))
-(setq debug-on-error t)
-
-(defvar *emacs-config-directory* "~/.emacs.d")
+;;-----[ Housekeeping ]--------------------------------------------------------
+(require 'cl)
+(require 'facemenu)
 
 (defvar *user-name*  "Burke Libbey")
 (defvar *short-name* "burke")
 (defvar *user-email* "burke@burkelibbey.org")
-
-(defvar *default-font*  "pragmata tt")
+(defvar *emacs-config-directory* "~/.emacs.d")
 
 (let ((private-el (concat *emacs-config-directory* "/private.el")))
   (when (file-exists-p private-el)
     (load-file private-el)))
 
-
 (setq max-lisp-eval-depth 5000)
 (setq max-specpdl-size 5000)
 
 (setq mac-option-modifier 'meta)
-
-;;-----[ Configure Load Path ]-------------------------------------------------
 
 (setq site-lisp-path (concat *emacs-config-directory* "/site-lisp/"))
 
@@ -69,168 +67,10 @@
   `(add-to-list 'load-path (concat site-lisp-path ,path)))
 
 (add-path "")
-(add-path "markdown-mode")
-(require 'coffee-mode)
 
-
-(require 'coffee-mode)
-
-(add-path "textmate.el")
-
-(require 'textmate)
-(textmate-mode)
-(require 'peepopen)
-
-;;-----[ HTML5 ]---------------------------------------------------------------
-
-(feature html5
-  (add-path "html5-el")
-   
-  (eval-after-load "rng-loc"
-    '(add-to-list 'rng-schema-locating-files (concat site-lisp-path "/html5-el/schemas.xml")))
-   
-  (require 'whattf-dt))
-
-;;-----[ Textmate Mode ]-------------------------------------------------------
-
-(feature textmate
-  (when window-system
-    (add-path "textmate.el")
-    (require 'textmate)
-    (textmate-mode))
-   
-  (require 'peepopen)
-   
-  (require 'undo-tree)
-  (global-undo-tree-mode))
-
-;;-----[ Jabber ]-------------------------------------------------------
-
-(feature jabber
-  ;; adjust this path:
-  (add-path "emacs-jabber-0.8.0")
-  (require 'jabber-autoloads)
-
-  (setq jabber-account-list
-      '(("burke@burkelibbey.org" 
-         (:network-server . "talk.google.com")
-         (:connection-type . ssl))
-        ("blibbey@cdebiz005" 
-         (:network-server . "cdebiz005")))))
-
-;;-----[ Linum ]----------------------------------------------------------
-
-(feature linum
-  (require 'linum))
-
-;;-----[ Ack ]------------------------------------------------------------
-
-(feature ack
-  (require 'ack)
-  (global-set-key (kbd "A-F") 'ack))
-
-;;-----[ Aquamacs ]------------------------------------------------------------
-
-(when (boundp 'aquamacs-version)
-  (tabbar-mode nil))
-
-(feature edit-server
-  (when (boundp 'aquamacs-version)
-    (require 'edit-server)
-    (setq edit-server-new-frame nil)
-    (edit-server-start)))
-
-
-;;-----[ Ido ]------------------------------------------------------------
-
-(feature ido
-  (when (boundp 'aquamacs-version)
-    (require 'ido)
-    (ido-mode t)
-    (setq ido-create-new-buffer 'always)
-    (setq ido-enable-flex-matching t)))
-
-;;-----[ Yasnippet ]-----------------------------------------------------------
-
-(feature yasnippet
-  (when window-system
-    (require 'yasnippet)
-    (yas/initialize)
-    (yas/load-directory (concat *emacs-config-directory* "/snippets"))))
-
-;;-----[ erlang ]---------------------------------------------------------------
-
-(feature erlang
-  (setq load-path (cons "/usr/local/lib/erlang/lib/tools-2.6.4/emacs" load-path))
-  (setq erlang-root-dir "/usr/local/lib/erlang")
-  (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
-  (require 'erlang-start))
-
-;;-----[ rails ]---------------------------------------------------------------
-
-(feature rails
-  (when window-system
-    (add-path "emacs-rails")
-    (require 'rails)))
-
-;; (add-path "rinari")
-;; (add-path "rhtml")
-;; (require 'rhtml-mode)
-;; (autoload 'rinari-launch "rinari" nil t)
-;; (add-hook 'rhtml-mode-hook (lambda () (rinari-launch)))
-
-;;-----[ Speedbar ]------------------------------------------------------------
-
-(feature speedbar
-  (when window-system
-    (autoload 'speedbar "speedbar" nil t)
-    (eval-after-load "speedbar"
-      '(progn (speedbar-disable-update)))
-    (global-set-key "\C-c\C-s" 'speedbar)))
-
-;;-----[ Color Theme ]---------------------------------------------------------
-
-(feature color-theme
-  (when window-system
-    (require 'color-theme)
-    (when (fboundp 'color-theme-initialize)
-      (color-theme-initialize))
-    (setq color-theme-is-global t)
-    (load-file (concat site-lisp-path "/color-theme-wombat.el"))
-    (load-file (concat site-lisp-path "/color-theme-bombat.el"))
-    (load-file (concat site-lisp-path "/color-theme-github.el"))
-  ; (load-file (concat site-lisp-path "/color-theme-twilight/color-theme-twilight.el"))
-  ; (load-file (concat site-lisp-path "/color-theme-ir-black/color-theme-ir-black.el"))
-  ;  (color-theme-twilight))
-  ;  (color-theme-ir-black))
-    (color-theme-bombat)))
-
-;;-----[ Font Settings ]-------------------------------------------------------
-
-(when (and window-system
-           (not (boundp 'aquamacs-version)))
-  (set-default-font (concat *default-font* "-10"))
-  (defun dbl:change-font-size (arg)
-    (interactive "P")
-    (set-default-font (concat *default-font* "-" (number-to-string arg))))
-  (global-set-key "\C-cf" 'dbl:change-font-size))
-
-(when (boundp 'aquamacs-version)
-  (one-buffer-one-frame-mode 0)
-  (setq mac-allow-anti-aliasing nil)
-  ;; M-x mac-font-panel, describe-font
-  (set-default-font
-;   "-apple-proggycleantt-medium-r-normal--16-0-72-72-m-0-iso10646-1"))
-    "-apple-pragmata tt-medium-r-normal--12-0-72-72-m-0-iso10646-1"))
-
-;; just a hack until I figure out aquamacs fonts :/
-(global-set-key "\C-c6"
-                '(lambda () (interactive) (set-default-font
-                             "-apple-pragmata tt-medium-r-normal--12-0-72-72-m-0-iso10646-1")))
-
+(global-set-key "\C-q" (make-sparse-keymap))
 
 ;;-----[ Custom ]--------------------------------------------------------------
-
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -252,90 +92,6 @@
  '(minibuffer-prompt ((t (:inherit default))) t)
  '(echo-area ((t (:inherit default))) t)
  '(mode-line-inactive ((t (:inherit default))) t))
-
-;;-----[ RVM ]-----------------------------------------------------------------
-
-(feature rvm
-  (require 'rvm)
-  (rvm-use-default))
-
-;;-----[ Eshell ]--------------------------------------------------------------
-
-(feature eshell
-  (require 'eshell)
-  (require 'em-smart)
-  (setq eshell-where-to-jump 'begin)
-  (setq eshell-review-quick-commands nil)
-  (setq eshell-smart-space-goes-to-end t)
-   
-  (defmacro runner-genner (alias command title)
-    `(defun ,alias (&rest args)
-       (let* ((cmd1 (cons ,command args))
-              (cmd2 (eshell-flatten-and-stringify cmd1))
-              (display-type (framep (selected-frame))))
-         (cond
-          ((and (eq display-type 't) (getenv "STY"))
-           (send-string-to-terminal (format "\033]83;screen %s\007" cmd2)))
-          ((eq display-type 'x)
-           (eshell-do-eval (eshell-parse-command (format "rxvt -e %s &" cmd2)))
-           nil)
-          (t
-           (apply 'eshell-exec-visual cmd1))))))
-   
-  (runner-genner eshell/ss "script/server"  "%SERVER")
-  (runner-genner eshell/sc "script/console" "%CONSOLE"))
-
-;;-----[ Magit ]---------------------------------------------------------------
-
-(feature magit
-  (autoload 'magit-status "magit" nil t)
-  (global-set-key "\C-qs"    'magit-status)
-  (global-set-key "\C-q\C-s" 'magit-status)
-  (global-set-key "\C-ql"    'magit-log)
-  (global-set-key "\C-q\C-l" 'magit-log)
-  (global-set-key "\C-q\C-r" 'magit-goto-next-section)
-  (global-set-key "\C-q\C-]" 'magit-toggle-section)
-  (global-set-key "\C-qh"    'magit-reflog))
-
-;;-----[ Gist ]----------------------------------------------------------------
-
-;; Gist.el defvar's github-username and github-api-key to "", so I do a little
-;; trickery here to use the previously assigned values, if any.
-(feature gist
-  (if (and (boundp 'github-username) (boundp 'github-api-key))
-    (let ((user-username github-username)
-          (user-api-key  github-api-key))
-      (require 'gist)
-      (setq github-username user-username
-            github-api-key user-api-key))
-    (require 'gist)))
-
-;;-----[ Cedet ]---------------------------------------------------------------
-
-(feature cedet
-  (load-file (concat site-lisp-path "cedet-1.0pre4/common/cedet.el"))
-  (semantic-load-enable-code-helpers))
-
-;;-----[ Clojure ]-------------------------------------------------------------
-
-(feature clojure
-  (add-path "slime")
-  (add-path "swank-clojure")
-  (add-path "clojure-mode")
-  (require 'slime)
-  (require 'swank-clojure)
-  (require 'clojure-mode)
-  (clojure-slime-config)
-  (add-to-list 'swank-clojure-extra-classpaths "~/src/jars/*"))
-
-;; (add-hook 'slime-mode-hook
-;;           '(lambda() (local-set-key "\C-j"
-;;                                     'slime-eval-print-last-expression)))
-
-;;-----[ Browse-kill-ring ]----------------------------------------------------
-
-(require 'browse-kill-ring)
-(global-set-key "\C-c\C-k" 'browse-kill-ring)
 
 ;;-----[ Custom-set-variables ]------------------------------------------------
 
@@ -363,54 +119,210 @@
   '(ruby-deep-indent-paren-style nil)
   '(default-major-mode (quote text-mode)))
 
-;;-----[ Timestamp autoupdating ]----------------------------------------------
 
-(feature timestamp
-  ;; When files have "Modified: <>" in their first 8 lines, fill it in on save.
-  (add-hook 'before-save-hook 'time-stamp)
-  (setq time-stamp-start  "Modified:[   ]+\\\\?[\"<]+")
-  (setq time-stamp-end    "\\\\?[\">]")
-  (setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %Z"))
+;;-----[ Features! ]-----------------------------------------------------------
 
-;;-----[ Tab key behaviour ]---------------------------------------------------
+(feature ack
+         (require 'ack)
+         (global-set-key (kbd "A-F") 'ack))
+
+(feature aquamacs
+         (one-buffer-one-frame-mode 0)
+         (setq mac-allow-anti-aliasing nil)
+         ;; M-x mac-font-panel, describe-font
+         (set-default-font "-apple-pragmata tt-medium-r-normal--12-0-72-72-m-0-iso10646-1")
+         (tabbar-mode nil))
+
+(feature browse-kill-ring
+         (require 'browse-kill-ring)
+         (global-set-key "\C-c\C-k" 'browse-kill-ring))
+
+(feature cedet
+         (load-file (concat site-lisp-path "cedet-1.0pre4/common/cedet.el"))
+         (semantic-load-enable-code-helpers))
+
+(feature clojure
+         (add-path "slime")
+         (add-path "swank-clojure")
+         (add-path "clojure-mode")
+         (require 'slime)
+         (require 'swank-clojure)
+         (require 'clojure-mode)
+         (clojure-slime-config)
+         (add-to-list 'swank-clojure-extra-classpaths "~/src/jars/*"))
+
+(feature color-theme
+         (when window-system
+           (require 'color-theme)
+           (when (fboundp 'color-theme-initialize)
+             (color-theme-initialize))
+           (setq color-theme-is-global t)
+           (load-file (concat site-lisp-path "/color-theme-wombat.el"))
+           (load-file (concat site-lisp-path "/color-theme-bombat.el"))
+           (load-file (concat site-lisp-path "/color-theme-github.el"))
+           (color-theme-bombat)))
+
+(feature eshell
+         (require 'eshell)
+         (require 'em-smart)
+         (setq eshell-where-to-jump 'begin)
+         (setq eshell-review-quick-commands nil)
+         (setq eshell-smart-space-goes-to-end t)
+         
+         (defmacro runner-genner (alias command title)
+           `(defun ,alias (&rest args)
+              (let* ((cmd1 (cons ,command args))
+                     (cmd2 (eshell-flatten-and-stringify cmd1))
+                     (display-type (framep (selected-frame))))
+                (cond
+                 ((and (eq display-type 't) (getenv "STY"))
+                  (send-string-to-terminal (format "\033]83;screen %s\007" cmd2)))
+                 ((eq display-type 'x)
+                  (eshell-do-eval (eshell-parse-command (format "rxvt -e %s &" cmd2)))
+                  nil)
+                 (t
+                  (apply 'eshell-exec-visual cmd1))))))
+         
+         (runner-genner eshell/ss "script/server"  "%SERVER")
+         (runner-genner eshell/sc "script/console" "%CONSOLE"))
+
+(feature gist
+         ;; Gist.el defvar's github-username and github-api-key to "", so I do a little
+         ;; trickery here to use the previously assigned values, if any.
+         (if (and (boundp 'github-username) (boundp 'github-api-key))
+             (let ((user-username github-username)
+                   (user-api-key  github-api-key))
+               (require 'gist)
+               (setq github-username user-username
+                     github-api-key user-api-key))
+           (require 'gist)))
+
+(feature edit-server
+         (when (boundp 'aquamacs-version)
+           (require 'edit-server)
+           (setq edit-server-new-frame nil)
+           (edit-server-start)))
+
+(feature erlang
+         (setq load-path (cons "/usr/local/lib/erlang/lib/tools-2.6.4/emacs" load-path))
+         (setq erlang-root-dir "/usr/local/lib/erlang")
+         (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
+         (require 'erlang-start))
+
+(feature html5
+         (add-path "html5-el")
+         (eval-after-load "rng-loc"
+           '(add-to-list 'rng-schema-locating-files (concat site-lisp-path "/html5-el/schemas.xml")))
+         (require 'whattf-dt))
+
+(feature ido
+         (when (boundp 'aquamacs-version)
+           (require 'ido)
+           (ido-mode t)
+           (setq ido-create-new-buffer 'always)
+           (setq ido-enable-flex-matching t)))
+
+(feature jabber
+         ;; adjust this path:
+         (add-path "emacs-jabber-0.8.0")
+         (require 'jabber-autoloads)
+         (setq jabber-account-list
+               '(("burke@burkelibbey.org" 
+                  (:network-server . "talk.google.com")
+                  (:connection-type . ssl))
+                 ("blibbey@cdebiz005" 
+                  (:network-server . "cdebiz005")))))
+
+(feature linum
+         (require 'linum))
+
+(feature magit
+         (autoload 'magit-status "magit" nil t)
+         (global-set-key "\C-qs"    'magit-status)
+         (global-set-key "\C-q\C-s" 'magit-status)
+         (global-set-key "\C-ql"    'magit-log)
+         (global-set-key "\C-q\C-l" 'magit-log)
+         (global-set-key "\C-q\C-r" 'magit-goto-next-section)
+         (global-set-key "\C-q\C-]" 'magit-toggle-section)
+         (global-set-key "\C-qh"    'magit-reflog))
+
+(feature rails
+         (add-path "emacs-rails")
+         (require 'rails))
+
+(feature rdebug
+         (require 'rdebug))
+
+(feature rvm
+         (require 'rvm)
+         (rvm-use-default))
+
+(feature yasnippet
+         (require 'yasnippet)
+         (yas/initialize)
+         (yas/load-directory (concat *emacs-config-directory* "/snippets")))
 
 (feature smart-tab
-  (require 'hippie-exp)
+         (require 'hippie-exp)
+         
+         (setq hippie-expand-try-functions-list
+               '(yas/hippie-try-expand
+                 try-expand-dabbrev
+                 try-expand-dabbrev-all-buffers
+                 try-expand-dabbrev-from-kill
+                 try-complete-file-name
+                 try-complete-lisp-symbol))
+         
+         (defun dbl:smart-tab ()
+           "If mark is active, indents region. Else if point is at the end of a symbol,
+           expands it. Else indents the current line. Acts as normal in minibuffer."
+           (interactive)
+                                        ;(if (yas/next-field)
+                                        ;   ()
+           (if (boundp 'ido-cur-item)
+               (ido-complete)
+             (if (minibufferp)
+                 (minibuffer-complete)
+               (if mark-active
+                   (indent-region (region-beginning) (region-end))
+                 (if (and (looking-at "\\_>") (not (looking-at "end")))
+                     (hippie-expand nil)
+                   (indent-for-tab-command))))))
+         
+         (global-set-key [(tab)] 'dbl:smart-tab))
 
-  (setq hippie-expand-try-functions-list
-        '(yas/hippie-try-expand
-          try-expand-dabbrev
-          try-expand-dabbrev-all-buffers
-          try-expand-dabbrev-from-kill
-          try-complete-file-name
-          try-complete-lisp-symbol))
+(feature speedbar
+         (when window-system
+           (autoload 'speedbar "speedbar" nil t)
+           (eval-after-load "speedbar"
+             '(progn (speedbar-disable-update)))
+           (global-set-key "\C-c\C-s" 'speedbar)))
 
-  (defun dbl:smart-tab ()
-    "If mark is active, indents region. Else if point is at the end of a symbol,
-   expands it. Else indents the current line. Acts as normal in minibuffer."
-    (interactive)
-     ;(if (yas/next-field)
-     ;   ()
-      (if (boundp 'ido-cur-item)
-          (ido-complete)
-        (if (minibufferp)
-            (minibuffer-complete)
-          (if mark-active
-              (indent-region (region-beginning) (region-end))
-            (if (and (looking-at "\\_>") (not (looking-at "end")))
-                (hippie-expand nil)
-              (indent-for-tab-command))))))
+(feature starter-kit-js
+  (require 'starter-kit-js))
 
-  (global-set-key [(tab)] 'dbl:smart-tab))
+(feature textmate
+         (add-path "textmate.el")
+         (require 'textmate)
+         (textmate-mode)
+         
+         (require 'peepopen)
+         
+         (require 'undo-tree)
+         (global-undo-tree-mode))
 
-;;-----[ Training wheels ]-----------------------------------------------------
+(feature timestamp
+         ;; When files have "Modified: <>" in their first 8 lines, fill it in on save.
+         (add-hook 'before-save-hook 'time-stamp)
+         (setq time-stamp-start  "Modified:[   ]+\\\\?[\"<]+")
+         (setq time-stamp-end    "\\\\?[\">]")
+         (setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %Z"))
 
 (feature training-wheels
-  (global-set-key (kbd "<down>")  '())
-  (global-set-key (kbd "<up>")    '())
-  (global-set-key (kbd "<right>") '())
-  (global-set-key (kbd "<left>")  '()))
-
+         (global-set-key (kbd "<down>")  '())
+         (global-set-key (kbd "<up>")    '())
+         (global-set-key (kbd "<right>") '())
+         (global-set-key (kbd "<left>")  '()))
 
 ;;-----[ Name/date insertion ]-------------------------------------------------
 
@@ -437,10 +349,8 @@
     (insert (format-time-string format))))
 (global-set-key "\C-cd" 'dbl:insert-date)
 
-
 ;;-----[ Miscellaneous Keybinds ]----------------------------------------------
 
-(global-set-key "\C-q" (make-sparse-keymap))
 (global-set-key "\C-q\C-q" 'quoted-insert)
 
 (global-set-key "\C-q\C-c" 'eshell)
@@ -527,9 +437,6 @@
 
 ;;-----[ Autoload and auto-mode ]----------------------------------------------
 
-(feature starter-kit-js
-  (require 'starter-kit-js))
-
 (autoload 'js2-mode  "js2-mode"  nil t)
 (setq js2-basic-offset 2)
 
@@ -538,6 +445,7 @@
 (autoload 'ruby-mode     "ruby-mode" nil t)
 (autoload 'objj-mode     "objj-mode" nil t)
 (autoload 'haml-mode     "haml-mode" nil t)
+(add-path "markdown-mode")
 (autoload 'markdown-mode "markdown-mode" nil t)
 (autoload 'textile-mode  "textile-mode" nil t)
 (autoload 'yaml-mode     "yaml-mode" nil t)
@@ -578,8 +486,8 @@
 
 (setq tramp-default-method "scpc")
 
-(set-register ?E '(file . "~/.emacs.d/emacs-init.el")) ;; C-x r j E
-(set-register ?Z '(file . "~/.config.d/zsh/zshrc.zsh")) ;; C-x r j Z
+(set-register ?E '(file . "~/.emacs.d/emacs-init.el"))    ;; C-x r j E
+(set-register ?Z '(file . "~/.config.d/zsh/zshrc.zsh"))   ;; C-x r j Z
 (set-register ?A '(file . "~/.config.d/zsh/aliases.zsh")) ;; C-x r j A
 
 (add-hook 'text-mode-hook 'turn-off-auto-fill)
@@ -596,10 +504,4 @@
 
 (global-set-key (kbd "<f8>") 'recompile)
 
-;;-----[ Housekeeping ]--------------------------------------------------------
-
-(message "Loaded .emacs in %ds" (destructuring-bind (hi lo ms) (current-time)
-  (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
-
-(setq debug-on-error nil)
 

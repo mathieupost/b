@@ -51,6 +51,7 @@ colors
 . ~/.config.d/zsh/completion.zsh
 . ~/.config.d/zsh/functions.zsh
 . ~/.config.d/zsh/aliases.zsh
+. ~/.config.d/zsh/osx.zsh
 . ~/.config.d/zsh/j/j.sh
 
 function og {
