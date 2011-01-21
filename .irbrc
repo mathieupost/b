@@ -30,6 +30,18 @@ end
 #     :RETURN => " ➝  %s\n"
 # }
 
+class Object
+  def gm(sym)
+    __goto_method(method(sym))
+  end 
+  def gim(sym)
+    __goto_method(instance_method(sym))
+  end 
+  def __goto_method(x)
+    system("$EDITOR -n '+#{x.__line__}' \"#{x.__file__}\"")
+  end 
+end 
+
 # IRB.conf[:PROMPT_MODE] = :CUSTOM
 IRB.conf[:USE_READLINE] = true
 IRB.conf[:SAVE_HISTORY] = 1000
@@ -38,3 +50,5 @@ require File.expand_path("~/.config.d/ruby/all")
 
 require 'bond'
 Bond.start
+
+

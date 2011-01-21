@@ -20,16 +20,16 @@ with_terminal_color() {
   set_term_bgcolor 0 0 0  
 }
 
-ssh() {
-  if [[ "$@" =~ panda-build ]]; then
-    set_term_bgcolor 0 0 31
-  elif [[ "$@" =~ panda-staging ]]; then
-    set_term_bgcolor 0 31 0
-  elif [[ "$@" =~ og ]]; then
-    set_term_bgcolor 0 31 31
-  fi
-
-  /usr/bin/ssh $@
-
-  set_term_bgcolor 0 0 0
-}
+# ssh() {
+#   if [[ "$@" =~ panda-build ]]; then
+#     set_term_bgcolor 0 0 31
+#   elif [[ "$@" =~ panda-staging ]]; then
+#     set_term_bgcolor 0 31 0
+#   elif [[ "$@" =~ og ]]; then
+#     set_term_bgcolor 0 31 31
+#   fi
+#  
+#   /usr/bin/ssh $@
+#  
+#   set_term_bgcolor 0 0 0
+# }
