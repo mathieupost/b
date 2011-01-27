@@ -69,6 +69,7 @@
 (add-path "")
 
 (global-set-key "\C-q" (make-sparse-keymap))
+(global-set-key "\C-q\C-r" 'query-replace-regexp)
 
 ;;-----[ Custom ]--------------------------------------------------------------
 (custom-set-faces

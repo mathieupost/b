@@ -31,6 +31,9 @@ end
 # }
 
 class Object
+  def g(sym)
+    kind_of?(Class) ? gim(sym) : gm(sym)
+  end 
   def gm(sym)
     __goto_method(method(sym))
   end 
