@@ -9,11 +9,16 @@ alias gco9="git-nohub checkout version-1.0.9"
 alias bi="bundle install"
 alias bl="bundle lock"
 alias bp="bundle pack"
-alias bu="bundle unlock"
+alias bu="bundle update"
 alias  x="bundle exec"
+
+alias xrs="bundle exec rails server"
+alias xrc="bundle exec rails console"
+alias xrg="bundle exec rails generate"
 
 alias ru="rackup"
 
+alias cpd="cap production deploy"
 
 function def () {
     ack "def $*"

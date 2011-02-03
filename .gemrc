@@ -1,9 +1,8 @@
 --- 
+:update_sources: true
+:backtrace: false
+:verbose: true
+:bulk_threshold: 1000
+:benchmark: false
 :sources: 
 - http://rubygems.org/
-- http://cdscm
-:benchmark: false
-:backtrace: false
-:update_sources: true
-:bulk_threshold: 1000
-:verbose: true
