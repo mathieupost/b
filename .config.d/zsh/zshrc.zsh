@@ -17,6 +17,7 @@ export RUBYOPT="rubygems"
 
 # Head of PATH
 P="$HOME/bin"
+P="$P:/usr/local/share/npm/bin/"
 P="$P:/usr/local/bin"
 P="$P:/usr/local/sbin"
 P="$P:/opt/local/bin"
@@ -24,6 +25,8 @@ P="$P:/usr/local/mysql/bin"
 P="$P:/usr/bin"
 # Tail of PATH
 export PATH="$P:$PATH"
+
+export NODE_PATH="/usr/local/lib/node"
 
 # history
 HISTFILE=~/.zsh_history
@@ -53,6 +56,7 @@ colors
 . ~/.config.d/zsh/aliases.zsh
 . ~/.config.d/zsh/osx.zsh
 . ~/.config.d/zsh/j/j.sh
+. ~/.config.d/zsh/z.zsh
 
 function og {
   scp -r $1 og:~/b/u

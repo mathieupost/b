@@ -46,12 +46,14 @@ class Object
 end 
 
 # IRB.conf[:PROMPT_MODE] = :CUSTOM
-IRB.conf[:USE_READLINE] = true
-IRB.conf[:SAVE_HISTORY] = 1000
+begin
+  IRB.conf[:USE_READLINE] = true
+  IRB.conf[:SAVE_HISTORY] = 1000
+rescue; end
 
 require File.expand_path("~/.config.d/ruby/all")
 
-require 'bond'
-Bond.start
+# require 'bond'
+# Bond.start
 
 

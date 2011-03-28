@@ -1,29 +1,24 @@
 function linux() { [[ `uname -s` = "Linux"  ]] }
 function mac()   { [[ `uname -s` = "Darwin" ]] }
 
-alias gco7="git-nohub checkout version-1.0.7"
-alias gco8="git-nohub checkout version-1.0.8"
-alias gco9="git-nohub checkout version-1.0.9"
-
 # Bundler
 alias bi="bundle install"
-alias bl="bundle lock"
-alias bp="bundle pack"
 alias bu="bundle update"
 alias  x="bundle exec"
 
-alias xrs="bundle exec rails server"
-alias xrc="bundle exec rails console"
-alias xrg="bundle exec rails generate"
+alias  xrs="bundle exec rails server"
+alias  xrc="bundle exec rails console"
+alias  xrg="bundle exec rails generate"
+alias xrgm="bundle exec rails generate migration"
 
 alias ru="rackup"
 
 alias cpd="cap production deploy"
+alias csd="cap staging deploy"
 
 function def () {
     ack "def $*"
 }
-
 
 function gc () {
     if [ x$1 != x ]; then
@@ -75,6 +70,14 @@ alias    gt="git-nohub status -sb"
 alias    gu="git-nohub push"
 alias   gwc="git-nohub whatchanged"
 alias    gx="open -a gitx ."
+alias    gr="git-nohub reset HEAD"
+alias   gr1="git-nohub reset 'HEAD^'"
+alias   gr2="git-nohub reset 'HEAD^^'"
+alias   gro="git-nohub reset"
+alias   grh="git-nohub reset --hard HEAD"
+alias  grh1="git-nohub reset --hard 'HEAD^'"
+alias  grh2="git-nohub reset --hard 'HEAD^^'"
+alias  grho="git-nohub reset --hard"
 
 # Rubygems
 alias   mp="gem push"
@@ -87,27 +90,18 @@ function mibi() {
 }
 
 # Rake
-alias   rs="rake spec"
-alias  rps="rake 'parallel:spec[4]'"
-alias  rdm="rake db:migrate"
-alias rdmr="rake db:migrate:redo"
-alias rdmd="rake db:migrate:down"
-alias  rgi="rake gems:install"
-
+alias    rs="rake spec"
+alias   rps="rake 'parallel:spec[4]'"
+alias   rdm="rake db:migrate"
+alias  rdmr="rake db:migrate:redo"
+alias  rdmd="rake db:migrate:down"
+alias rdres="rake db:reset"
 
 alias xts="bundle exec thin start"
 
 alias r="ruby"
 
 alias se="spec"
-
-function share() {
-  src=$1
-  dest=$2
-  [ $# = 1 ] && dest=$(basename $src)
-  echo "http://panda-build/$dest" | pbcopy
-  scp $src web@panda-build:apps/panda_inventory/current/public/$dest
-}
 
 function e () {
     $EDITOR --no-wait $*

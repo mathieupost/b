@@ -357,7 +357,7 @@
 (global-set-key "\C-q\C-c" 'eshell)
 (global-set-key "\C-q0" 'linum-mode)
 
-(global-set-key (kbd "C-=") 'undo)
+(global-set-key (kbd "C-,") 'undo)
 (global-set-key "\C-h" 'delete-backward-char)
 
 
