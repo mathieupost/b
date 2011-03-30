@@ -3,13 +3,17 @@ function mac()   { [[ `uname -s` = "Darwin" ]] }
 
 # Bundler
 alias bi="bundle install"
+alias bo="bundle open"
 alias bu="bundle update"
 alias  x="bundle exec"
 
 alias  xrs="bundle exec rails server"
 alias  xrc="bundle exec rails console"
 alias  xrg="bundle exec rails generate"
-alias xrgm="bundle exec rails generate migration"
+
+function xrgm() {
+  $EDITOR --no-wait `bundle exec rails generate migration $1 | tail -n1 | awk '{print $3}'`
+}
 
 alias ru="rackup"
 
