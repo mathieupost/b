@@ -12,7 +12,15 @@ if [[ -x `which git` ]]; then
     gitdir=$(find-dot-git)
     if [[ $? == 0 ]] {
   	  branch=$(cat $gitdir/HEAD | sed 's/ref: refs\/heads\///')
-  		if [[ $(git-nohub status --porcelain 2> /dev/null) == "" ]] { dirty_color=$fg[green] } else { dirty_color=$fg[magenta] }
+  		if [[ $(git-nohub status --porcelain 2> /dev/null) == "" ]] { 
+        if [[ $(git-nohub log -n1 --format='%H' origin/$branch 2>/dev/null) == $(git-nohub log -n1 --format='%H' $branch) ]] {
+          dirty_color=$fg[green] 
+        } else {
+          dirty_color=$fg[yellow] 
+        }
+      } else { 
+        dirty_color=$fg[magenta] 
+      }
       if [[ $branch == master ]]     { branch=✪ }
   		if [[ $gitdir == $HOME/.git ]] { branch=✖ }
       if [[ x$branch == x ]] { 
