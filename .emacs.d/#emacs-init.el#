@@ -7,6 +7,7 @@
       `((ack              . t)
         (browse-kill-ring . t)
         (cedet            . nil)
+        (clojure          . nil)
         (edit-server      . ,window-system)
         (elpa             . nil)
         (erlang           . nil)
@@ -18,8 +19,9 @@
         (pragmate         . ,window-system)
         (rdebug           . t)
         (rvm              . t)
+        (slime            . nil)
         (smart-tab        . t)
-        (color-theme      . ,window-system)
+        (solarized        . t)
         (speedbar         . nil)
         (starter-kit-js   . t)
         (timestamp        . t)
@@ -127,8 +129,18 @@
          (load-file (concat site-lisp-path "cedet-1.0pre4/common/cedet.el"))
          (semantic-load-enable-code-helpers))
 
-(feature color-theme
-         (load-theme 'tango-dark))
+(feature clojure
+         (add-path "slime")
+         (add-path "swank-clojure")
+         (add-path "clojure-mode")
+         (require 'slime)
+         (require 'swank-clojure)
+         (require 'clojure-mode)
+         (clojure-slime-config)
+         (add-to-list 'swank-clojure-extra-classpaths "~/src/jars/*"))
+
+(feature solarized
+         (require 'solarized-theme))
 
 (feature pragmata
   (set-frame-font "Pragmata TT-12"))
@@ -343,7 +355,8 @@
               (lambda () (local-set-key "\C-m" 'newline-and-indent)))
     (dbl:set-autoindent (cdr hooks))))
 
-(dbl:set-autoindent '(c-mode-common-hook
+(dbl:set-autoindent '(clojure-mode-hook
+                      c-mode-common-hook
                       ruby-mode-hook
                       java-mode-hook
                       python-mode-hook
@@ -360,21 +373,18 @@
 (autoload 'ruby-mode     "ruby-mode" nil t)
 (autoload 'objj-mode     "objj-mode" nil t)
 (autoload 'haml-mode     "haml-mode" nil t)
+(add-path "markdown-mode")
 (autoload 'markdown-mode "markdown-mode" nil t)
 (autoload 'textile-mode  "textile-mode" nil t)
 (autoload 'yaml-mode     "yaml-mode" nil t)
 (autoload 'sass-mode     "sass-mode" nil t)
-(autoload 'coffee-mode   "coffee-mode" nil t)
-(autoload 'mustache-mode "mustache-mode" nil t)
 
 (setq auto-mode-alist
   (nconc
     '(("COMMIT_EDITMSG$" . diff-mode))
     '(("\\.xml$"         . nxml-mode))
     '(("\\.html$"        . nxml-mode))
-    '(("\\.coffee$"      . coffee-mode))
-    '(("\\.mustache$"    . mustache-mode))
-    '(("\\.hbs$"         . mustache-mode))
+    '(("\\.erl$"         . erlang-mode))
     '(("\\.m$"           . objc-mode))
     '(("\\.haml$"        . haml-mode))
     '(("\\.yml$"         . yaml-mode))

@@ -36,6 +36,8 @@ function gam () {
     git commit --amend -m "$*"
 }
 
+alias tags="/usr/local/bin/ctags -e **/*.rb"
+
 # Git
 alias git-nohub=$(which git)
 alias   git="hub" # Hub gem.
