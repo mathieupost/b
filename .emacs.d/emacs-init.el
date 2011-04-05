@@ -5,31 +5,25 @@
 
 (setq features 
       `((ack              . t)
-        (aquamacs         . ,(boundp 'aquamacs-version))
         (browse-kill-ring . t)
         (cedet            . nil)
         (clojure          . nil)
-        (color-theme      . ,window-system)
-        (edit-server      . ,(boundp 'aquamacs-version))
+        (edit-server      . ,window-system)
         (erlang           . nil)
         (eshell           . t)
-        (gist             . t)
         (html5            . t)
-        (ido              . t)
-        (jabber           . nil)
+        (ido              . ,window-system)
         (linum            . t)
         (magit            . t)
-        (rails            . ,window-system)
         (rdebug           . t)
         (rvm              . t)
         (slime            . nil)
         (smart-tab        . t)
+        (solarized        . t)
         (speedbar         . nil)
         (starter-kit-js   . t)
-        (textmate         . ,window-system)
         (timestamp        . t)
-        (training-wheels  . nil)
-        (yasnippet        . t)))
+        (yasnippet        . nil)))
 
 (defmacro feature (feature &rest args)
   `(when (cdr (assoc (quote ,feature) features))
@@ -37,15 +31,14 @@
 
 ;;-----[ ELPA ]--------------------------------------------------------
 
-(feature yasnippet
-         (easy-menu-define yas/minor-mode-menu nil "Workaround for ELPA version" nil))
-(add-to-list 'load-path "~/.emacs.d/elpa/")
-(require 'package)
-(package-initialize)
+; (feature yasnippet
+;          (easy-menu-define yas/minor-mode-menu nil "Workaround for ELPA version" nil))
+; (add-to-list 'load-path "~/.emacs.d/elpa/")
+; (require 'package)
+; (package-initialize)
 
 ;;-----[ Housekeeping ]--------------------------------------------------------
 (require 'cl)
-(require 'facemenu)
 
 (defvar *user-name*  "Burke Libbey")
 (defvar *short-name* "burke")
@@ -58,8 +51,6 @@
 
 (setq max-lisp-eval-depth 5000)
 (setq max-specpdl-size 5000)
-
-(setq mac-option-modifier 'meta)
 
 (setq site-lisp-path (concat *emacs-config-directory* "/site-lisp/"))
 
@@ -127,13 +118,6 @@
          (require 'ack)
          (global-set-key (kbd "A-F") 'ack))
 
-(feature aquamacs
-         (one-buffer-one-frame-mode 0)
-         (setq mac-allow-anti-aliasing nil)
-         ;; M-x mac-font-panel, describe-font
-         (set-default-font "-apple-pragmata tt-medium-r-normal--12-0-72-72-m-0-iso10646-1")
-         (tabbar-mode nil))
-
 (feature browse-kill-ring
          (require 'browse-kill-ring)
          (global-set-key "\C-c\C-k" 'browse-kill-ring))
@@ -152,16 +136,8 @@
          (clojure-slime-config)
          (add-to-list 'swank-clojure-extra-classpaths "~/src/jars/*"))
 
-(feature color-theme
-         (when window-system
-           (require 'color-theme)
-           (when (fboundp 'color-theme-initialize)
-             (color-theme-initialize))
-           (setq color-theme-is-global t)
-           (load-file (concat site-lisp-path "/color-theme-wombat.el"))
-           (load-file (concat site-lisp-path "/color-theme-bombat.el"))
-           (load-file (concat site-lisp-path "/color-theme-github.el"))
-           (color-theme-bombat)))
+(feature solarized
+         (require 'solarized-theme))
 
 (feature eshell
          (require 'eshell)
@@ -187,22 +163,8 @@
          (runner-genner eshell/ss "script/server"  "%SERVER")
          (runner-genner eshell/sc "script/console" "%CONSOLE"))
 
-(feature gist
-         ;; Gist.el defvar's github-username and github-api-key to "", so I do a little
-         ;; trickery here to use the previously assigned values, if any.
-         (if (and (boundp 'github-username) (boundp 'github-api-key))
-             (let ((user-username github-username)
-                   (user-api-key  github-api-key))
-               (require 'gist)
-               (setq github-username user-username
-                     github-api-key user-api-key))
-           (require 'gist)))
-
 (feature edit-server
-         (when (boundp 'aquamacs-version)
-           (require 'edit-server)
-           (setq edit-server-new-frame nil)
-           (edit-server-start)))
+         (server-start))
 
 (feature erlang
          (setq load-path (cons "/usr/local/lib/erlang/lib/tools-2.6.4/emacs" load-path))
@@ -217,22 +179,10 @@
          (require 'whattf-dt))
 
 (feature ido
-         (when (boundp 'aquamacs-version)
-           (require 'ido)
-           (ido-mode t)
-           (setq ido-create-new-buffer 'always)
-           (setq ido-enable-flex-matching t)))
-
-(feature jabber
-         ;; adjust this path:
-         (add-path "emacs-jabber-0.8.0")
-         (require 'jabber-autoloads)
-         (setq jabber-account-list
-               '(("burke@burkelibbey.org" 
-                  (:network-server . "talk.google.com")
-                  (:connection-type . ssl))
-                 ("blibbey@cdebiz005" 
-                  (:network-server . "cdebiz005")))))
+         (require 'ido)
+         (ido-mode t)
+         (setq ido-create-new-buffer 'always)
+         (setq ido-enable-flex-matching t))
 
 (feature linum
          (require 'linum))
@@ -246,10 +196,6 @@
          (global-set-key "\C-q\C-r" 'magit-goto-next-section)
          (global-set-key "\C-q\C-]" 'magit-toggle-section)
          (global-set-key "\C-qh"    'magit-reflog))
-
-(feature rails
-         (add-path "emacs-rails")
-         (require 'rails))
 
 (feature rdebug
          (require 'rdebug))
@@ -302,28 +248,12 @@
 (feature starter-kit-js
   (require 'starter-kit-js))
 
-(feature textmate
-         (add-path "textmate.el")
-         (require 'textmate)
-         (textmate-mode)
-         
-         (require 'peepopen)
-         
-         (require 'undo-tree)
-         (global-undo-tree-mode))
-
 (feature timestamp
          ;; When files have "Modified: <>" in their first 8 lines, fill it in on save.
          (add-hook 'before-save-hook 'time-stamp)
          (setq time-stamp-start  "Modified:[   ]+\\\\?[\"<]+")
          (setq time-stamp-end    "\\\\?[\">]")
          (setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %Z"))
-
-(feature training-wheels
-         (global-set-key (kbd "<down>")  '())
-         (global-set-key (kbd "<up>")    '())
-         (global-set-key (kbd "<right>") '())
-         (global-set-key (kbd "<left>")  '()))
 
 ;;-----[ Name/date insertion ]-------------------------------------------------
 
