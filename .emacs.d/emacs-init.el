@@ -9,7 +9,6 @@
         (cedet            . nil)
         (edit-server      . ,window-system)
         (elpa             . nil)
-        (erlang           . nil)
         (eshell           . t)
         (html5            . t)
         (ido              . ,window-system)
@@ -20,7 +19,7 @@
         (rvm              . t)
         (smart-tab        . t)
         (color-theme      . ,window-system)
-        (speedbar         . nil)
+        (speedbar         . ,window-system)
         (starter-kit-js   . t)
         (timestamp        . t)
         (yasnippet        . nil)))
@@ -130,10 +129,6 @@
 (feature color-theme
          (load-theme 'tango-dark))
 
-(feature pragmata
-  (set-frame-font "Pragmata TT-12"))
-
-
 (feature eshell
          (require 'eshell)
          (require 'em-smart)
@@ -161,12 +156,6 @@
 (feature edit-server
          (server-start))
 
-(feature erlang
-         (setq load-path (cons "/usr/local/lib/erlang/lib/tools-2.6.4/emacs" load-path))
-         (setq erlang-root-dir "/usr/local/lib/erlang")
-         (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
-         (require 'erlang-start))
-
 (feature html5
          (add-path "html5-el")
          (eval-after-load "rng-loc"
@@ -183,6 +172,7 @@
          (require 'linum))
 
 (feature magit
+         (add-path "magit")
          (autoload 'magit-status "magit" nil t)
          (global-set-key "\C-qs"    'magit-status)
          (global-set-key "\C-q\C-s" 'magit-status)
@@ -192,6 +182,9 @@
          (global-set-key "\C-q\C-]" 'magit-toggle-section)
          (global-set-key "\C-qh"    'magit-reflog))
 
+(feature pragmata
+         (set-frame-font "Pragmata TT-12"))
+
 (feature rdebug
          (add-path "rdebug")
          (require 'rdebug))
@@ -199,11 +192,6 @@
 (feature rvm
          (require 'rvm)
          (rvm-use-default))
-
-(feature yasnippet
-         (require 'yasnippet)
-         (yas/initialize)
-         (yas/load-directory (concat *emacs-config-directory* "/snippets")))
 
 (feature smart-tab
          (require 'hippie-exp)
@@ -235,11 +223,10 @@
          (global-set-key [(tab)] 'dbl:smart-tab))
 
 (feature speedbar
-         (when window-system
-           (autoload 'speedbar "speedbar" nil t)
-           (eval-after-load "speedbar"
-             '(progn (speedbar-disable-update)))
-           (global-set-key "\C-c\C-s" 'speedbar)))
+         (autoload 'speedbar "speedbar" nil t)
+         (eval-after-load "speedbar"
+           '(progn (speedbar-disable-update)))
+         (global-set-key "\C-c\C-s" 'speedbar))
 
 (feature starter-kit-js
   (require 'starter-kit-js))
@@ -250,6 +237,11 @@
          (setq time-stamp-start  "Modified:[   ]+\\\\?[\"<]+")
          (setq time-stamp-end    "\\\\?[\">]")
          (setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %Z"))
+
+(feature yasnippet
+         (require 'yasnippet)
+         (yas/initialize)
+         (yas/load-directory (concat *emacs-config-directory* "/snippets")))
 
 ;;-----[ Name/date insertion ]-------------------------------------------------
 
@@ -358,7 +350,6 @@
 (setq-default c-basic-offset 2)
 
 (autoload 'ruby-mode     "ruby-mode" nil t)
-(autoload 'objj-mode     "objj-mode" nil t)
 (autoload 'haml-mode     "haml-mode" nil t)
 (autoload 'markdown-mode "markdown-mode" nil t)
 (autoload 'textile-mode  "textile-mode" nil t)
