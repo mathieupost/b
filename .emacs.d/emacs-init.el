@@ -14,7 +14,8 @@
         (ido              . ,window-system)
         (linum            . t)
         (magit            . t)
-        (pragmate         . ,window-system)
+        (override-copy    . ,window-system)
+        (pragmata         . ,window-system)
         (rdebug           . t)
         (rvm              . t)
         (smart-tab        . t)
@@ -47,8 +48,8 @@
   (when (file-exists-p private-el)
     (load-file private-el)))
 
-(setq max-lisp-eval-depth 5000)
-(setq max-specpdl-size 5000)
+(setq max-lisp-eval-depth 500000)
+(setq max-specpdl-size 500000)
 
 (setq site-lisp-path (concat *emacs-config-directory* "/site-lisp/"))
 
@@ -181,6 +182,12 @@
          (global-set-key "\C-q\C-r" 'magit-goto-next-section)
          (global-set-key "\C-q\C-]" 'magit-toggle-section)
          (global-set-key "\C-qh"    'magit-reflog))
+
+(feature override-copy
+         (defun pbcopy ()
+           (interactive)
+           (shell-command-on-region (point) (mark) "pbcopy"))
+         (global-set-key (kbd "s-c") 'pbcopy))
 
 (feature pragmata
          (set-frame-font "Pragmata TT-12"))
@@ -356,7 +363,7 @@
 (autoload 'yaml-mode     "yaml-mode" nil t)
 (autoload 'sass-mode     "sass-mode" nil t)
 (autoload 'coffee-mode   "coffee-mode" nil t)
-(autoload 'mustache-mode "mustache-mode" nil t)
+; (autoload 'mustache-mode "mustache-mode" nil t)
 
 (setq auto-mode-alist
   (nconc
@@ -364,7 +371,6 @@
     '(("\\.xml$"         . nxml-mode))
     '(("\\.html$"        . nxml-mode))
     '(("\\.coffee$"      . coffee-mode))
-    '(("\\.mustache$"    . mustache-mode))
     '(("\\.hbs$"         . mustache-mode))
     '(("\\.m$"           . objc-mode))
     '(("\\.haml$"        . haml-mode))
@@ -379,6 +385,7 @@
     '(("\\.zsh$"         . sh-mode))
     '(("\\.sass$"        . sass-mode))
     '(("\\.js$"          . js2-mode))
+    '(("\\.js.erb$"      . js2-mode))
     '(("\\.j$"           . objj-mode))
     '(("\\.rake$"        . ruby-mode))
     '(("Gemfile$"        . ruby-mode))

@@ -11,6 +11,11 @@ alias  xrs="bundle exec rails server"
 alias  xrc="bundle exec rails console"
 alias  xrg="bundle exec rails generate"
 
+alias xr="bundle exec rake"
+
+alias trt="touch tmp/restart.txt"
+alias mcm="git-nohub fetch core master; git-nohub merge FETCH_HEAD && git-nohub push"
+
 function xrgm() {
   $EDITOR --no-wait `bundle exec rails generate migration $1 | tail -n1 | awk '{print $3}'`
 }
@@ -34,6 +39,10 @@ function gc () {
 
 function gam () {
     git commit --amend -m "$*"
+}
+
+function server {
+   ruby -rwebrick -e's=WEBrick::HTTPServer.new(:Port=>9999,:DocumentRoot=>Dir.pwd);trap("INT"){s.stop};s.start' 
 }
 
 alias tags="/usr/local/bin/ctags -e **/*.rb"
@@ -110,11 +119,11 @@ alias r="ruby"
 alias se="spec"
 
 function e () {
-    $EDITOR --no-wait $*
+    $EDITOR --no-wait $* 2>/dev/null
 }
 
 function ee () {
-    $EDITOR $*
+    $EDITOR $* 2>/dev/null
 }
 
 rb () {

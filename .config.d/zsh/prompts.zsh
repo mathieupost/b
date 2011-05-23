@@ -16,6 +16,13 @@ function build-prompt() {
       turbo=" ⚡"
     }
 
+    case `hostname` in
+        espresso.local) pathcolor="%{$fg[cyan]%}"    ;;
+        oglaroon)       pathcolor="%{$fg[yellow]%}"  ;;
+        li325-53)       pathcolor="%{$fg[magenta]%}" ;;
+        *)              pathcolor="%{$fg[red]%}"     ;;
+    esac
+
     echo "%{$fg[cyan]%}$p $git%{$fg[red]%}$ruby$turbo $statcolor▸%{$reset_color%} "
 }
 PS1='`build-prompt`'

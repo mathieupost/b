@@ -1,19 +1,17 @@
 export NAME="Burke Libbey"
 export EMAIL="burke@burkelibbey.org"
 
-export EDITOR="/Applications/Aquamacs.app/Contents/MacOS/bin/emacsclient"
+export EDITOR="$HOME/.emacs.d/emacsclient"
 export BROWSER="w3m"
 export PAGER="less"
-
-# [ -f "/usr/bin/aquamacs" ] && export EDITOR="aquamacs"
-
-[ -f /sw/bin/init.sh ] && . /sw/bin/init.sh # Fink
 
 export GIT_AUTHOR_NAME=$NAME
 export GIT_COMMITTER_NAME=$NAME
 export GIT_AUTHOR_EMAIL=$EMAIL
 export GIT_COMMITTER_EMAIL=$EMAIL
 export RUBYOPT="rubygems"
+
+export EY_DB_PASSWORD="0ikmC7SSPG"
 
 # Head of PATH
 P="$HOME/bin"
