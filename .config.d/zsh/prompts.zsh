@@ -23,7 +23,7 @@ function build-prompt() {
         *)              pathcolor="%{$fg[red]%}"     ;;
     esac
 
-    echo "%{$fg[cyan]%}$p $git%{$fg[red]%}$ruby$turbo $statcolor▸%{$reset_color%} "
+    echo "$pathcolor$p $git%{$fg[red]%}$ruby$turbo $statcolor▸%{$reset_color%} "
 }
 PS1='`build-prompt`'
 
