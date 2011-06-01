@@ -4,7 +4,7 @@ function build-prompt() {
         *) statcolor="%{$fg[red]%}"   ;;
     esac 
     git=$(git-prompt)
-    ruby=$(rvm-prompt | \
+    ruby=$(rvm-prompt u " " g | \
         sed 's/ree-1.8.7-2010.02/✈/')
 
     p=$(echo `pwd` | \

@@ -1,4 +1,5 @@
 --- 
+:gem: --no-ri --no-rdoc
 :update_sources: true
 :backtrace: false
 :verbose: true
