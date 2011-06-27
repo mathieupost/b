@@ -18,6 +18,7 @@ function build-prompt() {
 
     case `hostname` in
         espresso.local) pathcolor="%{$fg[cyan]%}"    ;;
+        espresso)       pathcolor="%{$fg[cyan]%}"    ;;
         oglaroon)       pathcolor="%{$fg[yellow]%}"  ;;
         li325-53)       pathcolor="%{$fg[magenta]%}" ;;
         *)              pathcolor="%{$fg[red]%}"     ;;
