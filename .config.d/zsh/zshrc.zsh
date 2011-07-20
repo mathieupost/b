@@ -2,7 +2,6 @@ export NAME="Burke Libbey"
 export EMAIL="burke@burkelibbey.org"
 
 export EDITOR="$HOME/.emacs.d/emacsclient"
-export BROWSER="w3m"
 export PAGER="less"
 
 export GIT_AUTHOR_NAME=$NAME
@@ -10,8 +9,6 @@ export GIT_COMMITTER_NAME=$NAME
 export GIT_AUTHOR_EMAIL=$EMAIL
 export GIT_COMMITTER_EMAIL=$EMAIL
 export RUBYOPT="rubygems"
-
-export EY_DB_PASSWORD="0ikmC7SSPG"
 
 # Head of PATH
 P="$HOME/bin"
@@ -55,6 +52,7 @@ colors
 . ~/.config.d/zsh/osx.zsh
 . ~/.config.d/zsh/j/j.sh
 . ~/.config.d/zsh/z.zsh
+. ~/.private.zsh
 
 function og {
   scp -r $1 og:~/b/u

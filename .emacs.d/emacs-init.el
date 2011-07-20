@@ -2,22 +2,27 @@
 ;; Author:   Burke Libbey <burke@burkelibbey.org>
 
 ;;-----[ Feature Selection ]---------------------------------------------------
+(setq save-interprogram-paste-before-kill t)
+
+(require 'facemenu)
+(require 'font-lock)
 
 (setq features 
       `((ack              . t)
         (browse-kill-ring . t)
         (cedet            . nil)
-        (edit-server      . ,window-system)
+        (edit-server      . t)
         (elpa             . nil)
         (eshell           . t)
         (html5            . t)
-        (ido              . ,window-system)
+        (ido              . t)
         (linum            . t)
         (magit            . t)
+        (org-mode         . nil)
         (override-copy    . ,window-system)
         (font             . ,window-system)
         (rdebug           . t)
-        (rvm              . t)
+        (rvm              . nil)
         (smart-tab        . t)
         (color-theme      . ,window-system)
         (speedbar         . ,window-system)
@@ -129,7 +134,7 @@
          (semantic-load-enable-code-helpers))
 
 (feature color-theme
-         (load-theme 'tango-dark))
+         (load-theme 'wombat))
 
 (feature eshell
          (require 'eshell)
@@ -184,6 +189,14 @@
          (global-set-key "\C-q\C-]" 'magit-toggle-section)
          (global-set-key "\C-qh"    'magit-reflog))
 
+(feature org-mode
+         ;; The following lines are always needed. Choose your own keys.
+         (require 'org)
+         (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+         (global-set-key "\C-cl" 'org-store-link)
+         (global-set-key "\C-ca" 'org-agenda)
+         (global-set-key "\C-cb" 'org-iswitchb))
+
 (feature override-copy
          (defun pbcopy ()
            (interactive)
@@ -229,7 +242,10 @@
                      (hippie-expand nil)
                    (indent-for-tab-command))))))
          
-         (global-set-key [(tab)] 'dbl:smart-tab))
+         (global-set-key [(tab)] 'dbl:smart-tab)
+         (add-hook 'term-mode-hook '(lambda ()
+                                      (local-set-key [(tab)] 'term-send-raw))))
+
 
 (feature speedbar
          (autoload 'speedbar "speedbar" nil t)
@@ -437,10 +453,25 @@
 (fset 'ruby-method-definition
    [tab ?d ?e ?f ?  ?a return ?e ?n ?d ?  tab backspace ?\C-p ?\C-e backspace])
 
+(global-set-key "\C-x\C-a" '(lambda ()(interactive)(ansi-term "/bin/zsh")))
+
+(when window-system
+  (global-set-key (kbd "<s-return>") 'ns-toggle-fullscreen))
 
 (add-hook 'ruby-mode-hook '(lambda ()
                              (local-set-key (kbd "C-i") 'ruby-insert-end)
                              (local-set-key (kbd "C-q C-j") 'ruby-method-definition)))
+
+
+(setq inhibit-eol-conversion t)
+(prefer-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(setq file-name-coding-system 'utf-8)
+(setq coding-system-for-read 'utf-8)
+(setq coding-system-for-write 'utf-8)
 
 ;; make zap-to-char act like zap-up-to-char
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
