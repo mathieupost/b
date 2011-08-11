@@ -28,11 +28,39 @@
         (speedbar         . ,window-system)
         (starter-kit-js   . t)
         (timestamp        . t)
-        (yasnippet        . nil)))
+        (yasnippet        . t)))
 
 (defmacro feature (feature &rest args)
   `(when (cdr (assoc (quote ,feature) features))
      ,@args))
+
+(defun current-line-number ()
+  "Print the current line number (in the buffer) of point."
+  (interactive)
+  (save-restriction
+    (widen)
+    (save-excursion
+      (beginning-of-line)
+      (message "%d"
+               (1+ (count-lines 1 (point)))))))
+
+(defun open-for-stefan ()
+  (interactive)
+  (save-buffer)
+  (ns-do-applescript (concat 
+   "tell application \"iTerm 2\" \n\
+     activate \n\
+     tell the first terminal \n\
+       launch session \"Default Session\" \n\
+       tell the last session \n\
+         write text \"cd " (file-name-directory (buffer-file-name)) "\" \n\
+         write text \"vim +" (current-line-number) " " (buffer-file-name) "\" \n\
+       end tell \n\
+     end tell \n\
+   end tell")))
+
+(global-set-key (kbd "<f6>") 'open-for-stefan)
+
 
 ;;-----[ ELPA ]--------------------------------------------------------
 
@@ -230,8 +258,6 @@
            "If mark is active, indents region. Else if point is at the end of a symbol,
            expands it. Else indents the current line. Acts as normal in minibuffer."
            (interactive)
-                                        ;(if (yas/next-field)
-                                        ;   ()
            (if (boundp 'ido-cur-item)
                (ido-complete)
              (if (minibufferp)
@@ -264,6 +290,7 @@
          (setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %Z"))
 
 (feature yasnippet
+         (add-path "yasnippet-0.6.1c")
          (require 'yasnippet)
          (yas/initialize)
          (yas/load-directory (concat *emacs-config-directory* "/snippets")))
@@ -381,6 +408,7 @@
 (autoload 'yaml-mode     "yaml-mode" nil t)
 (autoload 'sass-mode     "sass-mode" nil t)
 (autoload 'coffee-mode   "coffee-mode" nil t)
+(autoload 'feature-mode  "feature-mode" nil t)
 ; (autoload 'mustache-mode "mustache-mode" nil t)
 
 (setq auto-mode-alist
@@ -392,6 +420,7 @@
     '(("\\.hbs$"          . mustache-mode))
     '(("\\.m$"            . objc-mode))
     '(("\\.haml$"         . haml-mode))
+    '(("\\.feature$"      . feature-mode))
     '(("\\.scss$"         . css-mode))
     '(("\\.yml$"          . yaml-mode))
     '(("\\.yaml$"         . yaml-mode))

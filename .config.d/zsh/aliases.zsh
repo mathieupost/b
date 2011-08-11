@@ -1,6 +1,8 @@
 function linux() { [[ `uname -s` = "Linux"  ]] }
 function mac()   { [[ `uname -s` = "Darwin" ]] }
 
+alias edv="ey deploy -v"
+
 # Bundler
 alias bi="bundle install"
 alias bo="bundle open"
@@ -46,6 +48,8 @@ function server {
 }
 
 alias tags="/usr/local/bin/ctags -e **/*.rb"
+
+alias psag="ps aux | grep "
 
 # Git
 alias git-nohub=$(which git)
