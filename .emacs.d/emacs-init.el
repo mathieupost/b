@@ -2,11 +2,6 @@
 ;; Author:   Burke Libbey <burke@burkelibbey.org>
 
 ;;-----[ Feature Selection ]---------------------------------------------------
-(setq save-interprogram-paste-before-kill t)
-
-(require 'facemenu)
-(require 'font-lock)
-
 (setq features 
       `((ack              . t)
         (browse-kill-ring . t)
@@ -34,36 +29,7 @@
   `(when (cdr (assoc (quote ,feature) features))
      ,@args))
 
-(defun current-line-number ()
-  "Print the current line number (in the buffer) of point."
-  (interactive)
-  (save-restriction
-    (widen)
-    (save-excursion
-      (beginning-of-line)
-      (message "%d"
-               (1+ (count-lines 1 (point)))))))
-
-(defun open-for-stefan ()
-  (interactive)
-  (save-buffer)
-  (ns-do-applescript (concat 
-   "tell application \"iTerm 2\" \n\
-     activate \n\
-     tell the first terminal \n\
-       launch session \"Default Session\" \n\
-       tell the last session \n\
-         write text \"cd " (file-name-directory (buffer-file-name)) "\" \n\
-         write text \"vim +" (current-line-number) " " (buffer-file-name) "\" \n\
-       end tell \n\
-     end tell \n\
-   end tell")))
-
-(global-set-key (kbd "<f6>") 'open-for-stefan)
-
-
 ;;-----[ ELPA ]--------------------------------------------------------
-
 (feature elpa
          (require 'package)
          (setq package-archives (cons '("tromey" . "http://tromey.com/elpa/") package-archives))
@@ -71,6 +37,8 @@
 
 ;;-----[ Housekeeping ]--------------------------------------------------------
 (require 'cl)
+(require 'facemenu)
+(require 'font-lock)
 
 (defvar *user-name*  "Burke Libbey")
 (defvar *short-name* "burke")
@@ -93,6 +61,19 @@
 
 (global-set-key "\C-q" (make-sparse-keymap))
 (global-set-key "\C-q\C-r" 'query-replace-regexp)
+
+(setq save-interprogram-paste-before-kill t)
+
+(progn ;; unicode stuff
+  (setq inhibit-eol-conversion t)
+  (prefer-coding-system 'utf-8)
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (setq file-name-coding-system 'utf-8)
+  (setq coding-system-for-read 'utf-8)
+  (setq coding-system-for-write 'utf-8))
 
 ;;-----[ Custom ]--------------------------------------------------------------
 (custom-set-faces
@@ -299,7 +280,7 @@
 
 (defun dbl:sign ()
   (interactive)
-  (insert (concat " --" *short-name* "@" 
+  (insert (concat "--" *short-name* "@" 
                   (format-time-string "%Y-%m-%d"))))
 (global-set-key "\C-c[" 'dbl:sign)
 
@@ -322,54 +303,30 @@
 
 ;;-----[ Miscellaneous Keybinds ]----------------------------------------------
 
-(global-set-key "\C-q\C-q" 'quoted-insert)
-
-(global-set-key "\C-q\C-c" 'eshell)
-(global-set-key "\C-q0" 'linum-mode)
-
-(global-set-key (kbd "C-,") 'undo)
-(global-set-key "\C-h" 'delete-backward-char)
-
-
-(global-set-key "\C-c\C-r" 'align-regexp)
-
-(put 'scroll-left 'disabled nil)
-
 (defun dbl:dired (&optional arg)
   (interactive "P")
   (if arg
       (ido-dired)
       (dired ".")))
 
-(global-set-key "\C-x\C-d"   'dbl:dired)
-
-(global-set-key "\C-c\C-f"   'fill-region)
-
-;; How did I live without this?
-(global-set-key "\C-w"       'backward-kill-word)
-(global-set-key "\C-x\C-k"   'kill-region)
-
-;; Select all. Apparently some morons bind this to C-a.
-(global-set-key "\C-c\C-a"   'mark-whole-buffer)
-
-(global-set-key "\C-ct"      '(lambda () (interactive) (ansi-term "/bin/zsh")))
-
-;; Alternative to RSI-inducing M-x, and extra insurance.
-(global-set-key "\C-xm"      'execute-extended-command)
-(global-set-key "\C-cm"      'execute-extended-command)
-(global-set-key "\C-x\C-m"   'execute-extended-command)
-(global-set-key "\C-c\C-m"   'execute-extended-command)
-
-(global-set-key "\C-x\C-r"   'query-replace-regexp)
-
-(global-set-key "\C-cw"      'toggle-truncate-lines)
-
-(global-set-key "\C-cg"      'goto-line)
-(global-set-key "\C-cG"      'goto-char)
-
-;; I'll take "functions that should have keybindings" for 100, Alex.
-(global-set-key "\C-cc"      'comment-region)
-(global-set-key "\C-cu"      'uncomment-region)
+(global-set-key "\C-q\C-q"  'quoted-insert)
+(global-set-key "\C-q\C-c"  'eshell)
+(global-set-key "\C-q0"     'linum-mode)
+(global-set-key "\C-h"      'delete-backward-char)
+(global-set-key "\C-c\C-r"  'align-regexp)
+(global-set-key (kbd "C-,") 'undo)
+(global-set-key "\C-x\C-d"  'dbl:dired)
+(global-set-key "\C-c\C-f"  'fill-region)
+(global-set-key "\C-w"      'backward-kill-word)
+(global-set-key "\C-x\C-k"  'kill-region)
+(global-set-key "\C-ct"     '(lambda () (interactive) (ansi-term "/bin/zsh")))
+(global-set-key "\C-x\C-m"  'execute-extended-command)
+(global-set-key "\C-x\C-r"  'query-replace-regexp)
+(global-set-key "\C-cw"     'toggle-truncate-lines)
+(global-set-key "\C-cg"     'goto-line)
+(global-set-key "\C-cG"     'goto-char)
+(global-set-key "\C-cc"     'comment-region)
+(global-set-key "\C-cu"     'uncomment-region)
 
 ;; Next and previous for grep and compile errors
 (global-set-key "\C-cn"      'next-error)
@@ -446,6 +403,8 @@
 
 ;;-----[ Very miscellaneous ]--------------------------------------------------
 
+(put 'scroll-left 'disabled nil)
+
 (when window-system
   (global-unset-key "\C-z"))
 
@@ -464,11 +423,6 @@
 (add-hook 'c-mode-common-hook 'highlight-todo)
 (add-hook 'ruby-mode-hook 'highlight-todo)
 
-(defun yaml-mode-hook ()
-  (autoload 'yaml-mode "yaml-mode" nil t)
-  (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-  (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode)))
-
 (defun css-mode-hook ()
   (autoload 'css-mode "css-mode" nil t)
   (add-hook 'css-mode-hook '(lambda ()
@@ -482,8 +436,6 @@
 (fset 'ruby-method-definition
    [tab ?d ?e ?f ?  ?a return ?e ?n ?d ?  tab backspace ?\C-p ?\C-e backspace])
 
-(global-set-key "\C-x\C-a" '(lambda ()(interactive)(ansi-term "/bin/zsh")))
-
 (when window-system
   (global-set-key (kbd "<s-return>") 'ns-toggle-fullscreen))
 
@@ -491,16 +443,28 @@
                              (local-set-key (kbd "C-i") 'ruby-insert-end)
                              (local-set-key (kbd "C-q C-j") 'ruby-method-definition)))
 
+(defun open-for-stefan ()
+  (interactive)
+  (let ((current-line-number (lambda ()
+                               (save-restriction
+                                 (widen)
+                                 (save-excursion
+                                   (beginning-of-line)
+                                   (message "%d" (1+ (count-lines 1 (point)))))))))
+    (save-buffer)
+    (ns-do-applescript (concat 
+                        "tell application \"iTerm 2\" \n\
+                        activate \n\
+                        tell the first terminal \n\
+                          launch session \"Default Session\" \n\
+                          tell the last session \n\
+                            write text \"cd " (file-name-directory (buffer-file-name)) "\" \n\
+                            write text \"vim +" (current-line-number) " " (buffer-file-name) "\" \n\
+                          end tell \n\
+                        end tell \n\
+                      end tell"))))
 
-(setq inhibit-eol-conversion t)
-(prefer-coding-system 'utf-8)
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(setq file-name-coding-system 'utf-8)
-(setq coding-system-for-read 'utf-8)
-(setq coding-system-for-write 'utf-8)
+(global-set-key (kbd "<f6>") 'open-for-stefan)
 
 ;; make zap-to-char act like zap-up-to-char
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
@@ -508,3 +472,4 @@
   The CHAR is replaced and the point is put before CHAR."
   (insert char)
   (forward-char -1))
+
