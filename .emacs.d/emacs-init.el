@@ -5,7 +5,7 @@
 (setq features 
       `((ack              . t)
         (browse-kill-ring . t)
-        (cedet            . nil)
+        (cedet            . t)
         (edit-server      . t)
         (elpa             . nil)
         (eshell           . t)
@@ -17,6 +17,7 @@
         (override-copy    . ,window-system)
         (font             . ,window-system)
         (rdebug           . t)
+        (rinari           . t)
         (rvm              . nil)
         (smart-tab        . t)
         (color-theme      . ,window-system)
@@ -61,8 +62,6 @@
 
 (global-set-key "\C-q" (make-sparse-keymap))
 (global-set-key "\C-q\C-r" 'query-replace-regexp)
-
-(setq save-interprogram-paste-before-kill t)
 
 (progn ;; unicode stuff
   (setq inhibit-eol-conversion t)
@@ -124,6 +123,7 @@
   '(make-backup-files        nil)
   '(ns-antialias-text        nil)
   '(auto-save-default        nil)
+  '(yas/trigger-key          nil)
   '(ruby-deep-indent-paren-style nil)
   '(default-major-mode (quote text-mode)))
 
@@ -139,7 +139,7 @@
          (global-set-key "\C-c\C-k" 'browse-kill-ring))
 
 (feature cedet
-         (load-file (concat site-lisp-path "cedet-1.0pre4/common/cedet.el"))
+         (load-file (concat site-lisp-path "cedet/common/cedet.elc"))
          (semantic-load-enable-code-helpers))
 
 (feature color-theme
@@ -207,18 +207,24 @@
          (global-set-key "\C-cb" 'org-iswitchb))
 
 (feature override-copy
+         (setq save-interprogram-paste-before-kill t)
          (defun pbcopy ()
            (interactive)
            (shell-command-on-region (point) (mark) "pbcopy"))
          (global-set-key (kbd "s-c") 'pbcopy))
 
 (feature font
-;         (set-frame-font "Envy Code R-12"))
+         ;; (set-frame-font "Envy Code R-12"))
          (set-frame-font "Pragmata TT-12"))
 
 (feature rdebug
          (add-path "rdebug")
          (require 'rdebug))
+
+(feature rinari
+         (add-path "rinari")
+         (require 'rinari)
+         (setq rinari-tags-file-name "TAGS"))
 
 (feature rvm
          (require 'rvm)
@@ -235,24 +241,17 @@
                  try-complete-file-name
                  try-complete-lisp-symbol))
          
-         (defun dbl:smart-tab ()
-           "If mark is active, indents region. Else if point is at the end of a symbol,
-           expands it. Else indents the current line. Acts as normal in minibuffer."
+         (defun smart-tab ()
            (interactive)
-           (if (boundp 'ido-cur-item)
-               (ido-complete)
-             (if (minibufferp)
-                 (minibuffer-complete)
-               (if mark-active
-                   (indent-region (region-beginning) (region-end))
-                 (if (and (looking-at "\\_>") (not (looking-at "end")))
-                     (hippie-expand nil)
-                   (indent-for-tab-command))))))
+           (cond ((boundp 'ido-cur-item) (ido-complete))
+                 ((minibufferp) (minibuffer-complete))
+                 (mark-active (indent-region (region-beginning) (region-end)))
+                 ((and (looking-at "\\_>") (not (looking-back "end\\|\\}"))) (hippie-expand nil))
+                 (t (indent-for-tab-command))))
          
-         (global-set-key [(tab)] 'dbl:smart-tab)
+         (global-set-key [(tab)] 'smart-tab)
          (add-hook 'term-mode-hook '(lambda ()
                                       (local-set-key [(tab)] 'term-send-raw))))
-
 
 (feature speedbar
          (autoload 'speedbar "speedbar" nil t)
@@ -261,7 +260,7 @@
          (global-set-key "\C-c\C-s" 'speedbar))
 
 (feature starter-kit-js
-  (require 'starter-kit-js))
+         (require 'starter-kit-js))
 
 (feature timestamp
          ;; When files have "Modified: <>" in their first 8 lines, fill it in on save.
@@ -366,7 +365,7 @@
 (autoload 'sass-mode     "sass-mode" nil t)
 (autoload 'coffee-mode   "coffee-mode" nil t)
 (autoload 'feature-mode  "feature-mode" nil t)
-; (autoload 'mustache-mode "mustache-mode" nil t)
+(autoload 'mustache-mode "template-mode" nil t)
 
 (setq auto-mode-alist
   (nconc
@@ -374,7 +373,7 @@
     '(("\\.xml$"          . nxml-mode))
     '(("\\.html$"         . nxml-mode))
     '(("\\.coffee$"       . coffee-mode))
-    '(("\\.hbs$"          . mustache-mode))
+    '(("\\.hbs$"          . template-mode))
     '(("\\.m$"            . objc-mode))
     '(("\\.haml$"         . haml-mode))
     '(("\\.feature$"      . feature-mode))
@@ -382,7 +381,7 @@
     '(("\\.yml$"          . yaml-mode))
     '(("\\.yaml$"         . yaml-mode))
     '(("\\.json$"         . yaml-mode))
-    '(("\\.mustache$"     . mustache-mode))
+    '(("\\.mustache$"     . template-mode))
     '(("\\.rb$"           . ruby-mode))
     '(("\\.gemspec$"      . ruby-mode))
     '(("\\.md$"           . markdown-mode))
@@ -442,6 +441,7 @@
 (add-hook 'ruby-mode-hook '(lambda ()
                              (local-set-key (kbd "C-i") 'ruby-insert-end)
                              (local-set-key (kbd "C-q C-j") 'ruby-method-definition)))
+
 
 (defun open-for-stefan ()
   (interactive)
