@@ -24,6 +24,7 @@
         (speedbar         . ,window-system)
         (starter-kit-js   . t)
         (timestamp        . t)
+        (vimpulse         . nil)
         (yasnippet        . t)))
 
 (defmacro feature (feature &rest args)
@@ -269,12 +270,18 @@
          (setq time-stamp-end    "\\\\?[\">]")
          (setq time-stamp-format "%:y-%02m-%02d %02H:%02M:%02S %Z"))
 
+(feature vimpulse
+         (add-path "vimpulse")
+         (require 'vimpulse)
+         (global-set-key "\[" 'ESC))
+
 (feature yasnippet
          (add-path "yasnippet-0.6.1c")
          (require 'yasnippet)
          (yas/initialize)
          (yas/load-directory (concat *emacs-config-directory* "/snippets")))
 
+                   
 ;;-----[ Name/date insertion ]-------------------------------------------------
 
 (defun dbl:sign ()
@@ -441,7 +448,6 @@
 (add-hook 'ruby-mode-hook '(lambda ()
                              (local-set-key (kbd "C-i") 'ruby-insert-end)
                              (local-set-key (kbd "C-q C-j") 'ruby-method-definition)))
-
 
 (defun open-for-stefan ()
   (interactive)

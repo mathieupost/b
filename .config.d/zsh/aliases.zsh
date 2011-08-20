@@ -3,6 +3,26 @@ function mac()   { [[ `uname -s` = "Darwin" ]] }
 
 alias edv="ey deploy -v"
 
+function eyp() {
+    ey $@ --app jack --environment jack
+}
+
+function eys() {
+    ey $@ --app jack_staging --environment jack_staging
+}
+
+alias sadjack="cd ~/src/apps/jack ; script/autodev"
+alias jack="cd ~/src/apps/jack"
+alias sad="script/autodev"
+alias ras="cd ~/src/apps/jack ; touch tmp/run_all_specs"
+alias raf="cd ~/src/apps/jack ; touch tmp/run_all_features"
+alias rab="cd ~/src/apps/jack ; touch tmp/run_all_specs ; touch tmp/run_all_features"
+
+alias pyserv="python -m SimpleHTTPServer"
+
+alias ka9="killall -9"
+alias k9="kill -9"
+
 # Bundler
 alias bi="bundle install"
 alias bo="bundle open"
@@ -54,6 +74,7 @@ alias psag="ps aux | grep "
 # Git
 alias git-nohub=$(which git)
 alias   git="hub" # Hub gem.
+alias   gtl="git tag -l"
 alias    ga="git-nohub add"
 alias  gaac="git-nohub add .; gac"
 alias   gac="gc"
@@ -76,6 +97,7 @@ alias  gdts="git-nohub stash; git-nohub pull; git-nohub stash pop"
 alias    gf="git-nohub diff"
 alias    gl="git-nohub log"
 alias   glp="git-nohub log -p" 
+alias  glpr="git-nohub log -p --reverse" 
 alias    gm="git-nohub merge"
 alias    gn="git clone"
 alias   grh="git-nohub reset HEAD"
