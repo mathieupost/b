@@ -12,7 +12,7 @@ function eys() {
 }
 
 function xrgm() {
-  $EDITOR --no-wait `bundle exec rails generate migration $1 | tail -n1 | awk '{print $3}'`
+  $EDITOR `bundle exec rails generate migration $1 | tail -n1 | awk '{print $3}'`
 }
 
 function def () {
@@ -145,10 +145,6 @@ alias r="ruby"
 alias se="spec"
 
 function e () {
-    $EDITOR --no-wait $* 2>/dev/null
-}
-
-function ee () {
     $EDITOR $* 2>/dev/null
 }
 

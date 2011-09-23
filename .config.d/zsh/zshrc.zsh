@@ -1,7 +1,7 @@
 export NAME="Burke Libbey"
 export EMAIL="burke@burkelibbey.org"
 
-export EDITOR="$HOME/.emacs.d/emacsclient"
+export EDITOR="$HOME/bin/vim"
 export PAGER="less"
 
 export GIT_AUTHOR_NAME=$NAME
