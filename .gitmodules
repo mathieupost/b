@@ -1,33 +1,3 @@
-[submodule ".emacs.d/site-lisp/textmate.el"]
-	path = .emacs.d/site-lisp/textmate.el
-	url = git://github.com/defunkt/textmate.el.git
-[submodule ".emacs.d/site-lisp/html5-el"]
-	path = .emacs.d/site-lisp/html5-el
-	url = git://github.com/hober/html5-el.git
-[submodule ".config.d/zsh/j"]
-	path = .config.d/zsh/j
-	url = git@github.com:burke/j.git
-[submodule ".emacs.d/site-lisp/magit"]
-	path = .emacs.d/site-lisp/magit
-	url = git://gitorious.org/magit/mainline.git
-[submodule ".emacs.d/site-lisp/emacs-rails"]
-	path = .emacs.d/site-lisp/emacs-rails
-	url = git://github.com/remvee/emacs-rails.git
-[submodule ".emacs.d/site-lisp/rinari"]
-	path = .emacs.d/site-lisp/rinari
-	url = git://github.com/eschulte/rinari.git
-[submodule ".emacs.d/site-lisp/rhtml"]
-	path = .emacs.d/site-lisp/rhtml
-	url = git://github.com/eschulte/rhtml.git
-[submodule ".emacs.d/site-lisp/color-theme-twilight"]
-	path = .emacs.d/site-lisp/color-theme-twilight
-	url = git://github.com/crafterm/twilight-emacs.git
-[submodule ".emacs.d/site-lisp/gist"]
-	path = .emacs.d/site-lisp/gist
-	url = git://github.com/defunkt/gist.el.git
-[submodule ".emacs.d/site-lisp/markdown-mode"]
-	path = .emacs.d/site-lisp/markdown-mode
-	url = git://github.com/defunkt/markdown-mode.git
-[submodule ".emacs.d/site-lisp/yasnippet"]
-	path = .emacs.d/site-lisp/yasnippet
-	url = git://github.com/defunkt/yasnippet.git
+[submodule ".vim"]
+	path = .vim
+	url = git@github.com:burke/janus.git
