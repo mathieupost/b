@@ -11,41 +11,9 @@ function eys() {
     ey $@ --app jack_staging --environment jack_staging
 }
 
-alias sadjack="cd ~/src/apps/jack ; script/autodev"
-alias jack="cd ~/src/apps/jack"
-alias sad="script/autodev"
-alias ras="cd ~/src/apps/jack ; touch tmp/run_all_specs"
-alias raf="cd ~/src/apps/jack ; touch tmp/run_all_features"
-alias rab="cd ~/src/apps/jack ; touch tmp/run_all_specs ; touch tmp/run_all_features"
-
-alias pyserv="python -m SimpleHTTPServer"
-
-alias ka9="killall -9"
-alias k9="kill -9"
-
-# Bundler
-alias bi="bundle install"
-alias bo="bundle open"
-alias bu="bundle update"
-alias  x="bundle exec"
-
-alias  xrs="bundle exec rails server"
-alias  xrc="bundle exec rails console"
-alias  xrg="bundle exec rails generate"
-
-alias xr="bundle exec rake"
-
-alias trt="touch tmp/restart.txt"
-alias mcm="git-nohub fetch core master; git-nohub merge FETCH_HEAD && git-nohub push"
-
 function xrgm() {
   $EDITOR --no-wait `bundle exec rails generate migration $1 | tail -n1 | awk '{print $3}'`
 }
-
-alias ru="rackup"
-
-alias cpd="cap production deploy"
-alias csd="cap staging deploy"
 
 function def () {
     ack "def $*"
@@ -59,6 +27,17 @@ function gc () {
     fi 
 }
 
+function cpip () {
+  ip=$(ifconfig en1 | grep inet | awk '{print $2}' | tail -n1)
+  echo $ip | pbcopy
+  echo $ip
+}
+
+function pyserv () {
+  echo http://$(ifconfig en1 | grep inet | awk '{print $2}' | tail -n1):8000 | pbcopy
+  python -m SimpleHTTPServer
+}
+
 function gam () {
     git commit --amend -m "$*"
 }
@@ -67,12 +46,32 @@ function server {
    ruby -rwebrick -e's=WEBrick::HTTPServer.new(:Port=>9999,:DocumentRoot=>Dir.pwd);trap("INT"){s.stop};s.start' 
 }
 
+alias cdd="cd `readlink ~/.autodev`"
+
+alias git-nohub="/usr/local/bin/git"
+alias sadjack="cd ~/src/apps/jack ; script/autodev"
+alias jack="cd ~/src/apps/jack"
+alias sad="script/autodev"
+alias ras="cd ~/src/apps/jack ; touch tmp/run_all_specs"
+alias raf="cd ~/src/apps/jack ; touch tmp/run_all_features"
+alias rab="cd ~/src/apps/jack ; touch tmp/run_all_specs ; touch tmp/run_all_features"
+alias ka9="killall -9"
+alias k9="kill -9"
+alias bi="bundle install"
+alias bo="bundle open"
+alias bu="bundle update"
+alias  x="bundle exec"
+alias  xrs="bundle exec rails server"
+alias  xrc="bundle exec rails console"
+alias  xrg="bundle exec rails generate"
+alias xr="bundle exec rake"
+alias trt="touch tmp/restart.txt"
+alias mcm="git-nohub fetch core master; git-nohub merge FETCH_HEAD && git-nohub push"
+alias ru="rackup"
+alias cpd="cap production deploy"
+alias csd="cap staging deploy"
 alias tags="/usr/local/bin/ctags -e **/*.rb"
-
 alias psag="ps aux | grep "
-
-# Git
-alias git-nohub=$(which git)
 alias   git="hub" # Hub gem.
 alias   gtl="git tag -l"
 alias    ga="git-nohub add"
@@ -132,12 +131,12 @@ function mibi() {
 }
 
 # Rake
-alias    rs="rake spec"
-alias   rps="rake 'parallel:spec[4]'"
-alias   rdm="rake db:migrate"
-alias  rdmr="rake db:migrate:redo"
-alias  rdmd="rake db:migrate:down"
-alias rdres="rake db:reset"
+alias    rs="bundle exec rake spec"
+alias   rps="bundle exec rake 'parallel:spec[4]'"
+alias   rdm="bundle exec rake db:migrate"
+alias  rdmr="bundle exec rake db:migrate:redo"
+alias  rdmd="bundle exec rake db:migrate:down"
+alias rdres="bundle exec rake db:reset"
 
 alias xts="bundle exec thin start"
 

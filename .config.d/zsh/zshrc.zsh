@@ -37,13 +37,21 @@ setopt \
     pushd_silent \
     correct
 
+fpath=($fpath $HOME/.config.d/zsh/func)
+typeset -U fpath
+
+#autoload -U promptinit
+#promptinit
+
+#prompt wunjo
+
 # Emacs editing
 bindkey -e
 
 autoload -Uz colors
 colors
 
-. ~/.config.d/zsh/git.zsh
+#. ~/.config.d/zsh/git.zsh
 . ~/.config.d/zsh/prompts.zsh
 . ~/.config.d/zsh/titles.zsh
 . ~/.config.d/zsh/completion.zsh
@@ -53,7 +61,6 @@ colors
 . ~/.config.d/zsh/j/j.sh
 . ~/.config.d/zsh/z.zsh
 . ~/.private.zsh
-
 
 function og {
   scp -r $1 og:~/b/u

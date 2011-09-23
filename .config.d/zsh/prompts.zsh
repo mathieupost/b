@@ -1,20 +1,11 @@
 function build-prompt() {
-    case "$?" in 
+    ret=$?
+    case "$ret" in 
         0) statcolor="%{$fg[green]%}" ;;
-        *) statcolor="%{$fg[red]%}"   ;;
+        *) statcolor="%{$fg[red]%}$ret"   ;;
     esac 
-    git=$(git-prompt)
-    ruby=$(rvm-prompt u " " g | \
-        sed 's/ree-1.8.7-2010.02/✈/')
-
-    p=$(echo `pwd` | \
-        sed 's/\/Users\/[^\/]*/\~/' | \
-        sed 's/\~\/src\/panda/熊貓/' 
-    )
-
-    if [[ $RUBY_HEAP_MIN_SLOTS == 1000000 ]] {
-      turbo=" ⚡"
-    }
+    ruby=$(/Users/burke/src/b/prompt/ruby_info)
+    git=$(/Users/burke/src/b/prompt/prompt)
 
     case `hostname` in
         espresso.local) pathcolor="%{$fg[cyan]%}"    ;;
@@ -24,9 +15,14 @@ function build-prompt() {
         *)              pathcolor="%{$fg[red]%}"     ;;
     esac
 
-    echo "$pathcolor$p $git%{$fg[red]%}$ruby$turbo $statcolor▸%{$reset_color%} "
+    echo "$pathcolor%c %{$fg[red]%}$ruby $git $statcolor%#%{$reset_color%} "
 }
-PS1='`build-prompt`'
+PROMPT='`build-prompt`'
+
+function build-rprompt() {
+  echo "%{\x1b[93m%}%~ %l %h %*%{$fg[reset]%}"
+}
+RPROMPT='`build-rprompt`'
 
 [ x$TERM = "xeterm-color" ] && setopt singlelinezle
 [ x$TERM = "xdumb" ] && unsetopt zle && PS1='$ '
