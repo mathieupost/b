@@ -1,0 +1,29 @@
+function! StripWhitespace ()
+    exec ':%s/ \+$//gc'
+endfunction
+map ,s :call StripWhitespace ()<CR>
+
+map ,j ,lb
+
+let mapleader = ","
+color solarized
+set t_Co=256
+au BufNewFile,BufRead *.handlebars set filetype=mustache
+
+set guioptions-=L
+set guioptions-=r
+set noantialias
+set guifont=Pragmata\ TT:h12
+
+set notimeout
+set ttimeout
+set timeoutlen=50
+set clipboard=unnamed
+
+imap jj <ESC>
+nmap ; :
+vmap ; :
+
+if has("mouse")
+  set mouse=a
+endif
