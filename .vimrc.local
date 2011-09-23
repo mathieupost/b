@@ -10,6 +10,7 @@ color solarized
 set t_Co=256
 au BufNewFile,BufRead *.handlebars set filetype=mustache
 
+set hidden
 set guioptions-=L
 set guioptions-=r
 set noantialias
