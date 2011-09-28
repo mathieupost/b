@@ -7,6 +7,11 @@ function build-prompt() {
     ruby=$(/Users/burke/src/b/prompt/ruby_info)
     git=$(/Users/burke/src/b/prompt/prompt)
 
+    turbo=""
+    if [[ $RUBY_HEAP_MIN_SLOTS == 1000000 ]] {
+      turbo="X"
+    }
+
     case `hostname` in
         espresso.local) pathcolor="%{$fg[cyan]%}"    ;;
         espresso)       pathcolor="%{$fg[cyan]%}"    ;;
@@ -15,7 +20,7 @@ function build-prompt() {
         *)              pathcolor="%{$fg[red]%}"     ;;
     esac
 
-    echo "$pathcolor%c %{$fg[red]%}$ruby $git $statcolor%#%{$reset_color%} "
+    echo "$pathcolor%c %{$fg[red]%}$turbo$ruby $git $statcolor%#%{$reset_color%} "
 }
 PROMPT='`build-prompt`'
 

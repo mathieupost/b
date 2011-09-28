@@ -148,6 +148,8 @@ function e () {
     $EDITOR $* 2>/dev/null
 }
 
+alias gvsc="git add . ; git commit -am 'Auto-commit with useless commit message' ; git pull ; git push"
+
 rb () {
   if [ x$1 = x ]; then
     rake build *.gemspec

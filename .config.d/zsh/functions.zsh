@@ -18,20 +18,3 @@ turbo()  {
     export RUBY_HEAP_FREE_MIN=500000
   }
 }
-
-function powCycle {
-  echo "*** Stopping the Pow server..."
-  launchctl unload -F "$HOME/Library/LaunchAgents/cx.pow.powd.plist" || true
-  echo "*** Starting the Pow server..."
-  launchctl load -F "$HOME/Library/LaunchAgents/cx.pow.powd.plist"
-}
-
-function powOff {
-  sudo launchctl unload /Library/LaunchDaemons/cx.pow.firewall.plist
-  sudo ipfw flush
-}
-
-function powOn {
-  sudo launchctl load /Library/LaunchDaemons/cx.pow.firewall.plist
-}
-
