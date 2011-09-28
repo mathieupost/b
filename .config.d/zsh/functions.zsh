@@ -20,8 +20,8 @@ turbo()  {
 }
 
 function og {
-  scp -r $1 og:~/b/u
-  echo "http://burkelibbey.org/u/$1" | pbcopy
+  scp -r $1 og:~/b
+  echo "http://burkelibbey.org/$1" | pbcopy
 }
 
 
