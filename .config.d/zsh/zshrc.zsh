@@ -62,10 +62,7 @@ colors
 . ~/.config.d/zsh/z.zsh
 . ~/.private.zsh
 
-function og {
-  scp -r $1 og:~/b/u
-  echo "http://burkelibbey.org/u/$1" | pbcopy
-}
+turbo
 
 function project_precmd() {
   if [ -z $1 ]; then

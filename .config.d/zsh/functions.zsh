@@ -18,3 +18,10 @@ turbo()  {
     export RUBY_HEAP_FREE_MIN=500000
   }
 }
+
+function og {
+  scp -r $1 og:~/b/u
+  echo "http://burkelibbey.org/u/$1" | pbcopy
+}
+
+
