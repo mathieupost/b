@@ -46,6 +46,8 @@ function server {
    ruby -rwebrick -e's=WEBrick::HTTPServer.new(:Port=>9999,:DocumentRoot=>Dir.pwd);trap("INT"){s.stop};s.start' 
 }
 
+alias tmux="tmux -2"
+
 alias cdd="cd `readlink ~/.autodev`"
 
 alias git-nohub="/usr/local/bin/git"

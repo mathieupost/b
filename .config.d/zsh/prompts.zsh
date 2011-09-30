@@ -25,7 +25,7 @@ function build-prompt() {
 PROMPT='`build-prompt`'
 
 function build-rprompt() {
-  echo "%{\x1b[93m%}%~ %l %h %*%{$fg[reset]%}"
+  echo "%{$fg[black]%}%~ %l %h %*%{$fg[reset]%}"
 }
 RPROMPT='`build-rprompt`'
 
