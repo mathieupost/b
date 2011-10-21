@@ -1,9 +1,7 @@
 set t_Co=256
 let mapleader = ","
-function! StripWhitespace ()
-    exec ':%s/ \+$//gc'
-endfunction
-nnoremap <leader>s :call StripWhitespace ()<CR>
+
+nnoremap <leader>s :%s/ \+$//gc<cr>a<cr><cr>
 
 function! ToggleNuMode()
   if(&rnu == 1)
@@ -12,7 +10,7 @@ function! ToggleNuMode()
     set rnu
   endif
 endfunction
-nnoremap <leader>n :call ToggleNuMode()<cr> 
+nnoremap <leader>n :call ToggleNuMode()<cr>
 au BufReadPost * set relativenumber
 
 map <leader>j <leader>lb
@@ -22,7 +20,7 @@ map <leader>p Pjddkyy
 color wombat256
 au BufNewFile,BufRead *.handlebars set filetype=mustache
 
-map <leader>a :NERDTree<cr>:set norelativenumber<cr>
+set shellredir=>%s\ 2>&1
 
 set notimeout
 set ttimeout
@@ -43,7 +41,7 @@ set hidden
 set wildmenu
 set wildmode=list:longest
 set visualbell
-set cursorline
+set nocursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
@@ -62,30 +60,41 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " todo: make A work in iTerm2
-nnoremap <A-j> :m+<CR>==
-nnoremap <A-k> :m-2<CR>==
-inoremap <A-j> <Esc>:m+<CR>==gi
-inoremap <A-k> <Esc>:m-2<CR>==gi
-vnoremap <A-j> :m'>+<CR>gv=gv
-vnoremap <A-k> :m-2<CR>gv=gv
+nnoremap ∆ :m+<CR>==    " Option + j
+nnoremap ˚ :m-2<CR>==   " Option + k
+inoremap ∆ <Esc>:m+<CR>==gi
+inoremap ˚ <Esc>:m-2<CR>==gi
+vnoremap ∆ :m'>+<CR>gv=gv
+vnoremap ˚ :m-2<CR>gv=gv
 
 noremap H ^
 noremap L $
 
-nnoremap <leader>gR :call ShowRoutes()<cr>
+"nnoremap <leader>gR :call ShowRoutes()<cr>
+nnoremap <leader>gg :CommandTFlush<cr>\|:CommandT<cr>
 nnoremap <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
 nnoremap <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
 nnoremap <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
 nnoremap <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
 nnoremap <leader>ga :CommandTFlush<cr>\|:CommandT app/assets<cr>
 nnoremap <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
-nnoremap <leader>gg :topleft 100 :split Gemfile<cr>
+nnoremap <leader>gr :topleft 100 :split config/routes.rb<cr>
+nnoremap <leader>gG :topleft 100 :split Gemfile<cr>
 
 nnoremap <leader>sv :source ~/.vimrc.local<cr>
 nnoremap <leader>ev :edit ~/.vimrc.local<cr>
 
+nnoremap <leader>4 :NERDTree<cr>:set nornu<cr>
+
 nnoremap <leader><leader> <C-^>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
+cnoremap %! <C-R>=expand('%')<cr>
+
+" <leader>F maps <leader>f to run the current spec.
+function! MapSpecRun ()
+  nnoremap <leader>f :w\|:!rspec --color --format progress <C-R>=expand('%')<cr><cr>
+endfunction
+nnoremap <leader>F :call MapSpecRun()<cr>
 
 set statusline=%F%m%r%h%w\ <%Y>\ %l:%v(%L\|%p%%)
 

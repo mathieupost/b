@@ -150,6 +150,11 @@ function e () {
     $EDITOR $* 2>/dev/null
 }
 
+function et () {
+  # <leader>t opens NERDTree and does some other stuff
+  $EDITOR -c 'normal(,4)' $* 2>/dev/null
+}
+
 alias gvsc="git add . ; git commit -am 'Auto-commit with useless commit message' ; git pull ; git push"
 
 rb () {

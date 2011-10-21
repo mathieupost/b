@@ -62,8 +62,6 @@ colors
 . ~/.config.d/zsh/z.zsh
 . ~/.private.zsh
 
-turbo
-
 function project_precmd() {
   if [ -z $1 ]; then
     export PROJECT_ROOT=$(cd $(project_precmd .); pwd -P)
