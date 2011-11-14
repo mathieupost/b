@@ -2,6 +2,7 @@ function linux() { [[ `uname -s` = "Linux"  ]] }
 function mac()   { [[ `uname -s` = "Darwin" ]] }
 
 alias edv="ey deploy -v"
+alias rf="bundle exec rake features"
 
 function eyp() {
     ey $@ --app jack --environment jack
@@ -10,6 +11,9 @@ function eyp() {
 function eys() {
     ey $@ --app jack_staging --environment jack_staging
 }
+
+
+alias fr="rake -f FastRakefile"
 
 function xrgm() {
   $EDITOR `bundle exec rails generate migration $1 | tail -n1 | awk '{print $3}'`
@@ -25,6 +29,10 @@ function gc () {
     else 
         git commit -a -v
     fi 
+}
+
+function elm () {
+  e db/migrate/`ls db/migrate | tail -n1`
 }
 
 function cpip () {

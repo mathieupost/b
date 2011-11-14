@@ -31,6 +31,13 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 
+nnoremap Y yf$
+
+inoremap <C-j> <esc>ji
+inoremap <C-k> <esc>ki
+inoremap <C-e> <esc>A
+inoremap <C-a> <esc>I
+
 set encoding=utf-8
 set scrolloff=3
 set autoindent
@@ -74,10 +81,13 @@ noremap L $
 nnoremap <leader>gg :CommandTFlush<cr>\|:CommandT<cr>
 nnoremap <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
 nnoremap <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+nnoremap <leader>gb :CommandTFlush<cr>\|:CommandT app/behaviours<cr>
+nnoremap <leader>gd :CommandTFlush<cr>\|:CommandT app/decorators<cr>
 nnoremap <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
 nnoremap <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
 nnoremap <leader>ga :CommandTFlush<cr>\|:CommandT app/assets<cr>
-nnoremap <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+nnoremap <leader>gp :CommandTFlush<cr>\|:CommandT app/presenters<cr>
+nnoremap <leader>gP :CommandTFlush<cr>\|:CommandT public<cr>
 nnoremap <leader>gr :topleft 100 :split config/routes.rb<cr>
 nnoremap <leader>gG :topleft 100 :split Gemfile<cr>
 
@@ -91,10 +101,10 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 cnoremap %! <C-R>=expand('%')<cr>
 
 " <leader>F maps <leader>f to run the current spec.
-function! MapSpecRun ()
-  nnoremap <leader>f :w\|:!rspec --color --format progress <C-R>=expand('%')<cr><cr>
+function! MapSpecRun(file)
+  execute "nnoremap <leader>f :w\\|:!rspec -c -fp ".a:file."<cr>"
 endfunction
-nnoremap <leader>F :call MapSpecRun()<cr>
+nnoremap <leader>F :call MapSpecRun("<C-R>=expand('%')<cr>")<cr>
 
 set statusline=%F%m%r%h%w\ <%Y>\ %l:%v(%L\|%p%%)
 
