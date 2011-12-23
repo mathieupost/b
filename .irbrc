@@ -1,5 +1,9 @@
 # -*- coding: utf-8; mode: ruby -*-
 
+def ras
+  require 'active_support/all'
+end
+
 require 'ap'
 
 require 'rubygems'

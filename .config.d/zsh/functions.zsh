@@ -3,6 +3,8 @@ setenv() { export $1=$2 }
 sdate()  { date +%Y.%m.%d }
 pc()     { awk "{print \$$1}" }
 
+wcld() { wc -l $1/**/* 2>/dev/null | sort -nr | head -n10 }
+
 turbo()  {
   if [[ $RUBY_HEAP_MIN_SLOTS == 1000000 ]] {
     unset RUBY_HEAP_MIN_SLOTS

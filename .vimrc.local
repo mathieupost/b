@@ -1,7 +1,7 @@
 set t_Co=256
 let mapleader = ","
 
-nnoremap <leader>s :%s/ \+$//gc<cr>a<cr><cr>
+nnoremap <leader>s :%s/ \+$//g<cr>:noh<cr>
 
 function! ToggleNuMode()
   if(&rnu == 1)
@@ -13,11 +13,12 @@ endfunction
 nnoremap <leader>n :call ToggleNuMode()<cr>
 au BufReadPost * set relativenumber
 
+map <space> @q
+
 map <leader>j <leader>lb
 
 map <leader>p Pjddkyy
 
-color wombat256
 au BufNewFile,BufRead *.handlebars set filetype=mustache
 
 set shellredir=>%s\ 2>&1
@@ -31,12 +32,34 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 
+set guifont=Pragmata\ TT:h12
+set noantialias
+set guioptions-=r
+set guioptions-=L
+set guioptions-=e
+
+" colorscheme synic
+" colorscheme mustang
+" colorscheme wombat
+" colorscheme ir_black
+" colorscheme zenburn
+colorscheme solarized
+
+nmap ,v lF:xysiw'
+nmap ,V ds'i:<esc>
+
+nnoremap <leader>5 <C-w>v<C-w>l:A<cr>
+
+nnoremap <leader>9 Orequire'pry';binding.pry<esc>
+
 nnoremap Y yf$
 
 inoremap <C-j> <esc>ji
 inoremap <C-k> <esc>ki
 inoremap <C-e> <esc>A
 inoremap <C-a> <esc>I
+nnoremap <C-e> $
+nnoremap <C-a> ^
 
 set encoding=utf-8
 set scrolloff=3
@@ -66,6 +89,15 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" <A-l>
+nnoremap ¬ :tabn<cr>
+" <A-h>
+nnoremap ˙ :tabp<cr>
+" <A-n>
+nnoremap ˜ :tabnew<cr>
+" <A-w>
+nnoremap ∑ :tabclose<cr>
+
 " todo: make A work in iTerm2
 nnoremap ∆ :m+<CR>==    " Option + j
 nnoremap ˚ :m-2<CR>==   " Option + k
@@ -94,8 +126,6 @@ nnoremap <leader>gG :topleft 100 :split Gemfile<cr>
 nnoremap <leader>sv :source ~/.vimrc.local<cr>
 nnoremap <leader>ev :edit ~/.vimrc.local<cr>
 
-nnoremap <leader>4 :NERDTree<cr>:set nornu<cr>
-
 nnoremap <leader><leader> <C-^>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 cnoremap %! <C-R>=expand('%')<cr>
@@ -119,4 +149,155 @@ if has("persistent_undo")
   set undodir=~/.vim/undodir
   set undofile
 endif
+
+function! Cornify()
+    hi Rainbow1 guifg=#6831f8
+    hi Rainbow2 guifg=#0099fc
+    hi Rainbow3 guifg=#3cfa04
+    hi Rainbow4 guifg=#fdfe00
+    hi Rainbow5 guifg=#fc9d00
+    hi Rainbow6 guifg=#fe0000
+
+    echohl Rainbow1
+    echon "\\"
+    echohl None
+    echo ""
+
+    echohl Rainbow1
+    echon " "
+    echohl Rainbow2
+    echon "\\"
+    echohl Rainbow3
+    echon "j"
+    echohl Rainbow4
+    echon "i"
+    echohl None
+    echo ""
+
+    echohl Rainbow1
+    echon " "
+    echohl Rainbow2
+    echon "/"
+    echohl Rainbow3
+    echon "."
+    echohl Rainbow4
+    echon "("
+    echohl Rainbow5
+    echon "("
+    echohl Rainbow6
+    echon "("
+    echohl None
+    echo ""
+
+    echohl Rainbow1
+    echon "("
+    echohl Rainbow2
+    echon ","
+    echohl Rainbow3
+    echon "/"
+    echohl Rainbow4
+    echon "\""
+    echohl Rainbow5
+    echon "("
+    echohl Rainbow6
+    echon "("
+    echohl Rainbow1
+    echon "("
+    echohl Rainbow2
+    echon "_"
+    echohl Rainbow3
+    echon "_"
+    echohl Rainbow4
+    echon ","
+    echohl Rainbow5
+    echon "-"
+    echohl Rainbow6
+    echon "-"
+    echohl Rainbow1
+    echon "."
+    echohl None
+    echo ""
+
+    echon "    "
+    echohl Rainbow5
+    echon "\\"
+    echohl Rainbow6
+    echon "  "
+    echohl Rainbow2
+    echon ")"
+    echohl Rainbow3
+    echon " "
+    echohl Rainbow4
+    echon "_"
+    echohl Rainbow5
+    echon "("
+    echohl Rainbow6
+    echon " "
+    echohl Rainbow1
+    echon "/"
+    echohl Rainbow2
+    echon "{"
+    echohl None
+    echo ""
+
+    echon "    "
+    echohl Rainbow5
+    echon "!"
+    echohl Rainbow6
+    echon "|"
+    echohl Rainbow1
+    echon "|"
+    echohl Rainbow2
+    echon " "
+    echohl Rainbow3
+    echon "\""
+    echohl Rainbow4
+    echon " "
+    echohl Rainbow5
+    echon ":"
+    echohl Rainbow6
+    echon "|"
+    echohl Rainbow1
+    echon "|"
+    echohl None
+    echo ""
+
+    echon "    "
+    echohl Rainbow5
+    echon "\!"
+    echohl Rainbow6
+    echon "|"
+    echohl Rainbow1
+    echon "|"
+    echon "   "
+    echohl Rainbow5
+    echon ":"
+    echohl Rainbow6
+    echon "|"
+    echohl Rainbow1
+    echon "|"
+    echohl None
+    echo ""
+
+    echon "    "
+    echohl Rainbow5
+    echon "'"
+    echohl Rainbow6
+    echon "'"
+    echohl Rainbow1
+    echon "'"
+    echon "   "
+    echohl Rainbow5
+    echon "'"
+    echohl Rainbow6
+    echon "'"
+    echohl Rainbow1
+    echon "'"
+    echohl None
+    echo ""
+
+    sleep 3
+    redraw
+endfunction
+command! Cornify call Cornify()
 
