@@ -141,6 +141,7 @@ alias  grho="git-nohub reset --hard"
 # Rubygems
 alias   mp="gem push"
 mi () { gem install --no-ri --no-rdoc $@ && reh }
+mir () { mi $@ && fc -e - }
 alias   mu="gem uninstall"
 
 function mibi() {
