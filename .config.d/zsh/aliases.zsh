@@ -1,6 +1,16 @@
 function linux() { [[ `uname -s` = "Linux"  ]] }
 function mac()   { [[ `uname -s` = "Darwin" ]] }
 
+alias reh="rbenv rehash && rehash"
+
+alias eda="vim ~/.config.d/zsh/aliases.zsh ; . ~/.config.d/zsh/aliases.zsh"
+
+alias pro="cd ~/src/5/promanager"
+alias shop="cd ~/src/s/shopify"
+alias to="script/testonly"
+
+alias lol="git-nohub log --pretty=oneline --abbrev-commit --graph --decorate"
+
 alias edv="ey deploy -v"
 alias rf="bundle exec rake features"
 
@@ -53,8 +63,6 @@ function gam () {
 function server {
    ruby -rwebrick -e's=WEBrick::HTTPServer.new(:Port=>9999,:DocumentRoot=>Dir.pwd);trap("INT"){s.stop};s.start' 
 }
-
-alias tmux="tmux -2"
 
 alias cdd="cd `readlink ~/.autodev`"
 
@@ -132,7 +140,7 @@ alias  grho="git-nohub reset --hard"
 
 # Rubygems
 alias   mp="gem push"
-alias   mi="gem install --no-ri --no-rdoc"
+mi () { gem install --no-ri --no-rdoc $@ && reh }
 alias   mu="gem uninstall"
 
 function mibi() {

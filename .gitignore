@@ -4,6 +4,7 @@
 !/.gitmodules
 !/.config.d
 !/.gdbinit
+!/.rdebugrc
 !/.gdb
 !/.gdb/*
 !/.screenrc

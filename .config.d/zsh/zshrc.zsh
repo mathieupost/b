@@ -1,7 +1,7 @@
 export NAME="Burke Libbey"
 export EMAIL="burke@burkelibbey.org"
 
-export EDITOR="$HOME/bin/vim"
+export EDITOR="/Users/burke/bin/vim"
 export PAGER="less"
 
 export GIT_AUTHOR_NAME=$NAME
@@ -20,6 +20,9 @@ P="$P:/usr/local/mysql/bin"
 P="$P:/usr/bin"
 # Tail of PATH
 export PATH="$P:$PATH"
+
+export PATH="/usr/local/mysql/bin/:$PATH"
+
 
 export NODE_PATH="/usr/local/lib/node"
 
@@ -80,4 +83,9 @@ function project_precmd() {
 
 precmd_functions+=(project_precmd)
 
-if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+# if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+

@@ -5,7 +5,7 @@ function build-prompt() {
         *) statcolor="%{$fg[red]%}$ret"   ;;
     esac 
     ruby=$(/Users/burke/src/b/prompt/ruby_info)
-    git=$(/Users/burke/src/b/prompt/prompt)
+    git=$(/Users/burke/src/b/prompt/prompt 2>/dev/null)
 
     turbo=""
     if [[ $RUBY_HEAP_MIN_SLOTS == 1000000 ]] {

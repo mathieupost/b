@@ -50,6 +50,7 @@ nmap ,V ds'i:<esc>
 
 nnoremap <leader>5 <C-w>v<C-w>l:A<cr>
 
+nnoremap <leader>8 Orequire'ruby-debug';debugger<esc>
 nnoremap <leader>9 Orequire'pry';binding.pry<esc>
 
 nnoremap Y yf$

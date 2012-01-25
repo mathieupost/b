@@ -6,4 +6,3 @@ define session-asm
   source ~/.gdb/asm
 end 
 
-
