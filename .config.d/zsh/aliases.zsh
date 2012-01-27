@@ -14,15 +14,6 @@ alias lol="git-nohub log --pretty=oneline --abbrev-commit --graph --decorate"
 alias edv="ey deploy -v"
 alias rf="bundle exec rake features"
 
-function eyp() {
-    ey $@ --app jack --environment jack
-}
-
-function eys() {
-    ey $@ --app jack_staging --environment jack_staging
-}
-
-
 alias fr="rake -f FastRakefile"
 
 function xrgm() {
@@ -64,15 +55,7 @@ function server {
    ruby -rwebrick -e's=WEBrick::HTTPServer.new(:Port=>9999,:DocumentRoot=>Dir.pwd);trap("INT"){s.stop};s.start' 
 }
 
-alias cdd="cd `readlink ~/.autodev`"
-
 alias git-nohub="/usr/local/bin/git"
-alias sadjack="cd ~/src/apps/jack ; script/autodev"
-alias jack="cd ~/src/apps/jack"
-alias sad="script/autodev"
-alias ras="cd ~/src/apps/jack ; touch tmp/run_all_specs"
-alias raf="cd ~/src/apps/jack ; touch tmp/run_all_features"
-alias rab="cd ~/src/apps/jack ; touch tmp/run_all_specs ; touch tmp/run_all_features"
 alias ka9="killall -9"
 alias k9="kill -9"
 alias bi="bundle install"
@@ -84,7 +67,6 @@ alias  xrc="bundle exec rails console"
 alias  xrg="bundle exec rails generate"
 alias xr="bundle exec rake"
 alias trt="touch tmp/restart.txt"
-alias mcm="git-nohub fetch core master; git-nohub merge FETCH_HEAD && git-nohub push"
 alias ru="rackup"
 alias cpd="cap production deploy"
 alias csd="cap staging deploy"
@@ -137,6 +119,8 @@ alias   grh="git-nohub reset --hard HEAD"
 alias  grh1="git-nohub reset --hard 'HEAD^'"
 alias  grh2="git-nohub reset --hard 'HEAD^^'"
 alias  grho="git-nohub reset --hard"
+alias rR="rake routes"
+alias rRg="rake routes | grep"
 
 # Rubygems
 alias   mp="gem push"
@@ -145,31 +129,21 @@ mir () { mi $@ && fc -e - }
 alias   mu="gem uninstall"
 
 function mibi() {
-    gem install --no-ri --no-rdoc $1
+    gem install --no-ri --no-rdoc $@
     bundle install
 }
 
 # Rake
 alias    rs="bundle exec rake spec"
-alias   rps="bundle exec rake 'parallel:spec[4]'"
 alias   rdm="bundle exec rake db:migrate"
 alias  rdmr="bundle exec rake db:migrate:redo"
 alias  rdmd="bundle exec rake db:migrate:down"
 alias rdres="bundle exec rake db:reset"
 
-alias xts="bundle exec thin start"
-
 alias r="ruby"
-
-alias se="spec"
 
 function e () {
     $EDITOR $* 2>/dev/null
-}
-
-function et () {
-  # <leader>t opens NERDTree and does some other stuff
-  $EDITOR -c 'normal(,4)' $* 2>/dev/null
 }
 
 alias gvsc="git add . ; git commit -am 'Auto-commit with useless commit message' ; git pull ; git push"
@@ -198,18 +172,6 @@ gfl() {
 gbt() {
   git branch --track $1 origin/$1
 }
-
-merge-dance () {
-  target=$1
-  current=$(git branch -l | grep '*' | awk '{print $2}')
-  git pull
-  git checkout $target
-  git pull
-  git merge $current
-  git checkout $current
-  git merge $target
-}
-alias mdm="merge-dance master"
 
 find-rakefile () {
   if [ -f $1/Rakefile ]; then
@@ -267,7 +229,6 @@ function tarc () {
 
 alias chx="chmod +x"
 alias cmmi="./configure && make && sudo make install"
-alias slime='emacs -e slime'
 
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
@@ -290,10 +251,6 @@ if mac; then
 else
   alias ls="ls --color=auto -F"
 fi
-alias cl="clear;ls"
-alias ll="ls -l"
-alias l.='ls -d .[^.]*'
-alias lsd='ls -ld *(-/DN)'
 
 alias b="popd"
 
