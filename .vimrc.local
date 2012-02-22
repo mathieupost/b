@@ -140,6 +140,8 @@ nnoremap <leader>F :call MapSpecRun("<C-R>=expand('%')<cr>")<cr>
 set statusline=%F%m%r%h%w\ <%Y>\ %l:%v(%L\|%p%%)
 
 inoremap kj <Esc>
+cnoremap kj <esc>
+
 nnoremap ; :
 
 if has("mouse")
@@ -150,6 +152,8 @@ if has("persistent_undo")
   set undodir=~/.vim/undodir
   set undofile
 endif
+
+command! Iterm call Send_to_iTerm(input("$ "))
 
 function! Cornify()
     hi Rainbow1 guifg=#6831f8
@@ -301,4 +305,3 @@ function! Cornify()
     redraw
 endfunction
 command! Cornify call Cornify()
-

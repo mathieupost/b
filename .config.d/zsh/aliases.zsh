@@ -1,6 +1,14 @@
 function linux() { [[ `uname -s` = "Linux"  ]] }
 function mac()   { [[ `uname -s` = "Darwin" ]] }
 
+function ul() {
+  scp $1 burke@burkelibbey.org:b/
+  echo http://burkelibbey.org/$(basename "$1") | pbcopy
+}
+
+
+alias xu="x unicorn -c ~/.uniconf"
+
 alias reh="rbenv rehash && rehash"
 
 alias eda="vim ~/.config.d/zsh/aliases.zsh ; . ~/.config.d/zsh/aliases.zsh"
@@ -51,6 +59,17 @@ function gam () {
     git commit --amend -m "$*"
 }
 
+function gmmf () {
+  git fetch mainline $1 && git merge FETCH_HEAD
+}
+
+function gsmmfp () {
+  git stash && git fetch mainline $1 && git merge FETCH_HEAD && git stash pop
+}
+
+alias gmmfm="gmmf master"
+alias gsmmfpm="gsmmfp master"
+
 function server {
    ruby -rwebrick -e's=WEBrick::HTTPServer.new(:Port=>9999,:DocumentRoot=>Dir.pwd);trap("INT"){s.stop};s.start' 
 }
@@ -94,6 +113,7 @@ alias    gd="git-nohub pull"
 alias   gdu="git-nohub pull && git-nohub push"
 alias  gdts="git-nohub stash; git-nohub pull; git-nohub stash pop"
 alias    gf="git-nohub diff"
+alias   gfc="git-nohub diff --cached"
 alias    gl="git-nohub log"
 alias   glp="git-nohub log -p" 
 alias  glpr="git-nohub log -p --reverse" 

@@ -1,7 +1,7 @@
 export NAME="Burke Libbey"
 export EMAIL="burke@burkelibbey.org"
 
-export EDITOR="/Users/burke/bin/vim"
+export EDITOR="/Users/burke/bin/subl -w"
 export PAGER="less"
 
 export GIT_AUTHOR_NAME=$NAME
@@ -12,7 +12,8 @@ export RUBYOPT="rubygems"
 
 # Head of PATH
 P="$HOME/bin"
-P="$P:/usr/local/share/npm/bin/"
+P="$P:/usr/local/mysql/bin"
+P="$P:/usr/local/share/npm/bin"
 P="$P:/usr/local/bin"
 P="$P:/usr/local/sbin"
 P="$P:/opt/local/bin"
@@ -20,9 +21,6 @@ P="$P:/usr/local/mysql/bin"
 P="$P:/usr/bin"
 # Tail of PATH
 export PATH="$P:$PATH"
-
-export PATH="/usr/local/mysql/bin/:$PATH"
-
 
 export NODE_PATH="/usr/local/lib/node"
 
@@ -46,10 +44,45 @@ typeset -U fpath
 #autoload -U promptinit
 #promptinit
 
-#prompt wunjo
+bindkey -v
+bindkey "^B" backward-char
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+bindkey "^F" forward-char
+bindkey "^X^F" vi-find-next-char
+bindkey "^N" down-line-or-history
+bindkey "^R" history-incremental-search-backward
+bindkey "^S" history-incremental-search-forward
+bindkey "^X^N" infer-next-history
+bindkey "^P" up-line-or-history
+bindkey "^H" backward-delete-char
+bindkey "^W" backward-kill-word
+bindkey "^X^J" vi-join
+bindkey "^K" kill-line
+bindkey "^X^K" kill-buffer
+bindkey "^U" kill-whole-line
+bindkey "^X^B" vi-match-bracket
+bindkey "^X^O" overwrite-mode
+bindkey "^V" quoted-insert
+bindkey "^T" transpose-chars
+bindkey "^Y" yank
+bindkey "^D" delete-char-or-list
+bindkey "^X*" expand-word
+bindkey "^XG" list-expand
+bindkey "^Xg " list-expand
+bindkey "^M" accept-line
+bindkey "^J" accept-line
+bindkey "^O" accept-line-and-down-history
+bindkey "^X^V" vi-cmd-mode
+bindkey "^L" clear-screen
+bindkey "^X^X" exchange-point-and-mark
+bindkey "^Q" push-line
+bindkey "^G" send-break
+bindkey "^@" set-mark-command
+bindkey "^Xu " undo
+bindkey "^X^U" undo
+bindkey "^_" undo
 
-# Emacs editing
-bindkey -e
 
 autoload -Uz colors
 colors
