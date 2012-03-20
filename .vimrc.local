@@ -158,3 +158,9 @@ if has("persistent_undo")
   set undofile
 endif
 
+command! Gshop  cd ~/src/s/shopify
+command! Grails cd ~/src/g/rails
+command! Gruby  cd ~/src/g/ruby
+command! Lshop  lcd ~/src/s/shopify
+command! Lrails lcd ~/src/g/rails
+command! Lruby  lcd ~/src/g/ruby
