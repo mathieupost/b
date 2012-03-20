@@ -1,7 +1,7 @@
 export NAME="Burke Libbey"
 export EMAIL="burke@burkelibbey.org"
 
-export EDITOR="/Users/burke/bin/subl -w"
+export EDITOR="vim"
 export PAGER="less"
 
 export GIT_AUTHOR_NAME=$NAME
@@ -26,8 +26,8 @@ export NODE_PATH="/usr/local/lib/node"
 
 # history
 HISTFILE=~/.zsh_history
-HISTSIZE=5000
-SAVEHIST=1000
+HISTSIZE=50000
+SAVEHIST=10000
 
 setopt \
     appendhistory \

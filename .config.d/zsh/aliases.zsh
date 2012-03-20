@@ -6,7 +6,6 @@ function ul() {
   echo http://burkelibbey.org/$(basename "$1") | pbcopy
 }
 
-
 alias xu="x unicorn -c ~/.uniconf"
 
 alias reh="rbenv rehash && rehash"
@@ -16,6 +15,22 @@ alias eda="vim ~/.config.d/zsh/aliases.zsh ; . ~/.config.d/zsh/aliases.zsh"
 alias pro="cd ~/src/5/promanager"
 alias shop="cd ~/src/s/shopify"
 alias to="script/testonly"
+
+alias rtu="rake test:units"
+alias rtf="rake test:functionals"
+alias rti="rake test:integration"
+alias rtfu="rake test:functionals test:units"
+alias rtfui="rake test:functionals test:units test:integration"
+alias rtfiu="rake test:functionals test:units test:integration"
+alias rtfi="rake test:functionals test:integration"
+alias rtui="rake test:units test:integration"
+alias rtuf="rake test:units test:functionals"
+alias rtuif="rake test:units test:integration test:functionals"
+alias rtufi="rake test:units test:functionals test:integration"
+alias rtif="rake test:integration test:functionals"
+alias rtiu="rake test:integration test:units"
+alias rtifu="rake test:integration test:functionals test:units"
+alias rtiuf="rake test:integration test:units test:functionals"
 
 alias lol="git-nohub log --pretty=oneline --abbrev-commit --graph --decorate"
 
@@ -232,6 +247,10 @@ sr-b() { DB_ENV=build sr      }
 sr-s() { DB_ENV=staging sr    }
 sr-p() { DB_ENV=production sr }
 
+git-same() {
+  [[ -z $(git log -n1 $1..$2) ]] && [[ -z $(git log -n1 $2..$1) ]]
+}
+
 alias cd..='cd ..'
 alias ..='cd ..'
 alias u='cd ..'
@@ -240,6 +259,9 @@ alias uuu='cd ../../..'
 alias uuuu='cd ../../../..'
 alias uuuuu='cd ../../../../..'
 alias uuuuuu='cd ../../../../../..'
+
+function up() { while [ ! -d .git -a `pwd` != "/" ]; do cd ".."; done }
+
 
 alias tarx="tar xf"
 function tarc () {
@@ -285,3 +307,8 @@ if linux; then
   alias sx="startx"
   alias tsl="tail -f /var/log/syslog"
 fi
+
+
+alias f="/bin/ls -GF;git-nohub status -sb"
+
+
