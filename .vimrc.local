@@ -7,6 +7,11 @@ set ttyfast
 set ttyscroll=3
 set lazyredraw
 
+filetype plugin on
+
+nnoremap <leader>4 :TagbarToggle<cr>
+command! Retag !find {app,lib} -name '*.rb' | xargs ctags
+nnoremap <leader>5 :GundoToggle<cr>
 let g:Powerline_symbols = 'fancy'
 " let g:Powerline_cache_enabled = 0
 let g:Powerline_colorscheme = 'solarized' " https://raw.github.com/gist/2003862/e245d6d9b60b16ea38d384107401ef9ad04fbb47/solarized.vim
@@ -54,7 +59,7 @@ nmap ,v lF:xysiw'
 nmap ,V ds'i:<esc>
 
 " Edit related test
-nnoremap <leader>5 <C-w>v<C-w>l:A<cr>
+" nnoremap <leader>5 <C-w>v<C-w>l:A<cr>
 
 nnoremap <leader>8 Orequire'ruby-debug';debugger<esc>
 nnoremap <leader>9 Orequire'pry';binding.pry<esc>
@@ -164,3 +169,4 @@ command! Gruby  cd ~/src/g/ruby
 command! Lshop  lcd ~/src/s/shopify
 command! Lrails lcd ~/src/g/rails
 command! Lruby  lcd ~/src/g/ruby
+

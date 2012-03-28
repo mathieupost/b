@@ -1,6 +1,8 @@
 function linux() { [[ `uname -s` = "Linux"  ]] }
 function mac()   { [[ `uname -s` = "Darwin" ]] }
 
+alias ctr="ctags -R --languages=ruby . ~/.rbenv/versions/1.9.3-p125-perf/lib/ruby/gems/1.9.1/gems/"
+
 function ul() {
   scp $1 burke@burkelibbey.org:b/
   echo http://burkelibbey.org/$(basename "$1") | pbcopy
