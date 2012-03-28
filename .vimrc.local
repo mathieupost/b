@@ -46,11 +46,6 @@ set guioptions-=r
 set guioptions-=L
 set guioptions-=e
 
-" colorscheme synic
-" colorscheme mustang
-" colorscheme wombat
-" colorscheme ir_black
-" colorscheme zenburn
 colorscheme solarized
 
 " Convert symbol to string
