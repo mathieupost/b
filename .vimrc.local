@@ -10,7 +10,7 @@ set lazyredraw
 filetype plugin on
 
 nnoremap <leader>4 :TagbarToggle<cr>
-command! Retag !find {app,lib} -name '*.rb' | xargs ctags
+command! Ctr !/usr/local/bin/ctags -R --languages=ruby . ~/.rbenv/versions/1.9.3-p125-perf/lib/ruby/gems/1.9.1/gems/
 nnoremap <leader>5 :GundoToggle<cr>
 let g:Powerline_symbols = 'fancy'
 " let g:Powerline_cache_enabled = 0
