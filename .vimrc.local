@@ -7,6 +7,10 @@ set ttyfast
 set ttyscroll=3
 set lazyredraw
 
+let g:Powerline_symbols = 'fancy'
+" let g:Powerline_cache_enabled = 0
+let g:Powerline_colorscheme = 'solarized' " https://raw.github.com/gist/2003862/e245d6d9b60b16ea38d384107401ef9ad04fbb47/solarized.vim
+
 nnoremap <leader>s :%s/ \+$//g<cr>:noh<cr>
 
 function! ToggleNuMode()
@@ -36,7 +40,7 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 
-set guifont=Pragmata\ TT:h12
+set guifont=Pragmata\ TT\ for\ Powerline:h12
 set noantialias
 set guioptions-=r
 set guioptions-=L
@@ -144,8 +148,9 @@ nnoremap <leader>F :call MapSpecRun("<C-R>=expand('%')<cr>")<cr>
 
 set statusline=%F%m%r%h%w\ <%Y>\ %l:%v(%L\|%p%%)
 
-inoremap kj <Esc>
+inoremap kj <esc>
 cnoremap kj <esc>
+vnoremap kj <esc>
 
 nnoremap ; :
 
