@@ -17,5 +17,6 @@
 !/lib
 !/.slashemrc
 !/.nethackrc
+!/bin/ctr
 *.rbc
 .gitconfig

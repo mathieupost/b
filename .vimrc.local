@@ -11,7 +11,6 @@ filetype plugin on
 
 let g:EasyMotion_leader_key = '<leader><leader>'
 nnoremap <leader>4 :TagbarToggle<cr>
-command! Ctr !/usr/local/bin/ctags -R --languages=ruby . ~/.gemdir/
 nnoremap <leader>5 :GundoToggle<cr>
 let g:Powerline_symbols = 'fancy'
 " let g:Powerline_cache_enabled = 0
