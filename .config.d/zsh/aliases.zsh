@@ -1,10 +1,16 @@
 function linux() { [[ `uname -s` = "Linux"  ]] }
 function mac()   { [[ `uname -s` = "Darwin" ]] }
 
+alias T="remotetests"
+
 function ul() {
   scp $1 burke@burkelibbey.org:b/
   echo http://burkelibbey.org/$(basename "$1") | pbcopy
 }
+
+alias j="fasd_cd -d"
+alias v="fasd -e vim"
+alias o="fasd -fe open"
 
 alias xu="x unicorn -c ~/.uniconf"
 
@@ -46,6 +52,10 @@ function xrgm() {
 function def () {
     ack "def $*"
 }
+
+function wim() { hash=$1 ; git log --pretty=oneline --abbrev-commit "$hash^1..$hash" }
+
+alias lol="git log --pretty=oneline --abbrev-commit --decorate"
 
 function gc () {
     if [ x$1 != x ]; then

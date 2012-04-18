@@ -94,7 +94,6 @@ colors
 . ~/.config.d/zsh/functions.zsh
 . ~/.config.d/zsh/aliases.zsh
 . ~/.config.d/zsh/osx.zsh
-. ~/.config.d/zsh/j/j.sh
 . ~/.config.d/zsh/z.zsh
 . ~/.private.zsh
 
@@ -120,5 +119,5 @@ precmd_functions+=(project_precmd)
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
-
+eval "$(fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install posix-alias)"
 

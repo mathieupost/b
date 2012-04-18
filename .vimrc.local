@@ -2,7 +2,7 @@ set t_Co=256
 let mapleader = ","
 
 " Make vim fast.
-set synmaxcol=150
+set synmaxcol=300
 set ttyfast
 set ttyscroll=3
 set lazyredraw
@@ -17,6 +17,7 @@ let g:Powerline_symbols = 'fancy'
 let g:Powerline_colorscheme = 'solarized' " https://raw.github.com/gist/2003862/e245d6d9b60b16ea38d384107401ef9ad04fbb47/solarized.vim
 
 nnoremap <leader>s :%s/ \+$//g<cr>:noh<cr>
+
 
 function! ToggleNuMode()
   if(&rnu == 1)
@@ -72,6 +73,9 @@ inoremap <C-e> <esc>A
 inoremap <C-a> <esc>I
 nnoremap <C-e> $
 nnoremap <C-a> ^
+
+nnoremap <C-0> :tn
+nnoremap <C-9> :tp
 
 set encoding=utf-8
 set scrolloff=3

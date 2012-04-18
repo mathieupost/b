@@ -20,6 +20,7 @@ turbo()  {
     export RUBY_HEAP_FREE_MIN=500000
   }
 }
+turbo
 
 function og {
   scp -r $1 og:~/b

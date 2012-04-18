@@ -27,7 +27,7 @@ PROMPT='`build-prompt`'
 function build-rprompt() {
   echo "%{$fg[black]%}%~ %l %h %*%{$fg[white]%}%{$fg[reset]%}"
 }
-RPROMPT='`build-rprompt`'
+# RPROMPT='`build-rprompt`'
 
 [ x$TERM = "xeterm-color" ] && setopt singlelinezle
 [ x$TERM = "xdumb" ] && unsetopt zle && PS1='$ '
