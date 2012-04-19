@@ -1,6 +1,8 @@
 function linux() { [[ `uname -s` = "Linux"  ]] }
 function mac()   { [[ `uname -s` = "Darwin" ]] }
 
+alias tmux="TERM=screen-256color-bce tmux"
+
 alias T="remotetests"
 
 function ul() {
