@@ -17,12 +17,5 @@ function title() {
   esac
 }
 
-# precmd is called just before the prompt is printed
-
-# function precmd()  { 
-#     title "zsh" "$USER@%m" "%35<...<%~" 
-#     j --add "$(pwd -P)"
-# }
-
-# preexec is called just before any command line is executed
-function preexec() { title "$1"  "$USER@%m" "%55<...<%~" }
+# TODO: Figure out if I want this and make it faster.
+# function preexec() { title "$1"  "$USER@%m" "%55<...<%~" }

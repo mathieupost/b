@@ -12,6 +12,7 @@ export RUBYOPT="rubygems"
 
 # Head of PATH
 P="$HOME/bin"
+P="$P:$HOME/.rbenv/bin"
 P="$P:$HOME/.cabal/bin"
 P="$P:/usr/local/mysql/bin"
 P="$P:/usr/local/share/npm/bin"
@@ -90,37 +91,14 @@ bindkey "^_" undo
 autoload -Uz colors
 colors
 
-#. ~/.config.d/zsh/git.zsh
+. ~/.config.d/zsh/git.zsh
 . ~/.config.d/zsh/prompts.zsh
 . ~/.config.d/zsh/titles.zsh
 . ~/.config.d/zsh/completion.zsh
 . ~/.config.d/zsh/functions.zsh
 . ~/.config.d/zsh/aliases.zsh
-. ~/.config.d/zsh/osx.zsh
-. ~/.config.d/zsh/z.zsh
 . ~/.private.zsh
 
-function project_precmd() {
-  if [ -z $1 ]; then
-    export PROJECT_ROOT=$(cd $(project_precmd .); pwd -P)
-  else
-    if [[ -d $1/.git || -f $1/Rakefile || -f $1/Makefile ]]; then
-      echo $1
-    else 
-      if [[ $(cd $1; pwd -P) == / ]]; then
-        echo .
-      else 
-        echo $(project_precmd $1/..)
-      fi
-    fi
-  fi
-}
-
-precmd_functions+=(project_precmd)
-
-# if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
-
-export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 eval "$(fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install posix-alias)"
 
