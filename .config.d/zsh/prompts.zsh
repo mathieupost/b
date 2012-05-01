@@ -1,4 +1,4 @@
 PROMPT='`/Users/burke/src/b/prompt/prompt $?`'
 
-[ x$TERM = "xeterm-color" ] && setopt singlelinezle
-[ x$TERM = "xdumb" ] && unsetopt zle && PS1='$ '
+[ $TERM = "eterm-color" ] && setopt singlelinezle
+[ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
