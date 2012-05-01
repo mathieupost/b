@@ -12,6 +12,7 @@ export RUBYOPT="rubygems"
 
 # Head of PATH
 P="$HOME/bin"
+P="$P:$HOME/.cabal/bin"
 P="$P:/usr/local/mysql/bin"
 P="$P:/usr/local/share/npm/bin"
 P="$P:/usr/local/bin"
@@ -21,6 +22,8 @@ P="$P:/usr/local/mysql/bin"
 P="$P:/usr/bin"
 # Tail of PATH
 export PATH="$P:$PATH"
+
+export USERWM=`which xmonad`
 
 export NODE_PATH="/usr/local/lib/node"
 
