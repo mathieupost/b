@@ -4,6 +4,7 @@ nerdtree_plugin
 Powerline*.cache
 after
 autoload
+compiler
 doc
 plugin
 ruby
