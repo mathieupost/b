@@ -1,6 +1,0 @@
-[submodule ".vim"]
-	path = .vim
-  url = git@github.com:burke/janus.git
-[submodule ".config.d/zsh/j"]
-  path = .config.d/zsh/j
-  url = git@github.com:burke/j.git
