@@ -40,8 +40,6 @@ alias rtiu="rake test:integration test:units"
 alias rtifu="rake test:integration test:functionals test:units"
 alias rtiuf="rake test:integration test:units test:functionals"
 
-alias lol="git-nohub log --pretty=oneline --abbrev-commit --graph --decorate"
-
 alias edv="ey deploy -v"
 alias rf="bundle exec rake features"
 
@@ -56,8 +54,6 @@ function def () {
 }
 
 function wim() { hash=$1 ; git log --pretty=oneline --abbrev-commit "$hash^1..$hash" }
-
-alias lol="git log --pretty=oneline --abbrev-commit --decorate"
 
 function gc () {
     if [ x$1 != x ]; then
