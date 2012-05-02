@@ -1,0 +1,3 @@
+#!/bin/sh
+git push -f hoth HEAD:update
+git diff --cached | ssh hoth "/home/burke/bin/runtests"

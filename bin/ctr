@@ -1,0 +1,48 @@
+#!/bin/sh
+
+ctags=/usr/local/bin/ctags
+bundle=/Users/burke/.rbenv/shims/bundle
+gem_home=/Users/burke/.rbenv/versions/1.9.3-p125-perf/lib/ruby/gems/1.9.1
+rubinius_dir=/Users/burke/src/g/rubinius
+
+# end config
+
+function ensurelink() {
+  to=$1
+  link=$2
+
+  if [ -e $link ] ; then
+    if [[ $(readlink $link) != "$to" ]] ; then
+      echo "Resetting link to $to"
+      rm $1
+      ln -s $to $link
+    fi
+  else
+    echo "Setting up link to $to"
+    ln -s $to $link
+  fi
+}
+
+
+mkdir -p ~/.s
+ensurelink $gem_home/gems ~/.s/g
+ensurelink $gem_home/bundler/gems ~/.s/b
+ensurelink $rubinius_dir/lib ~/.s/l
+ensurelink $rubinius_dir/kernel/common ~/.s/c
+
+rubinius_lib_sources=`find $rubinius_dir/lib/ -name '*.rb' | grep -v 'rubinius/lib/18' |\
+  sed "s|$rubinius_dir/lib|$HOME/.s/l|"`
+
+rubinius_builtin_sources=`find $rubinius_dir/kernel/common -name '*.rb' | grep -v '18.rb' |\
+  sed "s|$rubinius_dir/kernel/common|$HOME/.s/c|"`
+
+
+gem_sources=$(
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  $bundle list --paths |\
+    sed "s|$gem_home/gems|$HOME/.s/g|" |\
+    sed "s|$gem_home/bundler/gems|$HOME/.s/b|"
+)
+
+$ctags -R --languages=ruby . $gem_sources $rubinius_builtin_sources $rubinius_lib_sources
+
