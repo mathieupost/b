@@ -3,6 +3,7 @@
 !/.gitignore
 !/.gitmodules
 !/.config.d
+!/.vim
 !/.gdbinit
 !/.rdebugrc
 !/.gdb
