@@ -22,7 +22,6 @@ _rbenv() {
   reply=("${(ps:\n:)completions}")
 }
 
-rbenv rehash 2>/dev/null
 rbenv() {
   command="$1"
   if [ "$#" -gt 0 ]; then

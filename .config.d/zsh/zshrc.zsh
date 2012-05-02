@@ -41,8 +41,7 @@ setopt \
 fpath=($fpath $HOME/.config.d/zsh/func)
 typeset -U fpath
 
-autoload -Uz colors
-colors
+# autoload -Uz colors && colors
 
 . ~/.config.d/zsh/keybindings.zsh
 . ~/.config.d/zsh/git.zsh
