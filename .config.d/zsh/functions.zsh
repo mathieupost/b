@@ -1,6 +1,4 @@
 mdc()    { mkdir -p "$1" && cd "$1" }
-setenv() { export $1=$2 }
-sdate()  { date +%Y.%m.%d }
 pc()     { awk "{print \$$1}" }
 
 wcld() { wc -l $1/**/* 2>/dev/null | sort -nr | head -n10 }
@@ -21,10 +19,4 @@ turbo()  {
   }
 }
 turbo
-
-function og {
-  scp -r $1 og:~/b
-  echo "http://burkelibbey.org/$1" | pbcopy
-}
-
 
