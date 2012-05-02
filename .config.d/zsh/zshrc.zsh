@@ -51,8 +51,7 @@ colors
 . ~/.config.d/zsh/completion.zsh
 . ~/.config.d/zsh/functions.zsh
 . ~/.config.d/zsh/aliases.zsh
+. ~/.config.d/zsh/rbenv.zsh
+. ~/.config.d/zsh/fasd.zsh
 . ~/.private.zsh
-
-eval "$(rbenv init -)"
-eval "$(fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install posix-alias)"
 
