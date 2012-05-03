@@ -52,7 +52,7 @@ endif
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
-function s:setupWrapping()
+function! s:setupWrapping()
   set wrap
   set wrapmargin=2
   set textwidth=72
@@ -233,6 +233,8 @@ let g:ctrlp_user_command = {
   \ 'fallback': 'find %s -type f'
   \ }
 
+let g:path_to_matcher = "/Users/burke/bin/matcher"
+
 let g:ctrlp_dotfiles = 0
 function! g:GoodMatch(items, str, limit, mmode, ispath, crfile, regex)
   " the Command-T matcher doesn't do regex. Return now if that was requested.
@@ -249,7 +251,7 @@ function! g:GoodMatch(items, str, limit, mmode, ispath, crfile, regex)
 
   " a:mmode is currently ignored. In the future, we should probably do
   " something about that. the matcher behaves like "full-line".
-  let cmd = "/Users/burke/matcher/matcher --limit " . a:limit . " --manifest " . ctrlp#utils#cachefile() . " "
+  let cmd = g:path_to_matcher . " --limit " . a:limit . " --manifest " . ctrlp#utils#cachefile() . " "
   if ! g:ctrlp_dotfiles
     let cmd = cmd . "--no-dotfiles "
   endif
@@ -260,9 +262,9 @@ endfunction
 let g:ctrlp_match_func = { 'match': 'g:GoodMatch' }
 
 "nnoremap <leader>gR :call ShowRoutes()<cr>
-nnoremap <leader>gg :CommandTFlush<cr>\|:CommandT<cr>
-nnoremap <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
-nnoremap <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+nnoremap <leader>gg <C-t>
+nnoremap <leader>gv <C-t>app/views
+nnoremap <leader>gc <C-t>app/controllers
 nnoremap <leader>gb :CommandTFlush<cr>\|:CommandT app/behaviours<cr>
 nnoremap <leader>gd :CommandTFlush<cr>\|:CommandT app/decorators<cr>
 nnoremap <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
@@ -273,8 +275,8 @@ nnoremap <leader>gP :CommandTFlush<cr>\|:CommandT public<cr>
 nnoremap <leader>gr :topleft 100 :split config/routes.rb<cr>
 nnoremap <leader>gG :topleft 100 :split Gemfile<cr>
 
-nnoremap <leader>sv :source ~/.vimrc.local<cr>
-nnoremap <leader>ev :edit ~/.vimrc.local<cr>
+nnoremap <leader>sv :source ~/.vimrc<cr>
+nnoremap <leader>ev :edit ~/.vimrc<cr>
 
 nnoremap <leader>n <C-^>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
