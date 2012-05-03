@@ -12,7 +12,8 @@
 !/.screenrc
 !/.zshrc
 !/.irbrc
-!/.vimrc.local
+!/.vimrc
+!/.gvimrc
 !/Library/Fonts/pragmata.ttf
 !/.gemrc
 !/Library/profile.jpg
