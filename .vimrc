@@ -222,44 +222,40 @@ vnoremap ˚ :m-2<CR>gv=gv
 noremap H ^
 noremap L $
 
-let g:ctrlp_map = '<c-t>'
+" let g:ctrlp_map = '<c-t>'
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_max_files = 20000
 
-let g:ctrlp_user_command = {
-  \ 'types': {
-    \ 1: ['.git/', 'cd %s && git ls-files'],
-    \ },
-  \ 'fallback': 'find %s -type f'
-  \ }
+let g:ctrlp_max_height = 10
 
 let g:path_to_matcher = "/Users/burke/bin/matcher"
 
-let g:ctrlp_dotfiles = 0
-function! g:GoodMatch(items, str, limit, mmode, ispath, crfile, regex)
-  " the Command-T matcher doesn't do regex. Return now if that was requested.
-  if a:regex == 1
-    let [lines, id] = [[], 0]
-    for item in a:items
-      let id += 1
-      try | if !( a:ispath && item == a:crfile ) && (match(item, a:str) >= 0)
-        cal add(lines, item)
-      en | cat | brea | endt
-    endfo
-    return lines
-  end
+let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard']
+
+let g:ctrlp_match_func = { 'match': 'GoodMatch' }
+
+function! GoodMatch(items, str, limit, mmode, ispath, crfile, regex)
+
+  " Create a cache file if not yet exists
+  let cachefile = ctrlp#utils#cachedir().'/matcher.cache'
+  if !( filereadable(cachefile) && a:items == readfile(cachefile) )
+    call writefile(a:items, cachefile)
+  endif
+  if !filereadable(cachefile)
+    return []
+  endif
 
   " a:mmode is currently ignored. In the future, we should probably do
   " something about that. the matcher behaves like "full-line".
-  let cmd = g:path_to_matcher . " --limit " . a:limit . " --manifest " . ctrlp#utils#cachefile() . " "
-  if ! g:ctrlp_dotfiles
-    let cmd = cmd . "--no-dotfiles "
+  let cmd = g:path_to_matcher.' --limit '.a:limit.' --manifest '.cachefile.' '
+  if !( exists('g:ctrlp_dotfiles') && g:ctrlp_dotfiles )
+    let cmd = cmd.'--no-dotfiles '
   endif
-  let cmd = cmd . a:str
-  return split(system(cmd))
+  let cmd = cmd.a:str
+
+  return split(system(cmd), "\n")
 
 endfunction
-let g:ctrlp_match_func = { 'match': 'g:GoodMatch' }
 
 "nnoremap <leader>gR :call ShowRoutes()<cr>
 nnoremap <leader>gg <C-t>

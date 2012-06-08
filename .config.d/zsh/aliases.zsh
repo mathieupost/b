@@ -10,6 +10,8 @@ function ul() {
   echo http://burkelibbey.org/$(basename "$1") | pbcopy
 }
 
+alias gprunemerged="git branch --merged | grep -v "\*" | xargs -n 1 git branch -d"
+
 alias j="fasd_cd -d"
 alias v="fasd -e vim"
 alias o="fasd -fe open"

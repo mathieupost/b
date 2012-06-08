@@ -4,10 +4,6 @@ export EMAIL="burke@burkelibbey.org"
 export EDITOR="vim"
 export PAGER="less"
 
-export GIT_AUTHOR_NAME=$NAME
-export GIT_COMMITTER_NAME=$NAME
-export GIT_AUTHOR_EMAIL=$EMAIL
-export GIT_COMMITTER_EMAIL=$EMAIL
 export RUBYOPT="rubygems"
 
 # Head of PATH
@@ -53,4 +49,8 @@ typeset -U fpath
 . ~/.config.d/zsh/rbenv.zsh
 . ~/.config.d/zsh/fasd.zsh
 . ~/.private.zsh
+
+zstyle ':completion:*:manuals'    separate-sections true
+zstyle ':completion:*:manuals.*'  insert-sections   true
+zstyle ':completion:*:man:*'      menu yes select
 
