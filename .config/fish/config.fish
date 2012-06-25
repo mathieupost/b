@@ -173,7 +173,7 @@ function L ; less ; end
 function fdg ; find . | grep ; end
 
 #if mac; then
-  function ls ; ls -GF ; end
+  function ls ; ls -GF $argv ; end
 # else
   # alias ls="ls --color=auto -F"
 # fi

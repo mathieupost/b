@@ -22,3 +22,4 @@
 !/.nethackrc
 *.rbc
 .gitconfig
+.config/fish/fish_history
