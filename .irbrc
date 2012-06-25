@@ -3,7 +3,7 @@
 def ras
   require 'active_support/all'
 end
-require File.expand_path("~/.config.d/ruby/all")
+require File.expand_path("~/.config/ruby/all")
 
 require 'ap'
 
