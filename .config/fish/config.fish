@@ -14,14 +14,6 @@ function elm          ; e db/migrate/`ls db/migrate | tail -n1` ; end
 
 
 function gc ; if test $argv[1] ; git commit -a -m "$argv" ; else git commit -a -v ; end ; end
-# TODO
-# function gc () {
-#   if [ x$argv[1] != x ]; then
-#     git commit -a -m "$argv"
-#   else
-#     git commit -a -v
-#   fi
-# }
 
 # TODO
 # function cpip () {
@@ -188,6 +180,7 @@ function df ; df -hT ; end
 # fi
 
 set PATH $HOME/bin $PATH
+set PATH /usr/local/mysql/bin $PATH
 set PATH $HOME/.rbenv/shims $PATH
 rbenv rehash >/dev/null ^&1
 
