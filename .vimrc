@@ -63,6 +63,7 @@ au FileType make set noexpandtab
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
+au BufRead,BufNewFile {*.fish}    set ft=sh
 
 " add json syntax highlighting
 au BufNewFile,BufRead *.json set ft=javascript
