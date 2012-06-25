@@ -1,3 +1,7 @@
+if $SHELL =~ 'fish'
+  set shell=/bin/sh
+endif
+
 " 256-color more. Necessary to make it work in console and macvim
 set t_Co=256
 

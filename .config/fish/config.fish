@@ -187,3 +187,7 @@ function df ; df -hT ; end
 #   alias tsl="tail -f /var/log/syslog"
 # fi
 
+set PATH $HOME/bin $PATH
+set PATH $HOME/.rbenv/shims $PATH
+rbenv rehash >/dev/null ^&1
+
