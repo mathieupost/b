@@ -1,4 +1,13 @@
-function fish_prompt  ; printf '%s' (/Users/burke/src/b/prompt/prompt $status) ; end
+function fish_prompt ; /Users/burke/src/b/prompt/prompt $status ; end
+
+set fish_greeting ""
+
+
+set -x RUBY_HEAP_MIN_SLOTS 1000000
+set -x RUBY_HEAP_SLOTS_INCREMENT 1000000
+set -x RUBY_HEAP_SLOTS_GROWTH_FACTOR 1
+set -x RUBY_GC_MALLOC_LIMIT 1000000000
+set -x RUBY_HEAP_FREE_MIN 500000
 
 # function linux() { [[ `uname -s` = "Linux"  ]] }
 # function mac()   { [[ `uname -s` = "Darwin" ]] }
@@ -15,18 +24,16 @@ function elm          ; e db/migrate/`ls db/migrate | tail -n1` ; end
 
 function gc ; if test $argv[1] ; git commit -a -m "$argv" ; else git commit -a -v ; end ; end
 
-# TODO
-# function cpip () {
-#   ip=$(ifconfig en1 | grep inet | awk '{print $2}' | tail -n1)
-#   echo $ip | pbcopy
-#   echo $ip
-# }
+function cpip
+  set ip (ifconfig en0 | grep inet | awk '{print $2}' | tail -n1)
+  echo $ip | pbcopy
+  echo $ip
+end
 
-# TODO
-# function pyserv () {
-#   echo http://$(ifconfig en1 | grep inet | awk '{print $2}' | tail -n1):8000 | pbcopy
-#   python -m SimpleHTTPServer
-# }
+function pyserv
+  echo http://(ifconfig en0 | grep inet | awk '{print $2}' | tail -n1):8000 | pbcopy
+  python -m SimpleHTTPServer
+end
 
 function ka9 ; killall -9 $argv ; end
 function k9 ; kill -9 $argv ; end
@@ -126,20 +133,6 @@ function r ; ruby $argv ; end
 
 function e ; $EDITOR $argv 2>/dev/null ; end
 
-
-# gfl() {
-#     limit=$argv[1]
-#     [ x$limit = x ] ; and limit=10
-#     git rev-list --all --objects |
-#     sed -n $(git rev-list --objects --all |
-#         cut -f1 -d' ' | git cat-file --batch-check | grep blob |
-#         sort -n -k3 | tail -n$limit | while read hash type size;
-#         do
-#             echo -n "-e s/$hash/$size/p ";
-#         done) |
-#     sort -n -k1
-# }
-
 function gbt ; git branch --track $argv[1] origin/$argv[1] ; end
 
 function u ; cd .. ; end
@@ -169,8 +162,6 @@ function fdg ; find . | grep ; end
 # else
   # alias ls="ls --color=auto -F"
 # fi
-
-# alias b="popd"
 
 function df ; df -hT ; end
 
