@@ -50,6 +50,20 @@ function  x ; bundle exec $argv ; end
 
 
 ######## git stuff ###########################################################
+function glol ; lol --graph -200 $argv ; end
+
+function lol
+  set HASH "%C(yellow)%h%Creset"
+  set RELATIVE_TIME "%Cgreen(%ar)%Creset"
+  set AUTHOR "%C(blue)<%an>%Creset"
+  set REFS "%C(red)%d%Creset"
+  set SUBJECT "%s"
+
+  set FORMAT "$HASH}$RELATIVE_TIME}$AUTHOR}$REFS $SUBJECT"
+
+  git log -1000 --pretty="tformat:$FORMAT" $argv | sed -Ee 's/(^[^<]*) ago)/\1)/' | sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?)/\1)/' | column -s '}' -t | less -FXRS
+end
+
 function gprunemerged ; git branch --merged | grep -v "\*" | xargs -n 1 git branch -d ; end
 function gam          ; git commit --amend -m "$argv" ; end
 function gmmf         ; git fetch origin $argv[1]; and git merge FETCH_HEAD ; end
@@ -84,11 +98,11 @@ function  glpr ; git log -p --reverse $argv ; end
 function    gm ; git merge $argv ; end
 function    gn ; git clone $argv ; end
 function   grh ; git reset HEAD ; end
-function   gri ; git rebase -i ; end
+function   gri ; git rebase -i $argv ; end
 function   grc ; git rebase --continue ; end
-function    gs ; git stash ; end
-function   gsa ; git stash apply ; end
-function   gsd ; git stash drop ; end
+function    gs ; git stash $argv ; end
+function   gsa ; git stash apply $argv ; end
+function   gsd ; git stash drop $argv ; end
 function   gsl ; git stash list ; end
 function   gsp ; git stash pop ; end
 function    gt ; git status -sb ; end
@@ -98,19 +112,19 @@ function    gx ; open -a gitx . ; end
 function    gr ; git reset HEAD ; end
 function   gr1 ; git reset 'HEAD^' ; end
 function   gr2 ; git reset 'HEAD^^' ; end
-function   gro ; git reset ; end
+function   gro ; git reset $argv ; end
 function   grh ; git reset --hard HEAD ; end
 function  grh1 ; git reset --hard 'HEAD^' ; end
 function  grh2 ; git reset --hard 'HEAD^^' ; end
-function  grho ; git reset --hard ; end
+function  grho ; git reset --hard $argv ; end
 function gvsc ; git add . ; git commit -am 'Auto-commit with useless commit message' ; git pull ; git push ; end
 
 
 # Rubygems
-function mp ; gem push ; end
+function mp ; gem push $argv ; end
 function mi ; gem install --no-ri --no-rdoc $argv ; and reh ; end
 function mir ; mi $argv ; and fc -e - ; end
-function mi ; gem uninstall ; end
+function mi ; gem uninstall $argv ; end
 
 function mibi ; gem install --no-ri --no-rdoc $argv and bundle ; end
 
@@ -144,16 +158,17 @@ function uuuuuu ; cd ../../../../../.. ; end
 
 function up ; while [ ! -d .git -a `pwd` != "/" ]; cd ".."; end ; end
 
-function chx ; chmod +x ; end
+function chx ; chmod +x $argv ; end
 
-function a ; ack ; end
-function ai ; ack -i ; end
-function aa ; ack -a ; end
-function aai ; ack -ai ; end
-function g ; grep ; end
-function t ; tail ; end
-function h ; head ; end
-function L ; less ; end
+function a ; ack $argv ; end
+function ai ; ack -i $argv ; end
+function aa ; ack -a $argv ; end
+function aai ; ack -ai $argv ; end
+function g ; grep $argv ; end
+function t ; tail $argv ; end
+function h ; head $argv ; end
+function L ; less $argv ; end
+function less ; /usr/bin/less -FXRS $argv ; end
 
 function fdg ; find . | grep ; end
 
@@ -163,7 +178,7 @@ function fdg ; find . | grep ; end
   # alias ls="ls --color=auto -F"
 # fi
 
-function df ; df -hT ; end
+function df ; df -hT $argv ; end
 
 # if linux; then
 #   alias sx="startx"
