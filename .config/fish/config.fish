@@ -168,6 +168,7 @@ function g ; grep $argv ; end
 function t ; tail $argv ; end
 function h ; head $argv ; end
 function L ; less $argv ; end
+function l ; ls $argv ; end
 function less ; /usr/bin/less -FXRS $argv ; end
 
 function fdg ; find . | grep ; end
