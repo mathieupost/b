@@ -170,6 +170,8 @@ nnoremap <leader>9 Orequire'pry';binding.pry<esc>
 
 nnoremap Y yf$
 
+nnoremap <C-O> O<esc>o
+
 inoremap <C-j> <esc>jli
 inoremap <C-k> <esc>kli
 inoremap <C-e> <esc>A

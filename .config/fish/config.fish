@@ -2,6 +2,10 @@ function fish_prompt ; /Users/burke/src/b/prompt/prompt $status ; end
 
 set fish_greeting ""
 
+set -x CDPATH . /Users/burke/src/g /Users/burke/src/s /Users/burke/src/b /Users/burke/go/src
+set -x EDITOR /Users/burke/bin/vim
+
+set -x GOPATH /Users/burke/go
 
 set -x RUBY_HEAP_MIN_SLOTS 1000000
 set -x RUBY_HEAP_SLOTS_INCREMENT 1000000
@@ -48,6 +52,22 @@ function bu ; bundle update ; end
 function bs ; bundle show $argv ; end
 function  x ; bundle exec $argv ; end
 
+function ap ; awk "{print \$$argv[1]}" ; end
+function ap1 ; awk '{print $1}' ; end
+function ap2 ; awk '{print $2}' ; end
+function ap3 ; awk '{print $3}' ; end
+function ap4 ; awk '{print $4}' ; end
+function ap5 ; awk '{print $5}' ; end
+function ap6 ; awk '{print $6}' ; end
+function ap7 ; awk '{print $7}' ; end
+function ap8 ; awk '{print $8}' ; end
+function ap9 ; awk '{print $9}' ; end
+
+function xk9 ; xargs kill -9 ; end
+
+function psag ; ps aux | g $argv[1] | gvg ; end
+
+function gvg ; grep -v grep ; end
 
 ######## git stuff ###########################################################
 function glol ; lol --graph -200 $argv ; end
@@ -64,6 +84,7 @@ function lol
   git log -1000 --pretty="tformat:$FORMAT" $argv | sed -Ee 's/(^[^<]*) ago)/\1)/' | sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?)/\1)/' | column -s '}' -t | less -FXRS
 end
 
+function grim         ; git rebase -i master; end
 function gprunemerged ; git branch --merged | grep -v "\*" | xargs -n 1 git branch -d ; end
 function gam          ; git commit --amend -m "$argv" ; end
 function gmmf         ; git fetch origin $argv[1]; and git merge FETCH_HEAD ; end
@@ -120,11 +141,23 @@ function  grho ; git reset --hard $argv ; end
 function gvsc ; git add . ; git commit -am 'Auto-commit with useless commit message' ; git pull ; git push ; end
 
 
+# function gfl
+#   set limit $argv[1]
+#   [ x$limit = x ] && set limit 10
+#   git rev-list --all --objects | sed -n (git rev-list --objects --all |
+#     cut -f1 -d' ' | git cat-file --batch-check | grep blob |
+#     sort -n -k3 | tail -n$limit | while read hash type size;
+#     do
+#         echo -n "-e s/$hash/$size/p ";
+#     done) |
+#   sort -n -k1
+# }
+
 # Rubygems
 function mp ; gem push $argv ; end
 function mi ; gem install --no-ri --no-rdoc $argv ; and reh ; end
 function mir ; mi $argv ; and fc -e - ; end
-function mi ; gem uninstall $argv ; end
+function mu ; gem uninstall $argv ; end
 
 function mibi ; gem install --no-ri --no-rdoc $argv and bundle ; end
 
@@ -188,6 +221,8 @@ function df ; df -hT $argv ; end
 
 set PATH $HOME/bin $PATH
 set PATH /usr/local/mysql/bin $PATH
+set PATH /usr/texbin $PATH
 set PATH $HOME/.rbenv/shims $PATH
+set PATH /usr/local/go/bin $PATH
 rbenv rehash >/dev/null ^&1
 
