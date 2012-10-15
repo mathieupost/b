@@ -38,6 +38,10 @@ set incsearch
 set ignorecase
 set smartcase
 
+inoremap <f1> <esc>
+nnoremap <f1> <esc>
+cnoremap <f1> <esc>
+
 " Tab completion
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*,*/tmp/*,*.so,*.swp,*.zip
