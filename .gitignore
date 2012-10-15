@@ -24,3 +24,4 @@
 .gitconfig
 .config/fish/fish_history
 .config/fish/fishd.*
+bin/pegasus-recovery.rb
