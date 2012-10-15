@@ -13,6 +13,8 @@ set -x RUBY_HEAP_SLOTS_GROWTH_FACTOR 1
 set -x RUBY_GC_MALLOC_LIMIT 1000000000
 set -x RUBY_HEAP_FREE_MIN 500000
 
+set -x DYLD_LIBRARY_PATH /usr/local/Cellar/libtool/2.4.2/lib $DYLD_LIBRARY_PATH
+
 # function linux() { [[ `uname -s` = "Linux"  ]] }
 # function mac()   { [[ `uname -s` = "Darwin" ]] }
 
