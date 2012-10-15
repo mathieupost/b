@@ -2,7 +2,7 @@
 
 ctags=/usr/local/bin/ctags
 bundle=/Users/burke/.rbenv/shims/bundle
-gem_home=/Users/burke/.rbenv/versions/1.9.3-p125-perf/lib/ruby/gems/1.9.1
+gem_home=/Users/burke/.rbenv/versions/1.9.3-p194-dtrace/lib/ruby/gems/1.9.1
 rubinius_dir=/Users/burke/src/g/rubinius
 
 # end config
@@ -14,7 +14,7 @@ function ensurelink() {
   if [ -e $link ] ; then
     if [[ $(readlink $link) != "$to" ]] ; then
       echo "Resetting link to $to"
-      rm $1
+      rm $2
       ln -s $to $link
     fi
   else
