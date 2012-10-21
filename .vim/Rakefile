@@ -2,6 +2,8 @@ task :default do
 
   lines = File.read('plugin_list').lines
 
+  `mkdir -p bundle`
+
   threads = []
   lines.each do |line|
     threads << Thread.new {
