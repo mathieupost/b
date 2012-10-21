@@ -18,14 +18,19 @@ set -x DYLD_LIBRARY_PATH /usr/local/Cellar/libtool/2.4.2/lib $DYLD_LIBRARY_PATH
 # function linux() { [[ `uname -s` = "Linux"  ]] }
 # function mac()   { [[ `uname -s` = "Darwin" ]] }
 
+function tmux
+  set TERM screen-256color-bce
+  /usr/local/bin/tmux $argv
+end
+
 function def          ; ack "def $argv" ; end
 function reh          ; rbenv rehash    ; end
 
 function shop         ; cd ~/src/s/shopify ; end
 function to           ; script/testonly $argv ; end
 
-function xrgm         ; $EDITOR `bundle exec rails generate migration $argv[1] | tail -n1 | awk '{print $3}'` ; end
-function elm          ; e db/migrate/`ls db/migrate | tail -n1` ; end
+function xrgm         ; e (bundle exec rails generate migration $argv[1] | tail -n1 | awk '{print $3}') ; end
+function elm          ; e db/migrate/(ls db/migrate | tail -n1) ; end
 
 
 function gc ; if test $argv[1] ; git commit -a -m "$argv" ; else git commit -a -v ; end ; end
@@ -180,7 +185,7 @@ function csd ; cap staging deploy ; end
 
 function r ; ruby $argv ; end
 
-function e ; $EDITOR $argv 2>/dev/null ; end
+function e ; vim $argv 2>/dev/null ; end
 
 function gbt ; git branch --track $argv[1] origin/$argv[1] ; end
 

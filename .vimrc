@@ -71,6 +71,8 @@ au FileType make set noexpandtab
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
+
+" Fish is close enough to sh that it's not so bad to just reuse that syntax.
 au BufRead,BufNewFile {*.fish}    set ft=sh
 
 " add json syntax highlighting
@@ -268,32 +270,12 @@ function! GoodMatch(items, str, limit, mmode, ispath, crfile, regex)
 
 endfunction
 
-"nnoremap <leader>gR :call ShowRoutes()<cr>
-nnoremap <leader>gg <C-t>
-nnoremap <leader>gv <C-t>app/views
-nnoremap <leader>gc <C-t>app/controllers
-nnoremap <leader>gb :CommandTFlush<cr>\|:CommandT app/behaviours<cr>
-nnoremap <leader>gd :CommandTFlush<cr>\|:CommandT app/decorators<cr>
-nnoremap <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
-nnoremap <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
-nnoremap <leader>ga :CommandTFlush<cr>\|:CommandT app/assets<cr>
-nnoremap <leader>gp :CommandTFlush<cr>\|:CommandT app/presenters<cr>
-nnoremap <leader>gP :CommandTFlush<cr>\|:CommandT public<cr>
-nnoremap <leader>gr :topleft 100 :split config/routes.rb<cr>
-nnoremap <leader>gG :topleft 100 :split Gemfile<cr>
-
 nnoremap <leader>sv :source ~/.vimrc<cr>
 nnoremap <leader>ev :edit ~/.vimrc<cr>
 
 nnoremap <leader>n <C-^>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 cnoremap %! <C-R>=expand('%')<cr>
-
-" <leader>F maps <leader>f to run the current spec.
-function! MapSpecRun(file)
-  execute "nnoremap <leader>f :w\\|:!rspec -c -fp ".a:file."<cr>"
-endfunction
-nnoremap <leader>F :call MapSpecRun("<C-R>=expand('%')<cr>")<cr>
 
 set statusline=%F%m%r%h%w\ <%Y>\ %l:%v(%L\|%p%%)
 
