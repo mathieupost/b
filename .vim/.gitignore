@@ -2,6 +2,7 @@
 tmp
 nerdtree_plugin
 Powerline*.cache
+bundle
 after
 autoload
 compiler

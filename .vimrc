@@ -8,6 +8,8 @@ set t_Co=256
 " Speed things up.
 set nocompatible
 
+call pathogen#infect()
+
 let mapleader = ","
 
 syntax on
