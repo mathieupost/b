@@ -10,6 +10,7 @@
 !/.rdebugrc
 !/.gdb
 !/.gdb/*
+!/.LS_COLORS
 !/.screenrc
 !/.zshrc
 !/.irbrc

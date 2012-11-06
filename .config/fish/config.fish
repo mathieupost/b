@@ -1,11 +1,14 @@
-function fish_prompt ; /Users/burke/src/b/prompt/prompt $status ; end
+function fish_prompt ; ~/src/b/prompt/prompt $status ; end
 
 set fish_greeting ""
 
-set -x CDPATH . /Users/burke/src/g /Users/burke/src/s /Users/burke/src/b /Users/burke/go/src
-set -x EDITOR /Users/burke/bin/vim
+function mac ; test `uname -s` = "Darwin" ; end
+function linux ; test `uname -s` = "Linux" ; end
 
-set -x GOPATH /Users/burke/go
+set -x CDPATH . $HOME/src/g $HOME/src/s $HOME/src/b $HOME/go/src
+set -x EDITOR vim
+
+set -x GOPATH $HOME/go
 
 set -x RUBY_HEAP_MIN_SLOTS 1000000
 set -x RUBY_HEAP_SLOTS_INCREMENT 1000000
@@ -15,12 +18,9 @@ set -x RUBY_HEAP_FREE_MIN 500000
 
 set -x DYLD_LIBRARY_PATH /usr/local/Cellar/libtool/2.4.2/lib $DYLD_LIBRARY_PATH
 
-# function linux() { [[ `uname -s` = "Linux"  ]] }
-# function mac()   { [[ `uname -s` = "Darwin" ]] }
-
 function tmux
   set TERM screen-256color-bce
-  /usr/local/bin/tmux $argv
+  /usr/bin/tmux $argv
 end
 
 function def          ; ack "def $argv" ; end
@@ -217,11 +217,11 @@ function rtf; rake test:functionals; end
 
 function fdg ; find . | grep ; end
 
-#if mac; then
+if mac; then
   function ls ; ls -GF $argv ; end
-# else
-  # alias ls="ls --color=auto -F"
-# fi
+else
+  function ls ; ls --color=auto -F $argv ; end
+end
 
 function df ; df -hT $argv ; end
 
@@ -235,6 +235,10 @@ set PATH $HOME/bin $PATH
 set PATH /usr/local/mysql/bin $PATH
 set PATH /usr/texbin $PATH
 set PATH $HOME/.rbenv/shims $PATH
+set PATH $HOME/.rbenv/bin $PATH
 set PATH /usr/local/go/bin $PATH
 rbenv rehash >/dev/null ^&1
+
+eval (dircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
+
 
