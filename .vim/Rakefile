@@ -9,7 +9,7 @@ task :default do
     threads << Thread.new {
       line = line.chomp
       next if line =~ /^#/
-      repo = line.scan(%r{/([^/]+).git})[0][0]
+        repo = line.scan(%r{/([^/]+).git})[0][0] rescue next
       if Dir.exists?("bundle/#{repo}")
         puts "%% Pulling #{repo}\n"
         `cd ~/.vim/bundle/#{repo} ; git pull`

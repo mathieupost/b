@@ -211,6 +211,10 @@ function L ; less $argv ; end
 function l ; ls $argv ; end
 function less ; /usr/bin/less -FXRS $argv ; end
 
+function rt; rake test; end
+function rtu; rake test:units; end
+function rtf; rake test:functionals; end
+
 function fdg ; find . | grep ; end
 
 #if mac; then
@@ -226,6 +230,7 @@ function df ; df -hT $argv ; end
 #   alias tsl="tail -f /var/log/syslog"
 # fi
 
+set PATH /usr/local/Cellar/macvim/7.3-64/MacVim.app/Contents/MacOS $PATH
 set PATH $HOME/bin $PATH
 set PATH /usr/local/mysql/bin $PATH
 set PATH /usr/texbin $PATH

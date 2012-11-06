@@ -1,2 +1,0 @@
-#!/bin/sh
-/usr/local/Cellar/macvim/7.3-64/MacVim.app/Contents/MacOS/Vim $@

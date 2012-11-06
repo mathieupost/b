@@ -170,10 +170,12 @@ nmap ,v lF:xysiw'
 " Convert string to symbol
 nmap ,V ds'i:<esc>
 
-" Edit related test
-" nnoremap <leader>5 <C-w>v<C-w>l:A<cr>
+" Keep search matches in the middle of the window and pulse the line when moving
+" to them.
+nnoremap n nzzzv:call PulseCursorLine()<cr>
+nnoremap N Nzzzv:call PulseCursorLine()<cr>
 
-nnoremap <leader>8 Orequire'ruby-debug';debugger<esc>
+nnoremap <leader>8 Orequire'debugger';debugger<esc>
 nnoremap <leader>9 Orequire'pry';binding.pry<esc>
 
 nnoremap Y yf$
@@ -183,9 +185,7 @@ nnoremap <C-O> O<esc>o
 inoremap <C-j> <esc>jli
 inoremap <C-k> <esc>kli
 inoremap <C-e> <esc>A
-inoremap <C-a> <esc>I
 nnoremap <C-e> $
-nnoremap <C-a> ^
 
 nnoremap <C-0> :tn
 nnoremap <C-9> :tp
@@ -287,6 +287,12 @@ vnoremap kj <esc>
 
 nnoremap ; :
 
+" Ack for the last search.
+nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
+
+" Toggle paste
+set pastetoggle=<F8>
+
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', expand('%'))
@@ -314,3 +320,73 @@ command! Lshop  lcd ~/src/s/shopify
 command! Lrails lcd ~/src/g/rails
 command! Lruby  lcd ~/src/g/ruby
 
+" Pulse ------------------------------------------------------------------- {{{
+
+function! PulseCursorLine()
+    let current_window = winnr()
+
+    windo set nocursorline
+    execute current_window . 'wincmd w'
+
+    setlocal cursorline
+
+    redir => old_hi
+        silent execute 'hi CursorLine'
+    redir END
+    let old_hi = split(old_hi, '\n')[0]
+    let old_hi = substitute(old_hi, 'xxx', '', '')
+
+    hi CursorLine guibg=#333333 ctermbg=235
+    redraw
+    sleep 2m
+
+    hi CursorLine guibg=#3a3a3a ctermbg=237
+    redraw
+    sleep 2m
+
+    hi CursorLine guibg=#444444 ctermbg=239
+    redraw
+    sleep 2m
+
+    hi CursorLine guibg=#3a3a3a ctermbg=237
+    redraw
+    sleep 2m
+
+    hi CursorLine guibg=#333333 ctermbg=235
+    redraw
+    sleep 2m
+
+    execute 'hi ' . old_hi
+
+    windo set cursorline
+    execute current_window . 'wincmd w'
+endfunction
+
+" }}}
+"
+"
+"
+"
+
+
+" turn-on distraction free writing mode for markdown files
+au BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call DistractionFreeWriting2()
+
+
+function! DistractionFreeWriting2()
+    colorscheme iawriter
+    set background=light
+    set gfn=Cousine:h20                " font to use
+    set lines=40 columns=80           " size of the editable area
+    set fuoptions=background:#00f5f6f6 " macvim specific setting for editor's background color 
+    set guioptions-=r                  " remove right scrollbar
+    set laststatus=0                   " don't show status line
+    set nornu
+    set antialias
+    set nocursorline
+    set wrap
+    set nolist
+    set noruler                        " don't show ruler
+    set fullscreen                     " go to fullscreen editing mode
+    set linebreak                      " break the lines on words
+endfunction
