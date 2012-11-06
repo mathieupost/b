@@ -2,8 +2,8 @@ function fish_prompt ; ~/src/b/prompt/prompt $status ; end
 
 set fish_greeting ""
 
-function mac ; test `uname -s` = "Darwin" ; end
-function linux ; test `uname -s` = "Linux" ; end
+function mac ; test (uname -s) = "Darwin" ; end
+function linux ; test (uname -s) = "Linux" ; end
 
 set -x CDPATH . $HOME/src/g $HOME/src/s $HOME/src/b $HOME/go/src
 set -x EDITOR vim
@@ -217,8 +217,8 @@ function rtf; rake test:functionals; end
 
 function fdg ; find . | grep ; end
 
-if mac; then
-  function ls ; ls -GF $argv ; end
+if mac
+  function ls ;gls --color=auto -F $argv ; end
 else
   function ls ; ls --color=auto -F $argv ; end
 end
@@ -239,6 +239,10 @@ set PATH $HOME/.rbenv/bin $PATH
 set PATH /usr/local/go/bin $PATH
 rbenv rehash >/dev/null ^&1
 
-eval (dircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
+if mac
+  eval (gdircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
+else
+  eval (dircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
+end
 
 
