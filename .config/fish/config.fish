@@ -20,7 +20,7 @@ set -x DYLD_LIBRARY_PATH /usr/local/Cellar/libtool/2.4.2/lib $DYLD_LIBRARY_PATH
 
 function tmux
   set TERM screen-256color-bce
-  /usr/bin/tmux $argv
+  /usr/bin/env tmux $argv
 end
 
 function def          ; ack "def $argv" ; end
