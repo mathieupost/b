@@ -31,13 +31,14 @@ git://github.com/vim-scripts/searchfold.vim.git
 git://github.com/tpope/vim-endwise.git
 git://github.com/kchmck/vim-coffee-script.git
 git://github.com/scrooloose/syntastic.git
-# https://github.com/jpalardy/vim-slime.git
 https://github.com/Lokaltog/vim-powerline.git
 https://github.com/majutsushi/tagbar.git
 http://github.com/sjl/gundo.vim.git
 https://github.com/Lokaltog/vim-easymotion.git
 https://github.com/vim-scripts/VimClojure.git
 https://github.com/kien/ctrlp.vim.git
+git://github.com/fsouza/go.vim.git
 https://github.com/mivok/vimtodo.git
 git://github.com/tpope/vim-commentary.git
-
+# https://github.com/jpalardy/vim-slime.git
+git://github.com/lukaszkorecki/workflowish.git

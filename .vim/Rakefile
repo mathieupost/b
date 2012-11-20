@@ -8,14 +8,15 @@ task :default do
   lines.each do |line|
     threads << Thread.new {
       line = line.chomp
-      next if line =~ /^#/
-        repo = line.scan(%r{/([^/]+).git})[0][0] rescue next
-      if Dir.exists?("bundle/#{repo}")
-        puts "%% Pulling #{repo}\n"
-        `cd ~/.vim/bundle/#{repo} ; git pull`
-      else
-        puts "%% Cloning #{repo}\n"
-        `cd ~/.vim/bundle ; git clone #{line}`
+      unless line =~ /^#/
+        repo = line.scan(%r{/([^/]+).git})[0][0]
+        if Dir.exists?("bundle/#{repo}")
+          puts "%% Pulling #{repo}\n"
+          `cd ~/.vim/bundle/#{repo} ; git pull`
+        else
+          puts "%% Cloning #{repo}\n"
+          `cd ~/.vim/bundle ; git clone #{line}`
+        end
       end
     }
   end

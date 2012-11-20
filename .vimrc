@@ -129,7 +129,7 @@ let g:Powerline_symbols = 'fancy'
 " let g:Powerline_cache_enabled = 0
 let g:Powerline_colorscheme = 'solarized' " https://raw.github.com/gist/2003862/e245d6d9b60b16ea38d384107401ef9ad04fbb47/solarized.vim
 
-nnoremap <leader>s :%s/ \+$//g<cr>:noh<cr>
+nnoremap <leader>s :%s/ \+$//ge<cr>:noh<cr>
 
 
 function! ToggleNuMode()
@@ -180,12 +180,8 @@ nnoremap <leader>9 Orequire'pry';binding.pry<esc>
 
 nnoremap Y yf$
 
-nnoremap <C-O> O<esc>o
-
 inoremap <C-j> <esc>jli
 inoremap <C-k> <esc>kli
-inoremap <C-e> <esc>A
-nnoremap <C-e> $
 
 nnoremap <C-0> :tn
 nnoremap <C-9> :tp
