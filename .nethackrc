@@ -22,7 +22,7 @@ OPTIONS=monsters:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@X'&;:~]
 # stuff not in vanilla follows
 OPTIONS=showscore
 OPTIONS=sortloot:full
-OPTIONS=showborn
+#OPTIONS=showborn
 OPTIONS=use_darkgray
 OPTIONS=paranoid_remove
 
