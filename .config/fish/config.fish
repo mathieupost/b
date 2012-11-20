@@ -23,6 +23,8 @@ function tmux
   /usr/bin/env tmux $argv
 end
 
+function c1c ; cut -c1-$COLUMNS ; end
+
 function def          ; ack "def $argv" ; end
 function reh          ; rbenv rehash    ; end
 

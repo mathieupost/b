@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+arg = ARGV.shift
+if arg == "-e"
+  $edit = true
+  arg = ARGV.shift
+end
+
+if arg =~ /(.+)#(.+)/
+  source = `zeus runner 'puts #$1.instance_method(:#$2).source_location.join(\" +\")'`
+elsif arg =~ /(.+)\.(.+?)$/
+  source = `zeus runner 'puts #$1.method(:#$2).source_location.join(\" +\")'`
+end
+
+if $edit
+  exec "vim #{source}"
+else
+  puts source
+end

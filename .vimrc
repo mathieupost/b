@@ -243,7 +243,11 @@ let g:ctrlp_max_files = 20000
 
 let g:ctrlp_max_height = 10
 
-let g:path_to_matcher = "/Users/burke/bin/matcher"
+if has("mac")
+  let g:path_to_matcher = "/Users/burke/bin/matcher"
+else
+  let g:path_to_matcher = "/home/burke/bin/matcher"
+end
 
 let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard']
 
