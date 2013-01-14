@@ -1,0 +1,24 @@
+blink1-tool -m 0 --green
+sleep 0.2
+blink1-tool -m 0 --red
+sleep 0.2
+blink1-tool -m 0 --blue
+sleep 0.2
+blink1-tool -m 0 --green
+sleep 0.2
+blink1-tool -m 0 --red
+sleep 0.2
+blink1-tool -m 0 --blue
+sleep 0.2
+blink1-tool -m 0 --green
+sleep 0.2
+blink1-tool -m 0 --red
+sleep 0.2
+blink1-tool -m 0 --blue
+sleep 0.2
+blink1-tool -m 0 --green
+sleep 0.2
+blink1-tool -m 0 --red
+sleep 0.2
+blink1-tool -m 0 --blue
+sleep 0.2

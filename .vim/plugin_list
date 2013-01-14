@@ -42,3 +42,6 @@ https://github.com/mivok/vimtodo.git
 git://github.com/tpope/vim-commentary.git
 # https://github.com/jpalardy/vim-slime.git
 git://github.com/lukaszkorecki/workflowish.git
+git://github.com/nelstrom/vim-textobj-rubyblock.git
+git://github.com/kana/vim-textobj-user.git
+git://github.com/astashov/vim-ruby-debugger.git

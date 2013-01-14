@@ -16,7 +16,7 @@ set -x RUBY_HEAP_SLOTS_GROWTH_FACTOR 1
 set -x RUBY_GC_MALLOC_LIMIT 1000000000
 set -x RUBY_HEAP_FREE_MIN 500000
 
-set -x DYLD_LIBRARY_PATH /usr/local/Cellar/libtool/2.4.2/lib $DYLD_LIBRARY_PATH
+# set -x DYLD_LIBRARY_PATH /usr/local/Cellar/libtool/2.4.2/lib $DYLD_LIBRARY_PATH
 
 function tmux
   set TERM screen-256color-bce
@@ -35,7 +35,7 @@ function xrgm         ; e (bundle exec rails generate migration $argv[1] | tail 
 function elm          ; e db/migrate/(ls db/migrate | tail -n1) ; end
 
 
-function gc ; if test $argv[1] ; git commit -a -m "$argv" ; else git commit -a -v ; end ; end
+function gc ; if test $argv[1] ; git commit -a -m "$argv" ; else ; git commit -a -v ; end ; end
 
 function cpip
   set ip (ifconfig en0 | grep inet | awk '{print $2}' | tail -n1)
@@ -57,7 +57,7 @@ function psag ; ps aux | grep $argv ; end
 ######## bundler #############################################################
 function bi ; bundle install ; end
 function bo ; bundle open $argv ; end
-function bu ; bundle update ; end
+function bu ; bundle update $argv ; end
 function bs ; bundle show $argv ; end
 function  x ; bundle exec $argv ; end
 
@@ -103,11 +103,18 @@ function gsmmfpm      ; gsmmfp master ; end
 function   gtl ; git tag -l ; end
 function    ga ; git add $argv ; end
 function  gaac ; git add .; gac $argv ; end
+function gfrom ; gfro master ; end
+function  gfro ; gfr origin $argv ; end
+function   gfr ; git fetch $argv ; and git reset --hard FETCH_HEAD ; end
 function   gac ; gc $argv ; end
 function   gap ; git add -p $argv ; end
-function   gav ; git commit -av ; end
-function    gb ; git branch ; end
-function   gbl ; git branch -l ; end
+function   gav ; git commit -av $argv ; end
+function    gb ; git branch $argv; end
+function   gbl ; git branch -l $argv; end
+function   gug ; guo (gb | g '*' | ap2) ; end
+function    gu ; git push $argv ; end
+function   guo ; git push origin $argv ; end
+function   gfd ; git fetch origin (gb | g '*' | ap2) ; and git reset --hard FETCH_HEAD ; end
 function gcaar ; git add .; git commit -a --reuse-message=HEAD --amend ; end
 function  gcar ; git commit -a --reuse-message=HEAD --amend ; end
 function   gcd ; git clean -d ; end
@@ -136,7 +143,6 @@ function   gsd ; git stash drop $argv ; end
 function   gsl ; git stash list ; end
 function   gsp ; git stash pop ; end
 function    gt ; git status -sb ; end
-function    gu ; git push $argv ; end
 function   gwc ; git whatchanged $argv ; end
 function    gx ; open -a gitx . ; end
 function    gr ; git reset HEAD ; end
@@ -182,6 +188,7 @@ function  xrc ; bundle exec rails console ; end
 function  xrg ; bundle exec rails generate ; end
 function  xrr ; bundle exec rails runner $argv ; end
 function xr ; bundle exec rake $argv ; end
+function xrt ; bundle exec rake test $argv ; end
 function cpd ; cap production deploy ; end
 function csd ; cap staging deploy ; end
 
@@ -233,12 +240,12 @@ function df ; df -hT $argv ; end
 # fi
 
 set PATH /usr/local/Cellar/macvim/7.3-64/MacVim.app/Contents/MacOS $PATH
-set PATH $HOME/bin $PATH
 set PATH /usr/local/mysql/bin $PATH
 set PATH /usr/texbin $PATH
 set PATH $HOME/.rbenv/shims $PATH
 set PATH $HOME/.rbenv/bin $PATH
 set PATH /usr/local/go/bin $PATH
+set PATH $HOME/bin $PATH
 rbenv rehash >/dev/null ^&1
 
 if mac

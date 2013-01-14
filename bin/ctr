@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ctags=/usr/bin/ctags
+ctags=/usr/local/bin/ctags
 bundle=~/.rbenv/shims/bundle
 gem_home=~/.rbenv/versions/$(cat ~/.rbenv/version)/lib/ruby/gems/1.9.1
 rubinius_dir=~/src/g/rubinius

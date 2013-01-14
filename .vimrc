@@ -277,7 +277,7 @@ nnoremap <leader>ev :edit ~/.vimrc<cr>
 
 nnoremap <leader>n <C-^>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-cnoremap %! <C-R>=expand('%')<cr>
+cnoremap %^ <C-R>=expand('%')<cr>
 
 set statusline=%F%m%r%h%w\ <%Y>\ %l:%v(%L\|%p%%)
 
@@ -368,6 +368,7 @@ endfunction
 "
 "
 
+set printfont=PragmataTT:h12                " font to use
 
 " turn-on distraction free writing mode for markdown files
 au BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call DistractionFreeWriting2()
@@ -390,3 +391,7 @@ function! DistractionFreeWriting2()
     set fullscreen                     " go to fullscreen editing mode
     set linebreak                      " break the lines on words
 endfunction
+
+
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
