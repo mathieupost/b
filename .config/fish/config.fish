@@ -234,10 +234,8 @@ end
 
 function df ; df -hT $argv ; end
 
-# if linux; then
-#   alias sx="startx"
-#   alias tsl="tail -f /var/log/syslog"
-# fi
+function =; nextd ; end
+function -; prevd ; end
 
 set PATH /usr/local/Cellar/macvim/7.3-64/MacVim.app/Contents/MacOS $PATH
 set PATH /usr/local/mysql/bin $PATH
