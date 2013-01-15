@@ -156,6 +156,10 @@ function  grho ; git reset --hard $argv ; end
 function gvsc ; git add . ; git commit -am 'Auto-commit with useless commit message' ; git pull ; git push ; end
 
 
+function ghg ; open https://github.com/$argv ; end
+function ghgb ; ghg burke/$argv ; end
+function ghgs ; ghg shopify/$argv ; end
+
 # function gfl
 #   set limit $argv[1]
 #   [ x$limit = x ] && set limit 10
