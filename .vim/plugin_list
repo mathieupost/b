@@ -44,4 +44,6 @@ git://github.com/tpope/vim-commentary.git
 git://github.com/lukaszkorecki/workflowish.git
 git://github.com/nelstrom/vim-textobj-rubyblock.git
 git://github.com/kana/vim-textobj-user.git
-git://github.com/astashov/vim-ruby-debugger.git
+git://github.com/Valloric/YouCompleteMe.git
+git://github.com/wikitopian/hardmode.git
+git://github.com/kana/vim-textobj-user.git

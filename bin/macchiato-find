@@ -1,0 +1,2 @@
+#!/bin/sh
+ssh r "cat /tmp/macchiato-ip"

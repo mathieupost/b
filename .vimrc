@@ -10,7 +10,9 @@ set nocompatible
 
 call pathogen#infect()
 
-let mapleader = ","
+" Alright, I'll take the plunge and restore these. :/
+" let mapleader = ","
+" nnoremap ; :
 
 syntax on
 
@@ -70,6 +72,8 @@ endfunction
 
 " make uses real tabs
 au FileType make set noexpandtab
+
+au FileType go autocmd BufWritePre <buffer> Fmt
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
@@ -143,6 +147,7 @@ nnoremap <leader><leader>n :call ToggleNuMode()<cr>
 au BufReadPost * set relativenumber
 
 nnoremap <space> @q
+vnoremap . :norm.<cr>
 
 nmap <leader>j <leader>lb
 
@@ -166,9 +171,9 @@ let g:solarized_termtrans = 1
 colorscheme solarized
 
 " Convert symbol to string
-nmap ,v lF:xysiw'
+nmap <leader>v lF:xysiw'
 " Convert string to symbol
-nmap ,V ds'i:<esc>
+nmap <leader>V ds'i:<esc>
 
 " Keep search matches in the middle of the window and pulse the line when moving
 " to them.
@@ -285,8 +290,6 @@ inoremap kj <esc>
 cnoremap kj <esc>
 vnoremap kj <esc>
 
-nnoremap ; :
-
 " Ack for the last search.
 nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
 
@@ -313,60 +316,19 @@ if has("persistent_undo")
   set undofile
 endif
 
+
+call textobj#user#plugin('symbol', {
+\   'a_symbol': {
+\     '*pattern*': ':[\w_]+[\?\!]?',
+\     'select': ['aS', 'iS'] },
+\ })
+
 command! Gshop  cd ~/src/s/shopify
 command! Grails cd ~/src/g/rails
 command! Gruby  cd ~/src/g/ruby
 command! Lshop  lcd ~/src/s/shopify
 command! Lrails lcd ~/src/g/rails
 command! Lruby  lcd ~/src/g/ruby
-
-" Pulse ------------------------------------------------------------------- {{{
-
-function! PulseCursorLine()
-    let current_window = winnr()
-
-    windo set nocursorline
-    execute current_window . 'wincmd w'
-
-    setlocal cursorline
-
-    redir => old_hi
-        silent execute 'hi CursorLine'
-    redir END
-    let old_hi = split(old_hi, '\n')[0]
-    let old_hi = substitute(old_hi, 'xxx', '', '')
-
-    hi CursorLine guibg=#333333 ctermbg=235
-    redraw
-    sleep 2m
-
-    hi CursorLine guibg=#3a3a3a ctermbg=237
-    redraw
-    sleep 2m
-
-    hi CursorLine guibg=#444444 ctermbg=239
-    redraw
-    sleep 2m
-
-    hi CursorLine guibg=#3a3a3a ctermbg=237
-    redraw
-    sleep 2m
-
-    hi CursorLine guibg=#333333 ctermbg=235
-    redraw
-    sleep 2m
-
-    execute 'hi ' . old_hi
-
-    windo set cursorline
-    execute current_window . 'wincmd w'
-endfunction
-
-" }}}
-"
-"
-"
-"
 
 set printfont=PragmataTT:h12                " font to use
 
@@ -392,6 +354,4 @@ function! DistractionFreeWriting2()
     set linebreak                      " break the lines on words
 endfunction
 
-
 let g:ackprg = 'ag --nogroup --nocolor --column'
-

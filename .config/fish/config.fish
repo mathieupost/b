@@ -104,6 +104,7 @@ function   gtl ; git tag -l ; end
 function    ga ; git add $argv ; end
 function  gaac ; git add .; gac $argv ; end
 function gfrom ; gfro master ; end
+function gfrog ; gfro (gb | g '*' | ap2) ; end
 function  gfro ; gfr origin $argv ; end
 function   gfr ; git fetch $argv ; and git reset --hard FETCH_HEAD ; end
 function   gac ; gc $argv ; end
@@ -181,6 +182,7 @@ function mu ; gem uninstall $argv ; end
 function mibi ; gem install --no-ri --no-rdoc $argv and bundle ; end
 
 ######## rails/rake stuff ####################################################
+function  rdtp ; rake db:test:prepare ; end
 function   rdm ; bundle exec rake db:migrate ; end
 function  rdmr ; bundle exec rake db:migrate:redo $argv ; end
 function  rdmd ; bundle exec rake db:migrate:down $argv ; end
@@ -195,6 +197,9 @@ function xr ; bundle exec rake $argv ; end
 function xrt ; bundle exec rake test $argv ; end
 function cpd ; cap production deploy ; end
 function csd ; cap staging deploy ; end
+function zs ; zeus server ; end
+function zc ; zeus console ; end
+function zr ; zeus rake ; end
 
 function r ; ruby $argv ; end
 
@@ -241,7 +246,7 @@ function df ; df -hT $argv ; end
 function =; nextd ; end
 function -; prevd ; end
 
-set PATH /usr/local/Cellar/macvim/7.3-64/MacVim.app/Contents/MacOS $PATH
+set PATH /usr/local/Cellar/macvim/7.3-66/MacVim.app/Contents/MacOS $PATH
 set PATH /usr/local/mysql/bin $PATH
 set PATH /usr/texbin $PATH
 set PATH $HOME/.rbenv/shims $PATH
