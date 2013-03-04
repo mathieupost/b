@@ -246,14 +246,13 @@ function df ; df -hT $argv ; end
 function =; nextd ; end
 function -; prevd ; end
 
+. ~/.config/fish/boxen.fish
+
 set PATH /usr/local/Cellar/macvim/7.3-66/MacVim.app/Contents/MacOS $PATH
 set PATH /usr/local/mysql/bin $PATH
 set PATH /usr/texbin $PATH
-set PATH $HOME/.rbenv/shims $PATH
-set PATH $HOME/.rbenv/bin $PATH
 set PATH /usr/local/go/bin $PATH
 set PATH $HOME/bin $PATH
-rbenv rehash >/dev/null ^&1
 
 if mac
   eval (gdircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
