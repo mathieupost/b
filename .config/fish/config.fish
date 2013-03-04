@@ -251,7 +251,7 @@ function -; prevd ; end
 set PATH /usr/local/Cellar/macvim/7.3-66/MacVim.app/Contents/MacOS $PATH
 set PATH /usr/local/mysql/bin $PATH
 set PATH /usr/texbin $PATH
-set PATH /usr/local/go/bin $PATH
+set PATH /Users/burke/src/g/go/bin $PATH
 set PATH $HOME/bin $PATH
 
 if mac
