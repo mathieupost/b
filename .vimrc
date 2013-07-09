@@ -73,7 +73,7 @@ endfunction
 " make uses real tabs
 au FileType make set noexpandtab
 
-au FileType go autocmd BufWritePre <buffer> Fmt
+au FileType go autocmd BufWritePre <buffer> silent Fmt
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
@@ -125,13 +125,7 @@ let macvim_hig_shift_movement = 1
 " % to bounce from do to end etc.
 runtime! macros/matchit.vim
 
-
-let g:EasyMotion_leader_key = '<leader><leader>'
-nnoremap <leader>4 :TagbarToggle<cr>
 nnoremap <leader>5 :GundoToggle<cr>
-let g:Powerline_symbols = 'fancy'
-" let g:Powerline_cache_enabled = 0
-let g:Powerline_colorscheme = 'solarized' " https://raw.github.com/gist/2003862/e245d6d9b60b16ea38d384107401ef9ad04fbb47/solarized.vim
 
 nnoremap <leader>s :%s/ \+$//ge<cr>:noh<cr>
 
@@ -174,11 +168,6 @@ colorscheme solarized
 nmap <leader>v lF:xysiw'
 " Convert string to symbol
 nmap <leader>V ds'i:<esc>
-
-" Keep search matches in the middle of the window and pulse the line when moving
-" to them.
-nnoremap n nzzzv:call PulseCursorLine()<cr>
-nnoremap N Nzzzv:call PulseCursorLine()<cr>
 
 nnoremap <leader>8 Orequire'debugger';debugger<esc>
 nnoremap <leader>9 Orequire'pry';binding.pry<esc>
@@ -316,13 +305,6 @@ if has("persistent_undo")
   set undofile
 endif
 
-
-call textobj#user#plugin('symbol', {
-\   'a_symbol': {
-\     '*pattern*': ':[\w_]+[\?\!]?',
-\     'select': ['aS', 'iS'] },
-\ })
-
 command! Gshop  cd ~/src/s/shopify
 command! Grails cd ~/src/g/rails
 command! Gruby  cd ~/src/g/ruby
@@ -330,28 +312,6 @@ command! Lshop  lcd ~/src/s/shopify
 command! Lrails lcd ~/src/g/rails
 command! Lruby  lcd ~/src/g/ruby
 
-set printfont=PragmataTT:h12                " font to use
-
-" turn-on distraction free writing mode for markdown files
-au BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call DistractionFreeWriting2()
-
-
-function! DistractionFreeWriting2()
-    colorscheme iawriter
-    set background=light
-    set gfn=Cousine:h20                " font to use
-    set lines=40 columns=80           " size of the editable area
-    set fuoptions=background:#00f5f6f6 " macvim specific setting for editor's background color 
-    set guioptions-=r                  " remove right scrollbar
-    set laststatus=0                   " don't show status line
-    set nornu
-    set antialias
-    set nocursorline
-    set wrap
-    set nolist
-    set noruler                        " don't show ruler
-    set fullscreen                     " go to fullscreen editing mode
-    set linebreak                      " break the lines on words
-endfunction
+set printfont=PragmataPro:h12
 
 let g:ackprg = 'ag --nogroup --nocolor --column'

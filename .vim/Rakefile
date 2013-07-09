@@ -23,11 +23,5 @@ task :default do
 
   threads.map(&:join)
 
-  path = "bundle/vim-powerline/autoload/Powerline/Colorschemes/solarized.vim"
-  if !File.exists?(path)
-    puts "%% Installing powerline theme"
-    `curl https://raw.github.com/gist/2003862/solarized.vim > #{path}`
-  end
-
 end
 

@@ -1,9 +1,8 @@
 #!/bin/bash
 
-ctags=/usr/local/bin/ctags
-bundle=~/.rbenv/shims/bundle
-gem_home=~/.rbenv/versions/$(cat ~/.rbenv/version)/lib/ruby/gems/1.9.1
-rubinius_dir=~/src/g/rubinius
+ctags=$(which ctags)
+bundle=/opt/boxen/rbenv/shims/bundle
+gem_home=~/opt/boxen/rbenv/versions/$(cat /opt/boxen/rbenv/version)/lib/ruby/gems/1.9.1
 
 # end config
 
@@ -27,15 +26,6 @@ function ensurelink() {
 mkdir -p ~/.s
 ensurelink $gem_home/gems ~/.s/g
 ensurelink $gem_home/bundler/gems ~/.s/b
-ensurelink $rubinius_dir/lib ~/.s/l
-ensurelink $rubinius_dir/kernel/common ~/.s/c
-
-rubinius_lib_sources=`find $rubinius_dir/lib/ -name '*.rb' | grep -v 'rubinius/lib/18' |\
-  sed "s|$rubinius_dir/lib|$HOME/.s/l|"`
-
-rubinius_builtin_sources=`find $rubinius_dir/kernel/common -name '*.rb' | grep -v '18.rb' |\
-  sed "s|$rubinius_dir/kernel/common|$HOME/.s/c|"`
-
 
 gem_sources=$(
   export PATH="$HOME/.rbenv/bin:$PATH"
@@ -44,5 +34,5 @@ gem_sources=$(
     sed "s|$gem_home/bundler/gems|$HOME/.s/b|"
 )
 
-$ctags -R --languages=ruby . $gem_sources $rubinius_builtin_sources $rubinius_lib_sources
+$ctags -R --languages=ruby . $gem_sources
 
