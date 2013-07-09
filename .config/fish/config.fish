@@ -263,6 +263,11 @@ function df ; df -hT $argv ; end
 function =; nextd ; end
 function -; prevd ; end
 
+function ssh-add
+  eval (ssh-agent | head -2 | sed -e 's/^\\([^=]*\\)=\\([^;]*\\);.*/set -x \\1 \\2;/')
+  /usr/bin/ssh-add $argv
+end
+
 set -x PATH /usr/texbin $PATH
 set -x PATH /Users/burke/src/g/go/bin $PATH
 set -x PATH $HOME/bin $PATH
@@ -275,7 +280,6 @@ else
   set -x PATH $HOME/.rbenv/shims $PATH
 end
 
-
 if mac
   . ~/.config/fish/boxen.fish
   eval (gdircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
@@ -283,5 +287,3 @@ else
   rbenv rehash > /dev/null ^/dev/null
   eval (dircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
 end
-
-
