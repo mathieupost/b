@@ -45,8 +45,6 @@ set -x RUBY_GC_MALLOC_LIMIT 1000000000
 set -x RUBY_FREE_MIN 500000
 set -x RUBY_HEAP_MIN_SLOTS 40000
 
-# set -x DYLD_LIBRARY_PATH /usr/local/Cellar/libtool/2.4.2/lib $DYLD_LIBRARY_PATH
-
 function tmux
   set TERM screen-256color-bce
   /usr/bin/env tmux $argv
@@ -81,6 +79,7 @@ function ka9 ; killall -9 $argv ; end
 function k9 ; kill -9 $argv ; end
 function psag ; ps aux | grep $argv ; end
 
+function tunsc ; sshuttle -vr util1 172.16.0.0/16 172.17.0.0/16 ; end
 
 
 ######## bundler #############################################################
@@ -278,14 +277,19 @@ function df ; df -hT $argv ; end
 function =; nextd ; end
 function -; prevd ; end
 
-. ~/.config/fish/boxen.fish
-
-set -x PATH /Applications/MacVim.app/Contents/MacOS $PATH
-set -x PATH /usr/local/mysql/bin $PATH
 set -x PATH /usr/texbin $PATH
 set -x PATH /Users/burke/src/g/go/bin $PATH
-set -x PATH /opt/boxen/homebrew/share/npm/bin $PATH
 set -x PATH $HOME/bin $PATH
+
+if mac
+  set -x PATH /Applications/MacVim.app/Contents/MacOS $PATH
+  set -x PATH /opt/boxen/homebrew/share/npm/bin $PATH
+else
+  set -x PATH $HOME/.rbenv/bin $PATH
+  set -x PATH $HOME/.rbenv/shims $PATH
+end
+
+rbenv rehash > /dev/null ^/dev/null
 
 if mac
   eval (gdircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')

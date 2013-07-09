@@ -236,7 +236,7 @@ let g:ctrlp_max_height = 10
 if has("mac")
   let g:path_to_matcher = "/Users/burke/bin/matcher"
 else
-  let g:path_to_matcher = "/home/burke/bin/matcher"
+  let g:path_to_matcher = "/home/burke/bin/matcher-linux"
 end
 
 let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard']
