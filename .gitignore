@@ -3,7 +3,8 @@
 !/.gitignore
 !/.gitmodules
 !/.config.d
-!/.config
+!/.config/fish
+!/.config/ruby
 !/.vim
 !/bin
 !/.gdbinit
