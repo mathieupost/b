@@ -18,6 +18,8 @@
 !/.vimrc
 !/.gvimrc
 !/Library/Fonts/pragmata.ttf
+!/Library/LaunchAgents/pbcopy.plist
+!/Library/LaunchAgents/pbpaste.plist
 !/.gemrc
 !/Library/profile.jpg
 !/.slashemrc
