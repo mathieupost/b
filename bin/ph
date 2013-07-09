@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+
+def setup_ph(p)
+  $p = p
+end
+
+def top10(c=3)
+  $p.sort_by{|k,v|v[0][c]}.reverse[0..10].map{|f|[f[0],f[1][0]]}
+end
+
+def pf(file)
+  if Array === file
+    file = file.first
+  end
+  lines = File.read(file).lines.to_a
+  prof = $p[file]
+  lines.size.times do |i|
+    puts("%29s | %s" % [fmt(*prof[i+1]), lines[i]])
+  end
+end
+
+def fmt(total, child, calls)
+  if total == 0 && child == 0
+    ""
+  else
+    "% 6dms / % 6dms (% 5d)" % [total/1000, child/1000, calls]
+  end
+end
+
+def byline(which, n=20)
+  lines = []
+  $p.each do |file, prof|
+    1.upto(prof.size-1).each do |i|
+      if which == :total
+        total = prof[i][0]
+      elsif which == :child
+        total = prof[i][1]
+      elsif which == :diff
+        total = prof[i][0] - prof[i][1]
+      end
+      next if total == 0
+      #child = prof[i][1]
+      lines << [file, i, total] #]- child]
+    end
+  end
+  sl = lines.sort_by { |a,b,c| c }.reverse
+  showlines(sl[0..n])
+  true
+end
+
+def showlines(lines)
+  lines.each do |file, lineno, timespent|
+    puts "--> #{file} : #{lineno}"
+    line = File.read(file).lines.to_a[lineno-1]
+    puts "#{timespent / 1000}ms  |  #{line}"
+  end
+end
+
+
+if __FILE__ == $0
+  dump = ARGV[0]
+  profile = Marshal.load(File.read(dump))
+  setup_ph(profile)
+
+  require 'pry'
+  pry
+end

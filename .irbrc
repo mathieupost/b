@@ -1,5 +1,19 @@
 # -*- coding: utf-8; mode: ruby -*-
 
+def encoding_of(s)
+  Encoding.
+    constants.
+    map    { |e| Encoding.const_get(e) }.
+    select { |k| Encoding === k }.
+    map    { |k| s.dup.force_encoding(k) }.
+    reject { |f| f.inspect == s.inspect }.
+    map    { |f| [f.encoding.name, f.encode(Encoding::UTF_8)] rescue "failed" }.
+    uniq
+end
+# >> encoding_of "\x80\x93"
+# => [["UTF-16BE", "肓"], ["UTF-16LE", "鎀"]]
+
+
 def ras
   require 'active_support/all'
 end

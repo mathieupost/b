@@ -1,20 +1,49 @@
 function fish_prompt ; ~/src/b/prompt/prompt $status ; end
 
-set fish_greeting ""
+set fish_greeting (set_color red)'                 ___
+   ___======____='(set_color yellow)'---='(set_color red)')
+ /T            \_'(set_color yellow)'--==='(set_color red)')
+ L \ '(set_color yellow)'(@)   '(set_color red)'\~    \_'(set_color yellow)'-=='(set_color red)')
+  \      / )J'(set_color yellow)'~~    '(set_color red)'\\'(set_color yellow)'-='(set_color red)')
+   \\\\___/  )JJ'(set_color yellow)'~~    '(set_color red)'\)
+    \_____/JJJ'(set_color yellow)'~~      '(set_color red)'\
+    / \  , \\'(set_color red)'J'(set_color yellow)'~~~~      \
+   (-\)'(set_color red)'\='(set_color yellow)'|  \~~~        L__
+   ('(set_color red)'\\'(set_color yellow)'\\)  ( -\)_            ==__
+    '(set_color red)'\V    '(set_color yellow)'\-'(set_color red)'\) =='(set_color yellow)'=_____  J\   \\\\
+           '(set_color red)'\V)     \_)'(set_color yellow)' \   JJ J\)
+                       /J J'(set_color red)'T'(set_color yellow)'\JJJ'(set_color red)'J)
+                       (J'(set_color yellow)'JJ| '(set_color red)'\UUU)
+                        (UU)'
 
 function mac ; test (uname -s) = "Darwin" ; end
 function linux ; test (uname -s) = "Linux" ; end
+
+set -x MANTA_URL https://us-east.manta.joyent.com
+set -x MANTA_USER shopify
+set -x MANTA_KEY_ID 00:38:be:b9:e5:54:ea:66:6f:ed:af:5e:d6:6c:3a:8d
+
 
 set -x CDPATH . $HOME/src/g $HOME/src/s $HOME/src/b $HOME/go/src
 set -x EDITOR vim
 
 set -x GOPATH $HOME/go
+set -x PATH $GOPATH/bin $PATH
 
-set -x RUBY_HEAP_MIN_SLOTS 1000000
-set -x RUBY_HEAP_SLOTS_INCREMENT 1000000
-set -x RUBY_HEAP_SLOTS_GROWTH_FACTOR 1
+set -x GOCIRCUIT $GOPATH/circuit
+set -x GOPATH $GOPATH $GOCIRCUIT
+set -x PATH $GOCIRCUIT/bin $PATH
+
+set -x ZKINCLUDE /usr/local/include/zookeeper
+set -x ZKLIB /usr/local/lib
+
+set -x CGO_CFLAGS "-I$ZKINCLUDE"
+set -x CGO_LDFLAGS "$ZKLIB/libzookeeper_mt.a"
+
+
 set -x RUBY_GC_MALLOC_LIMIT 1000000000
-set -x RUBY_HEAP_FREE_MIN 500000
+set -x RUBY_FREE_MIN 500000
+set -x RUBY_HEAP_MIN_SLOTS 40000
 
 # set -x DYLD_LIBRARY_PATH /usr/local/Cellar/libtool/2.4.2/lib $DYLD_LIBRARY_PATH
 
@@ -182,6 +211,7 @@ function mu ; gem uninstall $argv ; end
 function mibi ; gem install --no-ri --no-rdoc $argv and bundle ; end
 
 ######## rails/rake stuff ####################################################
+function   rft ; rake fast:test ; end
 function  rdtp ; rake db:test:prepare ; end
 function   rdm ; bundle exec rake db:migrate ; end
 function  rdmr ; bundle exec rake db:migrate:redo $argv ; end
@@ -235,6 +265,8 @@ function rtf; rake test:functionals; end
 
 function fdg ; find . | grep ; end
 
+function tunsc ; sshuttle -vr util1 172.16.0.0/16 172.17.0.0/16 ; end
+
 if mac
   function ls ;gls --color=auto -F $argv ; end
 else
@@ -248,11 +280,12 @@ function -; prevd ; end
 
 . ~/.config/fish/boxen.fish
 
-set PATH /usr/local/Cellar/macvim/7.3-66/MacVim.app/Contents/MacOS $PATH
-set PATH /usr/local/mysql/bin $PATH
-set PATH /usr/texbin $PATH
-set PATH /Users/burke/src/g/go/bin $PATH
-set PATH $HOME/bin $PATH
+set -x PATH /Applications/MacVim.app/Contents/MacOS $PATH
+set -x PATH /usr/local/mysql/bin $PATH
+set -x PATH /usr/texbin $PATH
+set -x PATH /Users/burke/src/g/go/bin $PATH
+set -x PATH /opt/boxen/homebrew/share/npm/bin $PATH
+set -x PATH $HOME/bin $PATH
 
 if mac
   eval (gdircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
