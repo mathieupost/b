@@ -275,11 +275,12 @@ else
   set -x PATH $HOME/.rbenv/shims $PATH
 end
 
-rbenv rehash > /dev/null ^/dev/null
 
 if mac
+  . ~/.config/fish/boxen.fish
   eval (gdircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
 else
+  rbenv rehash > /dev/null ^/dev/null
   eval (dircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
 end
 
