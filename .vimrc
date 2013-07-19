@@ -8,6 +8,7 @@ set t_Co=256
 " Speed things up.
 set nocompatible
 
+set clipboard=unnamed
 call pathogen#infect()
 
 " Alright, I'll take the plunge and restore these. :/
@@ -313,5 +314,19 @@ command! Lrails lcd ~/src/g/rails
 command! Lruby  lcd ~/src/g/ruby
 
 set printfont=PragmataPro:h12
+
+function! PropagatePasteBufferToOSX()
+  let @n=getreg("*")
+  call system('pbcopy-remote', @n)
+  echo "done"
+endfunction
+
+function! PopulatePasteBufferFromOSX()
+  let @+ = system('pbpaste-remote')
+  echo "done"
+endfunction
+
+nnoremap <leader>6 :call PopulatePasteBufferFromOSX()<cr>
+nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
