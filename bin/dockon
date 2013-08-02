@@ -1,5 +1,0 @@
-#!/bin/sh
-
-sudo rm /System/Library/CoreServices/Dock.app
-sudo ln -s /System/Library/CoreServices/RealDock.app /System/Library/CoreServices/Dock.app
-sudo killall Dock

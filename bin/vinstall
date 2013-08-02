@@ -1,4 +1,0 @@
-#!/bin/sh
-cd ~/.vim
-echo $@ >> plugin_list
-rake
