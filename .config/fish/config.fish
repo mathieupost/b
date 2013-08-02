@@ -284,6 +284,9 @@ if mac
   . ~/.config/fish/boxen.fish
   eval (gdircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
 else
+  set -x CONCURRENCY_LEVEL 7
   rbenv rehash > /dev/null ^/dev/null
   eval (dircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
 end
+
+set -e MANPATH
