@@ -16,17 +16,6 @@ set -x EDITOR vim
 set -x GOPATH $HOME/go
 set -x PATH $GOPATH/bin $PATH
 
-set -x GOCIRCUIT $GOPATH/circuit
-set -x GOPATH $GOPATH $GOCIRCUIT
-set -x PATH $GOCIRCUIT/bin $PATH
-
-set -x ZKINCLUDE /usr/local/include/zookeeper
-set -x ZKLIB /usr/local/lib
-
-set -x CGO_CFLAGS "-I$ZKINCLUDE"
-set -x CGO_LDFLAGS "$ZKLIB/libzookeeper_mt.a"
-
-
 set -x RUBY_GC_MALLOC_LIMIT 1000000000
 set -x RUBY_FREE_MIN 500000
 set -x RUBY_HEAP_MIN_SLOTS 40000
@@ -273,7 +262,7 @@ set -x PATH /Users/burke/src/g/go/bin $PATH
 set -x PATH $HOME/bin $PATH
 
 if mac
-  set -x PATH /Applications/MacVim.app/Contents/MacOS $PATH
+  set -x PATH /usr/local/Cellar/macvim/7.4-71/MacVim.app/Contents/MacOS/ $PATH
   set -x PATH /opt/boxen/homebrew/share/npm/bin $PATH
 else
   set -x PATH $HOME/.rbenv/bin $PATH
@@ -290,3 +279,6 @@ else
 end
 
 set -e MANPATH
+
+set -x PATH ~/.rbenv/shims ~/.rbenv/bin $PATH
+rbenv rehash 2>/dev/null
