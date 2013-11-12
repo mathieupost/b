@@ -241,6 +241,8 @@ function fdg ; find . | grep ; end
 
 function tunsc ; sshuttle -vr util1 172.16.0.0/16 172.17.0.0/16 ; end
 
+function vgs ; cd ~/src/s/vagrant ; and vagrant ssh ; end
+
 if mac
   function ls ;gls --color=auto -F $argv ; end
 else
