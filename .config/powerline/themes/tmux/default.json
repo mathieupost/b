@@ -1,0 +1,51 @@
+{
+	"default_module": "powerline.segments.common",
+	"segment_data": {
+		"external_ip": {
+			"before": "ⓦ  "
+		},
+		"date": {
+			"before": ""
+		},
+		"email_imap_alert": {
+			"before": "✉ ",
+			"args": {
+				"username": "",
+				"password": ""
+			}
+		}
+	},
+	"segments": {
+		"right": [
+      {
+        "name": "external_ip"
+      },
+      {
+        "module": "powerlinex.segment.rdio",
+        "name": "playing",
+        "before": "♫  ",
+        "highlight_group": ["prompt"]
+      },
+      {
+        "module": "powerlinex.segment.osxbattery",
+        "name": "battery",
+        "before": "🔋  ",
+        "priority": 70
+      },
+			{
+				"name": "system_load",
+				"priority": 50
+			},
+			{
+				"name": "date",
+				"args": {
+					"format": "%Y-%m-%d %H:%M",
+					"istime": true
+				}
+			},
+			{
+				"name": "hostname"
+			}
+		]
+	}
+}
