@@ -130,16 +130,9 @@ nnoremap <leader>5 :GundoToggle<cr>
 
 nnoremap <leader>s :%s/ \+$//ge<cr>:noh<cr>
 
-
-function! ToggleNuMode()
-  if(&rnu == 1)
-    set nu
-  else
-    set rnu
-  endif
-endfunction
-nnoremap <leader><leader>n :call ToggleNuMode()<cr>
-au BufReadPost * set relativenumber
+set rnu
+set nu
+set numberwidth=1
 
 nnoremap <space> @q
 vnoremap . :norm.<cr>
@@ -149,6 +142,8 @@ nmap <leader>j <leader>lb
 nnoremap <leader>p Pjddkyy
 
 au BufNewFile,BufRead *.handlebars set filetype=mustache
+
+au BufNewFile,BufRead *.go set nolist
 
 set notimeout
 set ttimeout
@@ -228,6 +223,27 @@ vnoremap ˚ :m-2<CR>gv=gv
 noremap H ^
 noremap L $
 
+" Run a given vim command on the results of fuzzy selecting from a given shell
+" command. See usage below.
+function! SelectaCommand(choice_command, selecta_args, vim_command)
+  try
+    silent let selection = system(a:choice_command . " | selecta " . a:selecta_args)
+  catch /Vim:Interrupt/
+    " Swallow the ^C so that the redraw below happens; otherwise there will be
+    " leftovers from selecta on the screen
+    redraw!
+    return
+  endtry
+  redraw!
+  exec a:vim_command . " " . selection
+endfunction
+
+" Find all files in all non-dot directories starting in the working directory.
+" Fuzzy select one of those. Open the selected file with :e.
+nnoremap <leader>f :call SelectaCommand("find * -type f", "", ":e")<cr>
+nnoremap <leader>h :call SelectaCommand("git ls-files", "", ":e")<cr>
+
+
 " let g:ctrlp_map = '<c-t>'
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_max_files = 20000
@@ -273,8 +289,6 @@ nnoremap <leader>ev :edit ~/.vimrc<cr>
 nnoremap <leader>n <C-^>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 cnoremap %^ <C-R>=expand('%')<cr>
-
-set statusline=%F%m%r%h%w\ <%Y>\ %l:%v(%L\|%p%%)
 
 inoremap kj <esc>
 cnoremap kj <esc>
@@ -329,4 +343,12 @@ endfunction
 nnoremap <leader>6 :call PopulatePasteBufferFromOSX()<cr>
 nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
 
+set rtp+=/Users/burke/src/g/powerline/powerline/bindings/vim
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+let g:Powerline_theme='long'
+let g:Powerline_colorscheme='solarized256_dark'

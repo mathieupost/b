@@ -19,12 +19,11 @@ git://github.com/vim-scripts/searchfold.vim.git
 git://github.com/tpope/vim-endwise.git
 git://github.com/kchmck/vim-coffee-script.git
 git://github.com/scrooloose/syntastic.git
-https://github.com/Lokaltog/vim-powerline.git
 http://github.com/sjl/gundo.vim.git
 https://github.com/kien/ctrlp.vim.git
 git://github.com/fsouza/go.vim.git
 git://github.com/tpope/vim-commentary.git
 git://github.com/nelstrom/vim-textobj-rubyblock.git
 git://github.com/kana/vim-textobj-user.git
-https://github.com/bling/vim-airline.git
 https://github.com/jmahler/hla.vim.git
+https://github.com/stephenmckinney/vim-solarized-powerline.git

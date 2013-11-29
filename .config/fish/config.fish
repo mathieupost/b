@@ -54,8 +54,10 @@ function ka9 ; killall -9 $argv ; end
 function k9 ; kill -9 $argv ; end
 function psag ; ps aux | grep $argv ; end
 
-function tunsc ; sshuttle -vr util1 172.16.0.0/16 172.17.0.0/16 ; end
+function sch ; ssh $argv[1].chi ; end
 
+
+function Sgb; git branch --list | grep -v '^\*' | selecta | xargs git checkout ; end
 
 ######## bundler #############################################################
 function bi ; bundle install ; end
@@ -259,6 +261,9 @@ function ssh-add
   /usr/bin/ssh-add $argv
 end
 
+set -x PYTHONPATH $PYTHONPATH /Users/burke/.config/powerline
+
+set -x PATH /usr/local/bin $PATH
 set -x PATH /usr/texbin $PATH
 set -x PATH /Users/burke/src/g/go/bin $PATH
 set -x PATH $HOME/bin $PATH
