@@ -21,6 +21,10 @@
         "name": "external_ip"
       },
       {
+        "module": "powerlinex.segment.viscosity",
+        "name": "playing"
+      },
+      {
         "module": "powerlinex.segment.rdio",
         "name": "playing",
         "before": "♫  ",

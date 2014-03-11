@@ -9,16 +9,25 @@ set -x MANTA_URL https://us-east.manta.joyent.com
 set -x MANTA_USER shopify
 set -x MANTA_KEY_ID 00:38:be:b9:e5:54:ea:66:6f:ed:af:5e:d6:6c:3a:8d
 
+function vup; vagrant up ; end
+function vhalt; vagrant halt ; end
+function vdestroy; vagrant destroy -f ; end
+function vssh; vagrant ssh ; end
+function vprov; vagrant provision ; end
 
-set -x CDPATH . $HOME/src/g $HOME/src/s $HOME/src/b $HOME/go/src
+
+function cdep; bundle exec cap deploy; end
+
+set -x CDPATH . $HOME/src/g $HOME/src/s $HOME/src/b $HOME/src/github.com $HOME/src/github.com/burke $HOME/src/github.com/Shopify
 set -x EDITOR vim
 
-set -x GOPATH $HOME/go
+set -x GOPATH $HOME
 set -x PATH $GOPATH/bin $PATH
+set -x PATH $HOME/src/go/bin $PATH
 
 set -x RUBY_GC_MALLOC_LIMIT 1000000000
-set -x RUBY_FREE_MIN 500000
-set -x RUBY_HEAP_MIN_SLOTS 40000
+set -x RUBY_GC_HEAP_SLOTS_FREE 500000
+set -x RUBY_GC_HEAP_INIT_SLOTS 40000
 
 function tmux
   set TERM screen-256color-bce
@@ -55,6 +64,11 @@ function k9 ; kill -9 $argv ; end
 function psag ; ps aux | grep $argv ; end
 
 function sch ; ssh $argv[1].chi ; end
+
+function vcc; osascript -e 'tell application "Viscosity" to connectall' ; end
+function vcdc; osascript -e 'tell application "Viscosity" to disconnectall' ; end
+
+
 
 
 function Sgb; git branch --list | grep -v '^\*' | selecta | xargs git checkout ; end

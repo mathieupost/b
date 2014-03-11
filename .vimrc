@@ -106,7 +106,7 @@ vmap <C-Down> ]egv
 
 " Enable syntastic syntax checking
 let g:syntastic_enable_signs=1
-let g:syntastic_quiet_warnings=1
+"let g:syntastic_quiet_warnings=1
 
 " gist-vim defaults
 if has("mac")
@@ -222,6 +222,10 @@ vnoremap ˚ :m-2<CR>gv=gv
 
 noremap H ^
 noremap L $
+
+autocmd FileType go  :iabbrev <buffer> ifep if err != nil { panic(err) }
+autocmd FileType go  :iabbrev <buffer> ifer if err != nil { return err }
+autocmd FileType go  :iabbrev <buffer> ifern if err != nil { return nil, err }
 
 " Run a given vim command on the results of fuzzy selecting from a given shell
 " command. See usage below.
@@ -347,6 +351,8 @@ set rtp+=/Users/burke/src/g/powerline/powerline/bindings/vim
 python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
+
+"let g:gofmt_command = 'goimports'
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 

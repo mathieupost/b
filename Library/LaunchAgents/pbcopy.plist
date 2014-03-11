@@ -20,7 +20,7 @@
                     <key>SockServiceName</key>
                     <string>2224</string>
                     <key>SockNodeName</key>
-                    <string>127.0.0.1</string>
+                    <string>192.168.224.1</string>
                </dict>
      </dict>
 </dict>
