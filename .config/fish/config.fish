@@ -100,6 +100,11 @@ function gvg ; grep -v grep ; end
 ######## git stuff ###########################################################
 function glol ; lol --graph -200 $argv ; end
 
+function gl
+  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative $argv
+end
+
+
 function lol
   set HASH "%C(yellow)%h%Creset"
   set RELATIVE_TIME "%Cgreen(%ar)%Creset"
@@ -109,7 +114,7 @@ function lol
 
   set FORMAT "$HASH}$RELATIVE_TIME}$AUTHOR}$REFS $SUBJECT"
 
-  git log -1000 --pretty="tformat:$FORMAT" $argv | sed -Ee 's/(^[^<]*) ago)/\1)/' | sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?)/\1)/' | column -s '}' -t | less -FXRS
+  git log -200 --pretty="format:$FORMAT" $argv | sed -Ee 's/(^[^<]*) ago)/\1)/' | sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?)/\1)/' | column -s '}' -t | less -FXRS
 end
 
 function grim         ; git rebase -i master; end
@@ -149,7 +154,6 @@ function   gdu ; git pull ; and git push ; end
 function  gdts ; git stash; git pull; git stash pop ; end
 function    gf ; git diff $argv ; end
 function   gfc ; git diff --cached $argv ; end
-function    gl ; git log $argv ; end
 function   glp ; git log -p $argv ; end
 function  glpr ; git log -p --reverse $argv ; end
 function    gm ; git merge $argv ; end

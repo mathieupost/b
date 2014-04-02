@@ -2,7 +2,6 @@
 	"default_module": "powerline.segments.common",
 	"segment_data": {
 		"external_ip": {
-			"before": "ⓦ  "
 		},
 		"date": {
 			"before": ""
@@ -21,19 +20,8 @@
         "name": "external_ip"
       },
       {
-        "module": "powerlinex.segment.viscosity",
-        "name": "playing"
-      },
-      {
-        "module": "powerlinex.segment.rdio",
-        "name": "playing",
-        "before": "♫  ",
-        "highlight_group": ["prompt"]
-      },
-      {
         "module": "powerlinex.segment.osxbattery",
         "name": "battery",
-        "before": "🔋  ",
         "priority": 70
       },
 			{
