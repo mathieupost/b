@@ -13,8 +13,8 @@ git://github.com/tsaleh/vim-align.git
 git://github.com/tpope/vim-unimpaired.git
 git://github.com/tpope/vim-endwise.git
 git://github.com/scrooloose/syntastic.git
-https://github.com/kien/ctrlp.vim.git
-https://github.com/sdutlinux/go.vim.git
+git://github.com/kien/ctrlp.vim.git
 git://github.com/tpope/vim-commentary.git
-https://github.com/bling/vim-airline.git
-https://github.com/derekwyatt/vim-scala.git
+git://github.com/fsouza/go.vim.git
+git://github.com/bling/vim-airline.git
+git://github.com/derekwyatt/vim-scala.git
