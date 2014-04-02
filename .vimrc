@@ -347,10 +347,7 @@ endfunction
 nnoremap <leader>6 :call PopulatePasteBufferFromOSX()<cr>
 nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
 
-set rtp+=/Users/burke/src/g/powerline/powerline/bindings/vim
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+let g:airline_powerline_fonts = 1
 
 "let g:gofmt_command = 'goimports'
 

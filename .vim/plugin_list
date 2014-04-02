@@ -26,5 +26,5 @@ git://github.com/tpope/vim-commentary.git
 git://github.com/nelstrom/vim-textobj-rubyblock.git
 git://github.com/kana/vim-textobj-user.git
 https://github.com/jmahler/hla.vim.git
-https://github.com/stephenmckinney/vim-solarized-powerline.git
+https://github.com/bling/vim-airline.git
 https://github.com/derekwyatt/vim-scala.git
