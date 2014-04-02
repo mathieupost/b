@@ -11,10 +11,6 @@ set nocompatible
 set clipboard=unnamed
 call pathogen#infect()
 
-" Alright, I'll take the plunge and restore these. :/
-" let mapleader = ","
-" nnoremap ; :
-
 syntax on
 
 " Disable beeps and flashes
@@ -108,15 +104,6 @@ vmap <C-Down> ]egv
 let g:syntastic_enable_signs=1
 "let g:syntastic_quiet_warnings=1
 
-" gist-vim defaults
-if has("mac")
-  let g:gist_clip_command = 'pbcopy'
-elseif has("unix")
-  let g:gist_clip_command = 'xclip -selection clipboard'
-endif
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-
 " Turn off jslint errors by default
 let g:JSLintHighlightErrorLine = 0
 
@@ -159,11 +146,6 @@ map <C-\> :tnext<CR>
 set background=dark
 let g:solarized_termtrans = 1
 colorscheme solarized
-
-" Convert symbol to string
-nmap <leader>v lF:xysiw'
-" Convert string to symbol
-nmap <leader>V ds'i:<esc>
 
 nnoremap <leader>8 Orequire'debugger';debugger<esc>
 nnoremap <leader>9 Orequire'pry';binding.pry<esc>
@@ -227,27 +209,6 @@ autocmd FileType go  :iabbrev <buffer> ifep if err != nil { panic(err) }
 autocmd FileType go  :iabbrev <buffer> ifer if err != nil { return err }
 autocmd FileType go  :iabbrev <buffer> ifern if err != nil { return nil, err }
 
-" Run a given vim command on the results of fuzzy selecting from a given shell
-" command. See usage below.
-function! SelectaCommand(choice_command, selecta_args, vim_command)
-  try
-    silent let selection = system(a:choice_command . " | selecta " . a:selecta_args)
-  catch /Vim:Interrupt/
-    " Swallow the ^C so that the redraw below happens; otherwise there will be
-    " leftovers from selecta on the screen
-    redraw!
-    return
-  endtry
-  redraw!
-  exec a:vim_command . " " . selection
-endfunction
-
-" Find all files in all non-dot directories starting in the working directory.
-" Fuzzy select one of those. Open the selected file with :e.
-nnoremap <leader>f :call SelectaCommand("find * -type f", "", ":e")<cr>
-nnoremap <leader>h :call SelectaCommand("git ls-files", "", ":e")<cr>
-
-
 " let g:ctrlp_map = '<c-t>'
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_max_files = 20000
@@ -304,17 +265,6 @@ nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute
 " Toggle paste
 set pastetoggle=<F8>
 
-function! RenameFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'))
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
-    redraw!
-  endif
-endfunction
-command! Rename call RenameFile()
-
 if has("mouse")
   set mouse=a
 endif
@@ -323,13 +273,6 @@ if has("persistent_undo")
   set undodir=~/.vim/undodir
   set undofile
 endif
-
-command! Gshop  cd ~/src/s/shopify
-command! Grails cd ~/src/g/rails
-command! Gruby  cd ~/src/g/ruby
-command! Lshop  lcd ~/src/s/shopify
-command! Lrails lcd ~/src/g/rails
-command! Lruby  lcd ~/src/g/ruby
 
 set printfont=PragmataPro:h12
 
