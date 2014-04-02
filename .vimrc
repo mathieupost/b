@@ -262,8 +262,7 @@ vnoremap kj <esc>
 " Ack for the last search.
 nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
 
-" Toggle paste
-set pastetoggle=<F8>
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 if has("mouse")
   set mouse=a
@@ -276,25 +275,9 @@ endif
 
 set printfont=PragmataPro:h12
 
-function! PropagatePasteBufferToOSX()
-  let @n=getreg("*")
-  call system('pbcopy-remote', @n)
-  echo "done"
-endfunction
-
-function! PopulatePasteBufferFromOSX()
-  let @+ = system('pbpaste-remote')
-  echo "done"
-endfunction
-
-nnoremap <leader>6 :call PopulatePasteBufferFromOSX()<cr>
-nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
-
 let g:airline_powerline_fonts = 1
 
 "let g:gofmt_command = 'goimports'
-
-let g:ackprg = 'ag --nogroup --nocolor --column'
 
 let g:Powerline_theme='long'
 let g:Powerline_colorscheme='solarized256_dark'
