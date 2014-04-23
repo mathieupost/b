@@ -1,4 +1,4 @@
-function fish_prompt ; ~/src/b/prompt/prompt $status ; end
+function fish_prompt ; ~/src/github.com/burke/wunderprompt/prompt $status ; end
 
 set fish_greeting ''
 
@@ -18,7 +18,7 @@ function vprov; vagrant provision ; end
 
 function cdep; bundle exec cap deploy; end
 
-set -x CDPATH . $HOME/src/g $HOME/src/s $HOME/src/b $HOME/src/github.com $HOME/src/github.com/burke $HOME/src/github.com/Shopify
+set -x CDPATH . $HOME/src/github.com $HOME/src/github.com/burke $HOME/src/github.com/Shopify
 set -x EDITOR vim
 
 set -x GOPATH $HOME
@@ -33,6 +33,8 @@ function tmux
   set TERM screen-256color-bce
   /usr/bin/env tmux $argv
 end
+
+function gh ; cd (_gh $argv) ; end
 
 function c1c ; cut -c1-$COLUMNS ; end
 
@@ -283,12 +285,12 @@ set -x PYTHONPATH $PYTHONPATH /Users/burke/.config/powerline
 
 set -x PATH /usr/local/bin $PATH
 set -x PATH /usr/texbin $PATH
-set -x PATH /Users/burke/src/g/go/bin $PATH
+set -x PATH /Users/burke/src/code.google.com/p/go/bin $PATH
 set -x PATH $HOME/bin $PATH
+set -x PATH $HOME/bin/_git $PATH
 
 if mac
-  set -x PATH /usr/local/Cellar/macvim/7.4-71/MacVim.app/Contents/MacOS/ $PATH
-  set -x PATH /opt/boxen/homebrew/share/npm/bin $PATH
+  set -x PATH /usr/local/Cellar/macvim/7.4-71/MacVim.app/Contents/MacOS $PATH
 else
   set -x PATH $HOME/.rbenv/bin $PATH
   set -x PATH $HOME/.rbenv/shims $PATH

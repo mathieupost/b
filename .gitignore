@@ -6,7 +6,7 @@
 !/.config/fish
 !/.config/ruby
 !/.vim
-!/bin
+!/bin/_git
 !/.gdbinit
 !/.rdebugrc
 !/.gdb
@@ -28,4 +28,3 @@
 .gitconfig
 .config/fish/fish_history
 .config/fish/fishd.*
-bin/pegasus-recovery.rb

@@ -72,6 +72,9 @@ au FileType make set noexpandtab
 
 au FileType go autocmd BufWritePre <buffer> silent Fmt
 
+au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
+au BufWritePost *.go silent! !sh -c "find . -name '*.go' | xargs gotags 2>&1 >/dev/null"&
+
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
 
@@ -112,8 +115,6 @@ let macvim_hig_shift_movement = 1
 
 " % to bounce from do to end etc.
 runtime! macros/matchit.vim
-
-nnoremap <leader>5 :GundoToggle<cr>
 
 nnoremap <leader>s :%s/ \+$//ge<cr>:noh<cr>
 
@@ -216,9 +217,9 @@ let g:ctrlp_max_files = 20000
 let g:ctrlp_max_height = 10
 
 if has("mac")
-  let g:path_to_matcher = "/Users/burke/bin/matcher"
+  let g:path_to_matcher = "/Users/burke/bin/_git/matcher"
 else
-  let g:path_to_matcher = "/home/burke/bin/matcher-linux"
+  let g:path_to_matcher = "/home/burke/bin/_git/matcher-linux"
 end
 
 let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard']
@@ -281,3 +282,49 @@ let g:airline_powerline_fonts = 1
 
 let g:Powerline_theme='long'
 let g:Powerline_colorscheme='solarized256_dark'
+
+nmap <leader>5 :TagbarToggle<cr>
+
+au Filetype go set makeprg=go\ build\ ./...
+nmap <leader>m :make<CR>:copen<CR>
+
+set rtp+=/Users/burke/src/github.com/golang/lint/misc/vim
+
+function! s:GoVet()
+    cexpr system("go vet " . shellescape(expand('%')))
+    copen
+endfunction
+command! GoVet :call s:GoVet()
+
+nmap T ddO
+
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabClosePreviewOnPopupClose = 1
+
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }

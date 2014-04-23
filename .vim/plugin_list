@@ -18,3 +18,4 @@ git://github.com/tpope/vim-commentary.git
 git://github.com/fsouza/go.vim.git
 git://github.com/bling/vim-airline.git
 git://github.com/derekwyatt/vim-scala.git
+git://github.com/majutsushi/tagbar.git
