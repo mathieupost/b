@@ -15,10 +15,15 @@ function vdestroy; vagrant destroy -f ; end
 function vssh; vagrant ssh ; end
 function vprov; vagrant provision ; end
 
+function bmd
+  ruby -ne "puts \$_.sub(/(?<=version          ')([\d\.]+)(?=')/){|f|a=\$1.split('.').map(&:to_i);a[-1]+=1;a.join('.')}" < $argv[1]/metadata.rb | sponge > $argv[1]/metadata.rb
+  git add $argv[1]/metadata.rb
+  git commit -m "bump metadata"
+end
 
 function cdep; bundle exec cap deploy; end
 
-set -x CDPATH . $HOME/src/github.com $HOME/src/github.com/burke $HOME/src/github.com/Shopify
+set -x CDPATH . $HOME/src/github.com $HOME/src/github.com/burke $HOME/src/github.com/Shopify $HOME/src/hobos
 set -x EDITOR vim
 
 set -x GOPATH $HOME
