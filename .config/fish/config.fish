@@ -46,7 +46,7 @@ function c1c ; cut -c1-$COLUMNS ; end
 function def          ; ack "def $argv" ; end
 function reh          ; rbenv rehash    ; end
 
-function shop         ; cd ~/src/s/shopify ; end
+function shop         ; gh Shopify shopify ; end
 function to           ; script/testonly $argv ; end
 
 function xrgm         ; e (bundle exec rails generate migration $argv[1] | tail -n1 | awk '{print $3}') ; end
