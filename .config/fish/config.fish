@@ -15,6 +15,8 @@ function vdestroy; vagrant destroy -f ; end
 function vssh; vagrant ssh ; end
 function vprov; vagrant provision ; end
 
+function ke ; knife node edit $argv[1].chi.shopify.com ; end
+
 function bmd
   ruby -ne "puts \$_.sub(/(?<=version          ')([\d\.]+)(?=')/){|f|a=\$1.split('.').map(&:to_i);a[-1]+=1;a.join('.')}" < $argv[1]/metadata.rb | sponge > $argv[1]/metadata.rb
   git add $argv[1]/metadata.rb
@@ -40,6 +42,7 @@ function tmux
 end
 
 function gh ; cd (_gh $argv) ; end
+function ghs ; cd (_gh Shopify $argv) ; end
 
 function c1c ; cut -c1-$COLUMNS ; end
 
@@ -75,6 +78,7 @@ function sch ; ssh $argv[1].chi ; end
 function vcc; osascript -e 'tell application "Viscosity" to connectall' ; end
 function vcdc; osascript -e 'tell application "Viscosity" to disconnectall' ; end
 
+function cros_sdk; cd ~/src/coreos ; vagrant ssh -c "coreos/chromite/bin/cros_sdk" ; or sh -c 'vagrant up && vagrant ssh -c coreos/chromite/bin/cros_sdk' ; end
 
 
 
@@ -288,6 +292,7 @@ end
 
 set -x PYTHONPATH $PYTHONPATH /Users/burke/.config/powerline
 
+set -x PATH /Users/burke/src/chromium.googlesource.com/chromium/tools/depot_tools $PATH
 set -x PATH /usr/local/bin $PATH
 set -x PATH /usr/texbin $PATH
 set -x PATH /Users/burke/src/code.google.com/p/go/bin $PATH
