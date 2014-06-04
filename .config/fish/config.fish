@@ -15,6 +15,15 @@ function vdestroy; vagrant destroy -f ; end
 function vssh; vagrant ssh ; end
 function vprov; vagrant provision ; end
 
+function mutt
+  bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt' $argv;
+end
+
+set -x PYTHONPATH /lib/python2.7/site-packages
+
+
+function vagrant-list-running;  ps aux | grep -i [v]mware-vmx | grep -oE '([^/]+)/.vagrant' | cut -d/ -f1 ; end
+
 function ke ; knife node edit $argv[1].chi.shopify.com ; end
 
 function bmd

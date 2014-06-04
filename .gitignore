@@ -1,4 +1,13 @@
 /*
+!/.muttrc
+!/.mutt
+/.mutt/*
+!/.mutt/offlineimap.py
+!/.mutt/Equifax_Secure_CA.cert
+!/.mutt/mailcap
+!/.mutt/view_attachment.sh
+!/.mutt/mutt-colors-solarized-dark-16.muttrc
+!/.offlineimaprc
 !/.tmux.conf
 !/.gitignore
 !/.gitmodules
