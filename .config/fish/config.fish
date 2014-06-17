@@ -289,8 +289,6 @@ else
   function ls ; ls --color=auto -F $argv ; end
 end
 
-function df ; df -hT $argv ; end
-
 function =; nextd ; end
 function -; prevd ; end
 
