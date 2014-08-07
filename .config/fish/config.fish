@@ -5,10 +5,6 @@ set fish_greeting ''
 function mac ; test (uname -s) = "Darwin" ; end
 function linux ; test (uname -s) = "Linux" ; end
 
-set -x MANTA_URL https://us-east.manta.joyent.com
-set -x MANTA_USER shopify
-set -x MANTA_KEY_ID 00:38:be:b9:e5:54:ea:66:6f:ed:af:5e:d6:6c:3a:8d
-
 function vup; vagrant up ; end
 function vhalt; vagrant halt ; end
 function vdestroy; vagrant destroy -f ; end
@@ -144,6 +140,7 @@ function gmmf         ; git fetch origin $argv[1]; and git merge FETCH_HEAD ; en
 function gsmmfp       ; git stash; and git fetch origin $argv[1]; and git merge FETCH_HEAD; and git stash pop ; end
 function gmmfm        ; gmmf master ; end
 function gsmmfpm      ; gsmmfp master ; end
+function   gmi ; set saved (git branch -l | grep '*' | ap2) ; git checkout $argv[1] ; git merge $saved ; git checkout $saved ; echo "merged $saved into $argv"; end
 function   gtl ; git tag -l ; end
 function    ga ; git add $argv ; end
 function  gaac ; git add .; gac $argv ; end
@@ -157,8 +154,10 @@ function   gav ; git commit -av $argv ; end
 function    gb ; git branch $argv; end
 function   gbl ; git branch -l $argv; end
 function   gug ; guo (gb | g '*' | ap2) ; end
+function  gufg ; gufo (gb | g '*' | ap2) ; end
 function    gu ; git push $argv ; end
 function   guo ; git push origin $argv ; end
+function  gufo ; git push -f origin $argv ; end
 function   gfd ; git fetch origin (gb | g '*' | ap2) ; and git reset --hard FETCH_HEAD ; end
 function gcaar ; git add .; git commit -a --reuse-message=HEAD --amend ; end
 function  gcar ; git commit -a --reuse-message=HEAD --amend ; end
@@ -223,6 +222,21 @@ function mir ; mi $argv ; and fc -e - ; end
 function mu ; gem uninstall $argv ; end
 
 function mibi ; gem install --no-ri --no-rdoc $argv and bundle ; end
+
+function kenv
+  knife node show -E $argv[1].chi.shopify.com | awk '{print $2}'
+end
+
+
+function ksenv
+  set environ $argv[1]
+  set node $argv[2]
+  if test (kenv $node) = "master"
+    knife node environment $environ $node.chi.shopify.com
+  else
+    echo "fail: node is not on master."
+  end
+end
 
 ######## rails/rake stuff ####################################################
 function   rft ; rake fast:test ; end
