@@ -11,6 +11,25 @@ function vdestroy; vagrant destroy -f ; end
 function vssh; vagrant ssh ; end
 function vprov; vagrant provision ; end
 
+function foreach-sb
+  for i in (seq 1 42); echo "============ sb$i =============" ; ssh sb$i.chi $argv; end
+end
+
+function parallel-foreach-sb
+  for i in (seq 1 42); echo "============ sb$i =============" ; ssh sb$i.chi "$argv" &; end
+end
+
+function sb
+  , sb$argv[1]
+end
+
+function foreach-jobs
+  for i in {9,10,11,12,13,14,15}
+    echo "============== jobs$i ================"
+    ssh jobs$i.chi "$argv"
+  end
+end
+
 function mutt
   bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt' $argv;
 end
@@ -198,6 +217,7 @@ function  grh2 ; git reset --hard 'HEAD^^' ; end
 function  grho ; git reset --hard $argv ; end
 function gvsc ; git add . ; git commit -am 'Auto-commit with useless commit message' ; git pull ; git push ; end
 
+function ggh ; open (git remote show -n origin | grep "github.com:" | head -1 | awk '{print $3}' | sed 's/:/\//' | sed 's#git@#https://#' | sed 's/\.git$//') ; end
 
 function ghg ; open https://github.com/$argv ; end
 function ghgb ; ghg burke/$argv ; end
@@ -227,6 +247,7 @@ function kenv
   knife node show -E $argv[1].chi.shopify.com | awk '{print $2}'
 end
 
+function ag ; /usr/bin/env ag --ignore Godeps $argv ; end
 
 function ksenv
   set environ $argv[1]
