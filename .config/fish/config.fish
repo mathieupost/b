@@ -19,10 +19,6 @@ function parallel-foreach-sb
   for i in (seq 1 100); echo "============ sb$i =============" ; ssh sb$i.chi "$argv" &; end
 end
 
-function sb
-  , sb$argv[1]
-end
-
 function foreach-jobs
   for i in {9,10,11,12,13,14,15}
     echo "============== jobs$i ================"
@@ -209,18 +205,6 @@ function ggh ; open (git remote show -n origin | grep "github.com:" | head -1 | 
 function ghg ; open https://github.com/$argv ; end
 function ghgb ; ghg burke/$argv ; end
 function ghgs ; ghg shopify/$argv ; end
-
-# function gfl
-#   set limit $argv[1]
-#   [ x$limit = x ] && set limit 10
-#   git rev-list --all --objects | sed -n (git rev-list --objects --all |
-#     cut -f1 -d' ' | git cat-file --batch-check | grep blob |
-#     sort -n -k3 | tail -n$limit | while read hash type size;
-#     do
-#         echo -n "-e s/$hash/$size/p ";
-#     done) |
-#   sort -n -k1
-# }
 
 # Rubygems
 function mp ; gem push $argv ; end
