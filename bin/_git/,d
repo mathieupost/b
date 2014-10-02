@@ -1,0 +1,129 @@
+#!/bin/bash
+#
+# Depends on https://github.com/burke/matcher
+#
+# Terse syntax for connecting to machines in Shopify datacenters.
+#
+# Syntax:
+#
+#   , [connection type] [dc selector] <space> <hostname search term> [args]
+#
+#   connection type can be:
+#     * (blank): SSH to the host.
+#     * u: scp upload
+#     * ur: recursive scp upload
+#     * d: scp download
+#     * dr: recursive scp download
+#
+#   dc selector can be:
+#     * (blank): any DC
+#     * c: chicago
+#     * a: ashburn
+#
+#   The DC selector will be combined with the hostname search term and used as
+#   input to a fuzzy-find on all hostnames as returned by knife.
+#
+#   Hostnames are stored in the form `chi/jobs21`, `ash/borg0`, etc., and these
+#   are the strings matched against. `,c j21` fuzzy-finds for "chi/j21", which
+#   returns `chi/jobs21`, which is translated to `jobs21.chi.shopify.com`
+#   before connecting.
+#
+# Examples:
+#
+#   , s2p   :: connect to sb2-perf.chi.shopify.com
+#   ,c j21  :: connect to jobs21.chi.shopify.com
+#   ,a br0  :: connect to borg0.ash.shopify.com
+#   ,dc sb1 /etc/lsb-release :: download the file to the current directory
+#   ,ua bg0 ./borg-run :: upload borg-run to your home directory on `borg0.ash`.
+#   ,urc bg2 borg-baseimage '/usr/src' :: upload the borg-baseimage directory to `/usr/src` on `borg2.chi`.
+#
+# Installation
+#
+#   Save to `~/bin`
+#   cd to `~/bin`
+#   ln , ,u ; ln , ,c ; ln , ,d ; ln , ,dc ; ln , ,da ; ln , ,u ; ln , ,ua ; ln , ,uc ; ln , ,ur ; ln , ,ura ; ln , ,urc ; ln , ,dr ; ln , ,drc ; ln , ,dra; ln , ,g
+#   Run `,g`
+
+set -eo pipefail
+
+gen_machines() {
+  ruby -ne 'puts $_.chomp.sub(/\.shopify\.com$/,"").split(?.).reverse*?/' \
+    <(knife node list) \
+    > ~/.machines
+}
+
+do_ssh() {
+  machine=$(resolve_machine "$1");shift
+  ssh "${machine}" "$@"
+}
+
+scp_dn() {
+  machine=$(resolve_machine "$1");shift
+  echo "action:  scp-down"
+
+  remote=$1;shift
+  _local="$@"
+  if [[ -z "${_local}" ]]; then
+    _local="."
+  fi
+  echo "remote:  ${remote}"
+  echo "local:   ${_local}"
+
+  scp ${scp_opts} "${machine}:${remote}" "${_local}"
+}
+
+
+scp_up() {
+  machine=$(resolve_machine "$1");shift
+  echo "action:  scp-up"
+
+  if [[ "$#" == "1" ]]; then
+    _local=$1
+    remote=""
+  else
+    arr=( "$@" )
+    remote="${arr[${#arr[@]}-1]}"
+    unset arr[${#arr[@]}-1]
+    _local="${arr[@]}"
+  fi
+  echo "local:   ${_local}"
+  echo "remote:  ${remote}"
+
+  scp ${scp_opts} "${_local}" "${machine}:${remote}"
+}
+
+scp_dnr() {
+  scp_opts="-r"
+}
+
+scp_upr() {
+  scp_opts="-r"
+}
+
+main() {
+  case "$(basename $0)" in
+  ",g")   gen_machines     ;;
+
+  ",")    do_ssh  "$@"     ;;
+  ",c")   do_ssh  "chi/$@" ;;
+  ",a")   do_ssh  "ash/$@" ;;
+
+  ",d")   scp_dn  "$@"     ;;
+  ",dc")  scp_dn  "chi/$@" ;;
+  ",da")  scp_dn  "ash/$@" ;;
+
+  ",u")   scp_up  "$@"     ;;
+  ",uc")  scp_up  "chi/$@" ;;
+  ",ua")  scp_up  "ash/$@" ;;
+
+  ",dr")  scp_dnr "$@"     ;;
+  ",drc") scp_dnr "chi/$@" ;;
+  ",dra") scp_dnr "ash/$@" ;;
+
+  ",ur")  scp_upr "$@"     ;;
+  ",urc") scp_upr "chi/$@" ;;
+  ",ura") scp_upr "ash/$@" ;;
+
+  esac
+}
+main "$@"
