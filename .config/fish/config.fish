@@ -41,16 +41,12 @@ function vagrant-list-running;  ps aux | grep -i [v]mware-vmx | grep -oE '([^/]+
 
 function ke ; knife node edit $argv[1].chi.shopify.com ; end
 
-function bmd
-  ruby -ne "puts \$_.sub(/(?<=version          ')([\d\.]+)(?=')/){|f|a=\$1.split('.').map(&:to_i);a[-1]+=1;a.join('.')}" < $argv[1]/metadata.rb | sponge > $argv[1]/metadata.rb
-  git add $argv[1]/metadata.rb
-  git commit -m "bump metadata"
-end
-
 function cdep; bundle exec cap deploy; end
 
 set -x CDPATH . $HOME/src/github.com $HOME/src/github.com/burke $HOME/src/github.com/Shopify $HOME/src/hobos
 set -x EDITOR vim
+
+set -x NATIVE_RUBY /usr/bin/ruby
 
 set -x GOPATH $HOME
 set -x PATH $GOPATH/bin $PATH
@@ -74,17 +70,9 @@ function ghs ; cd (_gh Shopify $argv) ; end
 
 function cpref ; set ref (git rev-parse HEAD) ; echo $ref | pbcopy ; echo $ref; end
 
-function c1c ; cut -c1-$COLUMNS ; end
-
 function def          ; ack "def $argv" ; end
-function reh          ; rbenv rehash    ; end
 
 function shop         ; gh Shopify shopify ; end
-function to           ; script/testonly $argv ; end
-
-function xrgm         ; e (bundle exec rails generate migration $argv[1] | tail -n1 | awk '{print $3}') ; end
-function elm          ; e db/migrate/(ls db/migrate | tail -n1) ; end
-
 
 function gc ; if test $argv[1] ; git commit -a -m "$argv" ; else ; git commit -a -v ; end ; end
 
@@ -109,8 +97,6 @@ function vcc; osascript -e 'tell application "Viscosity" to connectall' ; end
 function vcdc; osascript -e 'tell application "Viscosity" to disconnectall' ; end
 
 function cros_sdk; cd ~/src/coreos ; vagrant ssh -c "coreos/chromite/bin/cros_sdk" ; or sh -c 'vagrant up && vagrant ssh -c coreos/chromite/bin/cros_sdk' ; end
-
-
 
 function Sgb; git branch --list | grep -v '^\*' | selecta | xargs git checkout ; end
 
@@ -140,11 +126,6 @@ function gvg ; grep -v grep ; end
 
 ######## git stuff ###########################################################
 function glol ; lol --graph -200 $argv ; end
-
-function gl
-  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative $argv
-end
-
 
 function lol
   set HASH "%C(yellow)%h%Creset"
@@ -282,11 +263,6 @@ function xr ; bundle exec rake $argv ; end
 function xrt ; bundle exec rake test $argv ; end
 function cpd ; cap production deploy ; end
 function csd ; cap staging deploy ; end
-function zs ; zeus server ; end
-function zc ; zeus console ; end
-function zr ; zeus rake ; end
-
-function r ; ruby $argv ; end
 
 function e ; vim $argv 2>/dev/null ; end
 
@@ -319,8 +295,6 @@ function rtu; rake test:units; end
 function rtf; rake test:functionals; end
 
 function fdg ; find . | grep ; end
-
-function tunsc ; sshuttle -vr util1 172.16.0.0/16 172.17.0.0/16 ; end
 
 function vgs ; cd ~/src/s/vagrant ; and vagrant ssh ; end
 
@@ -367,3 +341,5 @@ set -e MANPATH
 
 set -x PATH ~/.rbenv/shims ~/.rbenv/bin $PATH
 rbenv rehash 2>/dev/null
+
+#rbenv shell (rbenv global)
