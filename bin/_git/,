@@ -155,6 +155,6 @@ main() {
   *)   echo "nope"; exit 1     ;;
   esac
 
-  eval "${cmd_func} \"\${search_base}\$@\""
+  ${cmd_func} "${search_base}$@"
 }
 main "$@"
