@@ -41,10 +41,37 @@
 #
 #   Save to `~/bin`
 #   cd to `~/bin`
-#   ln , ,u ; ln , ,c ; ln , ,d ; ln , ,dc ; ln , ,da ; ln , ,u ; ln , ,ua ; ln , ,uc ; ln , ,ur ; ln , ,ura ; ln , ,urc ; ln , ,dr ; ln , ,drc ; ln , ,dra; ln , ,g
-#   Run `,g`
+#   Run `,; ,g`
 
 set -eo pipefail
+
+commands=(_ _g _d _dr _u _ur _k)
+declare "cmd_func_=ssh-connect"
+declare "cmd_func_g=gen-machines"
+declare "cmd_func_d=scp-download"
+declare "cmd_func_dr=scp-download-recursive"
+declare "cmd_func_u=scp-upload"
+declare "cmd_func_ur=scp-upload-recursive"
+declare "cmd_func_k=knife-edit"
+
+locations=(_ _c _a)
+declare "loc_path_="
+declare "loc_path_c=chi/"
+declare "loc_path_a=ash/"
+
+aget() {
+  local array=$1 index=$2
+  local i="${array}_$index"
+  printf '%s' "${!i}"
+}
+
+command_get() {
+  aget "cmd_func" $1
+}
+
+location_get() {
+  aget "loc_path" $1
+}
 
 gen_machines() {
   ruby -ne 'puts $_.chomp.sub(/\.shopify\.com$/,"").split(?.).reverse*?/' \
@@ -52,14 +79,18 @@ gen_machines() {
     > ~/.machines
 }
 
-do_ssh() {
-  machine=$(resolve_machine "$1");shift
+set_machine() {
+  machine=$(resolve_machine "$1")
+  echo "machine: ${machine}"
+}
+
+ssh-connect() {
+  set_machine $1;shift
   ssh "${machine}" "$@"
 }
 
-scp_dn() {
-  machine=$(resolve_machine "$1");shift
-  echo "action:  scp-down"
+scp-download() {
+  set_machine $1;shift
 
   remote=$1;shift
   _local="$@"
@@ -73,9 +104,8 @@ scp_dn() {
 }
 
 
-scp_up() {
-  machine=$(resolve_machine "$1");shift
-  echo "action:  scp-up"
+scp-upload() {
+  set_machine $1;shift
 
   if [[ "$#" == "1" ]]; then
     _local=$1
@@ -92,34 +122,28 @@ scp_up() {
   scp ${scp_opts} "${_local}" "${machine}:${remote}"
 }
 
-scp_dnr() {
+scp-download-recursive() {
   scp_opts="-r"
+  scp_dn "$@"
 }
 
-scp_upr() {
+scp-upload-recursive() {
   scp_opts="-r"
+  scp_up "$@"
 }
 
-knife_e() {
-  machine=$(resolve_machine "$1");shift
-  echo "action:  knife-edit"
+knife-edit() {
+  set_machine $1;shift
   knife node edit "${machine}"
 }
 
 create_links() {
-  commands=("d" "g" "dr" "u" "ur" "k")
-  locations=("c" "a")
   dir=$(dirname $0)
   (
     set +e
-    for loc in ${locations[@]}; do
-      ln -s "${dir}/," "${dir}/,${loc}"
-    done
-
     for cmd in ${commands[@]}; do
-      ln -s "${dir}/," "${dir}/,${cmd}"
       for loc in ${locations[@]}; do
-        ln -s "${dir}/," "${dir}/,${cmd}${loc}"
+        ln -s "${dir}/," "${dir}/,${cmd#?}${loc#?}"
       done
     done
   ) 2>/dev/null || true
@@ -132,28 +156,17 @@ main() {
   cmd="${path: 1}"       # e.g.:  drc
   last_char="${cmd: -1}" # e.g.:  c
 
-  search_base=""
-  case "${last_char}" in
-  "c")
-    search_base="chi/"
+  search_base="$(location_get ${last_char})"
+  if [[ -n "${search_base}" ]]; then
     cmd="${cmd%?}"       # e.g.: dr
-    ;;
-  "a")
-    search_base="ash/"
-    cmd="${cmd%?}"       # e.g.: dr
-    ;;
-  esac
+  fi
 
-  case "${cmd}" in
-  "g") cmd_func="gen_machines" ;;
-  "")  cmd_func="do_ssh"       ;;
-  "d") cmd_func="scp_dn"       ;;
-  "u") cmd_func="scp_up"       ;;
-  "ur")cmd_func="scp_upr"      ;;
-  "dr")cmd_func="scp_dnr"      ;;
-  "k") cmd_func="knife_e"      ;;
-  *)   echo "nope"; exit 1     ;;
-  esac
+  cmd_func="$(command_get ${cmd})"
+  echo "command: ${cmd_func}"
+  if [[ -z "${cmd_func}" ]] ; then
+    echo "Invalid command ${cmd}"
+    exit 1
+  fi
 
   ${cmd_func} "${search_base}$@"
 }
