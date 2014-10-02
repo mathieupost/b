@@ -47,7 +47,7 @@ set -eo pipefail
 
 commands=(_ _g _d _dr _u _ur _k)
 declare "cmd_func_=ssh-connect"
-declare "cmd_func_g=gen-machines"
+declare "cmd_func_g=generate-dc-manifest"
 declare "cmd_func_d=scp-download"
 declare "cmd_func_dr=scp-download-recursive"
 declare "cmd_func_u=scp-upload"
@@ -73,7 +73,7 @@ location_get() {
   aget "loc_path" $1
 }
 
-gen_machines() {
+generate-dc-manifest() {
   ruby -ne 'puts $_.chomp.sub(/\.shopify\.com$/,"").split(?.).reverse*?/' \
     <(knife node list) \
     > ~/.machines
