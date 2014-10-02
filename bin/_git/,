@@ -107,60 +107,54 @@ knife_e() {
 }
 
 create_links() {
-  # TODO(burke)
+  commands=("d" "g" "dr" "u" "ur" "k")
+  locations=("c" "a")
   dir=$(dirname $0)
   (
-    ln -s "${dir}/," "${dir}/,g"
-    ln -s "${dir}/," "${dir}/,c"
-    ln -s "${dir}/," "${dir}/,a"
-    ln -s "${dir}/," "${dir}/,d"
-    ln -s "${dir}/," "${dir}/,dc"
-    ln -s "${dir}/," "${dir}/,da"
-    ln -s "${dir}/," "${dir}/,u"
-    ln -s "${dir}/," "${dir}/,uc"
-    ln -s "${dir}/," "${dir}/,ua"
-    ln -s "${dir}/," "${dir}/,dr"
-    ln -s "${dir}/," "${dir}/,drc"
-    ln -s "${dir}/," "${dir}/,dra"
-    ln -s "${dir}/," "${dir}/,ur"
-    ln -s "${dir}/," "${dir}/,urc"
-    ln -s "${dir}/," "${dir}/,ura"
-    ln -s "${dir}/," "${dir}/,k"
-    ln -s "${dir}/," "${dir}/,kc"
-    ln -s "${dir}/," "${dir}/,ka"
+    set +e
+    for loc in ${locations[@]}; do
+      ln -s "${dir}/," "${dir}/,${loc}"
+    done
+
+    for cmd in ${commands[@]}; do
+      ln -s "${dir}/," "${dir}/,${cmd}"
+      for loc in ${locations[@]}; do
+        ln -s "${dir}/," "${dir}/,${cmd}${loc}"
+      done
+    done
   ) 2>/dev/null || true
 }
 
 main() {
   create_links
 
-  case "$(basename $0)" in
-  ",g")   gen_machines     ;;
+  path="$(basename $0)"  # e.g.:  ,drc
+  cmd="${path: 1}"       # e.g.:  drc
+  last_char="${cmd: -1}" # e.g.:  c
 
-  ",")    do_ssh  "$@"     ;;
-  ",c")   do_ssh  "chi/$@" ;;
-  ",a")   do_ssh  "ash/$@" ;;
-
-  ",d")   scp_dn  "$@"     ;;
-  ",dc")  scp_dn  "chi/$@" ;;
-  ",da")  scp_dn  "ash/$@" ;;
-
-  ",u")   scp_up  "$@"     ;;
-  ",uc")  scp_up  "chi/$@" ;;
-  ",ua")  scp_up  "ash/$@" ;;
-
-  ",dr")  scp_dnr "$@"     ;;
-  ",drc") scp_dnr "chi/$@" ;;
-  ",dra") scp_dnr "ash/$@" ;;
-
-  ",ur")  scp_upr "$@"     ;;
-  ",urc") scp_upr "chi/$@" ;;
-  ",ura") scp_upr "ash/$@" ;;
-
-  ",k")   knife_e "$@"     ;;
-  ",kc")  knife_e "chi/$@" ;;
-  ",ka")  knife_e "ash/$@" ;;
-
+  search_base=""
+  case "${last_char}" in
+  "c")
+    search_base="chi/"
+    cmd="${cmd%?}"       # e.g.: dr
+    ;;
+  "a")
+    search_base="ash/"
+    cmd="${cmd%?}"       # e.g.: dr
+    ;;
   esac
+
+  case "${cmd}" in
+  "g") cmd_func="gen_machines" ;;
+  "")  cmd_func="do_ssh"       ;;
+  "d") cmd_func="scp_dn"       ;;
+  "u") cmd_func="scp_up"       ;;
+  "ur")cmd_func="scp_upr"      ;;
+  "dr")cmd_func="scp_dnr"      ;;
+  "k") cmd_func="knife_e"      ;;
+  *)   echo "nope"; exit 1     ;;
+  esac
+
+  eval "${cmd_func} \"\${search_base}\$@\""
 }
 main "$@"
