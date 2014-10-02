@@ -100,7 +100,20 @@ scp_upr() {
   scp_opts="-r"
 }
 
+knife_e() {
+  machine=$(resolve_machine "$1");shift
+  echo "action:  knife-edit"
+  knife node edit "${machine}"
+}
+
+create_links() {
+  # TODO(burke)
+  :
+}
+
 main() {
+  create_links
+
   case "$(basename $0)" in
   ",g")   gen_machines     ;;
 
@@ -123,6 +136,10 @@ main() {
   ",ur")  scp_upr "$@"     ;;
   ",urc") scp_upr "chi/$@" ;;
   ",ura") scp_upr "ash/$@" ;;
+
+  ",k")   knife_e "$@"     ;;
+  ",kc")  knife_e "chi/$@" ;;
+  ",ka")  knife_e "ash/$@" ;;
 
   esac
 }
