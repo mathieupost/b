@@ -2,6 +2,11 @@ if $SHELL =~ 'fish'
   set shell=/bin/sh
 endif
 
+let mapleader=" "
+
+nnoremap ; :
+nnoremap <A-;> ;
+
 " 256-color more. Necessary to make it work in console and macvim
 set t_Co=256
 
@@ -122,7 +127,7 @@ set rnu
 set nu
 set numberwidth=1
 
-nnoremap <space> @q
+nnoremap Q @q
 vnoremap . :norm.<cr>
 
 nmap <leader>j <leader>lb

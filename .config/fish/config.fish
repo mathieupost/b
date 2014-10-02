@@ -12,11 +12,11 @@ function vssh; vagrant ssh ; end
 function vprov; vagrant provision ; end
 
 function foreach-sb
-  for i in (seq 1 42); echo "============ sb$i =============" ; ssh sb$i.chi $argv; end
+  for i in (seq 1 100); echo "============ sb$i =============" ; ssh sb$i.chi $argv; end
 end
 
 function parallel-foreach-sb
-  for i in (seq 1 42); echo "============ sb$i =============" ; ssh sb$i.chi "$argv" &; end
+  for i in (seq 1 100); echo "============ sb$i =============" ; ssh sb$i.chi "$argv" &; end
 end
 
 function sb
@@ -54,6 +54,7 @@ set -x EDITOR vim
 
 set -x GOPATH $HOME
 set -x PATH $GOPATH/bin $PATH
+set -x PATH node_modules/.bin $PATH
 set -x PATH $HOME/src/go/bin $PATH
 
 set -x RUBY_GC_MALLOC_LIMIT 1000000000
@@ -65,8 +66,13 @@ function tmux
   /usr/bin/env tmux $argv
 end
 
+function grbom ; gcom ; and gfrom ; and git reset --hard FETCH_HEAD ; and gco - ; and git rebase master ; end
+function grbog ; grbom ; and gufg ; end
+
 function gh ; cd (_gh $argv) ; end
 function ghs ; cd (_gh Shopify $argv) ; end
+
+function cpref ; set ref (git rev-parse HEAD) ; echo $ref | pbcopy ; echo $ref; end
 
 function c1c ; cut -c1-$COLUMNS ; end
 
