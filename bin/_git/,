@@ -108,7 +108,27 @@ knife_e() {
 
 create_links() {
   # TODO(burke)
-  :
+  dir=$(dirname $0)
+  (
+    ln -s "${dir}/," "${dir}/,g"
+    ln -s "${dir}/," "${dir}/,c"
+    ln -s "${dir}/," "${dir}/,a"
+    ln -s "${dir}/," "${dir}/,d"
+    ln -s "${dir}/," "${dir}/,dc"
+    ln -s "${dir}/," "${dir}/,da"
+    ln -s "${dir}/," "${dir}/,u"
+    ln -s "${dir}/," "${dir}/,uc"
+    ln -s "${dir}/," "${dir}/,ua"
+    ln -s "${dir}/," "${dir}/,dr"
+    ln -s "${dir}/," "${dir}/,drc"
+    ln -s "${dir}/," "${dir}/,dra"
+    ln -s "${dir}/," "${dir}/,ur"
+    ln -s "${dir}/," "${dir}/,urc"
+    ln -s "${dir}/," "${dir}/,ura"
+    ln -s "${dir}/," "${dir}/,k"
+    ln -s "${dir}/," "${dir}/,kc"
+    ln -s "${dir}/," "${dir}/,ka"
+  ) 2>/dev/null || true
 }
 
 main() {
