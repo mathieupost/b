@@ -46,18 +46,18 @@
 set -eo pipefail
 
 commands=(_ _g _d _dr _u _ur _k)
-declare "cmd_func_=ssh-connect"
-declare "cmd_func_g=generate-dc-manifest"
-declare "cmd_func_d=scp-download"
-declare "cmd_func_dr=scp-download-recursive"
-declare "cmd_func_u=scp-upload"
-declare "cmd_func_ur=scp-upload-recursive"
-declare "cmd_func_k=knife-edit"
+cmd_func_=ssh-connect
+cmd_func_g=generate-dc-manifest
+cmd_func_d=scp-download
+cmd_func_dr=scp-download-recursive
+cmd_func_u=scp-upload
+cmd_func_ur=scp-upload-recursive
+cmd_func_k=knife-edit
 
 locations=(_ _c _a)
-declare "loc_path_="
-declare "loc_path_c=chi/"
-declare "loc_path_a=ash/"
+loc_path_=
+loc_path_c=chi/
+loc_path_a=ash/
 
 aget() {
   local array=$1 index=$2
@@ -74,7 +74,7 @@ location_get() {
 }
 
 generate-dc-manifest() {
-  ${NATIVE_RUBY} -ne 'puts $_.chomp.sub(/\.shopify\.com$/,"").split(?.).reverse*?/' \
+  /usr/bin/ruby -ne 'puts $_.chomp.sub(/\.shopify\.com$/,"").split(?.).reverse*?/' \
     <(knife node list) \
     > ~/.machines
 }
@@ -138,7 +138,7 @@ knife-edit() {
 }
 
 create_links() {
-  dir=$(dirname $0)
+  local dir=$(dirname $0)
   (
     set +e
     for cmd in ${commands[@]}; do
@@ -152,13 +152,13 @@ create_links() {
 main() {
   create_links
 
-  path="$(basename $0)"  # e.g.:  ,drc
-  cmd="${path: 1}"       # e.g.:  drc
-  last_char="${cmd: -1}" # e.g.:  c
+  local path="$(basename $0)"  # e.g.:  ,drc
+  local cmd="${path: 1}"       # e.g.:  drc
+  local last_char="${cmd: -1}" # e.g.:  c
 
   search_base="$(location_get ${last_char})"
   if [[ -n "${search_base}" ]]; then
-    cmd="${cmd%?}"       # e.g.: dr
+    local cmd="${cmd%?}"       # e.g.: dr
   fi
 
   cmd_func="$(command_get ${cmd})"

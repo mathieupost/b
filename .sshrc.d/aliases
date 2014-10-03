@@ -1,0 +1,134 @@
+#
+vup      : vagrant up
+vhalt    : vagrant halt
+vdestroy : vagrant destroy -f
+vssh     : vagrant ssh
+vprov    : vagrant provision
+mutt     : bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt'
+
+u        : cd ..
+uu       : cd ../..
+uuu      : cd ../../..
+uuuu     : cd ../../../..
+uuuuu    : cd ../../../../..
+uuuuuu   : cd ../../../../../..
+
+grbom    : gcom && gfrom && git reset --hard FETCH_HEAD && gco - && git rebase master
+grbog    : grbom && gufg
+
+shop     : gh Shopify shopify
+
+xk9      : xargs kill -9
+ka9      : killall -9
+k9       : kill -9
+
+vcc      : osascript -e 'tell application "Viscosity" to connectall'
+vcdc     : osascript -e 'tell application "Viscosity" to disconnectall'
+
+Sgb      : git branch --list | grep -v '^\*' | selecta | xargs git checkout
+
+bi       : bundle install
+bo       : bundle open
+bu       : bundle update
+bs       : bundle show
+x        : bundle exec
+
+ap1      : awk '{print $1}'
+ap2      : awk '{print $2}'
+ap3      : awk '{print $3}'
+ap4      : awk '{print $4}'
+ap5      : awk '{print $5}'
+ap6      : awk '{print $6}'
+ap7      : awk '{print $7}'
+ap8      : awk '{print $8}'
+ap9      : awk '{print $9}'
+
+gvg      : grep -v grep
+
+a        : ack
+ai       : ack -i
+aa       : ack -a
+aai      : ack -ai
+g        : grep
+t        : tail
+e : vim 
+h        : head
+L        : less
+l        : ls
+less     : /usr/bin/less -FXRS
+
+ag       : /usr/bin/env ag --ignore Godeps
+
+xrs      : bundle exec rails server
+xrc      : bundle exec rails console
+xrg      : bundle exec rails generate
+xrr      : bundle exec rails runner
+xr       : bundle exec rake
+
+chx      : chmod +x
+
+rt       : rake test
+rtu      : rake test:units
+rtf      : rake test:functionals
+
+fdg      : find . | grep
+
+glol     : lol --graph -200
+grim     : git rebase -i master
+gtl      : git tag -l
+ga       : git add
+gaac     : git add -A .; gac
+gfrom    : gfro master
+gfro     : gfr origin
+gac      : gc
+gap      : git add -p
+gav      : git commit -av
+gb       : git branch
+gbl      : git branch -l
+gu       : git push
+guo      : git push origin
+gufo     : git push -f origin
+gcaar    : git add -A .; git commit -a --reuse-message=HEAD --amend
+gcar     : git commit -a --reuse-message=HEAD --amend
+gcm      : git commit -m
+gco      : git checkout
+gcob     : git checkout -b
+gcom     : git checkout master
+gcp      : git cherry-pick
+gd       : git pull
+gdu      : git pull && git push
+gf       : git diff
+gfc      : git diff --cached
+glp      : git log -p
+glpr     : git log -p --reverse
+gm       : git merge
+gn       : git clone
+grh      : git reset HEAD
+gri      : git rebase -i
+grc      : git rebase --continue
+gs       : git stash
+gsa      : git stash apply
+gsd      : git stash drop
+gsl      : git stash list
+gsp      : git stash pop
+gt       : git status -sb
+gwc      : git whatchanged
+gx       : open -a gitx .
+gr       : git reset HEAD
+gr1      : git reset 'HEAD^'
+gr2      : git reset 'HEAD^^'
+gro      : git reset
+grh      : git reset --hard HEAD
+grh1     : git reset --hard 'HEAD^'
+grh2     : git reset --hard 'HEAD^^'
+grho     : git reset --hard
+
+vgs : cd ~/src/s/vagrant && vagrant ssh
+
+psag : ps aux | grep
+
+gfrog : gfro $(gb | g '*' | ap2) 
+gug : guo $(gb | g '*' | ap2) 
+gufg : gufo $(gb | g '*' | ap2) 
+gfd : git fetch origin $(gb | g '*' | ap2) && git reset --hard FETCH_HEAD 
+

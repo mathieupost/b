@@ -3,6 +3,6 @@ set -eo pipefail
 
 search=$1
 matcher --limit 1 "${search}" < ~/.machines > /tmp/machine-selection
-machine=$($NATIVE_RUBY -ne 'puts $_.chomp.split(?/).reverse*?.+".shopify.com"' < /tmp/machine-selection)
+machine=$(/usr/bin/ruby -ne 'puts $_.chomp.split(?/).reverse*?.+".shopify.com"' < /tmp/machine-selection)
 rm /tmp/machine-selection
 echo "${machine}"
