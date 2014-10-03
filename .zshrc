@@ -1,4 +1,6 @@
-PS1="$(/Users/burke/bin/prompt.zsh)"
+PROMPT='$(/Users/burke/bin/prompt.zsh)'
+setopt prompt_subst
+
 
 export EDITOR=vim
 export GOPATH="${HOME}"
