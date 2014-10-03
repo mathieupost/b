@@ -26,9 +26,6 @@ def bm(times=1_000_000, &b)
   puts "total: #{time}; iterations: #{times}; average: #{time / times}"
 end
 
-
-require File.expand_path("~/.config/ruby/all")
-
 require 'ap'
 
 unless ENV['NO_PRY']
