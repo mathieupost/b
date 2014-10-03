@@ -1,4 +1,10 @@
-#
+# Primarily remote stuff
+ssc      : sudo chef-client
+
+# Local
+cook     : ghs cookbooks
+
+# imported from old fish config
 vup      : vagrant up
 vhalt    : vagrant halt
 vdestroy : vagrant destroy -f
