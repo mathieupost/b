@@ -24,26 +24,21 @@ xk9      : xargs kill -9
 ka9      : killall -9
 k9       : kill -9
 
-vcc      : osascript -e 'tell application "Viscosity" to connectall'
-vcdc     : osascript -e 'tell application "Viscosity" to disconnectall'
-
-Sgb      : git branch --list | grep -v '^\*' | selecta | xargs git checkout
-
 bi       : bundle install
 bo       : bundle open
 bu       : bundle update
 bs       : bundle show
 x        : bundle exec
 
-ap1      : awk '{print $1}'
-ap2      : awk '{print $2}'
-ap3      : awk '{print $3}'
-ap4      : awk '{print $4}'
-ap5      : awk '{print $5}'
-ap6      : awk '{print $6}'
-ap7      : awk '{print $7}'
-ap8      : awk '{print $8}'
-ap9      : awk '{print $9}'
+ap1      : ap 1
+ap2      : ap 2
+ap3      : ap 3
+ap4      : ap 4
+ap5      : ap 5
+ap6      : ap 6
+ap7      : ap 7
+ap8      : ap 8
+ap9      : ap 9
 
 gvg      : grep -v grep
 
@@ -69,8 +64,6 @@ xr       : bundle exec rake
 
 chx      : chmod +x
 
-fdg      : find . | grep
-
 glol     : lol --graph -200
 grim     : git rebase -i master
 gtl      : git tag -l
@@ -78,7 +71,7 @@ ga       : git add
 gaac     : git add -A .; gac
 gfrom    : gfro master
 gfro     : gfr origin
-gac      : gc
+gac      : git commit -am
 gap      : git add -p
 gav      : git commit -av
 gb       : git branch
@@ -122,12 +115,5 @@ grh2     : git reset --hard 'HEAD^^'
 grho     : git reset --hard
 
 vgs      : cd ~/src/s/vagrant && vagrant ssh
-
-psag     : ps aux | grep
-
-gfrog    : gfro $(gb | g '*' | ap2)
-gug      : guo $(gb | g '*' | ap2)
-gufg     : gufo $(gb | g '*' | ap2)
-gfd      : git fetch origin $(gb | g '*' | ap2) && git reset --hard FETCH_HEAD
 
 mu       : gem uninstall

@@ -1,1 +1,19 @@
-alias lol="ls /"
+ap() {
+  awk "{print \$$1}"
+}
+
+eval $(cat "${SSHHOME}/.sshrc.d/aliases" \
+  | grep -v '^#' \
+  | grep -vE '^\s*$' \
+  | sed 's/\$/\\$/' \
+  | sed 's/^\([^ :]*\)[[:space:]]*:\(.*\)/alias \1="\2";/')
+
+source "${SSHHOME}/.sshrc.d/functions.sh"
+
+shorthost=$(hostname | sed 's/\.shopify\.com//')
+PS1="\\[$(tput setaf 1)\\]\\u@${shorthost}:\\w \\[$(tput setaf 2)\\]%\\[$(tput sgr0)\\] "
+
+eval $(dircolors -b "${SSHHOME}/.sshrc.d/LS_COLORS")
+alias ls="ls --color=auto -F"
+
+

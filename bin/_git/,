@@ -81,12 +81,12 @@ generate-dc-manifest() {
 
 set_machine() {
   machine=$(resolve_machine "$1")
-  echo "machine: ${machine}"
+  echo -e "\033[30mmachine: ${machine}\033[0m"
 }
 
 ssh-connect() {
   set_machine $1;shift
-  ssh "${machine}" "$@"
+  sshrc "${machine}" "$@"
 }
 
 scp-download() {
@@ -97,8 +97,8 @@ scp-download() {
   if [[ -z "${_local}" ]]; then
     _local="."
   fi
-  echo "remote:  ${remote}"
-  echo "local:   ${_local}"
+  echo -e "\033[30mremote:  ${remote}\033[0m"
+  echo -e "\033[30mlocal:   ${_local}\033[0m"
 
   scp ${scp_opts} "${machine}:${remote}" "${_local}"
 }
@@ -116,8 +116,8 @@ scp-upload() {
     unset arr[${#arr[@]}-1]
     _local="${arr[@]}"
   fi
-  echo "local:   ${_local}"
-  echo "remote:  ${remote}"
+  echo -e "\033[30mlocal:   ${_local}\033[0m"
+  echo -e "\033[30mremote:  ${remote}\033[0m"
 
   scp ${scp_opts} "${_local}" "${machine}:${remote}"
 }
@@ -162,7 +162,7 @@ main() {
   fi
 
   cmd_func="$(command_get ${cmd})"
-  echo "command: ${cmd_func}"
+  echo -e "\033[30mcommand: ${cmd_func}\033[0m"
   if [[ -z "${cmd_func}" ]] ; then
     echo "Invalid command ${cmd}"
     exit 1

@@ -1,7 +1,7 @@
 set fish_greeting ''
 function fish_prompt ; ~/src/github.com/burke/wunderprompt/prompt $status ; end
 
-eval (gdircolors -b ~/.LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
+eval (gdircolors -b ~/.sshdrc.d/LS_COLORS | grep -v export | sed 's/LS_COLORS=/set -x LS_COLORS /')
 function ls ;gls --color=auto -F $argv ; end
 
 set -x EDITOR vim
@@ -25,13 +25,10 @@ eval (cat ~/.sshrc.d/aliases \
 
 set -x PYTHONPATH /lib/python2.7/site-packages
 
-####
-
 set -x CDPATH . $HOME/src/github.com $HOME/src/github.com/burke $HOME/src/github.com/Shopify $HOME/src/hobos
 
 function ap ; awk "{print \$$argv[1]}"  ; end
-function def          ; ack "def $argv" ; end
-function gc ; if test $argv[1] ; git commit -a -m "$argv" ; else ; git commit -a -v ; end ; end
+function def          ; ag "def $argv" ; end
 function cros_sdk; cd ~/src/coreos ; vagrant ssh -c "coreos/chromite/bin/cros_sdk" ; or sh -c 'vagrant up && vagrant ssh -c coreos/chromite/bin/cros_sdk' ; end
 function psag ; ps aux | g $argv[1] | gvg ; end
 function gh ; cd (_gh $argv) ; end
@@ -44,10 +41,6 @@ function ghgs ; ghg shopify/$argv ; end
 function mi ; gem install --no-ri --no-rdoc $argv ; and reh ; end
 function gbt ; git branch --track $argv[1] origin/$argv[1] ; end
 function up ; while [ ! -d .git -a `pwd` != "/" ]; cd ".."; end ; end
-function =; nextd ; end
-function -; prevd ; end
-
-######
 
 rbenv rehash 2>/dev/null
 
