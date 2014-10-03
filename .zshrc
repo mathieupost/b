@@ -4,14 +4,6 @@ export EDITOR=vim
 export GOPATH="${HOME}"
 export PYTHONPATH="/lib/python2.7/site-packages"
 
-alias u='cd ..'
-alias uu='cd ../..'
-alias uuu='cd ../../..'
-alias uuuu='cd ../../../..'
-alias uuuuu='cd ../../../../..'
-alias uuuuuu='cd ../../../../../..'
-alias uuuuuuu='cd ../../../../../../..'
-
 export PATH="/Users/burke/src/chromium.googlesource.com/chromium/tools/depot_tools:${PATH}"
 export PATH="/usr/local/bin:${PATH}"
 export PATH="/Users/burke/src/code.google.com/p/go/bin:${PATH}"
@@ -25,9 +17,10 @@ export PATH="${HOME}/.rbenv/bin:${PATH}"
 eval $(gdircolors -b ~/.LS_COLORS)
 alias ls="gls --color=auto -F"
 
-tmux() {
-  TERM=screen-256color-bce /usr/bin/env tmux "$@"
-}
+eval $(cat ~/.sshrc.d/aliases \
+  | grep -v '^#' \
+  | grep -vE '^\s*$' \
+  | sed 's/^\([^ :]*\)[[:space:]]*:\(.*\)/alias \1="\2";/')
 
 setopt extended_glob
 

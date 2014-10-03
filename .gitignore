@@ -17,6 +17,7 @@
 !/.vim
 !/bin/_git
 !/.gdbinit
+!/.sshrc
 !/.rdebugrc
 !/.gdb
 !/.gdb/*

@@ -6,6 +6,8 @@ vssh     : vagrant ssh
 vprov    : vagrant provision
 mutt     : bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt'
 
+tmux     : /usr/bin/env TERM=screen-256color-bce tmux
+
 u        : cd ..
 uu       : cd ../..
 uuu      : cd ../../..
@@ -51,7 +53,7 @@ aa       : ack -a
 aai      : ack -ai
 g        : grep
 t        : tail
-e : vim 
+e        : vim
 h        : head
 L        : less
 l        : ls
@@ -66,10 +68,6 @@ xrr      : bundle exec rails runner
 xr       : bundle exec rake
 
 chx      : chmod +x
-
-rt       : rake test
-rtu      : rake test:units
-rtf      : rake test:functionals
 
 fdg      : find . | grep
 
@@ -123,12 +121,13 @@ grh1     : git reset --hard 'HEAD^'
 grh2     : git reset --hard 'HEAD^^'
 grho     : git reset --hard
 
-vgs : cd ~/src/s/vagrant && vagrant ssh
+vgs      : cd ~/src/s/vagrant && vagrant ssh
 
-psag : ps aux | grep
+psag     : ps aux | grep
 
-gfrog : gfro $(gb | g '*' | ap2) 
-gug : guo $(gb | g '*' | ap2) 
-gufg : gufo $(gb | g '*' | ap2) 
-gfd : git fetch origin $(gb | g '*' | ap2) && git reset --hard FETCH_HEAD 
+gfrog    : gfro $(gb | g '*' | ap2)
+gug      : guo $(gb | g '*' | ap2)
+gufg     : gufo $(gb | g '*' | ap2)
+gfd      : git fetch origin $(gb | g '*' | ap2) && git reset --hard FETCH_HEAD
 
+mu       : gem uninstall
