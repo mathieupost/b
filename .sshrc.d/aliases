@@ -77,7 +77,6 @@ ga       : git add
 gaac     : git add -A .; gac
 gfrom    : gfro master
 gfro     : gfr origin
-gac      : git commit -am
 gap      : git add -p
 gav      : git commit -av
 gb       : git branch

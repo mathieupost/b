@@ -32,6 +32,13 @@ cros_sdk() {
 psag() {
   ps aux | g $1 | gvg
 }
+gac() {
+  if [[ $# -eq 0 ]] ; then
+    git commit -av
+  else
+    git commit -a -m "$*"
+  fi
+}
 gh() {
   cd $(_gh "$@")
 }
