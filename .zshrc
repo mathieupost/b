@@ -1,6 +1,7 @@
 PROMPT='$(/Users/burke/bin/prompt.zsh)'
 setopt prompt_subst
 
+export GIT_EDITOR=vim
 export EDITOR=vim
 export GOPATH="${HOME}"
 export PYTHONPATH="/lib/python2.7/site-packages"

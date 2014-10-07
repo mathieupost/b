@@ -33,13 +33,16 @@ psag() {
   ps aux | g $1 | gvg
 }
 gh() {
-  cd $(_gh $1)
+  cd $(_gh "$@")
 }
 ghs() {
   cd $(_gh Shopify $1)
 }
+fdg() {
+  find . | grep "$@"
+}
 gfr() {
-  git fetch "$@" ; and git reset --hard FETCH_HEAD
+  git fetch "$@" && git reset --hard FETCH_HEAD
 }
 ggh() {
   open $(git remote show -n origin | grep "github.com:" | head -1 | awk '{print $3}' | sed 's/:/\//' | sed 's#git@#https://#' | sed 's/\.git$//')
