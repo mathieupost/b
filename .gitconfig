@@ -1,0 +1,13 @@
+[hub]
+  protocol = https
+[color]
+	ui = true
+[user]
+	name = Burke Libbey
+	email = burke@libbey.me
+[pull]
+	rebase = true
+[merge]
+	conflictstyle = diff3
+[github]
+	user = burke

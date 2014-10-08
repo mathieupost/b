@@ -45,14 +45,10 @@ unignore from: to: cc: date: subject:   # show only these
 unhdr_order *                           # some distros order things by default
 hdr_order from: to: cc: date: subject:  # and in this order
 
-
 # Account Settings -----------------------------------
 
-# Default inbox.
-set spoolfile = "+burke-libbey.me/INBOX"
-
 # Alternate email addresses.
-alternates burke@burkelibbey.org b.libbey@gmail.com burke.libbey@shopify.com burke.libbey@jadedpixel.com
+alternates burke@libbey.me burke@burkelibbey.org b.libbey@gmail.com burke.libbey@shopify.com burke.libbey@jadedpixel.com
 
 # Mailboxes to show in the sidebar.
 mailboxes +burke-libbey.me/INBOX \
@@ -68,9 +64,9 @@ mailboxes +burke-libbey.me/INBOX \
 # When I actually don't need it anymore...
 # set help=no
 
-# Other special folders.
-set mbox      = "+burke-libbey.me/archive"
-set postponed = "+burke-libbey.me/drafts"
+folder-hook burke-libbey.me/* 'source ~/.mutt/libbey.me.muttrc'
+folder-hook burke.libbey-shopify.com/* 'source ~/.mutt/shopify.muttrc'
+source ~/.mutt/libbey.me.muttrc
 
 # Index View Options ---------------------------------
 set date_format = "%m/%d"
@@ -131,9 +127,6 @@ bind attach <return> view-mailcap
 macro pager \Cu "|urlview<enter>" "call urlview to open links"
 
 
-
-
-
 # Compose View Options -------------------------------
 set realname = "Burke Libbey"        # who am i?
 set envelope_from                    # which from?
@@ -154,12 +147,8 @@ set forward_quote                    # include message in forwards
 
 set editor = "vim"        # Use terminal Vim to compose email.
 
-
-set from     = "burke@libbey.me"
-set sendmail = "/usr/local/bin/msmtp -a burkelibbey"
 set sendmail_wait = 0
 unset record
-
 
 bind compose p postpone-message
 bind index p recall-message
@@ -169,7 +158,6 @@ macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py
 set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
 bind editor <Tab> complete-query
 bind editor ^T    complete
-
 
 # bind index N search-opposite
 # bind pager N search-opposite
