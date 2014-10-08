@@ -1,7 +1,7 @@
 /*
-!/.muttrc
 !/.mutt
 /.mutt/*
+!/.mutt/*muttrc
 !/.msmtprc
 !/.mutt/offlineimap.py
 !/.mutt/Equifax_Secure_CA.cert
