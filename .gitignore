@@ -24,6 +24,8 @@
 /bin/*
 !/bin/_git
 !/bin/_git/*
+/bin/_git/,*
+!/bin/_git/,
 
 !/.sshrc
 !/.sshrc.d
