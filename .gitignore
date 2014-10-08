@@ -31,8 +31,6 @@
 !/.gemrc
 
 !/Library/Fonts/pragmata.ttf
-!/Library/LaunchAgents/pbcopy.plist
-!/Library/LaunchAgents/pbpaste.plist
 
 !/.tmux.conf
 
