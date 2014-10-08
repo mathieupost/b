@@ -7,6 +7,7 @@
 /.mutt/*
 !/.mutt/*muttrc
 !/.msmtprc
+!/.notmuch-config
 !/.mutt/offlineimap.py
 !/.mutt/Equifax_Secure_CA.cert
 !/.mutt/mailcap
