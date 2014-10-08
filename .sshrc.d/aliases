@@ -70,7 +70,6 @@ xr       : bundle exec rake
 
 chx      : chmod +x
 
-glol     : lol --graph -200
 grim     : git rebase -i master
 gtl      : git tag -l
 ga       : git add
