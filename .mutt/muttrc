@@ -167,3 +167,5 @@ set crypt_replysign          = yes # Sign replies to signed email
 set crypt_replyencrypt       = yes # Encrypt replies to encrypted email
 set crypt_replysignencrypted = yes # Encrypt and sign replies to encrypted and signed email
 set crypt_verify_sig         = yes # Attempt to verify email signatures automatically
+set crypt_autosign           = yes # Because.
+
