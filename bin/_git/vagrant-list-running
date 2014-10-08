@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ps aux | grep -i [v]mware-vmx | grep -oE '([^/]+)/.vagrant' | cut -d/ -f1
