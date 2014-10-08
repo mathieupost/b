@@ -19,7 +19,10 @@
 !/.gvimrc
 
 !/.zshrc
-!/bin/_git/
+
+!/bin
+/bin/*
+!/bin/_git
 !/bin/_git/*
 
 !/.sshrc
