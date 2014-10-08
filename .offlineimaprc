@@ -22,7 +22,7 @@ nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
                             }.get(folder, folder)
 
 [Repository BurkeLibbey-Remote]
-maxconnections = 2
+maxconnections = 3
 type = Gmail
 remoteuser = burke@libbey.me
 remotepasseval = get_keychain_pass(account="burke@libbey.me", server="imap.gmail.com")
@@ -56,7 +56,7 @@ nametrans = lambda folder: {'drafts':  '[Gmail]/Drafts',
                             }.get(folder, folder)
 
 [Repository Shopify-Remote]
-maxconnections = 2
+maxconnections = 3
 type = Gmail
 remoteuser = burke.libbey@shopify.com
 remotepasseval = get_keychain_pass(account="burke.libbey@shopify.com", server="imap.gmail.com")
