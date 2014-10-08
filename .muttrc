@@ -1,6 +1,7 @@
 # http://stevelosh.com/blog/2012/10/the-homely-mutt/
 
-source /Users/burke/.mutt/mutt-colors-solarized-dark-16.muttrc
+# source /Users/burke/.mutt/mutt-colors-solarized-dark-16.muttrc
+source ~/.mutt/badwolf.muttrc
 
 set folder = "~/.mail"
 
@@ -55,10 +56,17 @@ alternates burke@burkelibbey.org b.libbey@gmail.com burke.libbey@shopify.com bur
 
 # Mailboxes to show in the sidebar.
 mailboxes +burke-libbey.me/INBOX \
+          +burke.libbey-shopify.com/INBOX \
           +burke-libbey.me/archive \
+          +burke.libbey-shopify.com/archive \
           +burke-libbey.me/sent \
+          +burke.libbey-shopify.com/sent \
           +burke-libbey.me/drafts \
+          +burke.libbey-shopify.com/drafts \
           +temporary/search
+
+# When I actually don't need it anymore...
+# set help=no
 
 # Other special folders.
 set mbox      = "+burke-libbey.me/archive"

@@ -23,3 +23,4 @@ git://github.com/bling/vim-airline.git
 git://github.com/derekwyatt/vim-scala.git
 git://github.com/majutsushi/tagbar.git
 https://github.com/wting/rust.vim.git
+https://github.com/sjl/badwolf.git
