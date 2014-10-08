@@ -1,8 +1,10 @@
 #!/bin/bash
 set -eo pipefail
 
-search=$1
-matcher --limit 1 "${search}" < ~/.machines > /tmp/machine-selection
-machine=$(/usr/bin/ruby -ne 'puts $_.chomp.split(?/).reverse*?.+".shopify.com"' < /tmp/machine-selection)
-rm /tmp/machine-selection
-echo "${machine}"
+while [[ -n $1 ]]; do
+  search=$1;shift
+  matcher --limit 1 "${search}" < ~/.machines > /tmp/machine-selection
+  machine=$(/usr/bin/ruby -ne 'puts $_.chomp.split(?/).reverse*?.+".shopify.com"' < /tmp/machine-selection)
+  rm /tmp/machine-selection
+  echo "${machine}"
+done

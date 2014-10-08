@@ -72,4 +72,8 @@ gbt() {
 up() {
   while [[ ! -d .git ]] && [[ $(pwd) != "/" ]]; do cd ".."; done
 }
-
+eachm() {
+  # TODO: can't use matcher here because it returns even non-matches.
+  #matcher --limit 100000 $1 < ~/.machines | xargs resolve_machine
+  :
+}

@@ -51,13 +51,14 @@ hdr_order from: to: cc: date: subject:  # and in this order
 set spoolfile = "+burke-libbey.me/INBOX"
 
 # Alternate email addresses.
-#alternates sjl@pculture.org still\.?life@gmail.com steve@ladyluckblues.com steve@pculture.org
+alternates burke@burkelibbey.org b.libbey@gmail.com burke.libbey@shopify.com burke.libbey@jadedpixel.com
 
 # Mailboxes to show in the sidebar.
 mailboxes +burke-libbey.me/INBOX \
           +burke-libbey.me/archive \
           +burke-libbey.me/sent \
-          +burke-libbey.me/drafts
+          +burke-libbey.me/drafts \
+          +temporary/search
 
 # Other special folders.
 set mbox      = "+burke-libbey.me/archive"
@@ -155,6 +156,7 @@ unset record
 bind compose p postpone-message
 bind index p recall-message
 
+macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
 
 set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
 bind editor <Tab> complete-query
