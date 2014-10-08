@@ -61,7 +61,8 @@ mailboxes +burke-libbey.me/INBOX \
           +burke.libbey-shopify.com/drafts \
           +temporary/search
 
-set help=no
+# When I actually don't need it anymore...
+# set help=no
 
 folder-hook burke-libbey.me/* 'source ~/.mutt/libbey.me.muttrc'
 folder-hook burke.libbey-shopify.com/* 'source ~/.mutt/shopify.muttrc'
