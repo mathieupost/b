@@ -35,4 +35,5 @@ nametrans = lambda folder: {'[Gmail]/Drafts':    'drafts',
 folderfilter = lambda folder: folder not in ['[Gmail]/Trash',
                                              '[Gmail]/Important',
                                              '[Gmail]/Spam',
+                                             '[Gmail]/Chats',
                                              ]
