@@ -1,3 +1,5 @@
+# vim:ft=muttrc
+
 set spoolfile = "+burke-libbey.me/INBOX"
 set mbox      = "+burke-libbey.me/archive"
 set postponed = "+burke-libbey.me/drafts"

@@ -161,3 +161,12 @@ bind editor ^T    complete
 
 # bind index N search-opposite
 # bind pager N search-opposite
+
+source ~/.mutt/gpg.muttrc
+
+set pgp_sign_as              = 0x86227B5C
+set pgp_timeout              = 3600
+set crypt_autosign           = yes  # automatically sign all outgoing messages
+set crypt_replyencrypt       = yes  # sign only replies to signed messages
+set crypt_replysignencrypted = yes  # encrypt and sign replies to encrypted messages
+set crypt_verify_sig         = yes  # automatically verify the sign of a message when opened
