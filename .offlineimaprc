@@ -9,7 +9,7 @@ fsync = False
 localrepository = BurkeLibbey-Local
 remoterepository = BurkeLibbey-Remote
 status_backend = sqlite
-postsynchook = notmuch new
+postsynchook = /usr/local/bin/notmuch new
 
 [Repository BurkeLibbey-Local]
 type = Maildir
@@ -43,7 +43,7 @@ folderfilter = lambda folder: folder not in ['[Gmail]/Trash',
 localrepository = Shopify-Local
 remoterepository = Shopify-Remote
 status_backend = sqlite
-postsynchook = notmuch new
+postsynchook = /usr/local/bin/notmuch new
 
 [Repository Shopify-Local]
 type = Maildir

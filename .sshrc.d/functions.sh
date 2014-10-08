@@ -45,6 +45,9 @@ gh() {
 ghs() {
   cd $(_gh Shopify $1)
 }
+ghb() {
+  cd $(_gh burke $1)
+}
 fdg() {
   find . | grep "$@"
 }
