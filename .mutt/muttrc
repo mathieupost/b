@@ -51,14 +51,10 @@ hdr_order from: to: cc: date: subject:  # and in this order
 alternates burke@libbey.me burke@burkelibbey.org b.libbey@gmail.com burke.libbey@shopify.com burke.libbey@jadedpixel.com
 
 # Mailboxes to show in the sidebar.
-mailboxes +burke-libbey.me/INBOX \
-          +burke.libbey-shopify.com/INBOX \
-          +burke-libbey.me/archive \
-          +burke.libbey-shopify.com/archive \
-          +burke-libbey.me/sent \
-          +burke.libbey-shopify.com/sent \
-          +burke-libbey.me/drafts \
-          +burke.libbey-shopify.com/drafts \
+mailboxes +p:INBOX   +s:INBOX \
+          +p:archive +s:archive \
+          +p:sent    +s:sent \
+          +p:drafts  +s:drafts \
           +temporary/search
 
 # When I actually don't need it anymore...

@@ -1,7 +1,7 @@
 # vim:ft=muttrc
 
-set spoolfile = "+burke.libbey-shopify.com/INBOX"
-set mbox      = "+burke.libbey-shopify.com/archive"
-set postponed = "+burke.libbey-shopify.com/drafts"
+set spoolfile = "+s:INBOX"
+set mbox      = "+s:archive"
+set postponed = "+s:drafts"
 set from      = "burke.libbey@shopify.com"
 set sendmail  = "/usr/local/bin/msmtp -a shopify"

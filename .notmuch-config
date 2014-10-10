@@ -49,7 +49,7 @@ other_email=burke.libbey@shopify.com;burke@burkelibbey.org;b.libbey@gmail.com;bu
 #
 [new]
 tags=unread;inbox;
-ignore=
+ignore=.uidvalidity;.mbsyncstate
 
 # Search configuration
 #

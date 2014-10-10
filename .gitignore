@@ -8,11 +8,10 @@
 !/.mutt/*muttrc
 !/.msmtprc
 !/.notmuch-config
-!/.mutt/offlineimap.py
 !/.mutt/Equifax_Secure_CA.cert
 !/.mutt/mailcap
 !/.mutt/view_attachment.sh
-!/.offlineimaprc
+!/.mbsyncrc
 
 !/.ssh
 /.ssh/*
@@ -54,7 +53,7 @@
 !/Library/Fonts/FSD - PragmataPro.ttf
 !/Library/LaunchAgents
 /Library/LaunchAgents/*
-!/Library/LaunchAgents/me.libbey.burke.offlineimap.plist
+!/Library/LaunchAgents/me.libbey.burke.syncmail.plist
 
 !/.tmux.conf
 
