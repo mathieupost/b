@@ -52,16 +52,17 @@ alternates burke@libbey.me burke@burkelibbey.org b.libbey@gmail.com burke.libbey
 
 # Mailboxes to show in the sidebar.
 mailboxes +p:INBOX   +s:INBOX \
+          +github \
+          +p:drafts  +s:drafts \
           +p:archive +s:archive \
           +p:sent    +s:sent \
-          +p:drafts  +s:drafts \
           +temporary/search
 
 # When I actually don't need it anymore...
 # set help=no
 
-folder-hook burke-libbey.me/* 'source ~/.mutt/libbey.me.muttrc'
-folder-hook burke.libbey-shopify.com/* 'source ~/.mutt/shopify.muttrc'
+folder-hook p:* 'source ~/.mutt/libbey.me.muttrc'
+folder-hook s:* 'source ~/.mutt/shopify.muttrc'
 source ~/.mutt/libbey.me.muttrc
 
 # Index View Options ---------------------------------

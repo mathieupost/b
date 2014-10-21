@@ -277,11 +277,6 @@ inoremap kj <esc>
 cnoremap kj <esc>
 vnoremap kj <esc>
 
-" Ack for the last search.
-nnoremap <silent> <leader>? :execute "Ack! '" . substitute(substitute(substitute(@/, "\\\\<", "\\\\b", ""), "\\\\>", "\\\\b", ""), "\\\\v", "", "") . "'"<CR>
-
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
 if has("mouse")
   set mouse=a
 endif

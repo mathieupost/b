@@ -19,6 +19,12 @@ Slave ":personal-local:INBOX"
 Create Both
 SyncState *
 
+Channel personal-github
+Master ":personal-remote:github"
+Slave ":personal-local:github"
+Create Both
+SyncState *
+
 Channel personal-archive
 Master ":personal-remote:[Gmail]/All Mail"
 Slave ":personal-local:archive"
@@ -52,6 +58,7 @@ SyncState *
 Group personal
 Channel personal-trash
 Channel personal-inbox
+Channel personal-github
 Channel personal-drafts
 Channel personal-sent
 Channel personal-flagged

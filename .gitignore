@@ -50,7 +50,6 @@
 /Library/*
 !/Library/Fonts
 /Library/Fonts/*
-!/Library/Fonts/FSD - PragmataPro.ttf
 !/Library/LaunchAgents
 /Library/LaunchAgents/*
 !/Library/LaunchAgents/me.libbey.burke.syncmail.plist

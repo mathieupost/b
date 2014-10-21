@@ -2,7 +2,7 @@ git://github.com/sjbach/lusty.git
 git://github.com/pangloss/vim-javascript.git
 git://github.com/mxw/vim-jsx.git
 git://github.com/wellle/targets.vim.git
-git://github.com/mileszs/ack.vim.git
+git://github.com/rking/ag.vim.git
 git://github.com/tpope/vim-fugitive.git
 git://github.com/michaeljsmith/vim-indent-object.git
 git://github.com/pangloss/vim-javascript.git

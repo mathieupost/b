@@ -121,3 +121,5 @@ grho     : git reset --hard
 vgs      : cd ~/src/s/vagrant && vagrant ssh
 
 mu       : gem uninstall
+
+bid      : bundle install --without=development,test,debug,test,staging,stagingdb,production
