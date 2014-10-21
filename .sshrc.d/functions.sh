@@ -80,3 +80,12 @@ eachm() {
   #matcher --limit 100000 $1 < ~/.machines | xargs resolve_machine
   :
 }
+
+git() {
+  local toplevel=$(command git rev-parse --show-toplevel 2>/dev/null)
+  if [[ "${toplevel}" == "${HOME}" ]] && [[ "$1" == "clean" ]]; then
+    >&2 echo "Do NOT run git clean in this repository."
+    return
+  fi
+  command git "$@"
+}
