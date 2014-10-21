@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for i in $(knife node list); do
+  ssh-keyscan $i | tee -a ~/.ssh/known_hosts.new
+done
+
+mv ~/.ssh/known_hosts{,.old}
+grep -v shopify.com ~/.ssh/known_hosts.old > ~/.ssh/known_hosts
+cat ~/.ssh/known_hosts.new >> ~/.ssh/known_hosts
+rm ~/.ssh/known_hosts.new
+
