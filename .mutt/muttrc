@@ -121,7 +121,11 @@ bind pager R  group-reply
 bind attach <return> view-mailcap
 
 # urlview
-macro pager \Cu "|urlview<enter>" "call urlview to open links"
+macro pager \Cb "<pipe-entry>urlview<enter>" "call urlview to open links"
+macro pager "\Cu" "<pipe-entry>tail -1 | grep github.com | xargs open<enter>" "call githubview to jump to PR or issue"
+
+macro index \Cb "<pipe-message>urlview<enter>" "call urlview to open links"
+macro index "\Cu" "<pipe-message>tail -1 | grep github.com | xargs open<enter>" "call githubview to jump to PR or issue"
 
 
 # Compose View Options -------------------------------
@@ -146,6 +150,8 @@ set editor = "vim"        # Use terminal Vim to compose email.
 
 set sendmail_wait = 0
 unset record
+
+bind compose \Cp pgp-menu
 
 bind compose p postpone-message
 bind index p recall-message
