@@ -50,8 +50,6 @@
 
 !/Library
 /Library/*
-!/Library/Fonts
-/Library/Fonts/*
 !/Library/LaunchAgents
 /Library/LaunchAgents/*
 !/Library/LaunchAgents/me.libbey.burke.syncmail.plist
