@@ -60,8 +60,6 @@ L        : less
 l        : ls
 less     : /usr/bin/less -FXRS
 
-ag       : /usr/bin/env ag --ignore Godeps
-
 xrs      : bundle exec rails server
 xrc      : bundle exec rails console
 xrg      : bundle exec rails generate
