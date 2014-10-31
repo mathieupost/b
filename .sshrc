@@ -2,6 +2,8 @@ ap() {
   awk "{print \$$1}"
 }
 
+if [[ -f /etc/profile ]]; then source /etc/profile ; fi
+
 eval $(cat "${SSHHOME}/.sshrc.d/aliases" \
   | grep -v '^#' \
   | grep -vE '^\s*$' \
@@ -12,5 +14,3 @@ source "${SSHHOME}/.sshrc.d/functions.sh"
 
 eval $(dircolors -b "${SSHHOME}/.sshrc.d/LS_COLORS")
 alias ls="ls --color=auto -F"
-
-
