@@ -10,25 +10,6 @@ eval $(cat "${SSHHOME}/.sshrc.d/aliases" \
 
 source "${SSHHOME}/.sshrc.d/functions.sh"
 
-# export PROMPT_COMMAND=__prompt_command  # Func to gen PS1 after CMDs
-# abbreviated_hostname=$(hostname | sed 's/\.shopify\.com//')
-# datacenter=$(echo "${abbreviated_hostname}" | sed 's/.*\.//')
-# case "${datacenter}" in
-# chi) ps1_color=1 ;; # red
-# ash) ps1_color=5 ;; # magenta
-# ec2) ps1_color=2 ;; # green
-# *)   ps1_color=4 ;; # blue
-# esac
-# function __prompt_command() {
-#   local EXIT="$?"
-#   PS1="\\[$(tput setaf "${ps1_color}")\\]\\u@${abbreviated_hostname}:\\w "
-#   if [[ "${EXIT}" -eq 0 ]]; then
-#     PS1+="\\[$(tput setaf 2)\\]\\$\\[$(tput sgr0)\\] "
-#   else
-#     PS1+="\\[$(tput setaf 1)\\]${EXIT}\\$\\[$(tput sgr0)\\] "
-#   fi
-# }
-
 eval $(dircolors -b "${SSHHOME}/.sshrc.d/LS_COLORS")
 alias ls="ls --color=auto -F"
 
