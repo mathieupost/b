@@ -124,12 +124,12 @@ scp-upload() {
 
 scp-download-recursive() {
   scp_opts="-r"
-  scp_dn "$@"
+  scp-download "$@"
 }
 
 scp-upload-recursive() {
   scp_opts="-r"
-  scp_up "$@"
+  scp-upload "$@"
 }
 
 knife-edit() {
