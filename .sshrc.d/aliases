@@ -1,5 +1,5 @@
 # Primarily remote stuff
-ssc      : sudo chef-client
+scc      : sudo chef-client
 
 # Local
 cook     : ghs cookbooks
