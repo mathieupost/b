@@ -61,8 +61,8 @@ mailboxes +p:INBOX   +s:INBOX \
 # When I actually don't need it anymore...
 # set help=no
 
-folder-hook p:* 'source ~/.mutt/libbey.me.muttrc'
-folder-hook s:* 'source ~/.mutt/shopify.muttrc'
+folder-hook =p: 'source ~/.mutt/libbey.me.muttrc'
+folder-hook =s: 'source ~/.mutt/shopify.muttrc'
 source ~/.mutt/libbey.me.muttrc
 
 # Index View Options ---------------------------------

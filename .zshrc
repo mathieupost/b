@@ -91,7 +91,8 @@ bindkey '^T' autosuggest-toggle
 
 AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=6'
 
-eval $(gpg-agent --daemon)
+source ~/.zshrc.d/gpg-agent.zsh
+
 eval "$(rbenv init -)"
 
 rbenv rehash 2>/dev/null
