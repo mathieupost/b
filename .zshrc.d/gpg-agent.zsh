@@ -1,5 +1,5 @@
 # https://github.com/chazy/zsh-config/blob/master/plugins/gpg-agent/gpg-agent.plugin.zsh
-local GPG_ENV=$HOME/.gnupg/gpg-agent.env
+local GPG_ENV="${HOME}/.gnupg/gpg-agent.env"
 
 function start_agent {
   /usr/bin/env gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_ENV}" > /dev/null
