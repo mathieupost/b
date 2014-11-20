@@ -7,20 +7,26 @@ function start_agent {
   source "${GPG_ENV}" > /dev/null
 }
 
-# Source GPG agent settings, if applicable
-if [[ -f "${GPG_ENV}" ]]; then
-  source "${GPG_ENV}" > /dev/null
-  ps -ef | grep "${SSH_AGENT_PID}" | grep "gpg-agent" > /dev/null || {
+function kick-gpg-agent {
+  if [[ "$1" == "-f" ]]; then
+    echo "killing gpg-agent"
+    killall -9 gpg-agent
+  fi
+  if [[ -f "${GPG_ENV}" ]]; then
+    source "${GPG_ENV}" > /dev/null
+    ps -ef | grep "${SSH_AGENT_PID}" | grep "gpg-agent" > /dev/null || {
+      start_agent
+    }
+  else
     start_agent
-  }
-else
-  start_agent
-fi
+  fi
 
-export GPG_AGENT_INFO
-export SSH_AUTH_SOCK
-export SSH_AGENT_PID
+  export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
+  export SSH_AGENT_PID
 
-GPG_TTY=$(tty)
-export GPG_TTY
+  GPG_TTY=$(tty)
+  export GPG_TTY
+}
+kick-gpg-agent
 
