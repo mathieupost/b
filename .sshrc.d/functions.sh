@@ -67,7 +67,7 @@ ghgs() {
   ghg "Shopify/$1"
 }
 mi() {
-  gem install --no-ri --no-rdoc "$@" && reh
+  gem install --no-ri --no-rdoc "$@" && rbenv rehash
 }
 gbt() {
   git branch --track "$1" "origin/$1"
