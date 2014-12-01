@@ -11,6 +11,7 @@ export PATH="/usr/local/bin:${PATH}"
 export PATH="/Users/burke/src/code.google.com/p/go/bin:${PATH}"
 export PATH="${HOME}/bin:${PATH}"
 export PATH="${HOME}/bin/_git:${PATH}"
+export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"
 export PATH="${HOME}/.rbenv/shims:${PATH}"
 export PATH="${HOME}/.rbenv/bin:${PATH}"
 
@@ -96,4 +97,3 @@ source ~/.zshrc.d/gpg-agent.zsh
 eval "$(rbenv init -)"
 
 rbenv rehash 2>/dev/null
-

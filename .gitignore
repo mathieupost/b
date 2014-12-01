@@ -53,7 +53,7 @@
 /Library/*
 !/Library/LaunchAgents
 /Library/LaunchAgents/*
-!/Library/LaunchAgents/me.libbey.burke.syncmail.plist
+!/Library/LaunchAgents/me.libbey.burke.*.plist
 
 !/.tmux.conf
 
