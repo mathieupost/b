@@ -16,11 +16,16 @@ end
 
 function hideshowhotkey(appname, bundleid)
   return function()
-    local focusedapp = window.application(window.focusedwindow())
-    if application.bundleid(focusedapp) == bundleid then
-      application.hide(focusedapp)
-    else
+    local fw = window.focusedwindow()
+    if fw == nil then
       application.launchorfocus(appname)
+    else
+      local focusedapp = window.application(window.focusedwindow())
+      if application.bundleid(focusedapp) == bundleid then
+        application.hide(focusedapp)
+      else
+        application.launchorfocus(appname)
+      end
     end
   end
 end
