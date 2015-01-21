@@ -97,3 +97,6 @@ source ~/.zshrc.d/gpg-agent.zsh
 eval "$(rbenv init -)"
 
 rbenv rehash 2>/dev/null
+
+# OPAM configuration
+. /Users/burke/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
