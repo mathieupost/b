@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -x
 
 export PATH="/usr/local/bin:${PATH}"
@@ -11,7 +10,7 @@ fi
 mv /Users/burke/.mutt/mbsync.log /Users/burke/.mutt/mbsync.log.1
 
 last_full_sync=/Users/burke/.mutt/last-full-sync
-if [[ -z "$(find "${last_full_sync}" -mmin +60)" ]]; then
+if [[ -n "$(find "${last_full_sync}" -mmin +60)" ]]; then
   need_full_sync=yes
 fi
 
