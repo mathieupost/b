@@ -13,7 +13,7 @@
 !/.mutt/view_attachment.sh
 !/.mbsyncrc
 
-!/.mjolnir
+!/.hammerspoon
 
 !/.agignore
 
@@ -40,10 +40,6 @@
 !/.sshrc
 !/.sshrc.d
 
-!/.gdbinit
-!/.gdb
-
-!/.irbrc
 !/.gemrc
 
 !/Library
@@ -53,8 +49,5 @@
 !/Library/LaunchAgents/me.libbey.burke.*.plist
 
 !/.tmux.conf
-
-!/.slashemrc
-!/.nethackrc
 
 !/.ctags
