@@ -19,11 +19,6 @@
 
 !/.ssh
 /.ssh/*
-!/.ssh/ca-certificates.crt
-
-!/.weechat
-/.weechat/*
-!/.weechat/*.conf
 
 !/.vim
 /.vim/*
