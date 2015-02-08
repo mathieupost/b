@@ -9,27 +9,26 @@ set folder = "~/.mail"
 set folder           = ~/.mail               # mailbox location
 set alias_file       = ~/.mutt/alias         # where to store aliases
 set header_cache     = ~/.mutt/cache/headers # where to store headers
-# This isn't super helpful, since I have local sync.
-#set message_cachedir = ~/.mutt/cache/bodies  # where to store bodies
 set certificate_file = ~/.mutt/certificates  # where to store certs
 set mailcap_path     = ~/.mutt/mailcap       # entries for filetypes
 set tmpdir           = ~/.mutt/temp          # where to keep temp files
-#set signature        = ~/.mutt/sig           # my signature file
 
 # Basic Options --------------------------------------
 set wait_key = no        # shut up, mutt
 set mbox_type = Maildir  # mailbox type
-set timeout = 3          # idle time before scanning
-set mail_check = 1       # minimum time between scans
 unset move               # gmail does that
 set delete               # don't ask, just do
 unset confirmappend      # don't ask, just do!
 set quit                 # don't ask, just do!!
 unset mark_old           # read/new is good enough for me
-set beep_new             # bell on new mails
 set pipe_decode          # strip headers and eval mimes when piping
 set thorough_search      # strip headers and eval mimes before searching
+set help = no            # suppress header with keybind hints
+
+# Performance Knobs ----------------------------------
 set sleep_time = 0       # http://scie.nti.st/2007/11/9/speed-up-changing-folders-in-mutt/
+set mail_check = 1       # minimum time between scans
+set timeout    = 3       # idle time before scanning
 
 # Sidebar Patch --------------------------------------
 set sidebar_delim   = '  │'
@@ -56,12 +55,9 @@ alternates burke@libbey.me burke@burkelibbey.org b.libbey@gmail.com burke.libbey
 mailboxes +p:INBOX   +s:INBOX \
           +github \
           +p:drafts  +s:drafts \
-          +p:archive +s:archive \
           +p:sent    +s:sent \
           +temporary/search
-
-# When I actually don't need it anymore...
-# set help=no
+          #+p:archive +s:archive \
 
 folder-hook =p: 'source ~/.mutt/libbey.me.muttrc'
 folder-hook =s: 'source ~/.mutt/shopify.muttrc'
