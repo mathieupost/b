@@ -49,19 +49,29 @@ func pathInfo() string {
 }
 
 func gitDir() (string, bool) {
-	//TODO(burke): do this faster
-	cmd := exec.Command("git", "rev-parse", "--git-dir")
-	o, e := cmd.Output()
+	cpath, e := os.Getwd()
 	if e != nil {
 		return "", false
 	}
-	return strings.TrimSpace(string(o)), true
+
+	for {
+		// TODO(burke): this is foiled by a file named `.git`
+		stat, err := os.Stat(cpath + "/.git")
+		if !os.IsNotExist(err) && stat.IsDir() {
+			return cpath + "/.git", true
+		}
+		if cpath == "/" {
+			return "", false
+		}
+		cpath = path.Dir(cpath)
+	}
+
 }
 
 func gitInfo() string {
 	gitDir, ok := gitDir()
 	if !ok {
-		return "error"
+		return ""
 	}
 	cmd := exec.Command("git", "status", "--porcelain")
 	o, e := cmd.Output()
@@ -76,7 +86,7 @@ func gitInfo() string {
 
 	o, e = ioutil.ReadFile(gitDir + "/HEAD")
 	if e != nil {
-		return "error"
+		return " error"
 	}
 	ref := ""
 	if string(o[0:16]) == "ref: refs/heads/" {
@@ -100,7 +110,7 @@ func gitInfo() string {
 		stash = fgWhite + strconv.Itoa(stashCount)
 	}
 
-	return color + ref + stash
+	return " " + color + ref + stash
 }
 
 func statusAndPrompt() string {
@@ -118,5 +128,5 @@ func statusAndPrompt() string {
 }
 
 func main() {
-	fmt.Printf("%s%s %s%s%s ", hostnameInfo(), pathInfo(), gitInfo(), statusAndPrompt(), fgReset)
+	fmt.Printf("%s%s%s%s%s ", hostnameInfo(), pathInfo(), gitInfo(), statusAndPrompt(), fgReset)
 }
