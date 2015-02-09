@@ -21,6 +21,8 @@
 /.ssh/*
 !/.ssh/ca-certificates.crt
 
+!/.dotfiles-src
+
 !/.vim
 /.vim/*
 !/.vim/Rakefile
