@@ -1,4 +1,4 @@
-PROMPT='$(/Users/burke/bin/prompt.zsh $?)'
+PROMPT='$(/Users/burke/bin/shell-prompt $?)'
 setopt prompt_subst
 
 export GIT_EDITOR=vim
