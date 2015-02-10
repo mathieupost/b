@@ -1,5 +1,10 @@
 # Primarily remote stuff
 scc      : sudo chef-client
+sagu     : sudo apt-get update
+acm      : apt-cache madison
+sdqs     : sudo dpkg-query -s
+sdql     : sudo dpkg-query -L
+sagi     : sudo apt-get install
 
 # Local
 cook     : ghs cookbooks
@@ -92,6 +97,8 @@ gd       : git pull
 gdu      : git pull && git push
 gf       : git diff
 gfc      : git diff --cached
+gl       : git log
+glr      : git log --reverse
 glp      : git log -p
 glpr     : git log -p --reverse
 gm       : git merge
