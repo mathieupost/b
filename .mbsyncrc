@@ -7,7 +7,7 @@ User burke@libbey.me
 PassCmd "sudo -u burke /usr/bin/security -v find-internet-password -g -a burke@libbey.me -s imap.gmail.com /Users/burke/Library/Keychains/login.keychain 2>&1 | grep '^password: ' | sed 's/.*\"\\(.*\\)\"/\\1/'"
 UseIMAPS yes
 RequireSSL yes
-CertificateFile /Users/burke/.ssh/ca-certificates.crt
+CertificateFile /Users/burke/.mutt/Equifax_Secure_CA.cert
 
 MaildirStore personal-local
 Path ~/.mail2/personal
@@ -74,7 +74,7 @@ User burke.libbey@shopify.com
 PassCmd "sudo -u burke /usr/bin/security -v find-internet-password -g -a burke.libbey@shopify.com -s imap.gmail.com /Users/burke/Library/Keychains/login.keychain 2>&1 | grep '^password: ' | sed 's/.*\"\\(.*\\)\"/\\1/'"
 UseIMAPS yes
 RequireSSL yes
-CertificateFile /Users/burke/.ssh/ca-certificates.crt
+CertificateFile /Users/burke/.mutt/Equifax_Secure_CA.cert
 
 MaildirStore shopify-local
 Path ~/.mail2/shopify
