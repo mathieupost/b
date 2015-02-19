@@ -69,12 +69,20 @@ func main() {
 		uptimes[2] = 42
 	}
 
-	ms, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/*/new/*")
+	pers, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/p:INBOX/new/*")
+	shop, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/s:INBOX/new/*")
+	git, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/github/new/*")
 	color := nobold(237, 233)
-	if len(ms) > 0 {
+	if len(pers) > 0 || len(shop) > 0 || len(git) > 0 {
 		color = nobold(1, 233)
 	}
-	mails := fmt.Sprintf("%s %d", color, len(ms))
+	mails := fmt.Sprintf("%s %d:%d:%d", color, len(pers), len(shop), len(git))
+
+	stat, err := os.Stat(os.Getenv("HOME") + "/.mutt/mbsync.log")
+	threshold := time.Now().Add(-3 * time.Minute)
+	if err != nil || stat.ModTime().Before(threshold) {
+		mails = fmt.Sprintf("%s ?", nobold(1, 233))
+	}
 
 	fmt.Printf("%s",
 		nobold(233, -1)+" "+
