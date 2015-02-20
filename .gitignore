@@ -29,6 +29,10 @@
 !/.zshrc
 !/.zshrc.d
 
+!/.gnupg
+/.gnupg/*
+!/.gnupg/gpg-agent.conf
+
 !/bin
 /bin/*
 !/bin/_git

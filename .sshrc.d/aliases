@@ -15,7 +15,7 @@ vhalt    : vagrant halt
 vdestroy : vagrant destroy -f
 vssh     : vagrant ssh
 vprov    : vagrant provision
-mutt     : bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt'
+mutt     : kick-gpg-agent; bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt'
 
 tmux     : /usr/bin/env TERM=screen-256color-bce tmux
 

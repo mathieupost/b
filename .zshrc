@@ -32,6 +32,13 @@ HISTFILE=~/.zsh_history
 SAVEHIST=50000
 HISTSIZE=50000
 
+gpg-agent --daemon >/dev/null 2>&1
+function kick-gpg-agent {
+  pid=$(ps xo pid,command | grep -E "^\d+ gpg-agent" | awk '{print $1}')
+  export GPG_AGENT_INFO=/Users/burke/.gnupg/S.gpg-agent:${pid}:1
+}
+kick-gpg-agent
+
 eval $(cat ~/.sshrc.d/aliases \
   | grep -v '^#' \
   | grep -vE '^\s*$' \
@@ -73,8 +80,6 @@ autoload  -Uz zmv                      # move function
 autoload  -Uz zed                      # edit functions within zle
 zle_highlight=(isearch:underline)
 
-
-
 bindkey -e
 
 source ~/.zsh-autosuggestions/autosuggestions.zsh
@@ -92,7 +97,7 @@ bindkey '^T' autosuggest-toggle
 
 AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=6'
 
-source ~/.zshrc.d/gpg-agent.zsh
+export GPG_TTY=$(tty)
 
 eval "$(rbenv init -)"
 
