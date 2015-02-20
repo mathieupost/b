@@ -3,12 +3,58 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"strconv"
-	"strings"
 	"time"
 )
+
+/*
+#cgo CFLAGS: -x objective-c
+#cgo LDFLAGS: -framework CoreFoundation -framework IOKit
+#import <CoreFoundation/CoreFoundation.h>
+#import <IOKit/ps/IOPowerSources.h>
+#import <IOKit/ps/IOPSKeys.h>
+
+double secondsOfBatteryRemaining(void) {
+  return IOPSGetTimeRemainingEstimate();
+}
+
+int percentage(void) {
+  CFTypeRef info, member;
+  CFArrayRef arr;
+  CFDictionaryRef dict;
+  CFNumberRef value;
+  int maxCapacity, currentCapacity;
+  float perc;
+
+  if (NULL == (info = IOPSCopyPowerSourcesInfo())) {
+    return -1;
+  }
+  if (NULL == (arr = IOPSCopyPowerSourcesList(info))) {
+    return -2;
+  }
+
+  if (NULL == (member = (CFTypeRef)CFArrayGetValueAtIndex(arr, 0))) {
+    return -3;
+  }
+  if (NULL == (dict = IOPSGetPowerSourceDescription(info, member))) {
+    return -4;
+  }
+
+  value = (CFNumberRef)CFDictionaryGetValue(dict, CFSTR(kIOPSMaxCapacityKey));
+  CFNumberGetValue(value, kCFNumberSInt32Type, &maxCapacity);
+
+  value = (CFNumberRef)CFDictionaryGetValue(dict, CFSTR(kIOPSCurrentCapacityKey));
+  CFNumberGetValue(value, kCFNumberSInt32Type, &currentCapacity);
+
+  CFRelease(member);
+  CFRelease(arr);
+  CFRelease(info);
+
+  return (int)(100 * ((double)currentCapacity / (double)maxCapacity));
+}
+
+*/
+import "C"
 
 const (
 	Arrow1 = ""
@@ -41,33 +87,7 @@ func main() {
 		hn = "???"
 	}
 
-	cmd := exec.Command("sh", "-c", "pmset -g batt | tail -1 | awk '{print $2}' | sed 's/\\%\\;//'")
-	batt, err := cmd.CombinedOutput()
-	batt = []byte(strings.TrimSpace(string(batt)))
-	if err != nil {
-		batt = []byte("???")
-	}
-
-	cmd2 := exec.Command("uptime")
-	uptimetext, err := cmd2.CombinedOutput()
-	uptimetext = []byte(strings.TrimSpace(string(uptimetext)))
-	uptimes := make([]float64, 3)
-	if err == nil {
-		parts := strings.Split(string(uptimetext), " ")
-		if len(parts) < 3 {
-			uptimes[0] = 42
-			uptimes[1] = 42
-			uptimes[2] = 42
-		} else {
-			uptimes[0], _ = strconv.ParseFloat(parts[len(parts)-3], 64)
-			uptimes[1], _ = strconv.ParseFloat(parts[len(parts)-2], 64)
-			uptimes[2], _ = strconv.ParseFloat(parts[len(parts)-1], 64)
-		}
-	} else {
-		uptimes[0] = 42
-		uptimes[1] = 42
-		uptimes[2] = 42
-	}
+	uptimes, err := loadAvg()
 
 	pers, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/p:INBOX/new/*")
 	shop, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/s:INBOX/new/*")
@@ -84,10 +104,12 @@ func main() {
 		mails = fmt.Sprintf("%s ?", nobold(1, 233))
 	}
 
+	batt := fmt.Sprintf("%d", C.percentage())
+
 	fmt.Printf("%s",
 		nobold(233, -1)+" "+
 			Arrow1+nobold(247, 233)+" "+
-			string(batt)+"%"+
+			batt+"%"+
 			nobold(241, 233)+" "+
 			Arrow0+nobold(2, 233)+" "+
 			fmt.Sprintf("%0.1f ", uptimes[0])+
