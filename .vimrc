@@ -33,7 +33,7 @@ set list listchars=tab:\ \ ,trail:·
 " Make vim fast.
 set synmaxcol=300
 set ttyfast
-set ttyscroll=3
+" set ttyscroll=3 " gone in neovim
 set lazyredraw
 
 " Searching
