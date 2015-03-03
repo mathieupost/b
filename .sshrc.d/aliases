@@ -59,7 +59,6 @@ aa       : ack -a
 aai      : ack -ai
 g        : grep
 t        : tail
-e        : vim
 h        : head
 L        : less
 l        : ls

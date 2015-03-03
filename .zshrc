@@ -1,8 +1,13 @@
 PROMPT='$(/Users/burke/bin/shell-prompt $?)'
 setopt prompt_subst
 
-export GIT_EDITOR=vim
 export EDITOR=vim
+if which nvim >/dev/null 2>&1; then
+  export EDITOR=nvim
+fi
+export GIT_EDITOR="${EDITOR}"
+export HOMEBREW_EDITOR="${EDITOR}"
+
 export GOPATH="${HOME}"
 export PYTHONPATH="/lib/python2.7/site-packages"
 

@@ -1,3 +1,6 @@
+e() {
+  $EDITOR "$@"
+}
 vcc() {
   osascript -e 'tell application "Viscosity" to connectall'
 }
