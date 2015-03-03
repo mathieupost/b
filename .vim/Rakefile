@@ -6,17 +6,17 @@ task :default do
 
   threads = []
   lines.each do |line|
+    line = line.chomp
+    next if line =~ /^\s*#/
+    next if line =~ /^\s*$/
     threads << Thread.new {
-      line = line.chomp
-      unless line =~ /^#/
-        repo = line.scan(%r{/([^/]+).git})[0][0]
-        if Dir.exists?("bundle/#{repo}")
-          puts "%% Pulling #{repo}\n"
-          `cd ~/.vim/bundle/#{repo} ; git pull`
-        else
-          puts "%% Cloning #{repo}\n"
-          `cd ~/.vim/bundle ; git clone #{line}`
-        end
+      repo = line.scan(%r{/([^/]+).git})[0][0]
+      if Dir.exists?("bundle/#{repo}")
+        puts "%% Pulling #{repo}\n"
+        `cd ~/.vim/bundle/#{repo} ; git pull`
+      else
+        puts "%% Cloning #{repo}\n"
+        `cd ~/.vim/bundle ; git clone #{line}`
       end
     }
   end

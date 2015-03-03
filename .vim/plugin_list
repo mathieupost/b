@@ -1,31 +1,41 @@
+# Syntax #############################################
 git://github.com/pangloss/vim-javascript.git
 git://github.com/mxw/vim-jsx.git
-git://github.com/wellle/targets.vim.git
+git://github.com/fatih/vim-go.git
+git://github.com/derekwyatt/vim-scala.git
+https://github.com/wting/rust.vim.git
+git://github.com/tpope/vim-markdown.git
+# Emmet is like zencoding for html expansion
+https://github.com/mattn/emmet-vim.git
+
+# Presentation #######################################
+git://github.com/bling/vim-airline.git
+https://github.com/sjl/badwolf.git
+
+# Little Features ####################################
+git://github.com/tpope/vim-surround.git
+git://github.com/tpope/vim-commentary.git
+git://github.com/tsaleh/vim-align.git
 git://github.com/rking/ag.vim.git
+
+# Panes / etc. #######################################
+git://github.com/kien/ctrlp.vim.git
+# taglist and tagbar? what are these exactly?
+git://github.com/vim-scripts/taglist.vim.git
+git://github.com/majutsushi/tagbar.git
+https://github.com/scrooloose/nerdtree.git
+
+# Review/sort...
+git://github.com/wellle/targets.vim.git
 git://github.com/tpope/vim-fugitive.git
 git://github.com/michaeljsmith/vim-indent-object.git
-git://github.com/pangloss/vim-javascript.git
-git://github.com/tpope/vim-surround.git
-git://github.com/vim-scripts/taglist.vim.git
-git://github.com/altercation/vim-colors-solarized.git
 git://github.com/ervandew/supertab.git
 git://github.com/vim-scripts/ZoomWin.git
-git://github.com/tpope/vim-markdown.git
-git://github.com/tsaleh/vim-align.git
 git://github.com/tpope/vim-unimpaired.git
 git://github.com/tpope/vim-endwise.git
 git://github.com/scrooloose/syntastic.git
-git://github.com/kien/ctrlp.vim.git
-git://github.com/tpope/vim-commentary.git
-git://github.com/fatih/vim-go.git
-git://github.com/bling/vim-airline.git
-git://github.com/derekwyatt/vim-scala.git
-git://github.com/majutsushi/tagbar.git
-https://github.com/wting/rust.vim.git
-https://github.com/sjl/badwolf.git
 https://github.com/sjl/vitality.vim.git
 https://github.com/terryma/vim-multiple-cursors.git
-https://github.com/mattn/emmet-vim.git
 https://github.com/tomtom/tlib_vim.git
 https://github.com/MarcWeber/vim-addon-mw-utils.git
 https://github.com/garbas/vim-snipmate.git

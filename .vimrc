@@ -289,6 +289,7 @@ let g:airline_powerline_fonts = 1
 let g:Powerline_theme='long'
 let g:Powerline_colorscheme='solarized256_dark'
 
+nmap <leader>4 :NERDTreeToggle<cr>
 nmap <leader>5 :TagbarToggle<cr>
 
 au Filetype go set makeprg=go\ build\ ./...
