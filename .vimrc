@@ -73,10 +73,10 @@ endfunction
 " make uses real tabs
 au FileType make set noexpandtab
 
-au FileType go autocmd BufWritePre <buffer> silent Fmt
+" au FileType go autocmd BufWritePre <buffer> silent Fmt
 
 au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
-au BufWritePost *.go silent! !sh -c "find . -name '*.go' | xargs gofmt 2>&1 >/dev/null"&
+" au BufWritePost *.go silent! !sh -c "find . -name '*.go' | xargs gofmt 2>&1 >/dev/null"&
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
@@ -223,10 +223,6 @@ vnoremap ˚ :m-2<CR>gv=gv
 noremap H ^
 noremap L $
 
-autocmd FileType go  :iabbrev <buffer> ifep if err != nil { panic(err) }
-autocmd FileType go  :iabbrev <buffer> ifer if err != nil { return err }
-autocmd FileType go  :iabbrev <buffer> ifern if err != nil { return nil, err }
-
 " let g:ctrlp_map = '<c-t>'
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_max_files = 20000
@@ -290,8 +286,6 @@ set printfont=PragmataPro:h12
 
 let g:airline_powerline_fonts = 1
 
-"let g:gofmt_command = 'goimports'
-
 let g:Powerline_theme='long'
 let g:Powerline_colorscheme='solarized256_dark'
 
@@ -301,12 +295,6 @@ au Filetype go set makeprg=go\ build\ ./...
 nmap <leader>m :make<CR>:copen<CR>
 
 set rtp+=/Users/burke/src/github.com/golang/lint/misc/vim
-
-function! s:GoVet()
-    cexpr system("go vet " . shellescape(expand('%')))
-    copen
-endfunction
-command! GoVet :call s:GoVet()
 
 nmap T ddO
 
@@ -340,3 +328,24 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 \ }
+
+au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>e <Plug>(go-rename)
+
+" let g:go_fmt_command = "goimports" " too slow :(
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+"let g:go_auto_type_info = 1
