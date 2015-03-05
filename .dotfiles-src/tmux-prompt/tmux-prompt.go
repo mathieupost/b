@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -61,6 +62,8 @@ const (
 	Arrow0 = ""
 )
 
+var superscripts = []string{"⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹"}
+
 func bold(fg, bg int) string {
 	return color(fg, bg, true)
 }
@@ -81,13 +84,36 @@ func color(fg, bg int, bold bool) string {
 	return fmt.Sprintf("#[fg=colour%d,bg=%s,%s,noitalics,nounderscore]", fg, bgc, bt)
 }
 
+var (
+	boringColor = nobold(241, 233)
+	greenColor  = nobold(2, 233)
+	redColor    = nobold(1, 233)
+)
+
+func displayLoadAvgs(loadAvgs [3]float64) string {
+
+	var parts []string
+
+	for _, avg := range loadAvgs {
+		whole := int(avg)
+		frac := int((avg - float64(whole)) * 10)
+		color := boringColor
+		if avg > 2.0 {
+			color = redColor
+		}
+		parts = append(parts, fmt.Sprintf("%s%d%s", color, whole, superscripts[frac]))
+	}
+
+	return strings.Join(parts, "")
+}
+
 func main() {
 	hn, err := os.Hostname()
 	if err != nil {
 		hn = "???"
 	}
 
-	uptimes, err := loadAvg()
+	loadAvgs, err := loadAvg()
 
 	pers, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/p:INBOX/new/*")
 	shop, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/s:INBOX/new/*")
@@ -111,20 +137,14 @@ func main() {
 			Arrow1+nobold(247, 233)+" "+
 			batt+"%"+
 			nobold(241, 233)+" "+
-			Arrow0+nobold(2, 233)+" "+
-			fmt.Sprintf("%0.1f ", uptimes[0])+
-			nobold(2, 233)+
-			fmt.Sprintf("%0.1f ", uptimes[1])+
-			nobold(2, 233)+
-			fmt.Sprintf("%0.1f", uptimes[2])+
-
+			Arrow0+" "+displayLoadAvgs(loadAvgs)+
 			nobold(241, 233)+" "+
 			Arrow0+
 			mails+
 
 			nobold(236, 233)+" "+
 			Arrow1+nobold(252, 236)+" "+
-			time.Now().Format("2006-01-02 15:04")+
+			time.Now().Format("Jan02 15:04")+
 			nobold(252, 236)+" "+
 			Arrow1+bold(16, 252)+" "+
 			hn+
