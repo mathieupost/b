@@ -9,6 +9,20 @@ import (
 )
 
 /*
+
+TODO:
+* Colourize batter based on percentage
+* Show time to full charge or complete discharge
+* Colorize something based on whether plugged in or not
+* More colour gradients for load averages
+* CPU stats
+* mem stats
+
+Ref:
+http://www.opensource.apple.com/source/IOKitUser/IOKitUser-294/ps.subproj/IOPSKeys.h
+*/
+
+/*
 #cgo CFLAGS: -x objective-c
 #cgo LDFLAGS: -framework CoreFoundation -framework IOKit
 #import <CoreFoundation/CoreFoundation.h>
