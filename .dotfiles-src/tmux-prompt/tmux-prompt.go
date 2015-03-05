@@ -101,6 +101,7 @@ func color(fg, bg int, bold bool) string {
 var (
 	boringColor = nobold(241, 233)
 	greenColor  = nobold(2, 233)
+	yellowColor = nobold(3, 233)
 	redColor    = nobold(1, 233)
 )
 
@@ -113,6 +114,9 @@ func displayLoadAvgs(loadAvgs [3]float64) string {
 		frac := int((avg - float64(whole)) * 10)
 		color := boringColor
 		if avg > 2.0 {
+			color = yellowColor
+		}
+		if avg > 3.0 {
 			color = redColor
 		}
 		parts = append(parts, fmt.Sprintf("%s%d%s", color, whole, superscripts[frac]))
