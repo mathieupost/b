@@ -75,7 +75,7 @@ au FileType make set noexpandtab
 
 " au FileType go autocmd BufWritePre <buffer> silent Fmt
 
-au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
+"au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
 " au BufWritePost *.go silent! !sh -c "find . -name '*.go' | xargs gofmt 2>&1 >/dev/null"&
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby

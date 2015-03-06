@@ -9,67 +9,27 @@ import (
 )
 
 /*
+#cgo CFLAGS: -x objective-c
+#cgo LDFLAGS: -framework CoreFoundation -framework IOKit
+extern int current(void);
+extern int percentage(void);
+*/
+import "C"
+
+/*
 
 TODO:
-* Colourize batter based on percentage
+* Colourize battery based on percentage
 * Show time to full charge or complete discharge
 * Colorize something based on whether plugged in or not
 * More colour gradients for load averages
 * CPU stats
 * mem stats
+* indicators for whether vpns are connected
 
 Ref:
 http://www.opensource.apple.com/source/IOKitUser/IOKitUser-294/ps.subproj/IOPSKeys.h
 */
-
-/*
-#cgo CFLAGS: -x objective-c
-#cgo LDFLAGS: -framework CoreFoundation -framework IOKit
-#import <CoreFoundation/CoreFoundation.h>
-#import <IOKit/ps/IOPowerSources.h>
-#import <IOKit/ps/IOPSKeys.h>
-
-double secondsOfBatteryRemaining(void) {
-  return IOPSGetTimeRemainingEstimate();
-}
-
-int percentage(void) {
-  CFTypeRef info, member;
-  CFArrayRef arr;
-  CFDictionaryRef dict;
-  CFNumberRef value;
-  int maxCapacity, currentCapacity;
-  float perc;
-
-  if (NULL == (info = IOPSCopyPowerSourcesInfo())) {
-    return -1;
-  }
-  if (NULL == (arr = IOPSCopyPowerSourcesList(info))) {
-    return -2;
-  }
-
-  if (NULL == (member = (CFTypeRef)CFArrayGetValueAtIndex(arr, 0))) {
-    return -3;
-  }
-  if (NULL == (dict = IOPSGetPowerSourceDescription(info, member))) {
-    return -4;
-  }
-
-  value = (CFNumberRef)CFDictionaryGetValue(dict, CFSTR(kIOPSMaxCapacityKey));
-  CFNumberGetValue(value, kCFNumberSInt32Type, &maxCapacity);
-
-  value = (CFNumberRef)CFDictionaryGetValue(dict, CFSTR(kIOPSCurrentCapacityKey));
-  CFNumberGetValue(value, kCFNumberSInt32Type, &currentCapacity);
-
-  CFRelease(member);
-  CFRelease(arr);
-  CFRelease(info);
-
-  return (int)(100 * ((double)currentCapacity / (double)maxCapacity));
-}
-
-*/
-import "C"
 
 const (
 	Arrow1 = ""
@@ -149,11 +109,18 @@ func main() {
 	}
 
 	batt := fmt.Sprintf("%d", C.percentage())
+	curr := C.current()
+	// Macbook battery is 10.95V, 1000 is for mW->W conversion
+	power := fmt.Sprintf("%0.1fW", float64(curr)*(10.95/1000))
+
+	u, s, _ := sampleCPU()
 
 	fmt.Printf("%s",
 		nobold(233, -1)+" "+
 			Arrow1+nobold(247, 233)+" "+
 			batt+"%"+
+			" "+power+
+			" "+fmt.Sprintf("u%ds%d", int(u*100), int(s*100))+
 			nobold(241, 233)+" "+
 			Arrow0+" "+displayLoadAvgs(loadAvgs)+
 			nobold(241, 233)+" "+
