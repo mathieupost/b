@@ -62,8 +62,8 @@ int current(void) {
     return -4;
   }
 
-	value = (CFNumberRef)CFDictionaryGetValue(dict, CFSTR(kIOPSCurrentKey));
-	CFNumberGetValue(value, kCFNumberSInt32Type, &current);
+  value = (CFNumberRef)CFDictionaryGetValue(dict, CFSTR(kIOPSCurrentKey));
+  CFNumberGetValue(value, kCFNumberSInt32Type, &current);
 
   CFRelease(member);
   CFRelease(arr);
