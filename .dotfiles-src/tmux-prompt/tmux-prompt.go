@@ -11,7 +11,7 @@ import (
 /*
 #cgo CFLAGS: -x objective-c
 #cgo LDFLAGS: -framework CoreFoundation -framework IOKit
-extern int current(void);
+extern int power(void);
 extern int percentage(void);
 */
 import "C"
@@ -109,9 +109,7 @@ func main() {
 	}
 
 	batt := fmt.Sprintf("%d", C.percentage())
-	curr := C.current()
-	// Macbook battery is 10.95V, 1000 is for mW->W conversion
-	power := fmt.Sprintf("%0.1fW", float64(curr)*(10.95/1000))
+	power := fmt.Sprintf("%0.1fW", float64(C.power())/1e6)
 
 	u, s, _ := sampleCPU()
 

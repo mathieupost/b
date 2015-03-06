@@ -1,6 +1,13 @@
+#include <mach/mach_port.h>
+#include <mach/mach_interface.h>
+#include <mach/mach_init.h>
+
 #import <CoreFoundation/CoreFoundation.h>
 #import <IOKit/ps/IOPowerSources.h>
 #import <IOKit/ps/IOPSKeys.h>
+
+#import <IOKit/pwr_mgt/IOPMLib.h>
+#import <IOKit/pwr_mgt/IOPM.h>
 
 double secondsOfBatteryRemaining(void) {
   return IOPSGetTimeRemainingEstimate();
@@ -41,33 +48,36 @@ int percentage(void) {
   return (int)(100 * ((double)currentCapacity / (double)maxCapacity));
 }
 
-int current(void) {
-  CFTypeRef info, member;
-  CFArrayRef arr;
-  CFDictionaryRef dict;
-  CFNumberRef value;
-  int current;
+// For some reason kIOPSVoltageKey isn't working if I try to use the 
+// IOPowerSources API, but IOKit's PowerManagement lib works just fine.
+int power(void) {
+  mach_port_t     port;
+  kern_return_t   kr;
+  CFArrayRef      battery_infos;
+  CFDictionaryRef info;
+  CFNumberRef     value;
+  int current, voltage;
 
-  if (NULL == (info = IOPSCopyPowerSourcesInfo())) {
-    return -1;
-  }
-  if (NULL == (arr = IOPSCopyPowerSourcesList(info))) {
-    return -2;
-  }
-
-  if (NULL == (member = (CFTypeRef)CFArrayGetValueAtIndex(arr, 0))) {
-    return -3;
-  }
-  if (NULL == (dict = IOPSGetPowerSourceDescription(info, member))) {
-    return -4;
+  kr = IOMasterPort(bootstrap_port, &port);
+  if (kr != kIOReturnSuccess) {
+    return 0;
   }
 
-  value = (CFNumberRef)CFDictionaryGetValue(dict, CFSTR(kIOPSCurrentKey));
+  kr = IOPMCopyBatteryInfo(port, &battery_infos);
+  if (kr != kIOReturnSuccess) {
+    return 0;
+  }
+
+  info = (CFDictionaryRef)CFArrayGetValueAtIndex(battery_infos, 0);
+
+  value = (CFNumberRef)CFDictionaryGetValue(info, CFSTR(kIOBatteryVoltageKey));
+  CFNumberGetValue(value, kCFNumberSInt32Type, &voltage);
+
+  value = (CFNumberRef)CFDictionaryGetValue(info, CFSTR(kIOBatteryAmperageKey));
   CFNumberGetValue(value, kCFNumberSInt32Type, &current);
 
-  CFRelease(member);
-  CFRelease(arr);
   CFRelease(info);
+  CFRelease(battery_infos);
 
-  return current;
+  return voltage * current;
 }
