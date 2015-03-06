@@ -13,6 +13,7 @@ import (
 #cgo LDFLAGS: -framework CoreFoundation -framework IOKit
 extern int power(void);
 extern int percentage(void);
+extern double secondsOfBatteryRemaining(void);
 */
 import "C"
 
@@ -113,14 +114,26 @@ func main() {
 
 	u, s, _ := sampleCPU()
 
+	secs := C.secondsOfBatteryRemaining()
+	mins := int(secs / 60.0)
+	battRem := fmt.Sprintf("%dm", mins)
+	if secs == -2 {
+		battRem = "⚡ "
+	}
+	if secs == -1 {
+		battRem = "⏳ "
+	}
+
 	fmt.Printf("%s",
 		nobold(233, -1)+" "+
 			Arrow1+nobold(247, 233)+" "+
 			batt+"%"+
+			" "+battRem+
 			" "+power+
-			" "+fmt.Sprintf("u%ds%d", int(u*100), int(s*100))+
 			nobold(241, 233)+" "+
-			Arrow0+" "+displayLoadAvgs(loadAvgs)+
+			Arrow0+" "+
+			fmt.Sprintf("%02d'%02d", int(u*100), int(s*100))+" "+
+			displayLoadAvgs(loadAvgs)+
 			nobold(241, 233)+" "+
 			Arrow0+
 			mails+
