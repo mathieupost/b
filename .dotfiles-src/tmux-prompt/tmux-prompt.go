@@ -14,6 +14,9 @@ import (
 extern int power(void);
 extern int percentage(void);
 extern double secondsOfBatteryRemaining(void);
+extern int CHICAGO_CONNECTED;
+extern int ASHBURN_CONNECTED;
+extern int connected(void);
 */
 import "C"
 
@@ -124,6 +127,17 @@ func main() {
 		battRem = "⏳ "
 	}
 
+	vpns := C.connected()
+	chicagoColor := nobold(1, 252)
+	ashburnColor := nobold(1, 252)
+	if 0 < vpns&C.CHICAGO_CONNECTED {
+		chicagoColor = nobold(2, 252)
+	}
+	if 0 < vpns&C.ASHBURN_CONNECTED {
+		ashburnColor = nobold(2, 252)
+	}
+	vpnChunk := fmt.Sprintf("%sC%sA", chicagoColor, ashburnColor)
+
 	fmt.Printf("%s",
 		nobold(233, -1)+" "+
 			Arrow1+nobold(247, 233)+" "+
@@ -143,6 +157,7 @@ func main() {
 			time.Now().Format("Jan02 15:04")+
 			nobold(252, 236)+" "+
 			Arrow1+bold(16, 252)+" "+
+			vpnChunk+" "+bold(16, 252)+
 			hn+
 			" ")
 }
