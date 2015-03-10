@@ -27,9 +27,7 @@ TODO:
 * Show time to full charge or complete discharge
 * Colorize something based on whether plugged in or not
 * More colour gradients for load averages
-* CPU stats
 * mem stats
-* indicators for whether vpns are connected
 
 Ref:
 http://www.opensource.apple.com/source/IOKitUser/IOKitUser-294/ps.subproj/IOPSKeys.h
