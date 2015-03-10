@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
-	"path/filepath"
 	"strings"
 	"time"
 )
@@ -88,33 +88,38 @@ func displayLoadAvgs(loadAvgs [3]float64) string {
 }
 
 func main() {
+	t1 := time.Now()
 	hn, err := os.Hostname()
 	if err != nil {
 		hn = "???"
 	}
 
 	loadAvgs, err := loadAvg()
+	t2 := time.Now()
 
-	pers, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/p:INBOX/new/*")
-	shop, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/s:INBOX/new/*")
-	git, _ := filepath.Glob(os.Getenv("HOME") + "/.mail/notify/github/new/*")
+	home := os.Getenv("HOME")
+	pers, _ := ioutil.ReadDir(home + "/.mail/notify/p:INBOX/new")
+	shop, _ := ioutil.ReadDir(home + "/.mail/notify/s:INBOX/new")
+	git, _ := ioutil.ReadDir(home + "/.mail/notify/github/new")
 	color := nobold(237, 233)
 	if len(pers) > 0 || len(shop) > 0 || len(git) > 0 {
 		color = nobold(1, 233)
 	}
 	mails := fmt.Sprintf("%s %d:%d:%d", color, len(pers), len(shop), len(git))
 
-	stat, err := os.Stat(os.Getenv("HOME") + "/.mutt/mbsync.log")
+	stat, err := os.Stat(home + "/.mutt/mbsync.log")
 	threshold := time.Now().Add(-3 * time.Minute)
 	if err != nil || stat.ModTime().Before(threshold) {
 		mails = fmt.Sprintf("%s ?", nobold(1, 233))
 	}
+	t3 := time.Now()
 
 	batt := fmt.Sprintf("%d", C.percentage())
 	power := fmt.Sprintf("%0.1fW", float64(C.power())/1e6)
 
 	u, s, _ := sampleCPU()
 
+	t4 := time.Now()
 	secs := C.secondsOfBatteryRemaining()
 	mins := int(secs / 60.0)
 	battRem := fmt.Sprintf("%dm", mins)
@@ -125,6 +130,7 @@ func main() {
 		battRem = "⏳ "
 	}
 
+	t5 := time.Now()
 	vpns := C.connected()
 	chicagoColor := nobold(1, 252)
 	ashburnColor := nobold(1, 252)
@@ -135,6 +141,7 @@ func main() {
 		ashburnColor = nobold(2, 252)
 	}
 	vpnChunk := fmt.Sprintf("%sC%sA", chicagoColor, ashburnColor)
+	t6 := time.Now()
 
 	fmt.Printf("%s",
 		nobold(233, -1)+" "+
@@ -158,4 +165,24 @@ func main() {
 			vpnChunk+" "+bold(16, 252)+
 			hn+
 			" ")
+	t7 := time.Now()
+
+	_ = t1
+	_ = t2
+	_ = t3
+	_ = t4
+	_ = t5
+	_ = t6
+	_ = t7
+
+	/*
+		total := float64(t7.Sub(t1).Nanoseconds())
+		fmt.Println(float64(t2.Sub(t1).Nanoseconds()) / total)
+		fmt.Println(float64(t3.Sub(t2).Nanoseconds()) / total)
+		fmt.Println(float64(t4.Sub(t3).Nanoseconds()) / total)
+		fmt.Println(float64(t5.Sub(t4).Nanoseconds()) / total)
+		fmt.Println(float64(t6.Sub(t5).Nanoseconds()) / total)
+		fmt.Println(float64(t7.Sub(t6).Nanoseconds()) / total)
+	*/
+
 }
