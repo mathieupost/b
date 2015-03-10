@@ -9,6 +9,7 @@ export GIT_EDITOR="${EDITOR}"
 export HOMEBREW_EDITOR="${EDITOR}"
 
 export GOPATH="${HOME}"
+export GOROOT_BOOTSTRAP="${HOME}/src/go1.4"
 export PYTHONPATH="/lib/python2.7/site-packages"
 
 export PATH="/Users/burke/src/chromium.googlesource.com/chromium/tools/depot_tools:${PATH}"
