@@ -13,7 +13,7 @@ export PYTHONPATH="/lib/python2.7/site-packages"
 
 export PATH="/Users/burke/src/chromium.googlesource.com/chromium/tools/depot_tools:${PATH}"
 export PATH="/usr/local/bin:${PATH}"
-export PATH="/Users/burke/src/code.google.com/p/go/bin:${PATH}"
+export PATH="/Users/burke/src/github.com/golang/go/bin:${PATH}"
 export PATH="${HOME}/bin:${PATH}"
 export PATH="${HOME}/bin/_git:${PATH}"
 export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"
