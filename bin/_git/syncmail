@@ -1,36 +1,79 @@
 #!/bin/bash
 set -x
 
-export PATH="/usr/local/bin:${PATH}"
+MBSYNC_PATH="/usr/local/bin/mbsync"
 
-if [ -f "/Users/burke/NOMAIL" ]; then
-  exit 0
-fi
+timeout() # timeout        :: seconds
+          # check_interval :: seconds
+          # sigkill_delay  :: seconds
+          # *rest          :: program with args
+{
+  local timeout=$1; shift
+  local check_interval=$1; shift
+  local sigkill_delay=$1; shift
 
-mv /Users/burke/.mutt/mbsync.log /Users/burke/.mutt/mbsync.log.1
+  # Start command
+  ( "$@" ) &
+  local pid=$!
+  local t
 
-last_full_sync=/Users/burke/.mutt/last-full-sync
-if [[ -n "$(find "${last_full_sync}" -mmin +60)" ]]; then
-  need_full_sync=yes
-fi
+  (
+    set +x
+    ((t = "${timeout}")) || :
 
-(
-  exec 2>&1
-  set -e
-  if [[ -n "${need_full_sync}" ]]; then
-    touch "${last_full_sync}"
-    mbsync -a | ts
-  else
-    mbsync -a --pull --new | ts
-    mbsync -a --push --delete | ts
+    while ((t > 0)); do
+      sleep "${check_interval}"
+      # Check if the process still exists.
+      kill -0 "${pid}" 2> /dev/null || exit 0
+      ((t -= "${check_interval}")) || :
+    done
+
+    {
+      echo "SIGKILL to ${pid}"
+      kill -s TERM "${pid}"
+      sleep "${sigkill_delay}"
+      kill -0 "${pid}" 2> /dev/null && {
+        echo "SIGKILL to ${pid}"
+        kill -s KILL "${pid}"
+      }
+    }
+  )
+}
+
+run_mbsync() # *rest :: arguments to mbsync
+{
+  timeout 180 1 3 "${MBSYNC_PATH}" "$@"
+}
+
+main() # no args
+{
+  mv /Users/burke/.mutt/mbsync.log /Users/burke/.mutt/mbsync.log.1
+
+  local last_full_sync=/Users/burke/.mutt/last-full-sync
+  if [[ -n "$(find "${last_full_sync}" -mmin +60)" ]]; then
+    local need_full_sync=yes
   fi
-  notmuch new | ts 
-) | tee /Users/burke/.mutt/mbsync.log
 
-if [ $? -ne 0 ]; then
-  terminal-notifier \
-    -title offlineimap \
-    -group offlineimap \
-    -message "Sync failed" \
-    -sender "com.apple.Mail"
-fi
+  (
+    exec 2>&1
+    exec 1>/Users/burke/.mutt/mbsync.log
+    set -e
+    if [[ -n "${need_full_sync}" ]]; then
+      touch "${last_full_sync}"
+      run_mbsync -a
+    else
+      run_mbsync -a --pull --new
+      run_mbsync -a --push --delete
+    fi
+    notmuch new
+  )
+
+  if [ $? -ne 0 ]; then
+    terminal-notifier \
+      -title syncmail \
+      -group syncmail \
+      -message "Mail sync failed" \
+      -sender "com.apple.Mail"
+  fi
+}
+main "$@"
