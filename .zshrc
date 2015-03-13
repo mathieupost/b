@@ -101,6 +101,9 @@ zle -N zle-line-init
 # zsh-autosuggestions is designed to be unobtrusive)
 bindkey '^T' autosuggest-toggle
 
+bindkey -s 'ƒ' 'mutt\n' # Alt+f
+bindkey -s '∂' 'vim\n'  # Alt+d
+
 AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=6'
 
 export GPG_TTY=$(tty)
