@@ -8,6 +8,8 @@ fi
 export GIT_EDITOR="${EDITOR}"
 export HOMEBREW_EDITOR="${EDITOR}"
 
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+
 export GOPATH="${HOME}"
 export GOROOT_BOOTSTRAP="${HOME}/src/go1.4"
 export PYTHONPATH="/lib/python2.7/site-packages"
