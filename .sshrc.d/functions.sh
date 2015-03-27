@@ -1,11 +1,17 @@
 e() {
   $EDITOR "$@"
 }
-vcc() {
-  osascript -e 'tell application "Viscosity" to connectall'
+vpnc() {
+  osascript -e 'tell application "Viscosity" to connect "Chicago VPN"'
 }
-vcdc() {
-  osascript -e 'tell application "Viscosity" to disconnectall'
+vpncd() {
+  osascript -e 'tell application "Viscosity" to disconnect "Chicago VPN"'
+}
+vpna() {
+  osascript -e 'tell application "Viscosity" to connect "Ashburn VPN"'
+}
+vpnad() {
+  osascript -e 'tell application "Viscosity" to disconnect "Ashburn VPN"'
 }
 sgb() {
   git branch --list | grep -v '^\*' | selecta | xargs git checkout
