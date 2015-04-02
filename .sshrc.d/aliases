@@ -19,6 +19,8 @@ mutt     : kick-gpg-agent; bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt'
 
 tmux     : /usr/bin/env TERM=screen-256color-bce tmux
 
+tree     : tree -I 'Godep*'
+
 m        : mutt
 
 u        : cd ..
