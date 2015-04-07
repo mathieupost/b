@@ -95,6 +95,10 @@ func gitInfo() string {
 		ref = string(o[0:8])
 	}
 
+	if strings.HasPrefix(ref, "pr-") {
+		ref = "" + ref[3:]
+	}
+
 	if ref == "master" {
 		ref = "*"
 	}
