@@ -13,3 +13,8 @@
 	user = burke
 [commit]
   gpgsign = true
+[remote "origin"]
+	fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+  fetch = +refs/heads/*:refs/remotes/origin/*
+[alias]
+	pr-clean = "!git for-each-ref refs/heads/pr/* --format=\"%(refname)\" | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"

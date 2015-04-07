@@ -42,7 +42,7 @@ psag() {
   ps aux | g $1 | gvg
 }
 ghp() {
-  local pr_id="$(git symbolic-ref --short HEAD | sed 's/^pr-//')"
+  local pr_id="$(git symbolic-ref --short HEAD | sed 's/^pr\///')"
   local remote="$(git remote show -n origin | grep "Fetch URL" | sed 's/.*github.com://' | sed 's/\.git$//')"
   if [[ "${pr_id}" =~ '^[0-9]+$' ]] ; then
     open "https://github.com/${remote}/pull/${pr_id}"
@@ -51,12 +51,7 @@ ghp() {
   fi
 }
 gpr() {
-  local pr_id=$1
-  git checkout "pr-${pr_id}"
-  if [[ $? -gt 0 ]] ; then
-    git fetch origin "refs/pull/${pr_id}/head:pr-${pr_id}"
-    git checkout "pr-${pr_id}"
-  fi
+  git checkout pr/$1
 }
 gac() {
   if [[ $# -eq 0 ]] ; then

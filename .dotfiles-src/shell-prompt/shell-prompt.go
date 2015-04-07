@@ -95,7 +95,7 @@ func gitInfo() string {
 		ref = string(o[0:8])
 	}
 
-	if strings.HasPrefix(ref, "pr-") {
+	if strings.HasPrefix(ref, "pr/") {
 		ref = "" + ref[3:]
 	}
 
