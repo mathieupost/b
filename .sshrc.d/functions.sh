@@ -41,6 +41,15 @@ cros_sdk() {
 psag() {
   ps aux | g $1 | gvg
 }
+ghp() {
+  local pr_id="$(git symbolic-ref --short HEAD | sed 's/^pr-//')"
+  local remote="$(git remote show -n origin | grep "Fetch URL" | sed 's/.*github.com://')"
+  if [[ "${pr_id}" =~ '^[0-9]+$' ]] ; then
+    open "https://github.com/${remote}/pull/${pr_id}"
+  else
+    echo "branch not a pr branch: ${pr_id}"
+  fi
+}
 gpr() {
   local pr_id=$1
   git fetch origin "refs/pull/${pr_id}/head:pr-${pr_id}" && git checkout "pr-${pr_id}"
