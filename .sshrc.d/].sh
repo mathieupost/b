@@ -13,6 +13,18 @@ function ]hs() {
   open "https://github.com/Shopify/${project}"
 }
 
+function ]hsn() {
+  local id=$1;shift
+  _]g "${HOME}/src/github.com/shopify" "$@"
+  open "https://github.com/Shopify/${project}/pull/${id}"
+}
+
+function ]hbn() {
+  local id=$1;shift
+  _]g "${HOME}/src/github.com/burke" "$@"
+  open "https://github.com/burke/${project}/pull/${id}"
+}
+
 function ]hb() {
   _]g "${HOME}/src/github.com/burke" "$@"
   open "https://github.com/burke/${project}"
