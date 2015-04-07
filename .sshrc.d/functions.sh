@@ -41,6 +41,10 @@ cros_sdk() {
 psag() {
   ps aux | g $1 | gvg
 }
+gpr() {
+  local pr_id=$1
+  git fetch origin "refs/pull/${pr_id}/head:pr-${pr_id}" && git checkout "pr-${pr_id}"
+}
 gac() {
   if [[ $# -eq 0 ]] ; then
     git commit -av
