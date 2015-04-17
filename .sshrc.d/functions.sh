@@ -102,6 +102,21 @@ eachm() {
   :
 }
 
+fmm() # search string
+{
+  local search=$1 ; shift
+  grep "${search}" ~/.machines | \
+    xargs -n1 resolve_machine
+}
+
+ksenv() # env
+        # node
+{
+  local envn=$1 ; shift
+  local node=$1 ; shift
+  knife node environment "${envn}" "${node}"
+}
+
 git() {
   local toplevel=$(command git rev-parse --show-toplevel 2>/dev/null)
   if [[ "${toplevel}" == "${HOME}" ]] && [[ "$1" == "clean" ]]; then
