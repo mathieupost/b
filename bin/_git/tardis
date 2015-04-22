@@ -1,0 +1,61 @@
+#!/bin/bash
+set -e
+
+play_tardis_sound() {
+  (
+    trap 'rm -f /tmp/tardis.wav' EXIT
+    curl -s 'http://s3.amazonaws.com/burkelibbey/tardis.wav' > /tmp/tardis.wav
+    afplay /tmp/tardis.wav
+  ) &
+}
+
+play_allons_y() {
+  (
+    trap 'rm -f /tmp/allons-y.wav' EXIT
+    curl -s 'http://s3.amazonaws.com/burkelibbey/allons-y.wav' > /tmp/allons-y.wav
+    afplay /tmp/allons-y.wav
+  ) &
+}
+
+banner() {
+  echo -e " \x1b[34m___[]___\x1b[0m Would you like to send the current HEAD back in time?"
+  echo -e " \x1b[34m[POLICE]\x1b[0m "
+  echo -e " \x1b[34m|[#][#]|\x1b[0m It'll be turned into the first commit of the week as determined by locutus."
+  echo -e " \x1b[34m|[ ][o]|\x1b[0m "
+  echo -e " \x1b[34m|[ ][ ]|\x1b[0m Don't use this on a master that's already been pushed."
+  echo -e " \x1b[34m|[ ][ ]|\x1b[0m "
+  echo -e " \x1b[34m--------\x1b[0m Type \"badwolf\" to continue"
+}
+
+confirm() {
+  read line
+  if [[ "${line}" == "badwolf" ]] ; then
+    echo "allons-y, gernimo, etc."
+  else
+    exit 1
+  fi
+}
+
+# TODO don't rely on coreutils homebrew package
+find_date() {
+  gdate -u +"%Y-%m-%d 07:00:30 +0000"
+}
+
+clobber() {
+  date=$1
+  export GIT_COMMITTER_DATE="${date}"
+  export GIT_AUTHOR_DATE="${date}"
+  export GIT_COMMITTER_NAME="The Doctor <the.doctor@tardis>"
+  git commit --no-gpg-sign --date="${date}" --amend --reuse-message=HEAD
+}
+
+main() {
+  banner
+  play_tardis_sound
+  confirm
+  play_allons_y
+  date="$(find_date)"
+  clobber "${date}"
+  git show --format=raw HEAD
+}
+main "$@"
