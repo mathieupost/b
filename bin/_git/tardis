@@ -20,7 +20,7 @@ play_allons_y() {
 banner() {
   echo -e " \x1b[34m___[]___\x1b[0m Would you like to send the current HEAD back in time?"
   echo -e " \x1b[34m[POLICE]\x1b[0m "
-  echo -e " \x1b[34m|[#][#]|\x1b[0m It'll be turned into the first commit of the week as determined by locutus."
+  echo -e " \x1b[34m|[#][#]|\x1b[0m It'll be turned into the first commit of the day as determined by locutus."
   echo -e " \x1b[34m|[ ][o]|\x1b[0m "
   echo -e " \x1b[34m|[ ][ ]|\x1b[0m Don't use this on a master that's already been pushed."
   echo -e " \x1b[34m|[ ][ ]|\x1b[0m "
