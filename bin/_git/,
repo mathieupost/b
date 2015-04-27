@@ -54,10 +54,11 @@ cmd_func_u=scp-upload
 cmd_func_ur=scp-upload-recursive
 cmd_func_k=knife-edit
 
-locations=(_ _c _a)
+locations=(_ _c _a _e)
 loc_path_=
 loc_path_c=chi/
 loc_path_a=ash/
+loc_path_e=ec2/
 
 aget() {
   local array=$1 index=$2
