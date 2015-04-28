@@ -173,3 +173,5 @@ bindkey kj vi-cmd-mode
 export KEYTIMEOUT=15
 
 source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zshrc.d/opp.zsh/opp.zsh
+source ~/.zshrc.d/opp.zsh/opp/*.zsh

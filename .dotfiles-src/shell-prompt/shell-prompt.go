@@ -135,6 +135,9 @@ func mode() string {
 	if mode == "main" {
 		mode = fgCyan + ">"
 	}
+	if mode == "opp" {
+		mode = fgYellow + "<"
+	}
 	if mode == "vicmd" {
 		mode = fgMagenta + "<"
 	}
