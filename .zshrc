@@ -163,3 +163,6 @@ bindkey '^w' backward-kill-word
 bindkey -s -M vicmd H '0'
 bindkey -s -M vicmd L '$'
 bindkey kj vi-cmd-mode
+
+# slow enough for me to hit "kj", but fast enough that the delay on <esc> isn't jarring.
+export KEYTIMEOUT=15
