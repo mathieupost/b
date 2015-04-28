@@ -171,3 +171,5 @@ bindkey kj vi-cmd-mode
 
 # slow enough for me to hit "kj", but fast enough that the delay on <esc> isn't jarring.
 export KEYTIMEOUT=15
+
+source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
