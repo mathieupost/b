@@ -132,5 +132,15 @@ func statusAndPrompt() string {
 }
 
 func main() {
-	fmt.Printf("%s%s%s%s%s ", hostnameInfo(), pathInfo(), gitInfo(), statusAndPrompt(), fgReset)
+	mode := "?"
+	if len(os.Args) >= 3 {
+		mode = os.Args[2]
+	}
+	if mode == "main" {
+		mode = fgCyan + ">"
+	}
+	if mode == "vicmd" {
+		mode = fgMagenta + "<"
+	}
+	fmt.Printf("%s%s%s%s%s%s ", hostnameInfo(), pathInfo(), gitInfo(), statusAndPrompt(), mode, fgReset)
 }
