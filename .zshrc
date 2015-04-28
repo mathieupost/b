@@ -140,8 +140,13 @@ function zle-keymap-select zle-line-init zle-line-finish {
   zle -R
 }
 
-zle -N zle-line-init
-zle -N zle-line-finish
+TRAPWINCH() {
+  zle && { zle reset-prompt; zle -R }
+}
+
+# These two don't really appear to be necessary.
+#zle -N zle-line-init
+#zle -N zle-line-finish
 zle -N zle-keymap-select
 zle -N edit-command-line
 
