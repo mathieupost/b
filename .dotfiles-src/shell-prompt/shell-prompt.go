@@ -95,10 +95,6 @@ func gitInfo() string {
 		ref = string(o[0:8])
 	}
 
-	if strings.HasPrefix(ref, "pr/") {
-		ref = "" + ref[3:]
-	}
-
 	if ref == "master" {
 		ref = "*"
 	}
@@ -119,19 +115,19 @@ func gitInfo() string {
 
 func statusAndPrompt() string {
 	if len(os.Args) < 2 {
-		return fgRed + " %#"
+		return fgRed + "?"
 	}
 	num, err := strconv.Atoi(os.Args[1])
 	if err != nil {
 		num = 0
 	}
 	if num == 0 {
-		return fgGreen + " %#"
+		return ""
 	}
-	return " " + fgRed + os.Args[1] + "%#"
+	return fgRed + os.Args[1]
 }
 
-func main() {
+func mode() string {
 	mode := "?"
 	if len(os.Args) >= 3 {
 		mode = os.Args[2]
@@ -142,5 +138,9 @@ func main() {
 	if mode == "vicmd" {
 		mode = fgMagenta + "<"
 	}
-	fmt.Printf("%s%s%s%s%s%s ", hostnameInfo(), pathInfo(), gitInfo(), statusAndPrompt(), mode, fgReset)
+	return mode
+}
+
+func main() {
+	fmt.Printf("%s%s%s %s%s%s ", hostnameInfo(), pathInfo(), gitInfo(), statusAndPrompt(), mode(), fgReset)
 }
