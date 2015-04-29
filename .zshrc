@@ -100,7 +100,6 @@ SAVEHIST=50000
 HISTSIZE=50000
 # }}}
 # Autosuggestions {{{
-#source ~/.zsh-autosuggestions/autosuggestions.zsh
 
 # Enable autosuggestions automatically
 function zle-line-init() {
@@ -120,9 +119,25 @@ AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=6'
 export GOPATH="${HOME}"
 export GOROOT_BOOTSTRAP="${HOME}/src/go1.4"
 
-# Ruby
-eval "$(rbenv init -)"
+# In lieu of `"$(rbenv init -)"`, this doesn't boot ruby: {{{
+export PATH="/Users/burke/.rbenv/shims:${PATH}"
+source "/usr/local/Cellar/rbenv/0.4.0/libexec/../completions/rbenv.zsh"
 rbenv rehash 2>/dev/null
+rbenv() {
+  typeset command
+  command="$1"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  rehash|shell)
+    eval `rbenv "sh-$command" "$@"`;;
+  *)
+    command rbenv "$command" "$@";;
+  esac
+}
+# }}}
 
 # OCaml
 . /Users/burke/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
@@ -183,10 +198,6 @@ bindkey kj vi-cmd-mode
 # slow enough for me to hit "kj", but fast enough that the delay on <esc> isn't jarring.
 export KEYTIMEOUT=15
 
-#source ~/.zshrc.d/opp.zsh/opp.zsh
-#source ~/.zshrc.d/opp.zsh/opp/*.zsh
 # }}}
-
-#source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source ~/.zshrc.d/antigen-hs/init.zsh
