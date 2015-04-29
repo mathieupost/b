@@ -100,7 +100,7 @@ SAVEHIST=50000
 HISTSIZE=50000
 # }}}
 # Autosuggestions {{{
-source ~/.zsh-autosuggestions/autosuggestions.zsh
+#source ~/.zsh-autosuggestions/autosuggestions.zsh
 
 # Enable autosuggestions automatically
 function zle-line-init() {
@@ -183,8 +183,10 @@ bindkey kj vi-cmd-mode
 # slow enough for me to hit "kj", but fast enough that the delay on <esc> isn't jarring.
 export KEYTIMEOUT=15
 
-source ~/.zshrc.d/opp.zsh/opp.zsh
-source ~/.zshrc.d/opp.zsh/opp/*.zsh
+#source ~/.zshrc.d/opp.zsh/opp.zsh
+#source ~/.zshrc.d/opp.zsh/opp/*.zsh
 # }}}
 
-source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source ~/.zshrc.d/antigen-hs/init.zsh
