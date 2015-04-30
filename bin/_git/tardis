@@ -36,9 +36,8 @@ confirm() {
   fi
 }
 
-# TODO don't rely on coreutils homebrew package
 find_date() {
-  gdate -u +"%Y-%m-%d 07:00:30 +0000"
+  ~/src/github.com/shopify/locutus/buildfiles/backdate day | sed 's/00Z/30Z/'
 }
 
 clobber() {
