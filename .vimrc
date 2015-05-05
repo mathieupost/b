@@ -28,7 +28,6 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
-set list listchars=tab:\ \ ,trail:·
 
 " Make vim fast.
 set synmaxcol=300
@@ -329,6 +328,13 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 \ }
+
+set list listchars=tab:»·,trail:·
+augroup trailing
+  au!
+  au InsertEnter * :set listchars=
+  au InsertLeave * :set listchars=tab:»·,trail:·
+augroup END
 
 au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
