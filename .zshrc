@@ -80,6 +80,8 @@ setopt COMPLETE_IN_WORD
 setopt auto_pushd
 setopt append_history
 
+unsetopt MULTIOS
+
 autoload -U compinit promptinit zcalc zsh-mime-setup
 compinit
 promptinit
