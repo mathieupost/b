@@ -332,8 +332,8 @@ let g:tagbar_type_go = {
 set list listchars=tab:»·,trail:·
 augroup trailing
   au!
-  au InsertEnter * :set listchars=
-  au InsertLeave * :set listchars=tab:»·,trail:·
+  au InsertEnter * :set nolist listchars=
+  au InsertLeave * :set list listchars=tab:»·,trail:·
 augroup END
 
 au FileType go nmap <Leader>s <Plug>(go-implements)
