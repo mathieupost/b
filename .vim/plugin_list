@@ -21,6 +21,7 @@ git://github.com/rking/ag.vim.git
 
 # Panes / etc. #######################################
 git://github.com/kien/ctrlp.vim.git
+git://github.com/nixprime/cpsm.git
 # taglist and tagbar? what are these exactly?
 git://github.com/vim-scripts/taglist.vim.git
 git://github.com/majutsushi/tagbar.git
