@@ -22,6 +22,7 @@ export PATH="${HOME}/bin/_git:${PATH}"
 export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"
 export PATH="${HOME}/.rbenv/shims:${PATH}"
 export PATH="${HOME}/.rbenv/bin:${PATH}"
+export PATH="/Applications/Racket v6.1.1/bin:${PATH}"
 # }}}
 # GPG Agent {{{
 gpg-agent --daemon >/dev/null 2>&1
