@@ -125,3 +125,7 @@ git() {
   fi
   command git "$@"
 }
+b2d()  { boot2docker "$@" }
+b2du() { b2d start }
+b2dd() { b2d stop }
+b2di() { $(boot2docker shellinit) }
