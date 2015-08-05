@@ -203,6 +203,9 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" THANKS NEOVIM
+nnoremap <bs> <C-w>h
+
 " <A-l>
 nnoremap ¬ :tabn<cr>
 " <A-h>
