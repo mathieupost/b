@@ -215,11 +215,14 @@ nnoremap † :tabnew<cr>
 " <A-w>
 nnoremap ∑ :tabclose<cr>
 
+" <A-j>
 nnoremap ∆ :m+<CR>==    " Option + j
-nnoremap ˚ :m-2<CR>==   " Option + k
 inoremap ∆ <Esc>:m+<CR>==gi
-inoremap ˚ <Esc>:m-2<CR>==gi
 vnoremap ∆ :m'>+<CR>gv=gv
+
+" <A-k>
+nnoremap ˚ :m-2<CR>==   " Option + k
+inoremap ˚ <Esc>:m-2<CR>==gi
 vnoremap ˚ :m-2<CR>gv=gv
 
 noremap H ^
