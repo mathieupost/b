@@ -22,6 +22,6 @@ hs.hotkey.bind({"cmd", "ctrl"}, "1", hideshowhotkey("iTerm", "com.googlecode.ite
 hs.hotkey.bind({"cmd", "ctrl"}, "2", hideshowhotkey("Spotify", "com.spotify.client"))
 hs.hotkey.bind({"cmd", "ctrl"}, "3", hideshowhotkey("Google Chrome", "com.google.Chrome"))
 hs.hotkey.bind({"cmd", "ctrl"}, "4", hideshowhotkey("Slack", "com.tinyspeck.slackmacgap"))
-hs.hotkey.bind({"cmd", "ctrl"}, "5", hideshowhotkey("Dash", "com.kapeli.dash"))
+hs.hotkey.bind({"cmd", "ctrl"}, "5", hideshowhotkey("Wunderlist", "com.wunderkinder.wunderlistdesktop"))
 hs.hotkey.bind({"cmd", "ctrl"}, "6", hideshowhotkey("Messages", "com.apple.iChat"))
 hs.hotkey.bind({"cmd", "ctrl"}, "7", hideshowhotkey("Evernote", "com.evernote.Evernote"))
