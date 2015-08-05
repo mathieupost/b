@@ -210,8 +210,8 @@ nnoremap <bs> <C-w>h
 nnoremap ¬ :tabn<cr>
 " <A-h>
 nnoremap ˙ :tabp<cr>
-" <A-n>
-nnoremap ˜ :tabnew<cr>
+" <A-t>
+nnoremap † :tabnew<cr>
 " <A-w>
 nnoremap ∑ :tabclose<cr>
 
