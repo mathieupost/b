@@ -19,6 +19,7 @@ git://github.com/tpope/vim-surround.git
 git://github.com/tpope/vim-commentary.git
 git://github.com/tsaleh/vim-align.git
 git://github.com/rking/ag.vim.git
+git://github.com/unblevable/quick-scope.git
 
 # Panes / etc. #######################################
 git://github.com/kien/ctrlp.vim.git
