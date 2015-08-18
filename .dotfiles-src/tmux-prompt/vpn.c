@@ -2,7 +2,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-const uint8_t chicago_addr[14] = {0,0,10,10,28,24,0,0,0,0,0,0,0,0};
+const uint8_t chicago_addr[14] = {0,0,10,10,29,46,0,0,0,0,0,0,0,0};
 const uint8_t ashburn_addr[14] = {0,0,10,20,28,54,0,0,0,0,0,0,0,0};
 
 const int CHICAGO_CONNECTED = 1 << 0;
