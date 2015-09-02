@@ -1,50 +1,29 @@
-# Primarily remote stuff
+# vim: foldmethod=marker
+
+# Ubuntu / Remote {{{
 scc      : sudo chef-client
 sagu     : sudo apt-get update
 acm      : apt-cache madison
 sdqs     : sudo dpkg-query -s
 sdql     : sudo dpkg-query -L
 sagi     : sudo apt-get install
-
-# Local
-cook     : ghs cookbooks
-
-# imported from old fish config
+# }}}
+# Vagrant {{{
 vup      : vagrant up
 vhalt    : vagrant halt
 vdestroy : vagrant destroy -f
 vssh     : vagrant ssh
 vprov    : vagrant provision
-mutt     : kick-gpg-agent; bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt'
-
-tmux     : /usr/bin/env TERM=screen-256color-bce tmux
-
-tree     : tree -I 'Godep*'
-
-m        : mutt
-
+# }}}
+# u/uu/uuu/... {{{
 u        : cd ..
 uu       : cd ../..
 uuu      : cd ../../..
 uuuu     : cd ../../../..
 uuuuu    : cd ../../../../..
 uuuuuu   : cd ../../../../../..
-
-grbom    : gcom && gfrom && git reset --hard FETCH_HEAD && gco - && git rebase master
-grbog    : grbom && gufg
-
-shop     : gh Shopify shopify
-
-xk9      : xargs kill -9
-ka9      : killall -9
-k9       : kill -9
-
-bi       : bundle install
-bo       : bundle open
-bu       : bundle update
-bs       : bundle show
-x        : bundle exec
-
+# }}}
+# ap1/ap2/... {{{
 ap1      : ap 1
 ap2      : ap 2
 ap3      : ap 3
@@ -54,27 +33,25 @@ ap6      : ap 6
 ap7      : ap 7
 ap8      : ap 8
 ap9      : ap 9
+# }}}
+# Ruby / Bundler {{{
+bi       : bundle install
+bo       : bundle open
+bu       : bundle update
+bs       : bundle show
+x        : bundle exec
+mu       : gem uninstall
+bid      : bundle install --without=development,test,debug,test,staging,stagingdb,production
 
-gvg      : grep -v grep
-
-a        : ack
-ai       : ack -i
-aa       : ack -a
-aai      : ack -ai
-g        : grep
-t        : tail
-h        : head
-L        : less
-l        : ls
-less     : /usr/bin/less -FXRS
-
-xrs      : bundle exec rails server
-xrc      : bundle exec rails console
-xrg      : bundle exec rails generate
-xrr      : bundle exec rails runner
-xr       : bundle exec rake
-
-chx      : chmod +x
+# }}}
+# Projects {{{
+shop     : ghs shopify
+cook     : ghs cookbooks
+loc      : ghs locutus
+# }}}
+# Git {{{
+grbom    : gcom && gfrom && git reset --hard FETCH_HEAD && gco - && git rebase master
+grbog    : grbom && gufg
 
 grim     : git rebase -i master
 gtl      : git tag -l
@@ -87,6 +64,7 @@ gav      : git commit -av
 gb       : git branch
 gbl      : git branch -l
 gu       : git push
+gut      : git push --tags
 guo      : git push origin
 gufo     : git push -f origin
 gcaar    : git add -A .; git commit -a --reuse-message=HEAD --amend
@@ -109,6 +87,7 @@ gn       : git clone
 grh      : git reset HEAD
 gri      : git rebase -i
 grc      : git rebase --continue
+gra      : git rebase --abort
 gs       : git stash
 gsa      : git stash apply
 gsd      : git stash drop
@@ -125,13 +104,28 @@ grh      : git reset --hard HEAD
 grh1     : git reset --hard 'HEAD^'
 grh2     : git reset --hard 'HEAD^^'
 grho     : git reset --hard
+# }}}
 
-vgs      : cd ~/src/s/vagrant && vagrant ssh
+mutt     : kick-gpg-agent; bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt'
+less     : /usr/bin/less -FXRS
+tmux     : /usr/bin/env TERM=screen-256color-bce tmux
+tree     : tree -I 'Godep*'
 
-mu       : gem uninstall
+xk9      : xargs kill -9
+ka9      : killall -9
+k9       : kill -9
 
-bid      : bundle install --without=development,test,debug,test,staging,stagingdb,production
-
-gkubectl : gcloud preview container kubectl
+m        : mutt
+a        : ack
+ai       : ack -i
+aa       : ack -a
+aai      : ack -ai
+g        : grep
+t        : tail
+h        : head
+L        : less
+l        : ls
+chx      : chmod +x
 
 ctr      : ctags -R .
+gtr      : gotags -R . > tags
