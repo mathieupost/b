@@ -105,6 +105,43 @@ grh1     : git reset --hard 'HEAD^'
 grh2     : git reset --hard 'HEAD^^'
 grho     : git reset --hard
 # }}}
+# Head / Tail {{{
+h1       : h 1
+h2       : h 2
+h3       : h 3
+h4       : h 4
+h5       : h 5
+h6       : h 6
+h7       : h 7
+h8       : h 8
+h9       : h 9
+h10      : h 10
+h15      : h 15
+h20      : h 20
+h30      : h 30
+h40      : h 40
+h50      : h 50
+h60      : h 60
+
+t1       : t 1
+t2       : t 2
+t3       : t 3
+t4       : t 4
+t5       : t 5
+t6       : t 6
+t7       : t 7
+t8       : t 8
+t9       : t 9
+t10      : t 10
+t15      : t 15
+t20      : t 20
+t30      : t 30
+t40      : t 40
+t50      : t 50
+t60      : t 60
+# }}}
+
+knife    : BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile bundle exec knife
 
 mutt     : kick-gpg-agent; bash --login -c 'cd ~/Desktop; /usr/local/bin/mutt'
 less     : /usr/bin/less -FXRS
@@ -121,8 +158,6 @@ ai       : ack -i
 aa       : ack -a
 aai      : ack -ai
 g        : grep
-t        : tail
-h        : head
 L        : less
 l        : ls
 chx      : chmod +x

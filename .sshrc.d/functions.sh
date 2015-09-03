@@ -79,3 +79,26 @@ dm()  { docker-machine "$@"; }
 dmu() { dm start default; }
 dmd() { dm stop default; }
 dme() { $(docker-machine env default); }
+
+h() {
+  if [[ $# -gt 0 && -z "${1//[0-9]/}" ]]; then
+    n=$1; shift
+    head "-${n}" "$@"
+  else
+    head "$@"
+  fi
+}
+
+t() {
+  if [[ $# -gt 0 && -z "${1//[0-9]/}" ]]; then
+    n=$1; shift
+    tail "-${n}" "$@"
+  else
+    tail  "$@"
+  fi
+}
+
+tnp() {
+  n=$1; shift
+  tail "-n+${n}" "$@"
+}
