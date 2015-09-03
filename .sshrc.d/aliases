@@ -140,6 +140,21 @@ t40      : t 40
 t50      : t 50
 t60      : t 60
 # }}}
+# Docker {{{
+5x       : docker
+5m       : 5x images
+5p       : 5x ps
+5pq      : 5x ps -q
+5pa      : 5x ps -a
+5paq     : 5x ps -aq
+5i       : 5x inspect
+5rm      : 5x rm
+5rmi     : 5x rmi
+5r       : 5x run
+5b       : 5x build
+5u       : 5x push
+5d       : 5x pull
+# }}}
 
 knife    : BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile bundle exec knife
 
