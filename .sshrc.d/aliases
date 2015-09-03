@@ -153,6 +153,8 @@ t60      : t 60
 5b       : 5x build
 5u       : 5x push
 5d       : 5x pull
+5h       : 5x history
+5t       : 5x tag
 # }}}
 
 knife    : BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile bundle exec knife
