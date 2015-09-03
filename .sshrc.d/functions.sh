@@ -34,7 +34,7 @@ gac() {
     git commit -a -m "$*"
   fi
 }
-gcm() { git commit -m "$*" }
+gcm() { git commit -m "$*"; }
 gh() { cd $(_gh "$@"); }
 ghs() { cd $(_gh Shopify $1); }
 ghb() { cd $(_gh burke $1); }
