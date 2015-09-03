@@ -69,7 +69,6 @@ guo      : git push origin
 gufo     : git push -f origin
 gcaar    : git add -A .; git commit -a --reuse-message=HEAD --amend
 gcar     : git commit -a --reuse-message=HEAD --amend
-gcm      : git commit -m
 gco      : git checkout
 gcob     : git checkout -b
 gcom     : git checkout master
