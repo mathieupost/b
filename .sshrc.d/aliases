@@ -169,10 +169,10 @@ ka9      : killall -9
 k9       : kill -9
 
 m        : mutt
-a        : ack
-ai       : ack -i
-aa       : ack -a
-aai      : ack -ai
+a        : ag
+ai       : ag -i
+aa       : ag -a
+aai      : ag -ai
 g        : grep
 L        : less
 l        : ls

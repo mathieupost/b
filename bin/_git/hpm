@@ -1,0 +1,5 @@
+#!/bin/bash
+tmux set -g status-interval 1
+vpna
+vpnc
+

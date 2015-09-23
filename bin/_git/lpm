@@ -1,0 +1,12 @@
+#!/bin/bash
+source ~/.sshrc.d/functions.sh
+tmux set -g status-interval 10
+vagrant global-status | awk '$4 == "running" { print $1 }' | xargs -n1 vagrant halt
+dmd
+vpncd
+vpnad
+
+echo -ne "\x1b[31m"
+ps aux | grep -iE '(virtualbox|vmware)' | grep -v grep | grep -v auto-shutdown | grep -v IPCD
+echo -ne "\x1b[0m"
+

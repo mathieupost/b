@@ -45,6 +45,8 @@
 
 set -eo pipefail
 
+export BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile
+
 commands=(_ _g _d _dr _u _ur _k)
 cmd_func_=ssh-connect
 cmd_func_g=generate-dc-manifest
@@ -77,7 +79,7 @@ location_get() {
 
 generate-dc-manifest() {
   /usr/bin/ruby -ne 'puts $_.chomp.sub(/\.shopify\.com$/,"").split(?.).reverse*?/' \
-    <(knife node list) \
+    <(bundle exec knife node list) \
     > ~/.machines
 }
 
@@ -136,7 +138,7 @@ scp-upload-recursive() {
 
 knife-edit() {
   set_machine $1;shift
-  knife node edit "${machine}"
+  bundle exec knife node edit "${machine}"
 }
 
 create_links() {
