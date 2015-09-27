@@ -27,14 +27,16 @@ func fgColor(color int) string {
 	return fmt.Sprintf("%%{\x1b[%dm%%}", color)
 }
 
+const jeejah = "%{\x1b[38;5;51m%}j%{\x1b[38;5;45m%}e%{\x1b[38;5;39m%}e%{\x1b[38;5;33m%}j%{\x1b[38;5;27m%}a%{\x1b[38;5;21m%}h"
+
 func hostnameInfo() string {
 	hn, err := os.Hostname()
 	if err != nil {
 		hn = "error"
 	}
-	switch hn[0:5] {
-	case "burke":
-		return fgBlue
+	switch hn[0:6] {
+	case "jeejah":
+		return jeejah + fgBlue + ":"
 	default:
 		return fgYellow + hn + ":"
 	}
