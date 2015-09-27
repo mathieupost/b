@@ -79,6 +79,7 @@ au FileType make set noexpandtab
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
+au BufRead,BufNewFile {*.lua}    set ft=lua
 
 " Fish is close enough to sh that it's not so bad to just reuse that syntax.
 au BufRead,BufNewFile {*.fish}    set ft=sh
@@ -329,3 +330,7 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 "let g:go_auto_type_info = 1
+"
+
+let g:haskell_conceal              = 0
+

@@ -10,6 +10,12 @@ https://github.com/wlangstroth/vim-racket.git
 # Emmet is like zencoding for html expansion
 https://github.com/mattn/emmet-vim.git
 https://github.com/elixir-lang/vim-elixir.git
+https://github.com/dag/vim2hs.git
+https://github.com/eagletmt/ghcmod-vim.git
+https://github.com/Shougo/vimproc.vim.git
+https://github.com/evanmiller/nginx-vim-syntax.git
+https://github.com/xolox/vim-lua-ftplugin.git
+https://github.com/xolox/vim-misc.git
 
 # Presentation #######################################
 git://github.com/bling/vim-airline.git
