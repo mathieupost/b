@@ -1,7 +1,8 @@
 # vim: foldmethod=marker
 
 # Prompt {{{
-PROMPT='$(/Users/burke/bin/shell-prompt $? $KEYMAP)$(git-radar --zsh) '
+#PROMPT='$(/Users/burke/bin/shell-prompt $? $KEYMAP)$(git-radar --zsh) '
+PROMPT='$(/Users/burke/bin/shell-prompt $? $KEYMAP)'
 setopt prompt_subst
 # }}}
 # EDITOR {{{
