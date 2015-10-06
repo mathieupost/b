@@ -41,4 +41,6 @@ leader:bind1("h", hs.spotify.previous)
 leader:bind1("l", hs.spotify.next)
 leader:bind1("j", hs.spotify.play)
 
+leader:bind1("r", hs.reload)
+leader:bind1("c", hs.toggleConsole)
 
