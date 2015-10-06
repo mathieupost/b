@@ -1,3 +1,12 @@
+local function setupSecondaryScreen()
+  local s = "Color LCD"
+  hs.layout.apply({
+    {"Slack",    nil, s, hs.geometry.rect(0, 0, 0.65, 1),        nil, nil},
+    {"Messages", nil, s, hs.geometry.rect(0.65, 0, 0.35, 0.5),   nil, nil},
+    {"Adium",    nil, s, hs.geometry.rect(0.65, 0.5, 0.35, 0.5), nil, nil},
+  })
+end
+
 local function hideshowhotkey(bundleID)
   return function()
     local fw = hs.window.focusedWindow()
@@ -40,7 +49,18 @@ leader:bind1("i", hs.spotify.displayCurrentTrack)
 leader:bind1("h", hs.spotify.previous)
 leader:bind1("l", hs.spotify.next)
 leader:bind1("j", hs.spotify.play)
+leader:bind1("1", setupSecondaryScreen)
 
 leader:bind1("r", hs.reload)
 leader:bind1("c", hs.toggleConsole)
 
+
+local function screensChanged()
+  local screens = hs.screen.allScreens()
+  if #screens > 1 then
+    setupSecondaryScreen()
+  end
+end
+
+local screenWatcher = hs.screen.watcher.new(screensChanged)
+screenWatcher:start()
