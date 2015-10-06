@@ -1,11 +1,11 @@
-function hideshowhotkey(bundleID)
+local function hideshowhotkey(bundleID)
   return function()
     local fw = hs.window.focusedWindow()
     local app = fw:application()
-    if fw == nil or app:bundleID() ~= bundleID then
-      hs.application.launchOrFocusByBundleID(bundleID)
-    else
+    if app:bundleID() == bundleID then
       app:hide()
+    else
+      hs.application.launchOrFocusByBundleID(bundleID)
     end
   end
 end
