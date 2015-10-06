@@ -120,4 +120,5 @@ leader:bind1("c", hs.toggleConsole)
 
 leader:bind1("s", setCurrentLeft)
 leader:bind1("f", setCurrentRight)
+leader:bind1("b", caffeineClicked)
 -- }}}

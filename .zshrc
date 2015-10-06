@@ -205,7 +205,23 @@ export KEYTIMEOUT=15
 
 # }}}
 
-source ~/.zshrc.d/antigen-hs/init.zsh
+source "${HOME}/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "${HOME}/.zshrc.d/zsh-autosuggestions/autosuggestions.zsh"
+
+zle-line-init() {
+  zle autosuggest-start
+}
+zle -N zle-line-init
+bindkey '^f' vi-forward-word
+bindkey '^p' up-history
+bindkey '^n' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+bindkey '^k' kill-line
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
 
 export DOCKER_HOST=tcp://192.168.99.100:2376
 export DOCKER_MACHINE_NAME=default

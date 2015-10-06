@@ -130,7 +130,7 @@ func statusAndPrompt() string {
 }
 
 func mode() string {
-	mode := "?"
+	mode := fgCyan + ">"
 	if len(os.Args) >= 3 {
 		mode = os.Args[2]
 	}
