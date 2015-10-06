@@ -1,27 +1,32 @@
-function hideshowhotkey(appname, bundleID)
+function hideshowhotkey(bundleID)
   return function()
     local fw = hs.window.focusedWindow()
-    if fw == nil then
-      hs.application.launchOrFocus(appname)
+    local app = fw:application()
+    if fw == nil or app:bundleID() ~= bundleID then
+      hs.application.launchOrFocusByBundleID(bundleID)
     else
-      local focusedapp = hs.window.application(hs.window.focusedWindow())
-      if hs.application.bundleID(focusedapp) == bundleID then
-        hs.application.hide(focusedapp)
-      else
-        hs.application.launchOrFocus(appname)
-      end
+      app:hide()
     end
   end
 end
 
 hs.hotkey.bind({"cmd", "ctrl"}, "9", function()
-  print(hs.application.bundleID(hs.window.application(hs.window.focusedWindow())))
+  print(hs.window.focusedWindow():application():bundleID())
 end)
 
-hs.hotkey.bind({"cmd", "ctrl"}, "1", hideshowhotkey("iTerm", "com.googlecode.iterm2"))
-hs.hotkey.bind({"cmd", "ctrl"}, "2", hideshowhotkey("Spotify", "com.spotify.client"))
-hs.hotkey.bind({"cmd", "ctrl"}, "3", hideshowhotkey("Google Chrome", "com.google.Chrome"))
-hs.hotkey.bind({"cmd", "ctrl"}, "4", hideshowhotkey("Slack", "com.tinyspeck.slackmacgap"))
---hs.hotkey.bind({"cmd", "ctrl"}, "5", hideshowhotkey("Wunderlist", "com.wunderkinder.wunderlistdesktop"))
-hs.hotkey.bind({"cmd", "ctrl"}, "6", hideshowhotkey("Messages", "com.apple.iChat"))
-hs.hotkey.bind({"cmd", "ctrl"}, "7", hideshowhotkey("Evernote", "com.evernote.Evernote"))
+local bindings = {
+  [1] = "com.googlecode.iterm2",
+  [2] = "com.spotify.client",
+  [3] = "com.google.Chrome",
+  [4] = "com.tinyspeck.slackmacgap",
+  [5] = nil,
+  [6] = "com.apple.iChat",
+  [7] = nil,
+  [8] = nil,
+}
+
+for i, bundleID in pairs(bindings) do
+  if bundleID then
+    hs.hotkey.bind({"cmd", "ctrl"}, tostring(i), hideshowhotkey(bundleID))
+  end
+end
