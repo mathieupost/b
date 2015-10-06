@@ -1,5 +1,8 @@
 -- vim: foldmethod=marker
 
+-- don't animate windows during transitions
+hs.window.animationDuration = 0
+
 -- App hotkeys {{{
 local function hideshowhotkey(bundleID)
   return function()
@@ -34,24 +37,7 @@ for i, bundleID in pairs(bindings) do
 end
 -- }}}
 
--- Leader bindings {{{
-local leader = hs.hotkey.modal.new({"cmd"}, "`")
-function leader:bind1(k, f)
-  self:bind({}, k, function() leader:exit(); f() end)
-end
-leader:bind({}, "escape", function() leader:exit() end)
-
-leader:bind1("i", hs.spotify.displayCurrentTrack)
-leader:bind1("h", hs.spotify.previous)
-leader:bind1("l", hs.spotify.next)
-leader:bind1("j", hs.spotify.play)
-leader:bind1("1", setupSecondaryScreen)
-
-leader:bind1("r", hs.reload)
-leader:bind1("c", hs.toggleConsole)
--- }}}
-
--- Screen layout {{{
+-- Secondary screen watcher / autolayout {{{
 local function setupSecondaryScreen()
   local s = "Color LCD"
   hs.layout.apply({
@@ -70,6 +56,27 @@ end
 
 local screenWatcher = hs.screen.watcher.new(screensChanged)
 screenWatcher:start()
+-- }}}
+
+-- Layout {{{
+
+function setFrameForCurrent(cb)
+  local win = hs.window.focusedWindow()
+  if win then
+    local screenFrame = win:screen():frame()
+    local x, y, w, h = cb(screenFrame.x, screenFrame.y, screenFrame.w, screenFrame.h)
+    win:setFrame(hs.geometry.rect(x, y, w, h))
+  end
+end
+
+function setCurrentLeft()
+  setFrameForCurrent(function(x, y, w, h) return x, y, w/2, h end)
+end
+
+function setCurrentRight()
+  setFrameForCurrent(function(x, y, w, h) return w/2, y, w/2, h end)
+end
+
 -- }}}
 
 -- Caffeine {{{
@@ -93,4 +100,24 @@ if caffeine then
   caffeine:setClickCallback(caffeineClicked)
   setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
 end
+-- }}}
+
+-- Leader bindings {{{
+local leader = hs.hotkey.modal.new({"cmd"}, "`")
+function leader:bind1(k, f)
+  self:bind({}, k, function() leader:exit(); f() end)
+end
+leader:bind({}, "escape", function() leader:exit() end)
+
+leader:bind1("i", hs.spotify.displayCurrentTrack)
+leader:bind1("h", hs.spotify.previous)
+leader:bind1("l", hs.spotify.next)
+leader:bind1("j", hs.spotify.play)
+leader:bind1("1", setupSecondaryScreen)
+
+leader:bind1("r", hs.reload)
+leader:bind1("c", hs.toggleConsole)
+
+leader:bind1("s", setCurrentLeft)
+leader:bind1("f", setCurrentRight)
 -- }}}
