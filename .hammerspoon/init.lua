@@ -1,9 +1,8 @@
 local function hideshowhotkey(bundleID)
   return function()
     local fw = hs.window.focusedWindow()
-    local app = fw:application()
-    if app:bundleID() == bundleID then
-      app:hide()
+    if fw and fw:application():bundleID() == bundleID then
+      fw:application():hide()
     else
       hs.application.launchOrFocusByBundleID(bundleID)
     end
@@ -30,3 +29,16 @@ for i, bundleID in pairs(bindings) do
     hs.hotkey.bind({"cmd", "ctrl"}, tostring(i), hideshowhotkey(bundleID))
   end
 end
+
+local leader = hs.hotkey.modal.new({"cmd"}, "`")
+function leader:bind1(k, f)
+  self:bind({}, k, function() leader:exit(); f() end)
+end
+leader:bind({}, "escape", function() leader:exit() end)
+
+leader:bind1("i", hs.spotify.displayCurrentTrack)
+leader:bind1("h", hs.spotify.previous)
+leader:bind1("l", hs.spotify.next)
+leader:bind1("j", hs.spotify.play)
+
+
