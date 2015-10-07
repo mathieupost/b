@@ -1,19 +1,18 @@
 -- vim: foldmethod=marker
 
-local util = require("util")
-local leader = require("leader")
-local caffeine = require("caffeine")
+local util        = require("util")
+local leader      = require("leader")
+local caffeine    = require("caffeine")
+local appbindings = require("appbindings")
 
 -- don't animate windows during transitions
 hs.window.animationDuration = 0
-
--- App hotkeys {{{
 
 -- hs.hotkey.bind({"cmd", "ctrl"}, "9", function()
 --   print(hs.window.focusedWindow():application():bundleID())
 -- end)
 
-local bindings = {
+appbindings.setup({"cmd", "ctrl"}, {
   [1] = "com.googlecode.iterm2",
   [2] = "com.spotify.client",
   [3] = "com.google.Chrome",
@@ -22,21 +21,14 @@ local bindings = {
   [6] = "com.apple.iChat",
   [7] = nil,
   [8] = nil,
-}
-
-for i, bundleID in pairs(bindings) do
-  if bundleID then
-    hs.hotkey.bind({"cmd", "ctrl"}, tostring(i), util.hideShowHotkey(bundleID))
-  end
-end
--- }}}
+})
 
 -- Secondary screen watcher / autolayout {{{
 local function setupSecondaryScreen()
   local s = "Color LCD"
   hs.layout.apply({
-    {"Slack",    nil, s, hs.geometry.rect(0, 0, 0.65, 1),        nil, nil},
-    {"Messages", nil, s, hs.geometry.rect(0.65, 0, 0.35, 0.5),   nil, nil},
+    {"Slack",    nil, s, hs.geometry.rect(0,    0,   0.65, 1),   nil, nil},
+    {"Messages", nil, s, hs.geometry.rect(0.65, 0,   0.35, 0.5), nil, nil},
     {"Adium",    nil, s, hs.geometry.rect(0.65, 0.5, 0.35, 0.5), nil, nil},
   })
 end
@@ -80,5 +72,5 @@ lmap:bindall({
 
   s = setCurrentLeft,
   f = setCurrentRight,
-  b = caffeineClicked,
+  b = caffeine.clicked,
 })

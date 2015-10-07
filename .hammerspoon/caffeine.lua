@@ -1,21 +1,41 @@
 local _M = {}
 
--- borrowed from https://github.com/cmsj/hammerspoon-config/blob/master/init.lua
+-- initially borrowed from
+-- https://github.com/cmsj/hammerspoon-config/blob/master/init.lua
 
-local function set(caffeine, state)
+local Caffeinator = {}
+
+local function setState(menubarItem, state)
   if state then
-    caffeine:setIcon("caffeine-on.pdf")
+    menubarItem:setIcon("caffeine-on.pdf")
   else
-    caffeine:setIcon("caffeine-off.pdf")
+    menubarItem:setIcon("caffeine-off.pdf")
   end
 end
 
+function Caffeinator:clicked()
+  setState(self.menubarItem, hs.caffeinate.toggle("displayIdle"))
+end
+
+function Caffeinator:start()
+  self.menubarItem = hs.menubar.new()
+  setState(self.menubarItem, hs.caffeinate.get("displayIdle"))
+  self.menubarItem:setClickCallback(function() self:clicked() end)
+end
+
+function _M.new()
+  return setmetatable({}, {__index = Caffeinator})
+end
+
+local globalCaffeinator
+
 function _M.start()
-  local c = hs.menubar.new()
-  set(c, hs.caffeinate.get("displayIdle"))
-  c:setClickCallback(function()
-    set(c, hs.caffeinate.toggle("displayIdle"))
-  end)
+  globalCaffeinator = _M.new()
+  globalCaffeinator:start()
+end
+
+function _M.clicked()
+  globalCaffeinator:clicked()
 end
 
 return _M
