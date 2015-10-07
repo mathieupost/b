@@ -5,11 +5,20 @@ local leader      = require("leader")
 local caffeine    = require("caffeine")
 local appbindings = require("appbindings")
 
--- don't animate windows during transitions
-hs.window.animationDuration = 0
+local geometry      = hs.geometry
+local hotkey        = hs.hotkey
+local layout        = hs.layout
+local reload        = hs.reload
+local screen        = hs.screen
+local spotify       = hs.spotify
+local toggleConsole = hs.toggleConsole
+local window        = hs.window
 
--- hs.hotkey.bind({"cmd", "ctrl"}, "9", function()
---   print(hs.window.focusedWindow():application():bundleID())
+-- don't animate windows during transitions
+window.animationDuration = 0
+
+-- hotkey.bind({"cmd", "ctrl"}, "9", function()
+--   print(window.focusedWindow():application():bundleID())
 -- end)
 
 appbindings.setup({"cmd", "ctrl"}, {
@@ -26,22 +35,18 @@ appbindings.setup({"cmd", "ctrl"}, {
 -- Secondary screen watcher / autolayout {{{
 local function setupSecondaryScreen()
   local s = "Color LCD"
-  hs.layout.apply({
-    {"Slack",    nil, s, hs.geometry.rect(0,    0,   0.65, 1),   nil, nil},
-    {"Messages", nil, s, hs.geometry.rect(0.65, 0,   0.35, 0.5), nil, nil},
-    {"Adium",    nil, s, hs.geometry.rect(0.65, 0.5, 0.35, 0.5), nil, nil},
+  layout.apply({
+    {"Slack",    nil, s, geometry.rect(0,    0,   0.65, 1),   nil, nil},
+    {"Messages", nil, s, geometry.rect(0.65, 0,   0.35, 0.5), nil, nil},
+    {"Adium",    nil, s, geometry.rect(0.65, 0.5, 0.35, 0.5), nil, nil},
   })
 end
 
-local function screensChanged()
-  local screens = hs.screen.allScreens()
-  if #screens > 1 then
-    setupSecondaryScreen()
-  end
-end
+if #screen.allScreens() > 1 then setupSecondaryScreen() end
+screen.watcher.new(function()
+  if #screen.allScreens() > 1 then setupSecondaryScreen() end
+end):start()
 
-local screenWatcher = hs.screen.watcher.new(screensChanged)
-screenWatcher:start()
 -- }}}
 
 -- Layout {{{
@@ -58,17 +63,16 @@ end
 
 caffeine.start()
 
-local lmap = leader.new({"cmd"}, "`")
-lmap:bindall({
-  i = hs.spotify.displayCurrentTrack,
-  h = hs.spotify.previous,
-  l = hs.spotify.next,
-  j = hs.spotify.play,
+leader.new({"cmd"}, "`"):bindall({
+  i = spotify.displayCurrentTrack,
+  h = spotify.previous,
+  l = spotify.next,
+  j = spotify.play,
 
   p = setupSecondaryScreen,
 
-  r = hs.reload,
-  c = hs.toggleConsole,
+  r = reload,
+  c = toggleConsole,
 
   s = setCurrentLeft,
   f = setCurrentRight,
