@@ -1,3 +1,0 @@
-[submodule ".zshrc.d/antigen-hs"]
-	path = .zshrc.d/antigen-hs
-	url = https://github.com/Tarrasch/antigen-hs.git
