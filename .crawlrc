@@ -1,0 +1,30 @@
+runrest_stop_message += Your battlesphere wavers and loses cohesion.
+runrest_stop_message += You feel your bond with your battlesphere wane.
+show_travel_trail = true
+travel_delay = -1
+rest_delay = -1
+explore_stop                  = glowing_items, artefacts, runes
+explore_stop                 += greedy_pickup_smart, greedy_sacrificeable
+explore_stop                 += shops, altars, runed_doors
+explore_stop                 += stairs, portals, branches
+explore_wall_bias             = 1
+trapwalk_safe_hp              = dart:20,needle:15,arrow:35,bolt:45,spear:40,axe:45,blade:95
+easy_eat_chunks          = true
+auto_eat_chunks          = true
+auto_drop_chunks         = never
+sort_menus               = true : charged,equipped,identified,curse,art,ego,glowing,freshness,>qty,basename
+autofight_stop           = 40
+
+hp_colour                      = lightgrey, 99:green, 75:yellow, 50:red
+
+force_more_message += You are starting to lose your buoyancy
+force_more_message += Space (bends|warps horribly) around you
+force_more_message += danger:
+force_more_message += Found a gateway leading out of the Abyss
+
+auto_sacrifice = true
+
+
+
+may_stab_brand = hi:green
+
