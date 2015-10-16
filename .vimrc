@@ -81,6 +81,8 @@ au FileType make set noexpandtab
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
 au BufRead,BufNewFile {*.lua}    set ft=lua
 
+au BufRead,BufNewFile */ruby/ruby/*.{c,h}    set sw=4 ts=8 softtabstop=8 noet
+
 " Fish is close enough to sh that it's not so bad to just reuse that syntax.
 au BufRead,BufNewFile {*.fish}    set ft=sh
 
