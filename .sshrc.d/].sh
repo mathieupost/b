@@ -10,13 +10,13 @@ function ]gb() {
 
 function ]hs() {
   _]g "${HOME}/src/github.com/shopify" "$@"
-  open "https://github.com/Shopify/${project}"
+  open "https://github.com/shopify/${project}"
 }
 
 function ]hsn() {
   local id=$1;shift
   _]g "${HOME}/src/github.com/shopify" "$@"
-  open "https://github.com/Shopify/${project}/pull/${id}"
+  open "https://github.com/shopify/${project}/pull/${id}"
 }
 
 function ]hbn() {
@@ -32,7 +32,7 @@ function ]hb() {
 
 function ]hsp() {
   _]g "${HOME}/src/github.com/shopify" "$@"
-  open "https://github.com/Shopify/${project}/pulls"
+  open "https://github.com/shopify/${project}/pulls"
 }
 
 function ]hbp() {
@@ -42,7 +42,7 @@ function ]hbp() {
 
 function ]hsm() {
   _]g "${HOME}/src/github.com/shopify" "$@"
-  open "https://github.com/Shopify/${project}/pulls/burke"
+  open "https://github.com/shopify/${project}/pulls/burke"
 }
 
 function ]hbm() {

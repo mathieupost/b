@@ -36,7 +36,7 @@ gac() {
 }
 gcm() { git commit -m "$*"; }
 gh() { cd $(_gh "$@"); }
-ghs() { cd $(_gh Shopify $1); }
+ghs() { cd $(_gh shopify $1); }
 ghb() { cd $(_gh burke $1); }
 fdg() { find . | grep "$@"; }
 gfr() { git fetch "$@" && git reset --hard FETCH_HEAD; }

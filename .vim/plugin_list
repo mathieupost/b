@@ -4,7 +4,7 @@ git://github.com/mxw/vim-jsx.git
 git://github.com/fatih/vim-go.git
 git://github.com/cespare/vim-toml.git
 git://github.com/derekwyatt/vim-scala.git
-https://github.com/wting/rust.vim.git
+git://github.com/rust-lang/rust.vim.git
 git://github.com/tpope/vim-markdown.git
 https://github.com/wlangstroth/vim-racket.git
 # Emmet is like zencoding for html expansion
