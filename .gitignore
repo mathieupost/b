@@ -35,7 +35,7 @@
 !/.vim/backup
 /.vim/backup/*
 !/.vim/backup/.gitkeep
-!/.vim/Rakefile
+!/.vim/update
 !/.vim/plugin_list
 !/.vimrc
 !/.gvimrc

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+mkdir -p bundle
+
+children=()
+
+while read line; do
+  if [[ "${line}" == "#"* || "${line}" == "" ]]; then
+    continue
+  fi
+
+  (
+    repo="$(basename ${line} .git)"
+    if [[ -d "bundle/${repo}" ]]; then
+      echo "%% Pulling ${repo}"
+      ( cd ~/.vim/bundle/${repo} && git pull )
+    else
+      echo "%% Cloning ${repo}"
+      ( cd ~/.vim/bundle && git clone "${line}" )
+    fi
+  ) &
+  children+=($!)
+done < plugin_list
+
+wait ${children[*]}
