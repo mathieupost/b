@@ -30,6 +30,7 @@
 
 !/.vim
 /.vim/*
+!/.vim/autoload
 !/.vim/autoload/pathogen.vim
 !/.vim/Rakefile
 !/.vim/plugin_list
