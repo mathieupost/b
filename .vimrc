@@ -1,6 +1,7 @@
 set shell=/bin/sh
 
 let mapleader=" "
+let maplocalleader="\\"
 
 nnoremap ; :
 nnoremap <A-;> ;
