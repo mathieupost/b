@@ -205,7 +205,7 @@ export KEYTIMEOUT=15
 
 # }}}
 
-source "${HOME}/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+#source "${HOME}/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "${HOME}/.zshrc.d/zsh-autosuggestions/autosuggestions.zsh"
 
 zle-line-init() {

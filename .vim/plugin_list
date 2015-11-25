@@ -27,6 +27,7 @@ git://github.com/tpope/vim-commentary.git
 git://github.com/tsaleh/vim-align.git
 git://github.com/rking/ag.vim.git
 git://github.com/unblevable/quick-scope.git
+git://github.com/vim-scripts/ReplaceWithRegister.git
 
 # Panes / etc. #######################################
 git://github.com/kien/ctrlp.vim.git
