@@ -1,13 +1,12 @@
 set shell=/bin/sh
 
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 let mapleader=" "
 let maplocalleader="\\"
 
 nnoremap ; :
 nnoremap <A-;> ;
-
-" 256-color more. Necessary to make it work in console and macvim
-set t_Co=256
 
 " Speed things up.
 set nocompatible
@@ -150,23 +149,9 @@ set expandtab
 
 map <C-\> :tnext<CR>
 
-set background=dark
-" let g:solarized_termtrans = 1
-colorscheme badwolf
-
-" Make the gutters darker than the background.
-" let g:badwolf_darkgutter = 1
-
-" Make the tab line darker than the background.
-"let g:badwolf_tabline = 0
-" Make the tab line the same color as the background.
-"let g:badwolf_tabline = 1
-" Make the tab line lighter than the background.
-"let g:badwolf_tabline = 2
-" Make the tab line much lighter than the background.
-"let g:badwolf_tabline = 3
-
-
+" more info on getting true colour working here: https://github.com/morhetz/gruvbox
+colorscheme gruvbox
+set bg=dark
 
 nnoremap <leader>8 Orequire'debugger';debugger<esc>
 nnoremap <leader>9 Orequire'pry';binding.pry<esc>
@@ -260,9 +245,6 @@ set printfont=PragmataPro:h12
 
 let g:airline_powerline_fonts = 1
 
-let g:Powerline_theme='long'
-let g:Powerline_colorscheme='solarized256_dark'
-
 nmap <leader>4 :NERDTreeToggle<cr>
 nmap <leader>5 :TagbarToggle<cr>
 
@@ -334,6 +316,4 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 "let g:go_auto_type_info = 1
 "
-
-let g:haskell_conceal              = 0
 

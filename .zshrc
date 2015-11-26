@@ -223,6 +223,8 @@ bindkey '^k' kill-line
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 export DOCKER_HOST=tcp://192.168.99.100:2376
 export DOCKER_MACHINE_NAME=default
 export DOCKER_TLS_VERIFY=1
