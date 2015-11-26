@@ -60,11 +60,20 @@ func color(fg, bg int, bold bool) string {
 	return fmt.Sprintf("#[fg=colour%d,bg=%s,%s,noitalics,nounderscore]", fg, bgc, bt)
 }
 
+// black is 232, white is 255
+const (
+	timeBG     = 242
+	hostnameBG = 7
+	hostnameFG = 16
+	otherBG    = 238
+	noMailFG   = 246
+)
+
 var (
-	boringColor = nobold(241, 233)
-	greenColor  = nobold(2, 233)
-	yellowColor = nobold(3, 233)
-	redColor    = nobold(1, 233)
+	boringColor = nobold(noMailFG, otherBG)
+	greenColor  = nobold(2, otherBG)
+	yellowColor = nobold(3, otherBG)
+	redColor    = nobold(1, otherBG)
 )
 
 func displayLoadAvgs(loadAvgs [3]float64) string {
@@ -101,16 +110,16 @@ func main() {
 	pers, _ := ioutil.ReadDir(home + "/.mail/notify/p:INBOX/new")
 	shop, _ := ioutil.ReadDir(home + "/.mail/notify/s:INBOX/new")
 	git, _ := ioutil.ReadDir(home + "/.mail/notify/github/new")
-	color := nobold(237, 233)
+	color := nobold(noMailFG, otherBG)
 	if len(pers) > 0 || len(shop) > 0 || len(git) > 0 {
-		color = nobold(1, 233)
+		color = nobold(1, otherBG)
 	}
 	mails := fmt.Sprintf("%s %d:%d:%d", color, len(pers), len(shop), len(git))
 
 	stat, err := os.Stat(home + "/.mutt/mbsync.log")
 	threshold := time.Now().Add(-3 * time.Minute)
 	if err != nil || stat.ModTime().Before(threshold) {
-		mails = fmt.Sprintf("%s ?", nobold(1, 233))
+		mails = fmt.Sprintf("%s ?", nobold(1, otherBG))
 	}
 	t3 := time.Now()
 
@@ -132,37 +141,37 @@ func main() {
 
 	t5 := time.Now()
 	vpns := C.connected()
-	chicagoColor := nobold(1, 252)
-	ashburnColor := nobold(1, 252)
+	chicagoColor := nobold(1, hostnameBG)
+	ashburnColor := nobold(1, hostnameBG)
 	if 0 < vpns&C.CHICAGO_CONNECTED {
-		chicagoColor = nobold(2, 252)
+		chicagoColor = nobold(2, hostnameBG)
 	}
 	if 0 < vpns&C.ASHBURN_CONNECTED {
-		ashburnColor = nobold(2, 252)
+		ashburnColor = nobold(2, hostnameBG)
 	}
 	vpnChunk := fmt.Sprintf("%sC%sA", chicagoColor, ashburnColor)
 	t6 := time.Now()
 
 	fmt.Printf("%s",
-		nobold(233, -1)+" "+
-			Arrow1+nobold(247, 233)+" "+
+		nobold(otherBG, -1)+" "+
+			Arrow1+nobold(247, otherBG)+" "+
 			batt+"%"+
 			" "+battRem+
 			" "+power+
-			nobold(241, 233)+" "+
+			boringColor+" "+
 			Arrow0+" "+
 			fmt.Sprintf("%02d'%02d", int(u*100), int(s*100))+" "+
 			displayLoadAvgs(loadAvgs)+
-			nobold(241, 233)+" "+
+			boringColor+" "+
 			Arrow0+
 			mails+
 
-			nobold(236, 233)+" "+
-			Arrow1+nobold(252, 236)+" "+
+			nobold(timeBG, otherBG)+" "+
+			Arrow1+nobold(hostnameBG, timeBG)+" "+
 			time.Now().Format("Jan02 15:04")+
-			nobold(252, 236)+" "+
-			Arrow1+bold(16, 252)+" "+
-			vpnChunk+" "+bold(16, 252)+
+			nobold(hostnameBG, timeBG)+" "+
+			Arrow1+bold(hostnameFG, hostnameBG)+" "+
+			vpnChunk+" "+bold(hostnameFG, hostnameBG)+
 			hn+
 			" ")
 	t7 := time.Now()
