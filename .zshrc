@@ -230,9 +230,5 @@ export DOCKER_MACHINE_NAME=default
 export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=/Users/burke/.docker/machine/machines/default
 
-export NVM_DIR="/Users/burke/.nvm"
-if [[ -s "${NVM_DIR}/nvm.sh" ]]; then
-  source "${NVM_DIR}/nvm.sh"
-fi
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 
-export CGO_CFLAGS='-I/usr/local/include/zookeeper' CGO_LDFLAGS='/usr/local/lib/libzookeeper_mt.a'
