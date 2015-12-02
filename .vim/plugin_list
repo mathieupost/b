@@ -16,6 +16,7 @@ https://github.com/Shougo/vimproc.vim.git
 https://github.com/evanmiller/nginx-vim-syntax.git
 https://github.com/xolox/vim-lua-ftplugin.git
 https://github.com/xolox/vim-misc.git
+https://github.com/LnL7/vim-nix.git
 
 # Presentation #######################################
 git://github.com/bling/vim-airline.git

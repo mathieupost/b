@@ -1,5 +1,7 @@
 # vim: foldmethod=marker
 
+export MANPATH="/Users/burke/.nix-profile/share/man:${MANPATH}"
+
 # Prompt {{{
 #PROMPT='$(/Users/burke/bin/shell-prompt $? $KEYMAP)$(git-radar --zsh) '
 PROMPT='$(/Users/burke/bin/shell-prompt $? $KEYMAP)'
@@ -21,7 +23,6 @@ export PATH="/Users/burke/src/github.com/golang/go/bin:${PATH}"
 export PATH="${HOME}/bin:${PATH}"
 export PATH="${HOME}/bin/_git:${PATH}"
 export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"
-export PATH="${HOME}/.rbenv/shims:${PATH}"
 export PATH="${HOME}/.cabal/bin:${PATH}"
 export PATH="${HOME}/.rbenv/bin:${PATH}"
 export PATH="/Applications/Racket v6.1.1/bin:${PATH}"
@@ -124,28 +125,9 @@ AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=6'
 export GOPATH="${HOME}"
 export GOROOT_BOOTSTRAP="${HOME}/src/go1.4"
 
-# In lieu of `"$(rbenv init -)"`, this doesn't boot ruby: {{{
-export PATH="/Users/burke/.rbenv/shims:${PATH}"
-source "/usr/local/Cellar/rbenv/0.4.0/libexec/../completions/rbenv.zsh"
-rbenv rehash 2>/dev/null
-rbenv() {
-  typeset command
-  command="$1"
-  if [ "$#" -gt 0 ]; then
-    shift
-  fi
-
-  case "$command" in
-  rehash|shell)
-    eval `rbenv "sh-$command" "$@"`;;
-  *)
-    command rbenv "$command" "$@";;
-  esac
-}
-# }}}
-
-# OCaml
-. /Users/burke/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# Ruby
+export GEM_HOME=$HOME/.gem
+export GEM_PATH=$HOME/.gem
 
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
