@@ -4,4 +4,5 @@ set spoolfile = "+s:INBOX"
 set mbox      = "+s:archive"
 set postponed = "+s:drafts"
 set from      = "burke.libbey@shopify.com"
-set sendmail  = "/usr/local/bin/msmtp -a shopify"
+# no idea why sudo is required when built with nix.
+set sendmail  = "sudo /Users/burke/.nix-profile/bin/msmtp -C /Users/burke/.msmtprc -a shopify"

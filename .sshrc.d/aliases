@@ -159,7 +159,7 @@ t60      : t 60
 
 knife    : BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile bundle exec knife
 
-mutt     : kick-gpg-agent; bash --login -c 'cd ~/Desktop; /usr/bin/env mutt'
+mutt     : kick-gpg-agent && mutt
 less     : /usr/bin/less -FXRS
 tmux     : /usr/bin/env TERM=screen-256color-bce tmux
 tree     : tree -I 'Godep*'
