@@ -9,8 +9,8 @@ setopt prompt_subst
 # }}}
 # EDITOR {{{
 export EDITOR=vim
-if which nvim >/dev/null 2>&1; then
-  export EDITOR=nvim
+if which vim >/dev/null 2>&1; then
+  export EDITOR=vim
 fi
 export VISUAL="${EDITOR}"
 export GIT_EDITOR="${EDITOR}"
@@ -25,6 +25,7 @@ export PATH="${HOME}/bin/_git:${PATH}"
 export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"
 export PATH="${HOME}/.cabal/bin:${PATH}"
 export PATH="${HOME}/.rbenv/bin:${PATH}"
+export PATH="${HOME}/.gem/bin:${PATH}"
 export PATH="/Applications/Racket v6.1.1/bin:${PATH}"
 # }}}
 # GPG Agent {{{
