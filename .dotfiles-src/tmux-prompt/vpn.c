@@ -2,8 +2,8 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-const uint8_t chicago_addr[14] = {0,0,10,10,29,46,0,0,0,0,0,0,0,0};
-const uint8_t ashburn_addr[14] = {0,0,10,20,28,54,0,0,0,0,0,0,0,0};
+const uint8_t chicago_addr[14] = {0,0,10,10,0,0,0,0,0,0,0,0,0,0};
+const uint8_t ashburn_addr[14] = {0,0,10,20,0,0,0,0,0,0,0,0,0,0};
 
 const int CHICAGO_CONNECTED = 1 << 0;
 const int ASHBURN_CONNECTED = 1 << 1;
@@ -22,10 +22,10 @@ int connected() {
   for (iface = interfaces; 0 != iface; iface = iface->ifa_next) {
     sa = iface->ifa_addr;
     if (sa->sa_family == AF_INET) {
-      if (0 == memcmp(sa->sa_data, chicago_addr, 14)) {
+      if (0 == memcmp(sa->sa_data, chicago_addr, 4)) {
         connected |= CHICAGO_CONNECTED;
       }
-      if (0 == memcmp(sa->sa_data, ashburn_addr, 14)) {
+      if (0 == memcmp(sa->sa_data, ashburn_addr, 4)) {
         connected |= ASHBURN_CONNECTED;
       }
     }
