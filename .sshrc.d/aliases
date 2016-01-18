@@ -46,6 +46,10 @@ bid      : bundle install --without=development,test,debug,test,staging,stagingd
 # }}}
 # Projects {{{
 shop     : ghs shopify
+rl       : ghs railgun
+rlc      : cd ~/src/github.com/shopify/railgun/src/cli
+rla      : cd ~/src/github.com/shopify/railgun/src/app
+rlo      : cd ~/src/github.com/shopify/railgun/src/os
 cook     : ghs cookbooks
 loc      : ghs locutus
 # }}}
