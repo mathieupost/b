@@ -309,6 +309,9 @@ au FileType go nmap <Leader>e <Plug>(go-rename)
 
 " let g:go_fmt_command = "goimports" " too slow :(
 
+let g:syntastic_sh_shellcheck_args = ' -x'
+
+
 "if quickscope gets annoying, https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
 
 let g:go_highlight_functions = 1

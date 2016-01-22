@@ -215,3 +215,6 @@ export DOCKER_CERT_PATH=/Users/burke/.docker/machine/machines/default
 
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
 
+source /usr/local/share/chruby/chruby.sh
+RUBIES+=(/usr/local/Cellar/shopify-ruby/*)
+
