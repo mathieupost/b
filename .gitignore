@@ -13,6 +13,9 @@
 !/.mutt/view_attachment.sh
 !/.mbsyncrc
 
+!/.setup
+!/.setup/*
+
 !/.hammerspoon
 
 !/.agignore
