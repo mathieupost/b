@@ -1,22 +1,15 @@
 # Syntax #############################################
 git://github.com/pangloss/vim-javascript.git
-git://github.com/mxw/vim-jsx.git
 git://github.com/fatih/vim-go.git
 git://github.com/cespare/vim-toml.git
 git://github.com/derekwyatt/vim-scala.git
-git://github.com/rust-lang/rust.vim.git
 git://github.com/tpope/vim-markdown.git
-https://github.com/wlangstroth/vim-racket.git
 # Emmet is like zencoding for html expansion
 https://github.com/mattn/emmet-vim.git
-https://github.com/elixir-lang/vim-elixir.git
-https://github.com/dag/vim2hs.git
-https://github.com/eagletmt/ghcmod-vim.git
 https://github.com/Shougo/vimproc.vim.git
 https://github.com/evanmiller/nginx-vim-syntax.git
 https://github.com/xolox/vim-lua-ftplugin.git
 https://github.com/xolox/vim-misc.git
-https://github.com/LnL7/vim-nix.git
 
 # Presentation #######################################
 git://github.com/bling/vim-airline.git
@@ -32,29 +25,29 @@ git://github.com/vim-scripts/ReplaceWithRegister.git
 # Panes / etc. #######################################
 git://github.com/kien/ctrlp.vim.git
 git://github.com/nixprime/cpsm.git
-# taglist and tagbar? what are these exactly?
 git://github.com/vim-scripts/taglist.vim.git
 git://github.com/majutsushi/tagbar.git
 https://github.com/scrooloose/nerdtree.git
 
-# Review/sort...
+# More text objects
 git://github.com/wellle/targets.vim.git
+
+# git
 git://github.com/tpope/vim-fugitive.git
+
 git://github.com/michaeljsmith/vim-indent-object.git
+
 git://github.com/ervandew/supertab.git
 git://github.com/vim-scripts/ZoomWin.git
 git://github.com/tpope/vim-unimpaired.git
 git://github.com/tpope/vim-endwise.git
 git://github.com/scrooloose/syntastic.git
 https://github.com/sjl/vitality.vim.git
-https://github.com/terryma/vim-multiple-cursors.git
 https://github.com/tomtom/tlib_vim.git
 https://github.com/MarcWeber/vim-addon-mw-utils.git
 https://github.com/garbas/vim-snipmate.git
 https://github.com/honza/vim-snippets.git
 
-https://github.com/jceb/vim-orgmode.git
 https://github.com/tpope/vim-speeddating.git
-https://github.com/vim-scripts/utl.vim.git
 
 https://github.com/morhetz/gruvbox.git

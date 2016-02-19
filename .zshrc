@@ -15,16 +15,16 @@ export GIT_EDITOR="${EDITOR}"
 export HOMEBREW_EDITOR="${EDITOR}"
 # }}}
 # PATH {{{
-export PATH="/Users/burke/src/chromium.googlesource.com/chromium/tools/depot_tools:${PATH}"
-export PATH="/usr/local/bin:${PATH}"
-export PATH="/Users/burke/src/github.com/golang/go/bin:${PATH}"
-export PATH="${HOME}/bin:${PATH}"
-export PATH="${HOME}/bin/_git:${PATH}"
-export PATH="${HOME}/google-cloud-sdk/bin:${PATH}"
-export PATH="${HOME}/.cabal/bin:${PATH}"
-export PATH="${HOME}/.rbenv/bin:${PATH}"
-export PATH="${HOME}/.gem/bin:${PATH}"
-export PATH="/Applications/Racket v6.1.1/bin:${PATH}"
+typeset -Ug path
+path_add() {
+  path=("$1" "$path[@]")
+}
+
+path_add /usr/local/bin
+path_add /Users/burke/src/github.com/golang/go/bin
+path_add /Users/burke/bin
+path_add /Users/burke/bin/_git
+path_add /Users/burke/.gem/bin
 # }}}
 # GPG Agent {{{
 gpg-agent --daemon >/dev/null 2>&1
@@ -211,6 +211,12 @@ export DOCKER_MACHINE_NAME=default
 export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=/Users/burke/.docker/machine/machines/default
 
-source /usr/local/share/chruby/chruby.sh
-RUBIES+=(/usr/local/Cellar/shopify-ruby/*)
+source /opt/dev/dev.sh
 
+# added by dev
+alias knife="BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile bundle exec knife"
+
+# added by dev
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+RUBIES+=(/usr/local/Cellar/shopify-ruby/*)

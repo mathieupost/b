@@ -13,7 +13,7 @@ easy_eat_chunks          = true
 auto_eat_chunks          = true
 auto_drop_chunks         = never
 sort_menus               = true : charged,equipped,identified,curse,art,ego,glowing,freshness,>qty,basename
-autofight_stop           = 40
+autofight_stop           = 65
 
 hp_colour                      = lightgrey, 99:green, 75:yellow, 50:red
 
