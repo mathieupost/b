@@ -16,10 +16,10 @@ while read -r line; do
     repo="$(basename "${line}" .git)"
     if [[ -d "${dir}/bundle/${repo}" ]]; then
       echo "%% Pulling ${repo}"
-      ( cd "${dir}/bundle/${repo}" && git pull )
+      git -C "${dir}/bundle/${repo}" pull
     else
       echo "%% Cloning ${repo}"
-      ( cd "${dir}/bundle" && git clone "${line}" )
+      git -C "${dir}/bundle" clone "${line}"
     fi
   ) &
   children+=($!)

@@ -219,4 +219,3 @@ alias knife="BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile bundle exec knife"
 # added by dev
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
-RUBIES+=(/usr/local/Cellar/shopify-ruby/*)
