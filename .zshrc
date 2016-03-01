@@ -212,10 +212,3 @@ export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=/Users/burke/.docker/machine/machines/default
 
 source /opt/dev/dev.sh
-
-# added by dev
-alias knife="BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile bundle exec knife"
-
-# added by dev
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
