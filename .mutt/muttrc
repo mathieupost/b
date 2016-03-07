@@ -54,6 +54,8 @@ alternates burke@libbey.me burke@burkelibbey.org b.libbey@gmail.com burke.libbey
 # Mailboxes to show in the sidebar.
 mailboxes +p:INBOX   +s:INBOX \
           +github \
+          +notes \
+          +todo \
           +p:drafts  +s:drafts \
           +p:sent    +s:sent \
           +temporary/search

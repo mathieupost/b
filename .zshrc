@@ -211,4 +211,4 @@ export DOCKER_MACHINE_NAME=default
 export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=/Users/burke/.docker/machine/machines/default
 
-source /opt/dev/dev.sh
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
