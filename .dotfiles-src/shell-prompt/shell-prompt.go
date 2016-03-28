@@ -27,7 +27,7 @@ func fgColor(color int) string {
 	return fmt.Sprintf("%%{\x1b[%dm%%}", color)
 }
 
-const jeejah = "%{\x1b[38;5;51m%}j%{\x1b[38;5;45m%}e%{\x1b[38;5;39m%}e%{\x1b[38;5;33m%}j%{\x1b[38;5;27m%}a%{\x1b[38;5;21m%}h"
+const darmok = "%{\x1b[38;5;51m%}d%{\x1b[38;5;45m%}a%{\x1b[38;5;39m%}r%{\x1b[38;5;33m%}m%{\x1b[38;5;27m%}o%{\x1b[38;5;21m%}k"
 
 func hostnameInfo() string {
 	hn, err := os.Hostname()
@@ -35,8 +35,8 @@ func hostnameInfo() string {
 		hn = "error"
 	}
 	switch hn[0:6] {
-	case "jeejah":
-		return jeejah + fgBlue + ":"
+	case "darmok":
+		return darmok + fgBlue + ":"
 	default:
 		return fgYellow + hn + ":"
 	}
