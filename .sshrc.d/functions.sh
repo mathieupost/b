@@ -103,3 +103,7 @@ tnp() {
   n=$1; shift
   tail "-n+${n}" "$@"
 }
+
+s3putpublic() {
+  s3cmd put --acl-public "$1" "s3://burkelibbey/$1"
+}
