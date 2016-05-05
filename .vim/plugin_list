@@ -1,6 +1,7 @@
 # Syntax #############################################
 git://github.com/pangloss/vim-javascript.git
 git://github.com/fatih/vim-go.git
+git://github.com/dag/vim-fish.git
 git://github.com/cespare/vim-toml.git
 git://github.com/derekwyatt/vim-scala.git
 git://github.com/tpope/vim-markdown.git

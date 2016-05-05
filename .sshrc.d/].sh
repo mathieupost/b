@@ -1,6 +1,6 @@
 function ]gs() {
-  _]g "${HOME}/src/github.com/shopify" "$@"
-  cd "${HOME}/src/github.com/shopify/${project}"
+  _]g "${HOME}/src/github.com/Shopify" "$@"
+  cd "${HOME}/src/github.com/Shopify/${project}"
 }
 
 function ]gb() {
@@ -9,14 +9,14 @@ function ]gb() {
 }
 
 function ]hs() {
-  _]g "${HOME}/src/github.com/shopify" "$@"
-  open "https://github.com/shopify/${project}"
+  _]g "${HOME}/src/github.com/Shopify" "$@"
+  open "https://github.com/Shopify/${project}"
 }
 
 function ]hsn() {
   local id=$1;shift
-  _]g "${HOME}/src/github.com/shopify" "$@"
-  open "https://github.com/shopify/${project}/pull/${id}"
+  _]g "${HOME}/src/github.com/Shopify" "$@"
+  open "https://github.com/Shopify/${project}/pull/${id}"
 }
 
 function ]hbn() {
@@ -31,8 +31,8 @@ function ]hb() {
 }
 
 function ]hsp() {
-  _]g "${HOME}/src/github.com/shopify" "$@"
-  open "https://github.com/shopify/${project}/pulls"
+  _]g "${HOME}/src/github.com/Shopify" "$@"
+  open "https://github.com/Shopify/${project}/pulls"
 }
 
 function ]hbp() {
@@ -41,8 +41,8 @@ function ]hbp() {
 }
 
 function ]hsm() {
-  _]g "${HOME}/src/github.com/shopify" "$@"
-  open "https://github.com/shopify/${project}/pulls/burke"
+  _]g "${HOME}/src/github.com/Shopify" "$@"
+  open "https://github.com/Shopify/${project}/pulls/burke"
 }
 
 function ]hbm() {

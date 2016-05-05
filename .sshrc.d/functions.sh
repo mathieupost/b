@@ -4,10 +4,10 @@ vpncd() { osascript -e 'tell application "Viscosity" to disconnect "Chicago VPN"
 vpna()  { osascript -e 'tell application "Viscosity" to connect "Ashburn VPN"'; }
 vpnad() { osascript -e 'tell application "Viscosity" to disconnect "Ashburn VPN"'; }
 sgb()   { git branch --list | grep -v '^\*' | selecta | xargs git checkout; }
-gfrog() { gfro $(gb | g '*' | ap2); }
-gug()   { guo $(gb | g '*' | ap2); }
-gufg()  { gufo $(gb | g '*' | ap2); }
-gfd()   { git fetch origin $(gb | g '*' | ap2) && git reset --hard FETCH_HEAD; }
+gfrog() { gfro $(git branch | g '*' | ap2); }
+gug()   { guo $(git branch | g '*' | ap2); }
+gufg()  { gufo $(git branch | g '*' | ap2); }
+gfd()   { git fetch origin $(git branch | g '*' | ap2) && git reset --hard FETCH_HEAD; }
 ap()    { awk "{print \$$1}"; }
 def()   { ag "def $@"; }
 psag()  { ps aux | g $1 | gvg; }
@@ -36,7 +36,7 @@ gac() {
 }
 gcm() { git commit -m "$*"; }
 gh() { cd $(_gh "$@"); }
-ghs() { cd $(_gh shopify $1); }
+ghs() { cd $(_gh Shopify $1); }
 ghb() { cd $(_gh burke $1); }
 fdg() { find . | grep "$@"; }
 gfr() { git fetch "$@" && git reset --hard FETCH_HEAD; }
@@ -106,4 +106,96 @@ tnp() {
 
 s3putpublic() {
   s3cmd put --acl-public "$1" "s3://burkelibbey/$1"
+}
+
+dirty-repos() {
+  local pth color reset
+  if [[ -t 0 ]]; then
+    color="\x1b[31m"
+    reset="\x1b[0m"
+  fi
+  local IFS; IFS=$'\n'
+  while read gitdir; do
+    pth="${gitdir%/.git}"
+    dirty="$(repo-dirty "${pth}")"
+    if [[ -n "${dirty}" ]]; then
+      echo "${pth/#.\/}\t${color}${dirty}${reset}"
+    fi
+  done < <(find . -name .git -type d -maxdepth 2 -mindepth 2)
+}
+
+update-repos() {
+  local pth color reset ok
+  if [[ -t 0 ]]; then
+    color="\x1b[31m"
+    ok="\x1b[32m"
+    reset="\x1b[0m"
+  fi
+  local IFS; IFS=$'\n'
+  while read -r gitdir; do
+    pth="${gitdir%/.git}"
+    dirty="$(repo-dirty "${pth}")"
+    if [[ -n "${dirty}" ]]; then
+      echo -e "${pth/#.\/}\t${color}${dirty}${reset}"
+    else
+      (
+        if git -C "${pth}" pull origin "$(head-branch-of-repo "${pth}")" >/dev/null 2>&1; then
+          echo -e "${pth/#.\/}\t${ok}ok${reset}"
+        else
+          echo -e "${pth/#.\/}\t${color}failed${reset}"
+        fi
+      )
+    fi
+  done < <(find . -name .git -type d -maxdepth 2 -mindepth 2)
+}
+
+repo-dirty() {
+  local current_branch head_branch
+  local pth; pth=$1
+  local gitdir; gitdir="${pth}/.git"
+
+  if [[ ! -d "${gitdir}" ]]; then
+    return 1
+  fi
+
+  current_branch="$(awk -F/ '/ref: refs\/heads\// { print $3 }' < "${gitdir}/HEAD")"
+  if [[ -z "${current_branch}" ]]; then
+    echo "branch"
+  elif [[ "${current_branch}" != "master" ]]; then
+    head_branch="$(head-branch-of-repo "${pth}")"
+    if [[ "${current_branch}" != "${head_branch}" ]]; then
+      echo "branch"
+    fi
+  elif git -C "${pth}" status --porcelain | grep -q .; then
+    echo "dirty"
+  fi
+}
+
+
+head-branch-of-repo() {
+  local repo; repo=$1
+
+  local cachefile="${repo}/.git/head-branch"
+
+  if [[ ! -d "${repo}/.git" ]]; then
+    return 1
+  fi
+
+  if [[ -f "${cachefile}" ]]; then
+    cat "${cachefile}"
+    return 0
+  fi
+
+  git -C "${pth}" remote show origin \
+    | awk '/HEAD branch/ { print $3 }' \
+    > "${cachefile}"
+
+  cat "${cachefile}"
+}
+
+dev-projects() {
+  local line
+  while read -r line; do
+    echo "${line}" | awk -F/ '{print $(NF - 1)}'
+  done < <(find ~/src/github.com/Shopify -name dev.yml -maxdepth 2 -mindepth 2)
 }

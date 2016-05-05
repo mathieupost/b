@@ -23,7 +23,7 @@ window.animationDuration = 0
 
 appbindings.setup({"cmd", "ctrl"}, {
   [1] = "com.googlecode.iterm2",
-  [2] = "com.spotify.client",
+  [2] = "com.apple.iTunes",
   [3] = "com.google.Chrome",
   [4] = "com.tinyspeck.slackmacgap",
   [5] = nil,

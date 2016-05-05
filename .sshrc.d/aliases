@@ -65,7 +65,6 @@ gfrom    : gfro master
 gfro     : gfr origin
 gap      : git add -p
 gav      : git commit -av
-gb       : git branch
 gbl      : git branch -l
 gu       : git push
 gut      : git push --tags
