@@ -1,7 +1,6 @@
 # vim: foldmethod=marker
 
 # Prompt {{{
-#PROMPT='$(/Users/burke/bin/shell-prompt $? $KEYMAP)$(git-radar --zsh) '
 PROMPT='$(/Users/burke/bin/shell-prompt $? $KEYMAP)'
 setopt prompt_subst
 # }}}
@@ -124,15 +123,8 @@ AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=6'
 export GOPATH="${HOME}"
 export GOROOT_BOOTSTRAP="${HOME}/src/go1.4"
 
-# Ruby
-export GEM_HOME=$HOME/.gem
-export GEM_PATH=$HOME/.gem
-
 # Java
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-
-# Python
-export PYTHONPATH="/lib/python2.7/site-packages"
 
 # }}}
 # Vim mode {{{
@@ -194,6 +186,7 @@ zle-line-init() {
 }
 zle -N zle-line-init
 bindkey '^f' vi-forward-word
+bindkey '^b' vi-backward-word
 bindkey '^p' up-history
 bindkey '^n' down-history
 bindkey '^?' backward-delete-char
@@ -205,10 +198,5 @@ bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-export DOCKER_HOST=tcp://192.168.99.100:2376
-export DOCKER_MACHINE_NAME=default
-export DOCKER_TLS_VERIFY=1
-export DOCKER_CERT_PATH=/Users/burke/.docker/machine/machines/default
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
