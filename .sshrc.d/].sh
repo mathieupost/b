@@ -53,9 +53,8 @@ function ]hbm() {
 function _]g() {
   local dir=$1;shift
   if [[ $# -eq 0 ]]; then
-    cd "${dir}"
-    ls
+    ls "${dir}" | awk -F/ '{print $NF}'
     return
   fi
-  project="$(cd "${dir}" && find . -type d -maxdepth 1 -mindepth 1 | sed 's#./##' | matcher "$@" | head -1)"
+  project="$(find "${dir}" -type d -maxdepth 1 -mindepth 1 | awk -F/ '{print $NF}' | matcher "$@" | head -1)"
 }
