@@ -66,6 +66,7 @@ gfro     : gfr origin
 gap      : git add -p
 gav      : git commit -av
 gbl      : git branch -l
+gbd      : git branch -D
 gu       : git push
 gut      : git push --tags
 guo      : git push origin
@@ -158,6 +159,10 @@ t60      : t 60
 5d       : 5x pull
 5h       : 5x history
 5t       : 5x tag
+# }}}
+# {{{ dev
+dld      : dev load-dev
+dls      : dev load-system
 # }}}
 
 knife    : BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile bundle exec knife

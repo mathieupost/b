@@ -24,6 +24,8 @@ path_add /Users/burke/src/github.com/golang/go/bin
 path_add /Users/burke/bin
 path_add /Users/burke/bin/_git
 path_add /Users/burke/.gem/bin
+
+fpath=("/Users/burke/.zshrc.d/autocomplete" "$fpath[@]")
 # }}}
 # GPG Agent {{{
 gpg-agent --daemon >/dev/null 2>&1

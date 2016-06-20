@@ -199,3 +199,12 @@ dev-projects() {
     echo "${line}" | awk -F/ '{print $(NF - 1)}'
   done < <(find ~/src/github.com/Shopify -name dev.yml -maxdepth 2 -mindepth 2)
 }
+
+gy() {
+  local br; br=$1
+  if [[ -f "$(git rev-parse --show-toplevel)/.git/refs/heads/${br}" ]]; then
+    git checkout "${br}"
+  else
+    git checkout -b "${br}"
+  fi
+}
