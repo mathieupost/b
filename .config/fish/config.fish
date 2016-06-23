@@ -2,6 +2,29 @@
 
 set fish_greeting ""
 
+fish_vi_key_bindings
+
+function fish_mode_prompt --description "Displays the current mode"
+  # Do nothing if not in vi mode
+  if test "$fish_key_bindings" = "fish_vi_key_bindings"
+    switch $fish_bind_mode
+      case default
+        set_color magenta
+        echo '<'
+      case insert
+        set_color cyan
+        echo '>'
+      case replace-one
+        set_color --bold green
+        echo 'R'
+      case visual
+        set_color --bold red
+        echo 'V'
+    end
+    set_color normal
+    echo -n ' '
+  end
+end
 
 set normal (set_color normal)
 set magenta (set_color magenta)
@@ -28,7 +51,6 @@ set __fish_git_prompt_char_untrackedfiles '☡'
 set __fish_git_prompt_char_stashstate '↩'
 set __fish_git_prompt_char_upstream_ahead '+'
 set __fish_git_prompt_char_upstream_behind '-'
-
 
 function fish_prompt
   set last_status $status
@@ -78,8 +100,8 @@ function ls
 end
 
 # Go
-set -gx GOPATH="$HOME"
-set -gx GOROOT_BOOTSTRAP="$HOME/src/go1.4"
+set -gx GOPATH "$HOME"
+set -gx GOROOT_BOOTSTRAP "$HOME/src/go1.4"
 
 # Java
 set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)
