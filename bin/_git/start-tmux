@@ -1,6 +1,6 @@
 #!/bin/sh
 if test `uname -s` = "Darwin" ; then
-  reattach-to-user-namespace -l zsh
+  reattach-to-user-namespace -l fish
 else
-  zsh
+  fish
 fi
