@@ -10,10 +10,10 @@ function fish_mode_prompt --description "Displays the current mode"
     switch $fish_bind_mode
       case default
         set_color magenta
-        echo '<'
+        echo 'N'
       case insert
         set_color cyan
-        echo '>'
+        echo 'I'
       case replace-one
         set_color --bold green
         echo 'R'
