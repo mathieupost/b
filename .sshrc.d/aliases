@@ -167,7 +167,7 @@ dls      : dev load-system
 
 knife    : BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile bundle exec knife
 
-mutt     : kick-gpg-agent && mutt
+mutt     : kick-gpg-agent && command mutt
 less     : /usr/bin/less -FXRS
 tmux     : /usr/bin/env TERM=screen-256color-bce tmux
 tree     : tree -I 'Godep*'
