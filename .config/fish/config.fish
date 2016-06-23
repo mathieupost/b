@@ -89,7 +89,7 @@ function ap
 end
 
 function psag
-  ps aux | g $1 | gvg
+  ps aux | g "$argv" | gvg
 end
 
 function gac
@@ -200,62 +200,71 @@ end
 
 function ]gs
   _]g "$HOME/src/github.com/Shopify" $argv
-  cd "$HOME/src/github.com/Shopify/$project"
+  cd "$HOME/src/github.com/Shopify/$__g_project"
+  set -e __g_project
 end
 
 function ]gb
   _]g "$HOME/src/github.com/burke" $argv
-  cd "$HOME/src/github.com/burke/$project"
+  cd "$HOME/src/github.com/burke/$__g_project"
+  set -e __g_project
 end
 
 function ]hs
   _]g "$HOME/src/github.com/Shopify" $argv
-  open "https://github.com/Shopify/$project"
+  open "https://github.com/Shopify/$__g_project"
+  set -e __g_project
 end
 
-function ]hsn
-  local id=$1;shift
+function ]hsn --argument-names 'id'
   _]g "$HOME/src/github.com/Shopify" $argv
-  open "https://github.com/Shopify/$project/pull/$id"
+  open "https://github.com/Shopify/$__g_project/pull/$id"
+  set -e __g_project
 end
 
-function ]hbn
-  local id=$1;shift
+function ]hbn --argument-names 'id'
   _]g "$HOME/src/github.com/burke" $argv
-  open "https://github.com/burke/$project/pull/$id"
+  open "https://github.com/burke/$__g_project/pull/$id"
+  set -e __g_project
 end
 
 function ]hb
   _]g "$HOME/src/github.com/burke" $argv
-  open "https://github.com/burke/$project"
+  open "https://github.com/burke/$__g_project"
+  set -e __g_project
 end
 
 function ]hsp
   _]g "$HOME/src/github.com/Shopify" $argv
-  open "https://github.com/Shopify/$project/pulls"
+  open "https://github.com/Shopify/$__g_project/pulls"
+  set -e __g_project
 end
 
 function ]hbp
   _]g "$HOME/src/github.com/burke" $argv
-  open "https://github.com/burke/$project/pulls"
+  open "https://github.com/burke/$__g_project/pulls"
+  set -e __g_project
 end
 
 function ]hsm
   _]g "$HOME/src/github.com/Shopify" $argv
-  open "https://github.com/Shopify/$project/pulls/burke"
+  open "https://github.com/Shopify/$__g_project/pulls/burke"
+  set -e __g_project
 end
 
 function ]hbm
   _]g "$HOME/src/github.com/burke" $argv
-  open "https://github.com/burke/$project/pulls/burke"
+  open "https://github.com/burke/$__g_project/pulls/burke"
+  set -e __g_project
 end
 
 function _]g --argument-names 'dir'
+  set -e argv[1]
   if test (count $argv) -eq 0
     ls "$dir" | awk -F/ '{print $NF}'
     return
   end
-  set project (find "$dir" -type d -maxdepth 1 -mindepth 1 | awk -F/ '{print $NF}' | matcher $argv | head -1)
+  set -g __g_project (find "$dir" -type d -maxdepth 1 -mindepth 1 | awk -F/ '{print $NF}' | matcher $argv | head -1)
 end
 
 
