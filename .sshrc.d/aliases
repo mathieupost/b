@@ -188,3 +188,8 @@ chx      : chmod +x
 
 ctr      : ctags -R .
 gtr      : gotags -R . > tags
+
+vpnc     : osascript -e 'tell application "Viscosity" to connect "Chicago VPN"'
+vpncd    : osascript -e 'tell application "Viscosity" to disconnect "Chicago VPN"'
+vpna     : osascript -e 'tell application "Viscosity" to connect "Ashburn VPN"'
+vpnad    : osascript -e 'tell application "Viscosity" to disconnect "Ashburn VPN"'

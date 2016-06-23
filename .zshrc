@@ -41,12 +41,10 @@ eval $(cat ~/.sshrc.d/aliases \
   | grep -v '^#' \
   | grep -vE '^\s*$' \
   | sed 's/\$/\\$/' \
+  | sed 's/"/\\"/g' \
   | sed 's/^\([^ :]*\)[[:space:]]*:[[:space:]]*\(.*\)/alias \1="\2";/')
 source "${HOME}/.sshrc.d/functions.sh"
 source "${HOME}/.sshrc.d/].sh"
-
-bindkey -s 'ƒ' 'mutt\n' # Alt+f
-bindkey -s '∂' 'vim\n'  # Alt+d
 # }}}
 # gdircolors {{{
 eval $(gdircolors -b ~/.sshrc.d/LS_COLORS)
