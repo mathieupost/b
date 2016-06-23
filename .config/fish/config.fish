@@ -85,7 +85,7 @@ function gufg
 end
 
 function ap
-  awk "{print \$$1}"
+  awk "{print \$$argv[1]}"
 end
 
 function psag
