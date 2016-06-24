@@ -75,6 +75,19 @@ set -x PATH ~/bin $PATH
 set -x PATH ~/bin/_git $PATH
 set -x PATH ~/.gem/bin $PATH
 
+set -U FZF_TMUX 1
+
+function make_completion --argument-names alias command
+    echo "
+    function __alias_completion_$alias
+        set -l cmd (commandline -o)
+        set -e cmd[1]
+        complete -C\"$command \$cmd\"
+    end
+    " | .
+    complete -c $alias -a "(__alias_completion_$alias)"
+end
+
 gpg-agent --daemon >/dev/null 2>&1
 
 function kick-gpg-agent
@@ -229,13 +242,13 @@ function s3putpublic --argument-names 'file'
 end
 
 function gy --argument-names 'name'
-  if [[ -f "$(git rev-parse --show-toplevel)/.git/refs/heads/$name" ]]; then
+  if test -f (git rev-parse --show-toplevel)/.git/refs/heads/$name
     git checkout "$name"
   else
     git checkout -b "$name"
   end
 end
-
+make_completion gy 'git checkout'
 
 function ]gs
   _]g "$HOME/src/github.com/Shopify" $argv
@@ -305,7 +318,6 @@ function _]g --argument-names 'dir'
   end
   set -g __g_project (find "$dir" -type d -maxdepth 1 -mindepth 1 | awk -F/ '{print $NF}' | matcher $argv | head -1)
 end
-
 
 if test -f /opt/dev/dev.fish
   source /opt/dev/dev.fish
