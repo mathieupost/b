@@ -61,6 +61,23 @@ function fish_prompt
 
   printf '%s ' (__fish_git_prompt)
 
+  set -l jobs (count (jobs))
+  if test $jobs -ne 0
+    set_color white
+    printf '↩'
+    set_color white -o
+    printf '%d ' $jobs
+    set_color normal
+  end
+
+  if test $last_status -ne 0
+      set_color red
+      printf '✗'
+      set_color red -o
+      printf '%d ' $last_status
+      set_color normal
+  end
+
   set_color normal
 end
 

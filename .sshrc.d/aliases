@@ -193,3 +193,13 @@ vpnc     : osascript -e 'tell application "Viscosity" to connect "Chicago VPN"'
 vpncd    : osascript -e 'tell application "Viscosity" to disconnect "Chicago VPN"'
 vpna     : osascript -e 'tell application "Viscosity" to connect "Ashburn VPN"'
 vpnad    : osascript -e 'tell application "Viscosity" to disconnect "Ashburn VPN"'
+
+l1       : tree --dirsfirst -ChFL 1
+l2       : tree --dirsfirst -ChFL 2
+l3       : tree --dirsfirst -ChFL 3
+ll1      : tree --dirsfirst -ChFupDaL 1
+ll2      : tree --dirsfirst -ChFupDaL 2
+ll3      : tree --dirsfirst -ChFupDaL 3
+l        : l1
+ll       : ll1
+
