@@ -18,6 +18,7 @@ ghs() { cd $(_gh Shopify $1); }
 ghb() { cd $(_gh burke $1); }
 fdg() { find . | grep "$@"; }
 ggh() { open $(git remote show -n origin | grep "github.com:" | head -1 | awk '{print $3}' | sed 's/:/\//' | sed 's#git@#https://#' | sed 's/\.git$//'); }
+gfr() { git fetch "$@" && git reset --hard FETCH_HEAD; }
 ghg() { open "https://github.com/$1"; }
 ghgb() { ghg "burke/$1"; }
 ghgs() { ghg "Shopify/$1"; }

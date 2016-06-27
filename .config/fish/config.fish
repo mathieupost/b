@@ -141,6 +141,10 @@ function e
   eval $EDITOR $argv
 end
 
+function gfr
+  git fetch $argv; and git reset --hard FETCH_HEAD
+end
+
 function gfrog
   gfro (git branch | g '*' | ap2)
 end

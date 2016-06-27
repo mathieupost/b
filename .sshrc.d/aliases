@@ -75,7 +75,8 @@ gcaar    : git add -A .; git commit -a --reuse-message=HEAD --amend
 gcar     : git commit -a --reuse-message=HEAD --amend
 gco      : git checkout
 gcob     : git checkout -b
-gcom     : git checkout master
+gcom     : gco master
+gcomd    : gco master && gd
 gcp      : git cherry-pick
 gd       : git pull
 gdu      : git pull && git push
