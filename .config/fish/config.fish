@@ -86,11 +86,23 @@ set -x VISUAL $EDITOR
 set -x GIT_EDITOR $EDITOR
 set -x HOMEBREW_EDITOR $EDITOR
 
-set -x PATH /usr/local/bin $PATH
-set -x PATH ~/src/github.com/golang/go/bin $PATH
-set -x PATH ~/bin $PATH
-set -x PATH ~/bin/_git $PATH
-set -x PATH ~/.gem/bin $PATH
+function prepend_path --argument-names 'new'
+  set -l index 1
+  for entry in $PATH
+    if test $new = $entry
+      set -e PATH[$index]
+      break
+    end
+    set -l index (math $index + 1)
+  end
+  set -gx PATH $new $PATH 2>/dev/null
+end
+
+prepend_path /usr/local/bin
+prepend_path ~/src/github.com/golang/go/bin
+prepend_path ~/bin
+prepend_path ~/bin/_git
+prepend_path ~/.gem/bin
 
 set -U FZF_TMUX 1
 
