@@ -1,0 +1,1 @@
+/Users/burke/.config/fisherman/nvm/node.fish

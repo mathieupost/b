@@ -285,6 +285,8 @@ function gy --argument-names 'name'
 end
 make_completion gy 'git checkout'
 
+make_completion gbd 'git branch -D'
+
 function ]gs
   _]g "$HOME/src/github.com/Shopify" $argv
   cd "$HOME/src/github.com/Shopify/$__g_project"

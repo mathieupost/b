@@ -38,6 +38,10 @@ const (
 	Arrow0 = ""
 )
 
+func init() {
+	println("wtf")
+}
+
 var superscripts = []string{"⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹"}
 
 func bold(fg, bg int) string {
@@ -102,10 +106,12 @@ func main() {
 	if err != nil {
 		hn = "???"
 	}
+	println("a")
 
 	loadAvgs, err := loadAvg()
 	t2 := time.Now()
 
+	println("a")
 	home := os.Getenv("HOME")
 	pers, _ := ioutil.ReadDir(home + "/.mail/notify/p:INBOX/new")
 	shop, _ := ioutil.ReadDir(home + "/.mail/notify/s:INBOX/new")
@@ -116,6 +122,7 @@ func main() {
 	}
 	mails := fmt.Sprintf("%s %d:%d:%d", color, len(pers), len(shop), len(git))
 
+	println("a")
 	stat, err := os.Stat(home + "/.mutt/mbsync.log")
 	threshold := time.Now().Add(-3 * time.Minute)
 	if err != nil || stat.ModTime().Before(threshold) {
@@ -126,6 +133,7 @@ func main() {
 	batt := fmt.Sprintf("%d", C.percentage())
 	power := fmt.Sprintf("%0.1fW", float64(C.power())/1e6)
 
+	println("a")
 	u, s, _ := sampleCPU()
 
 	t4 := time.Now()
@@ -138,6 +146,7 @@ func main() {
 	if secs == -1 {
 		battRem = "⏳ "
 	}
+	println("a")
 
 	t5 := time.Now()
 	vpns := C.connected()
@@ -152,6 +161,7 @@ func main() {
 	vpnChunk := fmt.Sprintf("%sC%sA", chicagoColor, ashburnColor)
 	t6 := time.Now()
 
+	println("a")
 	fmt.Printf("%s",
 		nobold(otherBG, -1)+" "+
 			Arrow1+nobold(247, otherBG)+" "+
@@ -176,6 +186,7 @@ func main() {
 			" ")
 	t7 := time.Now()
 
+	println("a")
 	_ = t1
 	_ = t2
 	_ = t3

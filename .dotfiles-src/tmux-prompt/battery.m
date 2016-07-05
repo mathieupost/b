@@ -41,10 +41,6 @@ int percentage(void) {
   value = (CFNumberRef)CFDictionaryGetValue(dict, CFSTR(kIOPSCurrentCapacityKey));
   CFNumberGetValue(value, kCFNumberSInt32Type, &currentCapacity);
 
-  CFRelease(member);
-  CFRelease(arr);
-  CFRelease(info);
-
   return (int)(100 * ((double)currentCapacity / (double)maxCapacity));
 }
 
@@ -75,9 +71,6 @@ int power(void) {
 
   value = (CFNumberRef)CFDictionaryGetValue(info, CFSTR(kIOBatteryAmperageKey));
   CFNumberGetValue(value, kCFNumberSInt32Type, &current);
-
-  CFRelease(info);
-  CFRelease(battery_infos);
 
   return voltage * current;
 }
