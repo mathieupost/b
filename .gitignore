@@ -75,6 +75,15 @@
 /Library/LaunchAgents/*
 !/Library/LaunchAgents/me.libbey.burke.*.plist
 
+!/Library/Application Support
+/Library/Application Support/*
+!/Library/Application Support/Alfred 3
+/Library/Application Support/Alfred 3/*
+!/Library/Application Support/Alfred 3/Alfred.alfredpreferences
+/Library/Application Support/Alfred 3/Alfred.alfredpreferences/*
+!/Library/Application Support/Alfred 3/Alfred.alfredpreferences/workflows
+
+
 !/.tmux.conf
 
 !/.ctags
