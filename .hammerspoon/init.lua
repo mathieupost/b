@@ -37,8 +37,7 @@ local function setupSecondaryScreen()
   local s = "Color LCD"
   layout.apply({
     {"Slack",    nil, s, geometry.rect(0,    0,   0.65, 1),   nil, nil},
-    {"Messages", nil, s, geometry.rect(0.65, 0,   0.35, 0.5), nil, nil},
-    {"Adium",    nil, s, geometry.rect(0.65, 0.5, 0.35, 0.5), nil, nil},
+    {"Messages", nil, s, geometry.rect(0.65, 0,   0.35, 1), nil, nil},
   })
 end
 
