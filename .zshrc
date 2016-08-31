@@ -20,12 +20,13 @@ path_add() {
 }
 
 path_add /usr/local/bin
-path_add /Users/burke/src/github.com/golang/go/bin
-path_add /Users/burke/bin
-path_add /Users/burke/bin/_git
-path_add /Users/burke/.gem/bin
+path_add $HOME/src/github.com/golang/go/bin
+path_add $HOME/bin
+path_add $HOME/bin/_git
+path_add $HOME/.gem/bin
+path_add $HOME/.cargo/bin
 
-fpath=("/Users/burke/.zshrc.d/autocomplete" "$fpath[@]")
+fpath=("$HOME/.zshrc.d/autocomplete" "$fpath[@]")
 # }}}
 # GPG Agent {{{
 gpg-agent --daemon >/dev/null 2>&1
