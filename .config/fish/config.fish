@@ -101,7 +101,6 @@ function prepend_path --argument-names 'new'
 end
 
 prepend_path /usr/local/bin
-prepend_path ~/src/github.com/golang/go/bin
 prepend_path ~/bin
 prepend_path ~/bin/_git
 prepend_path ~/.gem/bin
