@@ -31,7 +31,7 @@ set mail_check = 2       # minimum time between scans
 set timeout    = 20      # idle time before scanning
 
 # Sidebar Patch --------------------------------------
-set sidebar_delim   = '  │'
+# set sidebar_delim   = '  │'
 set sidebar_visible = yes
 set sidebar_width   = 24
 color sidebar_new color221 color233
