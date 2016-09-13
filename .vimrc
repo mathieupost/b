@@ -69,6 +69,10 @@ function! s:setupWrapping()
   set textwidth=72
 endfunction
 
+" next/previous argument
+nmap ]i vIna<esc>`<
+nmap [i vIla<esc>`<
+
 " make uses real tabs
 au FileType make set noexpandtab
 
@@ -164,9 +168,6 @@ inoremap <C-k> <esc>kli
 
 nnoremap <C-0> :tn
 nnoremap <C-9> :tp
-
-nnoremap zz zz20<C-e>
-
 
 set encoding=utf-8
 set scrolloff=3

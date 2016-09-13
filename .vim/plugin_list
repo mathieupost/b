@@ -23,6 +23,7 @@ https://github.com/sjl/badwolf.git
 
 # Little Features ####################################
 git://github.com/tpope/vim-surround.git
+git://github.com/tpope/vim-repeat.git
 git://github.com/tpope/vim-commentary.git
 git://github.com/tsaleh/vim-align.git
 git://github.com/rking/ag.vim.git
