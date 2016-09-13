@@ -48,7 +48,7 @@ git://github.com/ervandew/supertab.git
 git://github.com/vim-scripts/ZoomWin.git
 git://github.com/tpope/vim-unimpaired.git
 git://github.com/tpope/vim-endwise.git
-git://github.com/scrooloose/syntastic.git
+https://github.com/neomake/neomake.git
 https://github.com/sjl/vitality.vim.git
 https://github.com/tomtom/tlib_vim.git
 https://github.com/MarcWeber/vim-addon-mw-utils.git

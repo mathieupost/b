@@ -113,9 +113,7 @@ nmap <C-Down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-" Enable syntastic syntax checking
-let g:syntastic_enable_signs=1
-"let g:syntastic_quiet_warnings=1
+autocmd! BufWritePost * Neomake
 
 " Turn off jslint errors by default
 let g:JSLintHighlightErrorLine = 0
@@ -316,9 +314,6 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 
 " let g:go_fmt_command = "goimports" " too slow :(
-
-let g:syntastic_sh_shellcheck_args = ' -x'
-
 
 "if quickscope gets annoying, https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
 
