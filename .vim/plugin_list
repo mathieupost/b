@@ -8,6 +8,7 @@ git://github.com/tpope/vim-markdown.git
 git://github.com/jneen/ragel.vim.git
 # Emmet is like zencoding for html expansion
 https://github.com/mattn/emmet-vim.git
+https://github.com/b4b4r07/vim-hcl.git
 https://github.com/Shougo/vimproc.vim.git
 https://github.com/evanmiller/nginx-vim-syntax.git
 https://github.com/xolox/vim-lua-ftplugin.git
