@@ -171,7 +171,7 @@ knife    : BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile bundle exec knife
 mutt     : kick-gpg-agent && command mutt
 less     : /usr/bin/less -FXRS
 tmux     : /usr/bin/env TERM=screen-256color-bce tmux
-tree     : command tree -I 'Godep*'
+tree     : command tree -I 'Godep*' -I 'node_modules*'
 
 xk9      : xargs kill -9
 ka9      : killall -9

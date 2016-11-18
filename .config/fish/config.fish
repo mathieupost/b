@@ -106,6 +106,7 @@ prepend_path ~/bin
 prepend_path ~/bin/_git
 prepend_path ~/.gem/bin
 prepend_path ~/.cargo/bin
+prepend_path ./node_modules/.bin
 
 set -U FZF_TMUX 1
 
