@@ -65,7 +65,6 @@ main() # no args
       run_mbsync -a --pull --new
       run_mbsync -a --push --delete
     fi
-    notmuch new
   )
 
   if [ $? -ne 0 ]; then

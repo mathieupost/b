@@ -2,12 +2,20 @@ local _M = {}
 
 function _M.hideShowHotkey(bundleID)
   return function()
-    local fw = hs.window.focusedWindow()
-    if fw and fw:application():bundleID() == bundleID then
-      fw:application():hide()
-    else
-      hs.application.launchOrFocusByBundleID(bundleID)
+    -- if the app is already focused, hide it
+    local focus = hs.window.focusedWindow()
+    if focus and focus:application():bundleID() == bundleID then
+      return focus:application():hide()
     end
+
+    -- if the app is running and has at least one window, just activate it
+    local running = hs.application.applicationsForBundleID(bundleID)
+    if #running > 0 and #running[1]:allWindows() > 0 then
+      return running[1]:activate()
+    end
+
+    -- launch the app if it's not already running or has no active windows
+    hs.application.launchOrFocusByBundleID(bundleID)
   end
 end
 

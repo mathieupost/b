@@ -2,7 +2,7 @@
 
 set fish_greeting ""
 
-fish_vi_key_bindings
+# fish_vi_key_bindings
 
 function fish_mode_prompt --description "Displays the current mode"
   # Do nothing if not in vi mode
@@ -150,7 +150,7 @@ set -gx GOPATH "$HOME"
 set -gx GOROOT_BOOTSTRAP "$HOME/src/go1.4"
 
 # Java
-set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)
+# set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)
 
 
 function e

@@ -57,8 +57,8 @@ mailboxes +p:INBOX   +s:INBOX \
           +notes \
           +todo \
           +p:drafts  +s:drafts \
-          +p:sent    +s:sent \
-          +temporary/search
+          +p:sent    +s:sent
+          # +temporary/search
           #+p:archive +s:archive \
 
 folder-hook =p: 'source ~/.mutt/libbey.me.muttrc'
@@ -158,8 +158,6 @@ bind compose \Cp pgp-menu
 
 bind compose p postpone-message
 bind index p recall-message
-
-macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.mail/temporary/search<enter><change-folder-readonly>+temporary/search<enter>" "search mail (using notmuch)"
 
 set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
 bind editor <Tab> complete-query

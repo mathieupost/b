@@ -4,7 +4,7 @@ Expunge Both
 IMAPStore personal-remote
 Host imap.gmail.com
 User burke@libbey.me
-PassCmd "sudo -u burke /usr/bin/security -v find-internet-password -g -a burke@libbey.me -s imap.gmail.com /Users/burke/Library/Keychains/login.keychain 2>&1 | grep '^password: ' | sed 's/.*\"\\(.*\\)\"/\\1/'"
+PassCmd "sudo -u burke /usr/bin/security -v find-generic-password -g -a burke@libbey.me -s imap.gmail.com /Users/burke/Library/Keychains/login.keychain 2>&1 | grep '^password: ' | sed 's/.*\"\\(.*\\)\"/\\1/'"
 SSLType IMAPS
 AuthMech LOGIN
 CertificateFile /Users/burke/.mutt/Equifax_Secure_CA.cert
@@ -71,7 +71,7 @@ Channel personal-archive
 IMAPStore shopify-remote
 Host imap.gmail.com
 User burke.libbey@shopify.com
-PassCmd "sudo -u burke /usr/bin/security -v find-internet-password -g -a burke.libbey@shopify.com -s imap.gmail.com /Users/burke/Library/Keychains/login.keychain 2>&1 | grep '^password: ' | sed 's/.*\"\\(.*\\)\"/\\1/'"
+PassCmd "sudo -u burke /usr/bin/security -v find-generic-password -g -a burke.libbey@shopify.com -s imap.gmail.com /Users/burke/Library/Keychains/login.keychain 2>&1 | grep '^password: ' | sed 's/.*\"\\(.*\\)\"/\\1/'"
 SSLType IMAPS
 AuthMech LOGIN
 CertificateFile /Users/burke/.mutt/Equifax_Secure_CA.cert

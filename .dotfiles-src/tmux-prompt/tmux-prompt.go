@@ -110,9 +110,9 @@ func main() {
 	t2 := time.Now()
 
 	home := os.Getenv("HOME")
-	pers, _ := ioutil.ReadDir(home + "/.mail/notify/p:INBOX/new")
-	shop, _ := ioutil.ReadDir(home + "/.mail/notify/s:INBOX/new")
-	git, _ := ioutil.ReadDir(home + "/.mail/notify/github/new")
+	pers, _ := ioutil.ReadDir(home + "/.mail/p:INBOX/new")
+	shop, _ := ioutil.ReadDir(home + "/.mail/s:INBOX/new")
+	git, _ := ioutil.ReadDir(home + "/.mail/github/new")
 	color := nobold(noMailFG, otherBG)
 	if len(pers) > 0 || len(shop) > 0 || len(git) > 0 {
 		color = nobold(1, otherBG)
