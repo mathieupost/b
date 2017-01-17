@@ -73,6 +73,9 @@ endfunction
 nmap ]i vIna<esc>`<
 nmap [i vIla<esc>`<
 
+let g:python2_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
 " make uses real tabs
 au FileType make set noexpandtab
 
@@ -293,9 +296,11 @@ let g:tagbar_type_go = {
 \ }
 
 set list listchars=tab:»·,trail:·
+
 augroup trailing
   au!
-  au InsertEnter * :set nolist listchars=
+  " au InsertEnter * :set nolist listchars=
+  au InsertEnter * :set list listchars=tab:»·
   au InsertLeave * :set list listchars=tab:»·,trail:·
 augroup END
 
