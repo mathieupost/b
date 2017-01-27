@@ -25,6 +25,12 @@ Slave ":personal-local:github"
 Create Both
 SyncState *
 
+Channel personal-pol
+Master ":personal-remote:pol"
+Slave ":personal-local:pol"
+Create Both
+SyncState *
+
 Channel personal-archive
 Master ":personal-remote:[Gmail]/All Mail"
 Slave ":personal-local:archive"
@@ -58,7 +64,7 @@ SyncState *
 Group personal
 Channel personal-trash
 Channel personal-inbox
-Channel personal-github
+Channel personal-pol
 Channel personal-drafts
 Channel personal-sent
 Channel personal-flagged
@@ -83,6 +89,12 @@ Inbox ~/.mail2/shopify/INBOX
 Channel shopify-inbox
 Master ":shopify-remote:INBOX"
 Slave ":shopify-local:INBOX"
+Create Both
+SyncState *
+
+Channel shopify-ruby-core
+Master ":shopify-remote:ruby-core"
+Slave ":shopify-local:ruby-core"
 Create Both
 SyncState *
 
@@ -119,6 +131,7 @@ SyncState *
 Group shopify
 Channel shopify-trash
 Channel shopify-inbox
+Channel shopify-ruby-core
 Channel shopify-drafts
 Channel shopify-sent
 Channel shopify-flagged

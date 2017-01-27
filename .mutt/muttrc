@@ -54,8 +54,9 @@ alternates burke@libbey.me burke@burkelibbey.org b.libbey@gmail.com burke.libbey
 # Mailboxes to show in the sidebar.
 mailboxes +p:INBOX   +s:INBOX \
           +github \
+          +pol \
+          +ruby-core \
           +notes \
-          +todo \
           +p:drafts  +s:drafts \
           +p:sent    +s:sent
           # +temporary/search
@@ -100,6 +101,13 @@ bind index,pager ¬  sidebar-open   # alt-l
 macro index,pager ¡ "˚˚˚˚˚˚˚˚˚¬"   # alt-1
 macro index,pager ™ "˚˚˚˚˚˚˚˚˚∆¬"  # alt-2
 macro index,pager £ "˚˚˚˚˚˚˚˚˚∆∆¬" # alt-3
+macro index,pager ¢ "˚˚˚˚˚˚˚˚˚∆∆∆¬" # alt-4
+macro index,pager ∞ "˚˚˚˚˚˚˚˚˚∆∆∆∆¬" # alt-5
+macro index,pager § "˚˚˚˚˚˚˚˚˚∆∆∆∆∆¬" # alt-6
+macro index,pager ¶ "˚˚˚˚˚˚˚˚˚∆∆∆∆∆∆¬" # alt-7
+macro index,pager • "˚˚˚˚˚˚˚˚˚∆∆∆∆∆∆∆¬" # alt-8
+macro index,pager ª "˚˚˚˚˚˚˚˚˚∆∆∆∆∆∆∆∆¬" # alt-9
+
 
 # Pager View Options ---------------------------------
 set pager_index_lines = 10 # number of index lines to show

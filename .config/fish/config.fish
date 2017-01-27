@@ -4,6 +4,8 @@ set fish_greeting ""
 
 # fish_vi_key_bindings
 
+set -x OPT_SHOW 1
+
 function fish_mode_prompt --description "Displays the current mode"
   # Do nothing if not in vi mode
   if test "$fish_key_bindings" = "fish_vi_key_bindings"
@@ -107,6 +109,7 @@ prepend_path ~/bin/_git
 prepend_path ~/.gem/bin
 prepend_path ~/.cargo/bin
 prepend_path ./node_modules/.bin
+prepend_path ~/src/google-cloud-sdk/bin
 
 set -U FZF_TMUX 1
 
