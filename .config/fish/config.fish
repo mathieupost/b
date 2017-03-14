@@ -4,7 +4,13 @@ set fish_greeting ""
 
 # fish_vi_key_bindings
 
+set -x DISABLE_SPRING 0
 set -x OPT_SHOW 1
+set -x OPT_ISEQ_CACHE 0
+set -x OPT_AOT_RUBY 1
+set -x OPT_AOT_YAML 1
+set -x OPT_PRE_BOOTSCALE 1
+set -x OPT_TOXIPROXY_CACHE 1
 
 function fish_mode_prompt --description "Displays the current mode"
   # Do nothing if not in vi mode

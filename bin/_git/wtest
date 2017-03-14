@@ -1,0 +1,5 @@
+#!/bin/bash
+
+while true; do
+  find . | grep -v /. | entr -dc /opt/dev/bin/dev test
+done
