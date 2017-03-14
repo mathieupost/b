@@ -6,5 +6,5 @@
 trap 'exit' INT
 
 while true; do
-  find . | grep -v /. | entr -dc /opt/dev/bin/dev test
+  find . | grep -v '/\.' | entr -dc /opt/dev/bin/dev test
 done
