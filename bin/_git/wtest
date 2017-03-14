@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Run in the root of a project directory. tests will run any time any dir/file
+# is modified.
+
 while true; do
   find . | grep -v /. | entr -dc /opt/dev/bin/dev test
 done
