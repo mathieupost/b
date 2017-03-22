@@ -21,9 +21,10 @@ window.animationDuration = 0
 --   print(window.focusedWindow():application():bundleID())
 -- end)
 
+-- [2] = "com.apple.iTunes",
 appbindings.setup({"cmd", "ctrl"}, {
   [1] = "com.googlecode.iterm2",
-  [2] = "com.apple.iTunes",
+  [2] = nil,
   [3] = "com.google.Chrome",
   [4] = "com.tinyspeck.slackmacgap",
   [5] = nil,
@@ -31,6 +32,64 @@ appbindings.setup({"cmd", "ctrl"}, {
   [7] = nil,
   [8] = nil,
 })
+
+hs.hotkey.bind({"cmd", "ctrl"}, "2", function()
+  local iTunesID = "com.apple.iTunes"
+  local focus = hs.window.focusedWindow()
+
+  local iTuneses = hs.application.applicationsForBundleID(iTunesID)
+  if #iTuneses == 0 then
+    return hs.application.launchOrFocusByBundleID(iTunesID)
+  end
+
+  local iTunes = iTuneses[1]
+  local iTunesWindows = iTunes:allWindows()
+  if #iTunesWindows ~= 0 and iTunesWindows[1]:title() == "MiniPlayer" then
+    iTunes:activate()
+    return iTunes:selectMenuItem({"Window", "Switch from MiniPlayer"})
+  end
+
+  if focus and focus:application():bundleID() == iTunesID then
+    return focus:application():hide()
+  end
+
+  iTunes:activate()
+end)
+
+hs.hotkey.bind({"cmd", "ctrl"}, "m", function()
+  local iTunesID = "com.apple.iTunes"
+  local focus = hs.window.focusedWindow():application()
+
+  local needReset = false
+
+  local iTuneses = hs.application.applicationsForBundleID(iTunesID)
+  if #iTuneses == 0 then
+    print("launching iTunes")
+    hs.application.launchOrFocusByBundleID(iTunesID)
+    needReset = true
+    iTuneses = hs.application.applicationsForBundleID(iTunesID)
+  end
+
+  local iTunes = iTuneses[1]
+  local iTunesWindows = iTunes:allWindows()
+  if #iTunesWindows == 0 or iTunesWindows[1]:title() ~= "MiniPlayer" then
+    print("activating miniplayer")
+    iTunes:activate()
+    needReset = true
+    iTunes:selectMenuItem({"Window", "Switch to MiniPlayer"})
+    focus:activate()
+  end
+
+  if needReset then
+    focus:activate()
+  else
+    if iTunes:isHidden() then
+      iTunes:unhide()
+    else
+      iTunes:hide()
+    end
+  end
+end)
 
 -- Secondary screen watcher / autolayout {{{
 local function setupSecondaryScreen()
@@ -63,11 +122,6 @@ end
 caffeine.start()
 
 leader.new({"cmd"}, "`"):bindall({
-  i = spotify.displayCurrentTrack,
-  h = spotify.previous,
-  l = spotify.next,
-  j = spotify.play,
-
   p = setupSecondaryScreen,
 
   r = reload,

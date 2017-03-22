@@ -110,12 +110,14 @@ end
 
 prepend_path /usr/local/bin
 prepend_path /usr/local/sbin
+prepend_path /usr/local/texlive/2016basic/bin/x86_64-darwin
 prepend_path ~/bin
 prepend_path ~/bin/_git
 prepend_path ~/.gem/bin
 prepend_path ~/.cargo/bin
 prepend_path ./node_modules/.bin
 prepend_path ~/src/google-cloud-sdk/bin
+
 
 set -U FZF_TMUX 1
 
