@@ -17,6 +17,9 @@ https://github.com/xolox/vim-misc.git
 # ES7 + Flow
 https://github.com/othree/yajs.vim
 https://github.com/othree/es.next.syntax.vim
+# Pandoc
+https://github.com/vim-pandoc/vim-pandoc
+https://github.com/vim-pandoc/vim-pandoc-syntax
 
 https://github.com/rust-lang/rust.vim.git
 

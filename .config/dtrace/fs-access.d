@@ -60,4 +60,3 @@ syscall::fgetxattr:entry       /pid == $target/ { printf("%s\t%s\n",     probefu
 syscall::fsetxattr:entry       /pid == $target/ { printf("%s\t%s\n",     probefunc, p[pid, arg0]                     ); }
 syscall::flistxattr:entry      /pid == $target/ { printf("%s\t%s\n",     probefunc, p[pid, arg0]                     ); }
 syscall::fremovexattr:entry    /pid == $target/ { printf("%s\t%s\n",     probefunc, p[pid, arg0]                     ); }
-

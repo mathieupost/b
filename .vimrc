@@ -102,6 +102,22 @@ au BufRead,BufNewFile *.txt call s:setupWrapping()
 " make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
+" Neovim takes a different approach to initializing the GUI. As It seems some
+" Syntax and FileType autocmds don't get run all for the first file specified
+" on the command line.  hack sidesteps that and makes sure we get a chance to
+" get started. See https://github.com/neovim/neovim/issues/2953
+if has('nvim')
+  autocmd VimEnter * doautoa Syntax,FileType
+endif
+
+augroup pandoc
+  au!
+  au FileType pandoc,markdown set textwidth=100 tabstop=8
+  au FileType pandoc,markdown let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
+  au Syntax pandoc,markdown syntax sync fromstart
+augroup END
+let g:pandoc#syntax#codeblocks#embeds#langs = ["c", "ruby", "bash=sh", "diff"]
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -135,6 +151,8 @@ set numberwidth=1
 
 nnoremap Q @q
 vnoremap . :norm.<cr>
+
+nnoremap <leader>s :syntax sync fromstart<CR>
 
 nmap <leader>j <leader>lb
 
@@ -329,3 +347,5 @@ let g:go_highlight_structs = 1
 "
 
 let g:rustfmt_autosave = 1
+
+
