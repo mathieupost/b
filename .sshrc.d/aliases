@@ -8,13 +8,6 @@ sdqs     : sudo dpkg-query -s
 sdql     : sudo dpkg-query -L
 sagi     : sudo apt-get install
 # }}}
-# Vagrant {{{
-vup      : vagrant up
-vhalt    : vagrant halt
-vdestroy : vagrant destroy -f
-vssh     : vagrant ssh
-vprov    : vagrant provision
-# }}}
 # u/uu/uuu/... {{{
 u        : cd ..
 uu       : cd ../..
@@ -39,19 +32,13 @@ bi       : bundle install
 bo       : bundle open
 bu       : bundle update
 bs       : bundle show
-x        : bundle exec
+bx       : bundle exec
 mu       : gem uninstall
-bid      : bundle install --without=development,test,debug,test,staging,stagingdb,production
 
 # }}}
 # Projects {{{
 shop     : ghs shopify
-rl       : ghs railgun
-rlc      : cd ~/src/github.com/shopify/railgun/src/cli
-rla      : cd ~/src/github.com/shopify/railgun/src/app
-rlo      : cd ~/src/github.com/shopify/railgun/src/os
-cook     : ghs cookbooks
-loc      : ghs locutus
+note     : ghb notes
 # }}}
 # Git {{{
 grbom    : gcom && gfrom && git reset --hard FETCH_HEAD && gco - && git rebase master
@@ -144,23 +131,6 @@ t40      : t 40
 t50      : t 50
 t60      : t 60
 # }}}
-# Docker {{{
-5x       : docker
-5m       : 5x images
-5p       : 5x ps
-5pq      : 5x ps -q
-5pa      : 5x ps -a
-5paq     : 5x ps -aq
-5i       : 5x inspect
-5rm      : 5x rm
-5rmi     : 5x rmi
-5r       : 5x run
-5b       : 5x build
-5u       : 5x push
-5d       : 5x pull
-5h       : 5x history
-5t       : 5x tag
-# }}}
 # {{{ dev
 dld      : dev load-dev
 dls      : dev load-system
@@ -183,17 +153,11 @@ ai       : ag -i
 aa       : ag -a
 aai      : ag -ai
 g        : grep
-L        : less
 l        : ls
 chx      : chmod +x
 
 ctr      : ctags -R .
 gtr      : gotags -R . > tags
-
-vpnc     : osascript -e 'tell application "Viscosity" to connect "Chicago VPN"'
-vpncd    : osascript -e 'tell application "Viscosity" to disconnect "Chicago VPN"'
-vpna     : osascript -e 'tell application "Viscosity" to connect "Ashburn VPN"'
-vpnad    : osascript -e 'tell application "Viscosity" to disconnect "Ashburn VPN"'
 
 l1       : tree --dirsfirst -ChFL 1
 l2       : tree --dirsfirst -ChFL 2
