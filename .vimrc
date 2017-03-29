@@ -116,7 +116,7 @@ augroup pandoc
   au FileType pandoc,markdown let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
   au Syntax pandoc,markdown syntax sync fromstart
 augroup END
-let g:pandoc#syntax#codeblocks#embeds#langs = ["c", "ruby", "bash=sh", "diff"]
+let g:pandoc#syntax#codeblocks#embeds#langs = ["c", "ruby", "bash=sh", "diff", "dot"]
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
