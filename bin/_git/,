@@ -6,7 +6,7 @@
 #
 # Syntax:
 #
-#   , [connection type] [dc selector] <space> <hostname search term> [args]
+#   , [connection type] <space> <hostname> [args]
 #
 #   connection type can be:
 #     * (blank): SSH to the host.
@@ -15,53 +15,27 @@
 #     * d: scp download
 #     * dr: recursive scp download
 #
-#   dc selector can be:
-#     * (blank): any DC
-#     * c: chicago
-#     * a: ashburn
-#
-#   The DC selector will be combined with the hostname search term and used as
-#   input to a fuzzy-find on all hostnames as returned by knife.
-#
-#   Hostnames are stored in the form `chi/jobs21`, `ash/borg0`, etc., and these
-#   are the strings matched against. `,c j21` fuzzy-finds for "chi/j21", which
-#   returns `chi/jobs21`, which is translated to `jobs21.chi.shopify.com`
-#   before connecting.
-#
 # Examples:
 #
-#   , s2p   :: connect to sb2-perf.chi.shopify.com
-#   ,c j21  :: connect to jobs21.chi.shopify.com
-#   ,a br0  :: connect to borg0.ash.shopify.com
-#   ,dc sb1 /etc/lsb-release :: download the file to the current directory
-#   ,ua bg0 ./borg-run :: upload borg-run to your home directory on `borg0.ash`.
-#   ,urc bg2 borg-baseimage '/usr/src' :: upload the borg-baseimage directory to `/usr/src` on `borg2.chi`.
+#   , bar.com   :: connect to web
+#   ,d foo.com /etc/lsb-release :: download the file to the current directory
+#   ,u bar.com file :: upload file to your home directory on `bar.com`.
+#   ,ur foo.com asdf '/usr/src' :: upload the asdf directory to `/usr/src` on `foo.com`.
 #
 # Installation
 #
 #   Save to `~/bin`
 #   cd to `~/bin`
-#   Run `,; ,g`
+#   Run `,`
 
 set -eo pipefail
 
-export BUNDLE_GEMFILE=/Users/burke/.chef/Gemfile
-
-commands=(_ _g _d _dr _u _ur _k)
+commands=(_ _d _dr _u _ur)
 cmd_func_=ssh-connect
-cmd_func_g=generate-dc-manifest
 cmd_func_d=scp-download
 cmd_func_dr=scp-download-recursive
 cmd_func_u=scp-upload
 cmd_func_ur=scp-upload-recursive
-cmd_func_k=knife-edit
-
-locations=(_ _c _a _e _2)
-loc_path_=
-loc_path_c=chi/
-loc_path_a=ash/
-loc_path_e=ec2/
-loc_path_2=chi2/
 
 aget() {
   local array=$1 index=$2
@@ -73,43 +47,26 @@ command_get() {
   aget "cmd_func" $1
 }
 
-location_get() {
-  aget "loc_path" $1
-}
-
-generate-dc-manifest() {
-  /usr/bin/ruby -ne 'puts $_.chomp.sub(/\.shopify\.com$/,"").split(?.).reverse*?/' \
-    <(bundle exec knife node list) \
-    > ~/.machines
-}
-
-set_machine() {
-  machine=$(resolve_machine "$1")
-  echo -e "\033[30mmachine: ${machine}\033[0m"
-}
-
 ssh-connect() {
-  set_machine $1;shift
+  machine=$1;shift
   sshrc "${machine}" "$@"
 }
 
 scp-download() {
-  set_machine $1;shift
+  machine=$1;shift
 
   remote=$1;shift
   _local="$@"
   if [[ -z "${_local}" ]]; then
     _local="."
   fi
-  echo -e "\033[30mremote:  ${remote}\033[0m"
-  echo -e "\033[30mlocal:   ${_local}\033[0m"
 
   scp ${scp_opts} "${machine}:${remote}" "${_local}"
 }
 
 
 scp-upload() {
-  set_machine $1;shift
+  machine=$1;shift
 
   if [[ "$#" == "1" ]]; then
     _local=$1
@@ -120,8 +77,6 @@ scp-upload() {
     unset arr[${#arr[@]}-1]
     _local="${arr[@]}"
   fi
-  echo -e "\033[30mlocal:   ${_local}\033[0m"
-  echo -e "\033[30mremote:  ${remote}\033[0m"
 
   scp ${scp_opts} "${_local}" "${machine}:${remote}"
 }
@@ -136,19 +91,12 @@ scp-upload-recursive() {
   scp-upload "$@"
 }
 
-knife-edit() {
-  set_machine $1;shift
-  bundle exec knife node edit "${machine}"
-}
-
 create_links() {
   local dir=$(dirname $0)
   (
     set +e
     for cmd in ${commands[@]}; do
-      for loc in ${locations[@]}; do
-        ln -s "${dir}/," "${dir}/,${cmd#?}${loc#?}"
-      done
+      ln -s "${dir}/," "${dir}/,${cmd#?}"
     done
   ) 2>/dev/null || true
 }
@@ -156,22 +104,15 @@ create_links() {
 main() {
   create_links
 
-  local path="$(basename $0)"  # e.g.:  ,drc
-  local cmd="${path: 1}"       # e.g.:  drc
-  local last_char="${cmd: -1}" # e.g.:  c
-
-  search_base="$(location_get ${last_char})"
-  if [[ -n "${search_base}" ]]; then
-    local cmd="${cmd%?}"       # e.g.: dr
-  fi
+  local path="$(basename $0)"  # e.g.:  ,dr
+  local cmd="${path: 1}"       # e.g.:  dr
 
   cmd_func="$(command_get ${cmd})"
-  echo -e "\033[30mcommand: ${cmd_func}\033[0m"
   if [[ -z "${cmd_func}" ]] ; then
-    echo "Invalid command ${cmd}"
+    echo "Invalid command ${cmd}" >&2
     exit 1
   fi
 
-  ${cmd_func} "${search_base}$@"
+  ${cmd_func} "$@"
 }
 main "$@"
