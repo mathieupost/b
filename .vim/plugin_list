@@ -26,8 +26,6 @@ ervandew/supertab               # smart completions
 
 # Buffer / Pane / File Management ####################
 tpope/vim-vinegar # open netrw with -, other things
-kien/ctrlp.vim    # fuzzy finder
-nixprime/cpsm     # faster fuzzy matcher
 junegunn/fzf.vim  # all the things
 
 # Panes / Larger features ############################
