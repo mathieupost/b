@@ -268,6 +268,8 @@ if has("persistent_undo")
   set undofile
 endif
 
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+
 set printfont=PragmataPro:h12
 
 let g:airline_powerline_fonts = 1

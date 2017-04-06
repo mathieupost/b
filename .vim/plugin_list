@@ -1,68 +1,45 @@
 # Syntax #############################################
-git://github.com/fatih/vim-go.git
-git://github.com/dag/vim-fish.git
-git://github.com/cespare/vim-toml.git
-git://github.com/derekwyatt/vim-scala.git
-git://github.com/tpope/vim-markdown.git
-git://github.com/jneen/ragel.vim.git
-# Emmet is like zencoding for html expansion
-https://github.com/mattn/emmet-vim.git
-https://github.com/b4b4r07/vim-hcl.git
-https://github.com/Shougo/vimproc.vim.git
-https://github.com/evanmiller/nginx-vim-syntax.git
-https://github.com/xolox/vim-lua-ftplugin.git
-https://github.com/spwhitt/vim-nix.git
-https://github.com/vim-scripts/bash-support.vim.git
-https://github.com/xolox/vim-misc.git
-https://github.com/djpohly/vim-gvpr
-# ES7 + Flow
-https://github.com/othree/yajs.vim
-https://github.com/othree/es.next.syntax.vim
-# Pandoc
-https://github.com/vim-pandoc/vim-pandoc
-https://github.com/vim-pandoc/vim-pandoc-syntax
-
-https://github.com/rust-lang/rust.vim.git
+fatih/vim-go                 # go
+dag/vim-fish                 # fish
+cespare/vim-toml             # toml
+derekwyatt/vim-scala         # scala
+tpope/vim-markdown           # markdown
+jneen/ragel.vim              # ragel
+evanmiller/nginx-vim-syntax  # nginx
+djpohly/vim-gvpr             # gvpr
+rust-lang/rust.vim           # rust
+vim-pandoc/vim-pandoc        # pandoc (1/2)
+vim-pandoc/vim-pandoc-syntax # pandoc (2/2)
+othree/yajs.vim              # JS syntax
+othree/es.next.syntax.vim    # ES7 syntax
 
 # Presentation #######################################
-git://github.com/bling/vim-airline.git
-https://github.com/sjl/badwolf.git
+bling/vim-airline # status line
+sjl/badwolf       # colorscheme
+morhetz/gruvbox   # colorscheme
 
-# Little Features ####################################
-git://github.com/tpope/vim-surround.git
-git://github.com/tpope/vim-repeat.git
-git://github.com/tpope/vim-commentary.git
-git://github.com/tsaleh/vim-align.git
-git://github.com/rking/ag.vim.git
-git://github.com/vim-scripts/ReplaceWithRegister.git
+# Editor Features ####################################
+tpope/vim-surround              # cs"'
+tpope/vim-repeat                # cs"'...
+tpope/vim-commentary            # gcap
+michaeljsmith/vim-indent-object # >aI
+tsaleh/vim-align                # :Align #
+tpope/vim-eunuch                # :Rename foo.rb
+rking/ag.vim                    # :Ag foo
+tpope/vim-endwise               # add end, } after opening block
+ervandew/supertab               # smart completions
 
-# Panes / etc. #######################################
-git://github.com/kien/ctrlp.vim.git
-git://github.com/nixprime/cpsm.git
-git://github.com/vim-scripts/taglist.vim.git
-git://github.com/majutsushi/tagbar.git
-https://github.com/scrooloose/nerdtree.git
+# Buffer / Pane / File Management ####################
+tpope/vim-vinegar # open netrw with -, other things
+kien/ctrlp.vim    # fuzzy finder
+nixprime/cpsm     # faster fuzzy matcher
 
-# More text objects
-git://github.com/wellle/targets.vim.git
+# Panes / Larger features ############################
+majutsushi/tagbar  # <leader>5
+tpope/vim-fugitive # Gblame
 
-# git
-git://github.com/tpope/vim-fugitive.git
-
-git://github.com/michaeljsmith/vim-indent-object.git
-
-git://github.com/ervandew/supertab.git
-git://github.com/vim-scripts/ZoomWin.git
-git://github.com/tpope/vim-unimpaired.git
-git://github.com/tpope/vim-endwise.git
-https://github.com/neomake/neomake.git
-https://github.com/sjl/vitality.vim.git
-https://github.com/tomtom/tlib_vim.git
-https://github.com/MarcWeber/vim-addon-mw-utils.git
-https://github.com/garbas/vim-snipmate.git
-https://github.com/honza/vim-snippets.git
-
-https://github.com/tpope/vim-speeddating.git
-
-https://github.com/morhetz/gruvbox.git
-https://github.com/chazy/cscope_maps.git
+# learn or remove
+vim-scripts/ReplaceWithRegister
+tpope/vim-unimpaired
+chazy/cscope_maps
+wellle/targets.vim
