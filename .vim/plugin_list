@@ -2,7 +2,6 @@
 fatih/vim-go                 # go
 dag/vim-fish                 # fish
 cespare/vim-toml             # toml
-tpope/vim-markdown           # markdown
 evanmiller/nginx-vim-syntax  # nginx
 djpohly/vim-gvpr             # gvpr
 rust-lang/rust.vim           # rust
