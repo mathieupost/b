@@ -313,6 +313,21 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 \ }
 
+if executable('ripper-tags')
+    let g:tagbar_type_ruby = {
+                \ 'kinds' : [
+                    \ 'm:modules',
+                    \ 'c:classes',
+                    \ 'f:methods',
+                    \ 'F:singleton methods',
+                    \ 'C:constants',
+                    \ 'a:aliases'
+                \ ],
+                \ 'ctagsbin':  'ripper-tags',
+                \ 'ctagsargs': ['-f', '-']
+                \ }
+endif
+
 set list listchars=tab:»·,trail:·
 
 augroup trailing
