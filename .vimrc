@@ -1,3 +1,5 @@
+" vim: set foldmethod=marker:
+
 set shell=/bin/sh
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -124,7 +126,6 @@ vnoremap . :norm.<cr>
 " remove trailing space from file
 nnoremap <leader>s :%s/ \+$//ge<cr>:noh<cr>
 nnoremap <leader>s :syntax sync fromstart<CR>
-nnoremap <leader>j <leader>lb
 nnoremap <leader>p Pjddkyy
 
 noremap  <C-\> :tnext<CR>
@@ -194,6 +195,18 @@ nnoremap <leader>m :make<CR>:copen<CR>
 
 nnoremap T ddO
 
+" {{{ FZF
+set rtp+=/usr/local/opt/fzf
+
+nnoremap <leader>j :Buffers<cr>
+nnoremap <leader><C-p> :Files<cr>
+nnoremap <leader><C-s> :GFiles?<cr>
+nnoremap <C-p> :GFiles<cr>
+nnoremap <leader>t :Tags<cr>
+nnoremap <leader>T :BTags<cr>
+" Also useful: :Ag, :Marks, :History, :History/, :Commits, :BCommits
+" }}}
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -237,10 +250,6 @@ if has("persistent_undo")
   set undofile
 endif
 
-"let g:ctrlp_max_height = 10
-let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard']
-let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
 set printfont=PragmataPro:h12
@@ -249,9 +258,12 @@ let g:airline_powerline_fonts = 1
 
 set rtp+=/Users/burke/src/github.com/golang/lint/misc/vim
 
+" {{{ supertab configuration
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabClosePreviewOnPopupClose = 1
+" }}}
 
+" {{{ tagbar configuration
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -294,6 +306,7 @@ if executable('ripper-tags')
                 \ 'ctagsargs': ['-f', '-']
                 \ }
 endif
+" }}}
 
 set list listchars=tab:»·,trail:·
 

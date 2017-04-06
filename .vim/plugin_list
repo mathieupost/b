@@ -25,7 +25,6 @@ tpope/vim-commentary            # gcap
 michaeljsmith/vim-indent-object # >aI
 tsaleh/vim-align                # :Align #
 tpope/vim-eunuch                # :Rename foo.rb
-rking/ag.vim                    # :Ag foo
 tpope/vim-endwise               # add end, } after opening block
 ervandew/supertab               # smart completions
 
@@ -33,7 +32,7 @@ ervandew/supertab               # smart completions
 tpope/vim-vinegar # open netrw with -, other things
 kien/ctrlp.vim    # fuzzy finder
 nixprime/cpsm     # faster fuzzy matcher
-sjbach/lusty      # <leader>j
+junegunn/fzf.vim
 
 # Panes / Larger features ############################
 majutsushi/tagbar  # <leader>5
