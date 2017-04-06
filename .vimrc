@@ -204,7 +204,12 @@ nnoremap <leader><C-s> :GFiles?<cr>
 nnoremap <C-p> :GFiles<cr>
 nnoremap <leader>t :Tags<cr>
 nnoremap <leader>T :BTags<cr>
+
 " Also useful: :Ag, :Marks, :History, :History/, :Commits, :BCommits
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 " }}}
 
 " allow backspacing over everything in insert mode
