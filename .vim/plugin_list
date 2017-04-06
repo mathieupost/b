@@ -33,6 +33,7 @@ ervandew/supertab               # smart completions
 tpope/vim-vinegar # open netrw with -, other things
 kien/ctrlp.vim    # fuzzy finder
 nixprime/cpsm     # faster fuzzy matcher
+sjbach/lusty      # <leader>j
 
 # Panes / Larger features ############################
 majutsushi/tagbar  # <leader>5

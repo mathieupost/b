@@ -5,9 +5,6 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let mapleader=" "
 let maplocalleader="\\"
 
-nnoremap ; :
-nnoremap <A-;> ;
-
 " Speed things up.
 set nocompatible
 
@@ -41,10 +38,6 @@ set incsearch
 set ignorecase
 set smartcase
 
-inoremap <f1> <esc>
-nnoremap <f1> <esc>
-cnoremap <f1> <esc>
-
 " Tab completion
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*,*/tmp/*,*.so,*.swp,*.zip
@@ -54,60 +47,56 @@ set backupdir=~/.vim/backup
 set directory=~/.vim/backup
 
 " Remember last location in file
-if has("autocmd")
+augroup remember_last_location
+  au!
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-    \| exe "normal g'\"" | endif
-endif
-
-" Inserts the path of the currently edited file into a command
-" Command mode: Ctrl+P
-cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
+        \| exe "normal g'\"" | endif
+augroup END
 
 function! s:setupWrapping()
   set wrap
   set wrapmargin=2
-  set textwidth=72
+  set textwidth=80
 endfunction
-
-" next/previous argument
-nmap ]i vIna<esc>`<
-nmap [i vIla<esc>`<
 
 let g:python_host_prog = '/usr/local/bin/python2'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
-" make uses real tabs
-au FileType make set noexpandtab
+augroup makefile
+  au!
+  au FileType make set noexpandtab
+augroup END
 
-" au FileType go autocmd BufWritePre <buffer> silent Fmt
+augroup golang
+  au!
+  au BufNewFile,BufRead *.go set nolist
+  au Filetype go set makeprg=go\ build\ ./...
+augroup END
 
-"au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
-" au BufWritePost *.go silent! !sh -c "find . -name '*.go' | xargs gofmt 2>&1 >/dev/null"&
+augroup mode_extras
+  au!
+  au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,config.ru} set ft=ruby
+  au BufRead,BufNewFile *.lua  set ft=lua
+  au BufRead,BufNewFile *.ronn set ft=markdown
+  au BufNewFile,BufRead *.json set ft=javascript
+augroup END
 
-" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
-au BufRead,BufNewFile {*.lua}    set ft=lua
-au BufRead,BufNewFile {*.ronn}   set ft=markdown
-
-au BufRead,BufNewFile */ruby/ruby/*.{c,h}    set sw=4 ts=8 softtabstop=8 noet
-
-" Fish is close enough to sh that it's not so bad to just reuse that syntax.
-au BufRead,BufNewFile {*.fish}    set ft=sh
-
-" add json syntax highlighting
-au BufNewFile,BufRead *.json set ft=javascript
-
-au BufRead,BufNewFile *.txt call s:setupWrapping()
-
-" make Python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+augroup misc_indentation_and_wrapping
+  au!
+  au BufRead,BufNewFile {*.txt,*.md} call s:setupWrapping()
+  au FileType python set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+  au BufRead,BufNewFile */ruby/ruby/*.{c,h}    set sw=4 ts=8 softtabstop=8 noet
+augroup END
 
 " Neovim takes a different approach to initializing the GUI. As It seems some
 " Syntax and FileType autocmds don't get run all for the first file specified
 " on the command line.  hack sidesteps that and makes sure we get a chance to
 " get started. See https://github.com/neovim/neovim/issues/2953
 if has('nvim')
-  autocmd VimEnter * doautoa Syntax,FileType
+  augroup nvim
+    au!
+    au VimEnter * doautoa Syntax,FileType
+  augroup END
 endif
 
 augroup pandoc
@@ -118,64 +107,27 @@ augroup pandoc
 augroup END
 let g:pandoc#syntax#codeblocks#embeds#langs = ["c", "ruby", "bash=sh", "diff", "dot"]
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on
-
-" Unimpaired configuration
-" Bubble single lines
-nmap <C-Up> [e
-nmap <C-Down> ]e
-" Bubble multiple lines
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
-
-autocmd! BufWritePost * Neomake
-
-" Turn off jslint errors by default
-let g:JSLintHighlightErrorLine = 0
-
-" MacVIM shift+arrow-keys behavior (required in .vimrc)
-let macvim_hig_shift_movement = 1
 
 " % to bounce from do to end etc.
 runtime! macros/matchit.vim
 
-nnoremap <leader>s :%s/ \+$//ge<cr>:noh<cr>
-
-set rnu
-set nu
-set numberwidth=1
+nnoremap ; :
+nnoremap <A-;> ;
+inoremap <f1> <esc>
+nnoremap <f1> <esc>
+cnoremap <f1> <esc>
 
 nnoremap Q @q
 vnoremap . :norm.<cr>
-
+" remove trailing space from file
+nnoremap <leader>s :%s/ \+$//ge<cr>:noh<cr>
 nnoremap <leader>s :syntax sync fromstart<CR>
-
-nmap <leader>j <leader>lb
-
+nnoremap <leader>j <leader>lb
 nnoremap <leader>p Pjddkyy
 
-au BufNewFile,BufRead *.handlebars set filetype=mustache
-
-au BufNewFile,BufRead *.go set nolist
-
-set notimeout
-set ttimeout
-set timeoutlen=50
-
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-
-map <C-\> :tnext<CR>
-
-" more info on getting true colour working here: https://github.com/morhetz/gruvbox
-colorscheme gruvbox
-set bg=dark
+noremap  <C-\> :tnext<CR>
 
 nnoremap <leader>8 Orequire'debugger';debugger<esc>
 nnoremap <leader>9 Orequire'pry';binding.pry<esc>
@@ -188,20 +140,6 @@ inoremap <C-k> <esc>kli
 nnoremap <C-0> :tn
 nnoremap <C-9> :tp
 
-set scrolloff=3
-set autoindent
-set autoread
-set showmode
-set showcmd
-set hidden
-set wildmenu
-set wildmode=list:longest
-set visualbell
-set nocursorline
-set ruler
-set backspace=indent,eol,start
-set laststatus=2
-
 nnoremap <leader><space> :noh<cr>
 
 cnoremap w!! %!sudo tee > /dev/null %
@@ -213,11 +151,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-" tnoremap <C-h> <C-\><C-n><C-w>h
-" tnoremap <C-j> <C-\><C-n><C-w>j
-" tnoremap <C-k> <C-\><C-n><C-w>k
-" tnoremap <C-l> <C-\><C-n><C-w>l
 
 " THANKS NEOVIM
 nnoremap <bs> <C-w>h
@@ -244,10 +177,6 @@ vnoremap ˚ :m-2<CR>gv=gv
 noremap H ^
 noremap L $
 
-"let g:ctrlp_max_height = 10
-let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard']
-let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-
 nnoremap <leader>sv :source ~/.vimrc<cr>
 nnoremap <leader>ev :edit ~/.vimrc<cr>
 
@@ -259,6 +188,46 @@ inoremap kj <esc>
 cnoremap kj <esc>
 vnoremap kj <esc>
 
+nnoremap <leader>5 :TagbarToggle<cr>
+
+nnoremap <leader>m :make<CR>:copen<CR>
+
+nnoremap T ddO
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+set rnu
+set nu
+set numberwidth=1
+
+set notimeout
+set ttimeout
+set timeoutlen=50
+
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+
+" more info on getting true colour working here: https://github.com/morhetz/gruvbox
+colorscheme gruvbox
+set bg=dark
+
+set scrolloff=3
+set autoindent
+set autoread
+set showmode
+set showcmd
+set hidden
+set wildmenu
+set wildmode=list:longest
+set visualbell
+set nocursorline
+set ruler
+set backspace=indent,eol,start
+set laststatus=2
+
 if has("mouse")
   set mouse=a
 endif
@@ -268,21 +237,17 @@ if has("persistent_undo")
   set undofile
 endif
 
+"let g:ctrlp_max_height = 10
+let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard']
+let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
+
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
 set printfont=PragmataPro:h12
 
 let g:airline_powerline_fonts = 1
 
-nmap <leader>4 :NERDTreeToggle<cr>
-nmap <leader>5 :TagbarToggle<cr>
-
-au Filetype go set makeprg=go\ build\ ./...
-nmap <leader>m :make<CR>:copen<CR>
-
 set rtp+=/Users/burke/src/github.com/golang/lint/misc/vim
-
-nmap T ddO
 
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabClosePreviewOnPopupClose = 1
@@ -332,37 +297,8 @@ endif
 
 set list listchars=tab:»·,trail:·
 
-augroup trailing
-  au!
-  " au InsertEnter * :set nolist listchars=
-  au InsertEnter * :set list listchars=tab:»·
-  au InsertLeave * :set list listchars=tab:»·,trail:·
-augroup END
-
-au FileType go nmap <Leader>s <Plug>(go-implements)
-au FileType go nmap <Leader>i <Plug>(go-info)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
-au FileType go nmap <leader>c <Plug>(go-coverage)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-au FileType go nmap <Leader>e <Plug>(go-rename)
-
-" let g:go_fmt_command = "goimports" " too slow :(
-
-"if quickscope gets annoying, https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
-
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
-"let g:go_auto_type_info = 1
-"
 
 let g:rustfmt_autosave = 1
-
-
