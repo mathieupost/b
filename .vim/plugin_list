@@ -1,19 +1,19 @@
 # Syntax / Language Support ##########################
-fatih/vim-go                 # go
-dag/vim-fish                 # fish
-cespare/vim-toml             # toml
-evanmiller/nginx-vim-syntax  # nginx
-djpohly/vim-gvpr             # gvpr
-rust-lang/rust.vim           # rust
-vim-pandoc/vim-pandoc        # pandoc (1/2)
-vim-pandoc/vim-pandoc-syntax # pandoc (2/2)
-othree/yajs.vim              # JS syntax
-othree/es.next.syntax.vim    # ES7 syntax
+fatih/vim-go                    # go
+dag/vim-fish                    # fish
+cespare/vim-toml                # toml
+evanmiller/nginx-vim-syntax     # nginx
+djpohly/vim-gvpr                # gvpr
+rust-lang/rust.vim              # rust
+vim-pandoc/vim-pandoc           # pandoc (1/2)
+vim-pandoc/vim-pandoc-syntax    # pandoc (2/2)
+othree/yajs.vim                 # JS syntax
+othree/es.next.syntax.vim       # ES7 syntax
 
 # UI #################################################
-bling/vim-airline      # status line
-morhetz/gruvbox        # colorscheme
-airblade/vim-gitgutter # status in gutter
+bling/vim-airline               # status line
+morhetz/gruvbox                 # colorscheme
+airblade/vim-gitgutter          # status in gutter
 
 # Editor Features ####################################
 tpope/vim-surround              # cs"'
@@ -26,12 +26,12 @@ tpope/vim-endwise               # add end, } after opening block
 ervandew/supertab               # smart completions
 
 # Buffer / Pane / File Management ####################
-tpope/vim-vinegar # open netrw with -, other things
-junegunn/fzf.vim  # all the things
+tpope/vim-vinegar               # open netrw with -, other things
+junegunn/fzf.vim                # all the things
 
 # Panes / Larger features ############################
-majutsushi/tagbar  # <leader>5
-tpope/vim-fugitive # Gblame
+majutsushi/tagbar               # <leader>5
+tpope/vim-fugitive              # Gblame
 
 # I Don't use these but maybe I should? ##############
 vim-scripts/ReplaceWithRegister
