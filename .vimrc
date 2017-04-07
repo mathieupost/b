@@ -199,6 +199,9 @@ nnoremap <leader>m :make<CR>:copen<CR>
 
 nnoremap T ddO
 
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 " {{{ FZF
 set rtp+=/usr/local/opt/fzf
 

@@ -20,7 +20,7 @@ tpope/vim-surround              # cs"'
 tpope/vim-repeat                # cs"'...
 tpope/vim-commentary            # gcap
 michaeljsmith/vim-indent-object # >aI
-tsaleh/vim-align                # :Align #
+junegunn/vim-easy-align         # vipga
 tpope/vim-eunuch                # :Rename foo.rb
 tpope/vim-endwise               # add end, } after opening block
 ervandew/supertab               # smart completions
