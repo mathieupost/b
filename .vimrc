@@ -189,7 +189,11 @@ inoremap kj <esc>
 cnoremap kj <esc>
 vnoremap kj <esc>
 
+nnoremap <leader>5 :GitGutterToggle<cr>
 nnoremap <leader>5 :TagbarToggle<cr>
+
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
 
 nnoremap <leader>m :make<CR>:copen<CR>
 
