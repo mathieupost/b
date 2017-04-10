@@ -4,8 +4,6 @@
 scc      : sudo chef-client
 sagu     : sudo apt-get update
 acm      : apt-cache madison
-sdqs     : sudo dpkg-query -s
-sdql     : sudo dpkg-query -L
 sagi     : sudo apt-get install
 # }}}
 # u/uu/uuu/... {{{
@@ -39,6 +37,7 @@ mu       : gem uninstall
 # Projects {{{
 shop     : ghs shopify
 note     : ghb notes
+sruby    : gh ruby ruby
 # }}}
 # Git {{{
 grbom    : gcom && gfrom && git reset --hard FETCH_HEAD && gco - && git rebase master
@@ -53,7 +52,6 @@ gzri     : git log -30 --format=oneline | fzf | cut -d ' ' -f 1 | xargs git reba
 grim     : git rebase -i master
 gtl      : git tag -l
 ga       : git add
-gaac     : git add -A .; gac
 gfrom    : gfro master
 gfro     : gfr origin
 gap      : git add -p
@@ -62,6 +60,7 @@ gbl      : git branch -l
 gbd      : git branch -D
 gu       : git push
 gut      : git push --tags
+gutf     : git push --tags -f
 guo      : git push origin
 gufo     : git push -f origin
 gcaar    : git add -A .; git commit -a --reuse-message=HEAD --amend
@@ -69,10 +68,8 @@ gcar     : git commit -a --reuse-message=HEAD --amend
 gco      : git checkout
 gcob     : git checkout -b
 gcom     : gco master
-gcomd    : gco master && gd
 gcp      : git cherry-pick
 gd       : git pull
-gdu      : git pull && git push
 gf       : git diff
 gfc      : git diff --cached
 gl       : git log
@@ -85,6 +82,8 @@ grh      : git reset HEAD
 gri      : git rebase -i
 grc      : git rebase --continue
 gra      : git rebase --abort
+gcpa     : git cherry-pick --abort
+gma      : git merge --abort
 gs       : git stash
 gsa      : git stash apply
 gsd      : git stash drop
@@ -92,7 +91,6 @@ gsl      : git stash list
 gsp      : git stash pop
 gt       : git status -sb
 gwc      : git whatchanged
-gx       : open -a gitx .
 gr       : git reset HEAD
 gr1      : git reset 'HEAD^'
 gr2      : git reset 'HEAD^^'
