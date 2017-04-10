@@ -44,6 +44,12 @@ note     : ghb notes
 grbom    : gcom && gfrom && git reset --hard FETCH_HEAD && gco - && git rebase master
 grbog    : grbom && gufg
 
+gzb      : git branch -l | fzf | xargs git checkout
+gzt      : git tag -l | fzf | xargs git checkout
+gzd      : git branch -l | fzf | xargs git branch -d
+gzD      : git branch -l | fzf | xargs git branch -D
+gzri     : git log -30 --format=oneline | fzf | cut -d ' ' -f 1 | xargs git rebase -i
+
 grim     : git rebase -i master
 gtl      : git tag -l
 ga       : git add
