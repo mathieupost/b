@@ -260,24 +260,38 @@ function git
   end
 end
 
-# function h
-#   if test (count $argv) -gt 0 -a -z 
-#   if [[ $# -gt 0 && -z "${1//[0-9]/}" ]]; then
-#     n=$1; shift
-#     head "-${n}" "$@"
-# else
-#   head "$@"
-#   fi
-# end
+function h
+  # `$n -eq $n` tests if it's a number.
+  if test (count $argv) -gt 0 -a $argv[1] -eq $argv[1]
+    set n $argv[1]
+    set --erase argv[1]
+    head "-"$n $argv
+  else
+    head $argv
+  end
+end
 
-# function t
-#   if [[ $# -gt 0 && -z "${1//[0-9]/}" ]]; then
-#     n=$1; shift
-#     tail "-${n}" "$@"
-# else
-#   tail  "$@"
-#   fi
-# end
+function t
+  # `$n -eq $n` tests if it's a number.
+  if test (count $argv) -gt 0 -a $argv[1] -eq $argv[1]
+    set n $argv[1]
+    set --erase argv[1]
+    tail "-"$n $argv
+  else
+    tail $argv
+  end
+end
+
+function tnp
+  # `$n -eq $n` tests if it's a number.
+  if test (count $argv) -gt 0 -a $argv[1] -eq $argv[1]
+    set n $argv[1]
+    set --erase argv[1]
+    tail "+"$n $argv
+  else
+    tail $argv
+  end
+end
 
 function tnp
   set -l n $argv[1]

@@ -11,7 +11,7 @@ othree/yajs.vim                 # JS syntax
 othree/es.next.syntax.vim       # ES7 syntax
 
 # UI #################################################
-bling/vim-airline               # status line
+itchyny/lightline.vim           # status line
 morhetz/gruvbox                 # colorscheme
 airblade/vim-gitgutter          # status in gutter
 
