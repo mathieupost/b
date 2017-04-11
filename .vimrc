@@ -236,6 +236,8 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 
+set fillchars+=vert:│
+
 let g:jellybeans_use_term_italics = 1
 let g:jellybeans_overrides = {
       \  'Search':     { 'guifg': 'fabd2f', 'guibg': '151515', 'attr': 'inverse' },
