@@ -221,6 +221,8 @@ omap <leader><tab> <plug>(fzf-maps-o)
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
+nnoremap <leader>6 *#:redraw<cr>:%s/<C-r><C-w>//gc<left><left><left>
+
 set rnu
 set nu
 set numberwidth=1
@@ -234,9 +236,7 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 
-" more info on getting true colour working here: https://github.com/morhetz/gruvbox
-colorscheme gruvbox
-set bg=dark
+colorscheme jellybeans
 
 set scrolloff=3
 set autoindent
@@ -269,7 +269,7 @@ set printfont=PragmataPro:h12
 " {{{ LightLine
 
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'jellybeans',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
@@ -328,9 +328,6 @@ function! LightlineMode()
 endfunction
 
 " }}}
-
-
-
 
 set rtp+=/Users/burke/src/github.com/golang/lint/misc/vim
 

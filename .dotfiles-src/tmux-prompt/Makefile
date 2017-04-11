@@ -2,7 +2,7 @@ TARGET=tmux-prompt
 INSTALLDIR=$(HOME)/bin
 
 $(TARGET): $(TARGET).go
-	go build -o $@
+	go build -ldflags=-s -o $@
 
 install: $(TARGET)
 	cp $< "$(HOME)/bin"

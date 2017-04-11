@@ -14,9 +14,6 @@ import (
 extern int power(void);
 extern int percentage(void);
 extern double secondsOfBatteryRemaining(void);
-extern int CHICAGO_CONNECTED;
-extern int ASHBURN_CONNECTED;
-extern int connected(void);
 */
 import "C"
 
@@ -105,6 +102,7 @@ func main() {
 	if err != nil {
 		hn = "???"
 	}
+	hn = strings.TrimSuffix(hn, ".local")
 
 	loadAvgs, err := loadAvg()
 	t2 := time.Now()
@@ -143,17 +141,6 @@ func main() {
 	}
 
 	t5 := time.Now()
-	vpns := C.connected()
-	chicagoColor := nobold(1, hostnameBG)
-	ashburnColor := nobold(1, hostnameBG)
-	if 0 < vpns&C.CHICAGO_CONNECTED {
-		chicagoColor = nobold(2, hostnameBG)
-	}
-	if 0 < vpns&C.ASHBURN_CONNECTED {
-		ashburnColor = nobold(2, hostnameBG)
-	}
-	vpnChunk := fmt.Sprintf("%sC%sA", chicagoColor, ashburnColor)
-	t6 := time.Now()
 
 	fmt.Printf("%s",
 		nobold(otherBG, -1)+" "+
@@ -174,10 +161,9 @@ func main() {
 			time.Now().Format("Jan02 15:04")+
 			nobold(hostnameBG, timeBG)+" "+
 			Arrow1+bold(hostnameFG, hostnameBG)+" "+
-			vpnChunk+" "+bold(hostnameFG, hostnameBG)+
 			hn+
 			" ")
-	t7 := time.Now()
+	t6 := time.Now()
 
 	_ = t1
 	_ = t2
@@ -185,7 +171,6 @@ func main() {
 	_ = t4
 	_ = t5
 	_ = t6
-	_ = t7
 
 	/*
 		total := float64(t7.Sub(t1).Nanoseconds())
@@ -194,7 +179,6 @@ func main() {
 		fmt.Println(float64(t4.Sub(t3).Nanoseconds()) / total)
 		fmt.Println(float64(t5.Sub(t4).Nanoseconds()) / total)
 		fmt.Println(float64(t6.Sub(t5).Nanoseconds()) / total)
-		fmt.Println(float64(t7.Sub(t6).Nanoseconds()) / total)
 	*/
 
 }
