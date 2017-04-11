@@ -55,6 +55,7 @@ ga       : git add
 gfrom    : gfro master
 gfro     : gfr origin
 gap      : git add -p
+gaac     : git add -A .; gac
 gav      : git commit -av
 gbl      : git branch -l
 gbd      : git branch -D

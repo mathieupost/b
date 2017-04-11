@@ -236,6 +236,15 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 
+let g:jellybeans_use_term_italics = 1
+let g:jellybeans_overrides = {
+      \  'Search':     { 'guifg': 'fabd2f', 'guibg': '151515', 'attr': 'inverse' },
+      \  'IncSearch':  { 'guifg': 'fe8019', 'guibg': '151515', 'attr': 'inverse' },
+      \  'SpellBad':   { 'attr': '', 'guibg': '602020' },
+      \  'SpellCap':   { 'attr': '' },
+      \  'SpellRare':  { 'attr': '' },
+      \  'SpellLocal': { 'attr': '' }
+      \}
 colorscheme jellybeans
 
 set scrolloff=3
