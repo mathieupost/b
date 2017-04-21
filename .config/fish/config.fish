@@ -163,47 +163,6 @@ set -gx GOROOT_BOOTSTRAP "$HOME/src/go1.4"
 # Java
 # set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)
 
-
-function e
-  eval $EDITOR $argv
-end
-
-function gfr
-  git fetch $argv; and git reset --hard FETCH_HEAD
-end
-
-function gfrog
-  gfro (git branch | g '*' | ap2)
-end
-
-function gug
-  guo (git branch | g '*' | ap2)
-end
-
-function gufg
-  gufo (git branch | g '*' | ap2)
-end
-
-function ap
-  awk "{print \$$argv[1]}"
-end
-
-function psag
-  ps aux | g "$argv" | gvg
-end
-
-function gac
-  if test (count $argv) -eq 0
-    git commit -av
-  else
-    git commit -a -m "$argv"
-  end
-end
-
-function gcm
-  git commit -m "$argv"
-end
-
 function gh
   cd (_gh $argv)
 end
@@ -216,41 +175,6 @@ function ghb
   cd (_gh burke $argv)
 end
 
-function fdg
-  find . | grep $argv
-end
-
-function ggh
-  open (git remote show -n origin | grep "github.com:" | head -1 | awk '{print $3}' | sed 's/:/\//' | sed 's#git@#https://#' | sed 's/\.git$//')
-end
-
-function ghg
-  open "https://github.com/$argv[1]"
-end
-
-function ghgb
-  ghg "burke/$argv[1]"
-end
-
-function ghgs
-  ghg "Shopify/$argv[1]"
-end
-
-function mi
-  gem install --no-ri --no-rdoc $argv
-  hash -r
-end
-
-function gbt --argument-names 'branch'
-  git branch --track "$branch" "origin/$branch"
-end
-
-function up
-  while test ! -d .git -a (pwd) != "/"
-    cd ".."
-  end
-end
-
 function git
   set -l toplevel (command git rev-parse --show-toplevel 2>/dev/null)
   if test "$toplevel" = "$HOME" -a "$argv[1]" = "clean"
@@ -260,127 +184,14 @@ function git
   end
 end
 
-function h
-  # `$n -eq $n` tests if it's a number.
-  if test (count $argv) -gt 0 -a $argv[1] -eq $argv[1]
-    set n $argv[1]
-    set --erase argv[1]
-    head "-"$n $argv
-  else
-    head $argv
-  end
-end
-
-function t
-  # `$n -eq $n` tests if it's a number.
-  if test (count $argv) -gt 0 -a $argv[1] -eq $argv[1]
-    set n $argv[1]
-    set --erase argv[1]
-    tail "-"$n $argv
-  else
-    tail $argv
-  end
-end
-
-function tnp
-  # `$n -eq $n` tests if it's a number.
-  if test (count $argv) -gt 0 -a $argv[1] -eq $argv[1]
-    set n $argv[1]
-    set --erase argv[1]
-    tail "+"$n $argv
-  else
-    tail $argv
-  end
-end
-
-function tnp
-  set -l n $argv[1]
-  set -e argv[1]
-  tail "-n+$n" $argv
-end
-
-function s3putpublic --argument-names 'file'
-  s3cmd put --acl-public "$file" "s3://burkelibbey/$file"
-end
-
-function gy --argument-names 'name'
-  if test -f (git rev-parse --show-toplevel)/.git/refs/heads/$name
-    git checkout "$name"
-  else
-    git checkout -b "$name"
-  end
-end
-make_completion gy 'git checkout'
-
-make_completion gbd 'git branch -D'
-
 function ]gs
-  _]g "$HOME/src/github.com/Shopify" $argv
-  cd "$HOME/src/github.com/Shopify/$__g_project"
-  set -e __g_project
+  set -l prj (_]g "$HOME/src/github.com/Shopify" $argv)
+  cd "$HOME/src/github.com/Shopify/$prj"
 end
 
 function ]gb
-  _]g "$HOME/src/github.com/burke" $argv
-  cd "$HOME/src/github.com/burke/$__g_project"
-  set -e __g_project
-end
-
-function ]hs
-  _]g "$HOME/src/github.com/Shopify" $argv
-  open "https://github.com/Shopify/$__g_project"
-  set -e __g_project
-end
-
-function ]hsn --argument-names 'id'
-  _]g "$HOME/src/github.com/Shopify" $argv
-  open "https://github.com/Shopify/$__g_project/pull/$id"
-  set -e __g_project
-end
-
-function ]hbn --argument-names 'id'
-  _]g "$HOME/src/github.com/burke" $argv
-  open "https://github.com/burke/$__g_project/pull/$id"
-  set -e __g_project
-end
-
-function ]hb
-  _]g "$HOME/src/github.com/burke" $argv
-  open "https://github.com/burke/$__g_project"
-  set -e __g_project
-end
-
-function ]hsp
-  _]g "$HOME/src/github.com/Shopify" $argv
-  open "https://github.com/Shopify/$__g_project/pulls"
-  set -e __g_project
-end
-
-function ]hbp
-  _]g "$HOME/src/github.com/burke" $argv
-  open "https://github.com/burke/$__g_project/pulls"
-  set -e __g_project
-end
-
-function ]hsm
-  _]g "$HOME/src/github.com/Shopify" $argv
-  open "https://github.com/Shopify/$__g_project/pulls/burke"
-  set -e __g_project
-end
-
-function ]hbm
-  _]g "$HOME/src/github.com/burke" $argv
-  open "https://github.com/burke/$__g_project/pulls/burke"
-  set -e __g_project
-end
-
-function _]g --argument-names 'dir'
-  set -e argv[1]
-  if test (count $argv) -eq 0
-    ls "$dir" | awk -F/ '{print $NF}'
-    return
-  end
-  set -g __g_project (find "$dir" -type d -maxdepth 1 -mindepth 1 | awk -F/ '{print $NF}' | matcher $argv | head -1)
+  set -l prj (_]g "$HOME/src/github.com/burke" $argv)
+  cd "$HOME/src/github.com/burke/$prj"
 end
 
 if test -f /opt/dev/dev.fish

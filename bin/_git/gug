@@ -1,0 +1,3 @@
+#!/bin/bash
+
+guo "$(git branch | grep '*' | awk '{print $2}')"

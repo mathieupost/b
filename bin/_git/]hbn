@@ -1,0 +1,5 @@
+#!/bin/bash
+
+id=$1;shift
+project="$(_]g "${HOME}/src/github.com/burke" "$*")"
+open "https://github.com/burke/${project}/issues/${id}"

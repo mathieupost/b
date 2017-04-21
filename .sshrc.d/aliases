@@ -34,6 +34,7 @@ bu       : bundle update
 bs       : bundle show
 bx       : bundle exec
 mu       : gem uninstall
+mi       : gem install --no-ri --no-rdoc
 
 # }}}
 # Projects {{{
@@ -54,8 +55,6 @@ gzri     : git log -30 --format=oneline | fzf | cut -d ' ' -f 1 | xargs git reba
 grim     : git rebase -i master
 gtl      : git tag -l
 ga       : git add
-gfrom    : gfro master
-gfro     : gfr origin
 gap      : git add -p
 gaac     : git add -A .; gac
 gav      : git commit -av
@@ -64,8 +63,6 @@ gbd      : git branch -D
 gu       : git push
 gut      : git push --tags
 gutf     : git push --tags -f
-guo      : git push origin
-gufo     : git push -f origin
 gcaar    : git add -A .; git commit -a --reuse-message=HEAD --amend
 gcar     : git commit -a --reuse-message=HEAD --amend
 gco      : git checkout
