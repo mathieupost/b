@@ -89,15 +89,17 @@ HISTSIZE=50000
 # }}}
 # Autosuggestions {{{
 
-# # Enable autosuggestions automatically
-# function zle-line-init() {
-#   zle autosuggest-start
-# }
-# zle -N zle-line-init
+source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# # use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
-# # zsh-autosuggestions is designed to be unobtrusive)
-# bindkey '^T' autosuggest-toggle
+# Enable autosuggestions automatically
+function zle-line-init() {
+  zle autosuggest-start
+}
+zle -N zle-line-init
+
+# use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
+# zsh-autosuggestions is designed to be unobtrusive)
+bindkey '^T' autosuggest-toggle
 
 AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=6'
 # }}}
