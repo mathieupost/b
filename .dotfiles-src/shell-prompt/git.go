@@ -70,13 +70,15 @@ func gitInfo() string {
 		stash = fgWhite + strconv.Itoa(stashCount)
 	}
 
-	pending := ""
-	if _, err := os.Stat(ditDir + "/rebase-merge"); err == nil {
-		pending = "{R}"
-	} else if _, err := os.Stat(ditDir + "/CHERRY_PICK_HEAD"); err == nil {
-		pending = "{C}"
-	} else if _, err := os.Stat(ditDir + "/MERGE_HEAD"); err == nil {
-		pending = "{M}"
+	pending := "\x1b[31m"
+	if _, err := os.Stat(gitDir + "/rebase-merge"); err == nil {
+		pending += "ᴿ"
+	}
+	if _, err := os.Stat(gitDir + "/CHERRY_PICK_HEAD"); err == nil {
+		pending += "ᴾ"
+	}
+	if _, err := os.Stat(gitDir + "/MERGE_HEAD"); err == nil {
+		pending += "ᴹ"
 	}
 
 	return " " + color + ref + stash + pending
