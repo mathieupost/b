@@ -70,8 +70,8 @@ promptinit
 zsh-mime-setup
 autoload colors
 colors
-autoload  -Uz zmv # move function
-autoload  -Uz zed # edit functions within zle
+autoload -Uz zmv # move function
+autoload -Uz zed # edit functions within zle
 zle_highlight=(isearch:underline)
 
 # Enable ..<TAB> -> ../
@@ -81,15 +81,11 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,comm'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
-typeset WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
+typeset WORDCHARS="*?_-.~[]=&;!#$%^(){}<>"
 
 HISTFILE=~/.zsh_history
 SAVEHIST=50000
 HISTSIZE=50000
-# }}}
-# Autosuggestions {{{
-source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # }}}
 # Vim mode {{{
 # Ensures that $terminfo values are valid and updates editor information when
@@ -140,8 +136,8 @@ bindkey kj vi-cmd-mode
 # slow enough for me to hit "kj", but fast enough that the delay on <esc> isn't jarring.
 export KEYTIMEOUT=15
 
-bindkey '^f' vi-forward-word
-bindkey '^b' vi-backward-word
+bindkey '^f' vi-forward-char
+bindkey '^b' vi-backward-char
 bindkey '^p' up-history
 bindkey '^n' down-history
 bindkey '^?' backward-delete-char
@@ -162,4 +158,6 @@ function git() {
   command git "$@"
 }
 
-[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/dev/dev.sh
