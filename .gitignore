@@ -26,6 +26,7 @@
 /.config/*
 
 !/.config/dtrace
+!/.config/git
 !/.config/shell
 !/.config/jellybeans.itermcolors
 

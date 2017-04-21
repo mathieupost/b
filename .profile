@@ -1,3 +1,5 @@
+export XDG_CONFIG_HOME="$HOME/.config"
+
 export DISABLE_SPRING=0
 export OPT_SHOW=1
 export OPT_ISEQ_CACHE=0
