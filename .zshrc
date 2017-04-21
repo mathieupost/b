@@ -17,7 +17,7 @@ function kick-gpg-agent {
 kick-gpg-agent
 export GPG_TTY=$(tty)
 # }}}
-# Aliases, functions {{{
+# Generic Configuration {{{
 eval $(
   cat ~/.config/shell/aliases \
     | grep -v '^#' \
@@ -31,20 +31,7 @@ while read line; do
   eval "function ${line}() { cd \"\$(_${line} \"\$@\")\"; }"
 done < ~/.config/shell/cd-wrappers
 
-function git() {
-  local toplevel=$(command git rev-parse --show-toplevel 2>/dev/null)
-  if [[ "${toplevel}" == "${HOME}" ]] && [[ "$1" == "clean" ]]; then
-    >&2 echo "Do NOT run git clean in this repository."
-    return
-  fi
-  command git "$@"
-}
-# }}}
-# gdircolors {{{
 eval $(gdircolors -b ~/.config/shell/LS_COLORS)
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,comm'
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 # }}}
 # ZSH options and features {{{
 # If a command is issued that can’t be executed as a normal command, and the
@@ -89,6 +76,10 @@ zle_highlight=(isearch:underline)
 
 # Enable ..<TAB> -> ../
 zstyle ':completion:*' special-dirs true
+
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,comm'
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
 typeset WORDCHARS="*?_-.[]~=&;!#$%^(){}<>"
 
@@ -171,5 +162,14 @@ bindkey '^k' kill-line
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 # }}}
+
+function git() {
+  local toplevel=$(command git rev-parse --show-toplevel 2>/dev/null)
+  if [[ "${toplevel}" == "${HOME}" ]] && [[ "$1" == "clean" ]]; then
+    >&2 echo "Do NOT run git clean in this repository."
+    return
+  fi
+  command git "$@"
+}
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
