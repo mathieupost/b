@@ -1,5 +1,7 @@
 /*
 
+!/.profile
+
 !/.gitignore
 !/.gitconfig
 
@@ -13,9 +15,6 @@
 !/.mutt/view_attachment.sh
 !/.mbsyncrc
 !/.urlview
-
-!/.setup
-!/.setup/*
 
 !/.hammerspoon
 

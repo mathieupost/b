@@ -1,16 +1,44 @@
-# vi: ft=fish
+# vi: ft=fish foldmethod=marker:
 
+# {{{ load generic configuration
+egrep "^export " ~/.profile | while read e
+  set var (echo $e | sed -E "s/^export ([A-Z_]+)=(.*)\$/\1/")
+  set value (echo $e | sed -E "s/^export ([A-Z_]+)=(.*)\$/\2/")
+
+  # remove surrounding quotes if existing
+  set value (echo $value | sed -E "s/^\"(.*)\"\$/\1/")
+
+  if test $var = "PATH"
+    # replace ":" by spaces. this is how PATH looks for Fish
+    set value (echo $value | sed -E "s/:/ /g")
+
+    # use eval because we need to expand the value
+    eval set -xg $var $value
+
+    continue
+  end
+
+  # evaluate variables. we can use eval because we most likely just used "$var"
+  set value (eval echo $value)
+
+  set -gx $var $value
+end
+
+awk '
+  /^[^#]/ {
+    cmd=$0
+    sub(/.*?:/, "", cmd)
+    gsub(/&&/, "; and", cmd)
+    gsub(/\|\|/, "; or", cmd)
+    print "function "$1"; "cmd" $argv; end"
+  }
+' < ~/.sshrc.d/aliases | while read line; eval "$line"; end
+
+eval (gdircolors -c ~/.sshrc.d/LS_COLORS | sed 's/setenv/set -gx/')
+# }}}
+
+# {{{ prompt configuration
 set fish_greeting ""
-
-# fish_vi_key_bindings
-
-set -x DISABLE_SPRING 0
-set -x OPT_SHOW 1
-set -x OPT_ISEQ_CACHE 0
-set -x OPT_AOT_RUBY 1
-set -x OPT_AOT_YAML 1
-set -x OPT_PRE_BOOTSCALE 1
-set -x OPT_TOXIPROXY_CACHE 1
 
 function fish_mode_prompt --description "Displays the current mode"
   # Do nothing if not in vi mode
@@ -90,89 +118,21 @@ function fish_prompt
 
   set_color normal
 end
+# }}}
 
-set -x EDITOR vim
-set -x VISUAL $EDITOR
-set -x GIT_EDITOR $EDITOR
-set -x HOMEBREW_EDITOR $EDITOR
-
-function prepend_path --argument-names 'new'
-  set -l index 1
-  for entry in $PATH
-    if test $new = $entry
-      set -e PATH[$index]
-      break
-    end
-    set -l index (math $index + 1)
-  end
-  set -gx PATH $new $PATH 2>/dev/null
-end
-
-prepend_path /usr/local/bin
-prepend_path /usr/local/sbin
-prepend_path /usr/local/texlive/2016basic/bin/x86_64-darwin
-prepend_path ~/bin
-prepend_path ~/bin/_git
-prepend_path ~/.gem/bin
-prepend_path ~/.cargo/bin
-prepend_path ./node_modules/.bin
-prepend_path ~/src/google-cloud-sdk/bin
-
-
-set -U FZF_TMUX 1
-
-function make_completion --argument-names alias command
-    echo "
-    function __alias_completion_$alias
-        set -l cmd (commandline -o)
-        set -e cmd[1]
-        complete -C\"$command \$cmd\"
-    end
-    " | .
-    complete -c $alias -a "(__alias_completion_$alias)"
-end
-
+# {{{ gpg-agent
 gpg-agent --daemon >/dev/null 2>&1
-
+# used by the mutt alias
 function kick-gpg-agent
   set -l pid (ps xo pid,command | grep -E "^\d+ gpg-agent" | awk '{print $1}')
   set -gx GPG_AGENT_INFO /Users/burke/.gnupg/S.gpg-agent:$pid:1
 end
-kick-gpg-agent
+kick-gpg-agent 
 set -x GPG_TTY (tty)
+# }}}
 
-awk '
-  /^[^#]/ {
-    cmd=$0
-    sub(/.*?:/, "", cmd)
-    gsub(/&&/, "; and", cmd)
-    gsub(/\|\|/, "; or", cmd)
-    print "function "$1"; "cmd" $argv; end"
-  }
-' < ~/.sshrc.d/aliases | while read line; eval "$line"; end
-
-eval (gdircolors -c ~/.sshrc.d/LS_COLORS | sed 's/setenv/set -gx/')
 function ls
   gls --color=auto -F $argv
-end
-
-# Go
-set -gx GOPATH "$HOME"
-set -gx GOROOT_BOOTSTRAP "$HOME/src/go1.4"
-
-# Java
-# set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)
-
-function gh
-  cd (_gh $argv)
-end
-
-function ghs
-  cd (_gh Shopify $argv)
-end
-
-function ghb
-  cd (_gh burke $argv)
 end
 
 function git
@@ -184,14 +144,24 @@ function git
   end
 end
 
+function gh
+  cd (_gh $argv)
+end
+
+function ghs
+  cd (_ghs $argv)
+end
+
+function ghb
+  cd (_ghb $argv)
+end
+
 function ]gs
-  set -l prj (_]g "$HOME/src/github.com/Shopify" $argv)
-  cd "$HOME/src/github.com/Shopify/$prj"
+  cd (_]gs $argv)
 end
 
 function ]gb
-  set -l prj (_]g "$HOME/src/github.com/burke" $argv)
-  cd "$HOME/src/github.com/burke/$prj"
+  cd (_]gb $argv)
 end
 
 if test -f /opt/dev/dev.fish

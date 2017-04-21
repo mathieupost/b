@@ -10,7 +10,5 @@ eval $(cat "${SSHHOME}/.sshrc.d/aliases" \
   | sed 's/\$/\\$/' \
   | sed 's/^\([^ :]*\)[[:space:]]*:\(.*\)/alias \1="\2";/')
 
-source "${SSHHOME}/.sshrc.d/functions.sh"
-
 eval $(dircolors -b "${SSHHOME}/.sshrc.d/LS_COLORS")
 alias ls="ls --color=auto -F"

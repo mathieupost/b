@@ -1,0 +1,4 @@
+#!/bin/bash
+
+project="$(_]g "${HOME}/src/github.com/burke" "$@")"
+echo "${HOME}/src/github.com/burke/${project}"

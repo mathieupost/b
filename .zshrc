@@ -44,8 +44,21 @@ eval $(cat ~/.sshrc.d/aliases \
   | sed 's/\$/\\$/' \
   | sed 's/"/\\"/g' \
   | sed 's/^\([^ :]*\)[[:space:]]*:[[:space:]]*\(.*\)/alias \1="\2";/')
-source "${HOME}/.sshrc.d/functions.sh"
-source "${HOME}/.sshrc.d/].sh"
+
+function ]gs() { cd "$(_]gs "$@")"; }
+function ]gb() { cd "$(_]gb "$@")"; }
+function gh() { cd $(_gh "$@"); }
+function ghs() { cd $(_gh Shopify $1); }
+function ghb() { cd $(_gh burke $1); }
+function git() {
+  local toplevel=$(command git rev-parse --show-toplevel 2>/dev/null)
+  if [[ "${toplevel}" == "${HOME}" ]] && [[ "$1" == "clean" ]]; then
+    >&2 echo "Do NOT run git clean in this repository."
+    return
+  fi
+  command git "$@"
+}
+
 # }}}
 # gdircolors {{{
 eval $(gdircolors -b ~/.sshrc.d/LS_COLORS)
