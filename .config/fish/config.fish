@@ -124,10 +124,6 @@ kick-gpg-agent
 set -x GPG_TTY (tty)
 # }}}
 
-function ls
-  gls --color=auto -F $argv
-end
-
 function git
   set -l toplevel (command git rev-parse --show-toplevel 2>/dev/null)
   if test "$toplevel" = "$HOME" -a "$argv[1]" = "clean"

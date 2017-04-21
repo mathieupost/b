@@ -42,7 +42,6 @@ function git() {
 # }}}
 # gdircolors {{{
 eval $(gdircolors -b ~/.config/shell/LS_COLORS)
-alias ls="gls --color=auto -F"
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,comm'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'

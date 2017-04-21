@@ -3,6 +3,8 @@
 git-fuck-everything : git-abort ; git reset . ; git checkout .
 mk : minikube
 
+ls : gls --color=auto -F
+
 # Ubuntu / Remote {{{
 scc      : sudo chef-client
 sagu     : sudo apt-get update
