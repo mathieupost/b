@@ -17,12 +17,12 @@ export GOROOT_BOOTSTRAP="$HOME/src/go1.4"
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/texlive/2016basic/bin/x86_64-darwin:$PATH"
-export PATH="~/bin:$PATH"
-export PATH="~/bin/_git:$PATH"
-export PATH="~/.gem/bin:$PATH"
-export PATH="~/.cargo/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin/_git:$PATH"
+export PATH="$HOME/.gem/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="./node_modules/.bin:$PATH"
-export PATH="~/src/google-cloud-sdk/bin:$PATH"
+export PATH="$HOME/src/google-cloud-sdk/bin:$PATH"
 
 export FZF_TMUX=1
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
