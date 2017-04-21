@@ -106,15 +106,15 @@ HISTSIZE=50000
 # }}}
 # Autosuggestions {{{
 
-# Enable autosuggestions automatically
-function zle-line-init() {
-  zle autosuggest-start
-}
-zle -N zle-line-init
+# # Enable autosuggestions automatically
+# function zle-line-init() {
+#   zle autosuggest-start
+# }
+# zle -N zle-line-init
 
-# use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
-# zsh-autosuggestions is designed to be unobtrusive)
-bindkey '^T' autosuggest-toggle
+# # use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
+# # zsh-autosuggestions is designed to be unobtrusive)
+# bindkey '^T' autosuggest-toggle
 
 AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=6'
 # }}}
@@ -125,7 +125,7 @@ export GOPATH="${HOME}"
 export GOROOT_BOOTSTRAP="${HOME}/src/go1.4"
 
 # Java
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+# export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
 # }}}
 # Vim mode {{{
@@ -180,12 +180,13 @@ export KEYTIMEOUT=15
 # }}}
 
 #source "${HOME}/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-source "${HOME}/.zshrc.d/zsh-autosuggestions/autosuggestions.zsh"
+# source "${HOME}/.zshrc.d/zsh-autosuggestions/autosuggestions.zsh"
 
-zle-line-init() {
-  zle autosuggest-start
-}
-zle -N zle-line-init
+# zle-line-init() {
+#   zle autosuggest-start
+# }
+# zle -N zle-line-init
+
 bindkey '^f' vi-forward-word
 bindkey '^b' vi-backward-word
 bindkey '^p' up-history
