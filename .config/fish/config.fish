@@ -1,28 +1,17 @@
 # vi: ft=fish foldmethod=marker:
 
 # {{{ load generic configuration
-egrep "^export " ~/.profile | while read e
-  set var (echo $e | sed -E "s/^export ([A-Z_]+)=(.*)\$/\1/")
-  set value (echo $e | sed -E "s/^export ([A-Z_]+)=(.*)\$/\2/")
-
-  # remove surrounding quotes if existing
-  set value (echo $value | sed -E "s/^\"(.*)\"\$/\1/")
-
-  if test $var = "PATH"
-    # replace ":" by spaces. this is how PATH looks for Fish
-    set value (echo $value | sed -E "s/:/ /g")
-
-    # use eval because we need to expand the value
-    eval set -xg $var $value
-
-    continue
-  end
-
-  # evaluate variables. we can use eval because we most likely just used "$var"
-  set value (eval echo $value)
-
-  set -gx $var $value
-end
+awk '
+  /\$PATH/ {
+    gsub(/:/, " ", $0)
+  }
+  /^export / {
+    sub(/=/, " ", $0)
+    sub(/^export /, "set -gx ", $0)
+    gsub(/"/, "", $0)
+    print $0
+  }
+' < ~/.profile | while read line; eval "$line"; end
 
 awk '
   /^[^#]/ {
@@ -34,7 +23,7 @@ awk '
   }
 ' < ~/.sshrc.d/aliases | while read line; eval "$line"; end
 
-eval (gdircolors -c ~/.sshrc.d/LS_COLORS | sed 's/setenv/set -gx/')
+eval (gdircolors -c ~/.sshrc.d/LS_COLORS)
 # }}}
 
 # {{{ prompt configuration
@@ -125,7 +114,7 @@ gpg-agent --daemon >/dev/null 2>&1
 # used by the mutt alias
 function kick-gpg-agent
   set -l pid (ps xo pid,command | grep -E "^\d+ gpg-agent" | awk '{print $1}')
-  set -gx GPG_AGENT_INFO /Users/burke/.gnupg/S.gpg-agent:$pid:1
+  set -gx GPG_AGENT_INFO $HOME/.gnupg/S.gpg-agent:$pid:1
 end
 kick-gpg-agent 
 set -x GPG_TTY (tty)
@@ -144,25 +133,13 @@ function git
   end
 end
 
-function gh
-  cd (_gh $argv)
-end
-
-function ghs
-  cd (_ghs $argv)
-end
-
-function ghb
-  cd (_ghb $argv)
-end
-
-function ]gs
-  cd (_]gs $argv)
-end
-
-function ]gb
-  cd (_]gb $argv)
-end
+# {{{ cd wrappers
+function gh;  cd (_gh  $argv); end
+function ghs; cd (_ghs $argv); end
+function ghb; cd (_ghb $argv); end
+function ]gs; cd (_]gs $argv); end
+function ]gb; cd (_]gb $argv); end
+# }}}
 
 if test -f /opt/dev/dev.fish
   source /opt/dev/dev.fish

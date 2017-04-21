@@ -1,49 +1,31 @@
 # vim: foldmethod=marker
 
+source ~/.profile
+
+fpath=("$HOME/.zshrc.d/autocomplete" "$fpath[@]")
+
 # Prompt {{{
 PROMPT='$(/Users/burke/bin/shell-prompt $? $KEYMAP)'
 setopt prompt_subst
-# }}}
-# EDITOR {{{
-export EDITOR=vim
-if which vim >/dev/null 2>&1; then
-  export EDITOR=vim
-fi
-export VISUAL="${EDITOR}"
-export GIT_EDITOR="${EDITOR}"
-export HOMEBREW_EDITOR="${EDITOR}"
-# }}}
-# PATH {{{
-typeset -Ug path
-path_add() {
-  path=("$1" "$path[@]")
-}
-
-path_add /usr/local/bin
-path_add $HOME/src/github.com/golang/go/bin
-path_add $HOME/bin
-path_add $HOME/bin/_git
-path_add $HOME/.gem/bin
-path_add $HOME/.cargo/bin
-
-fpath=("$HOME/.zshrc.d/autocomplete" "$fpath[@]")
 # }}}
 # GPG Agent {{{
 gpg-agent --daemon >/dev/null 2>&1
 function kick-gpg-agent {
   pid=$(ps xo pid,command | grep -E "^\d+ gpg-agent" | awk '{print $1}')
-  export GPG_AGENT_INFO=/Users/burke/.gnupg/S.gpg-agent:${pid}:1
+  export GPG_AGENT_INFO=$HOME/.gnupg/S.gpg-agent:${pid}:1
 }
 kick-gpg-agent
 export GPG_TTY=$(tty)
 # }}}
 # Aliases, functions {{{
-eval $(cat ~/.sshrc.d/aliases \
-  | grep -v '^#' \
-  | grep -vE '^\s*$' \
-  | sed 's/\$/\\$/' \
-  | sed 's/"/\\"/g' \
-  | sed 's/^\([^ :]*\)[[:space:]]*:[[:space:]]*\(.*\)/alias \1="\2";/')
+eval $(
+  cat ~/.sshrc.d/aliases \
+    | grep -v '^#' \
+    | grep -vE '^\s*$' \
+    | sed 's/\$/\\$/' \
+    | sed 's/"/\\"/g' \
+    | sed 's/^\([^ :]*\)[[:space:]]*:[[:space:]]*\(.*\)/alias \1="\2";/'
+)
 
 function ]gs() { cd "$(_]gs "$@")"; }
 function ]gb() { cd "$(_]gb "$@")"; }
@@ -58,7 +40,6 @@ function git() {
   fi
   command git "$@"
 }
-
 # }}}
 # gdircolors {{{
 eval $(gdircolors -b ~/.sshrc.d/LS_COLORS)
@@ -131,16 +112,6 @@ HISTSIZE=50000
 
 AUTOSUGGESTION_HIGHLIGHT_COLOR='fg=6'
 # }}}
-# Language-specific settings {{{
-
-# Go
-export GOPATH="${HOME}"
-export GOROOT_BOOTSTRAP="${HOME}/src/go1.4"
-
-# Java
-# export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-
-# }}}
 # Vim mode {{{
 # Ensures that $terminfo values are valid and updates editor information when
 # the keymap changes.
@@ -190,16 +161,6 @@ bindkey kj vi-cmd-mode
 # slow enough for me to hit "kj", but fast enough that the delay on <esc> isn't jarring.
 export KEYTIMEOUT=15
 
-# }}}
-
-#source "${HOME}/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-# source "${HOME}/.zshrc.d/zsh-autosuggestions/autosuggestions.zsh"
-
-# zle-line-init() {
-#   zle autosuggest-start
-# }
-# zle -N zle-line-init
-
 bindkey '^f' vi-forward-word
 bindkey '^b' vi-backward-word
 bindkey '^p' up-history
@@ -211,7 +172,6 @@ bindkey '^r' history-incremental-search-backward
 bindkey '^k' kill-line
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
-
-export NVIM_TUI_ENABLE_TRUE_COLOR=1
+# }}}
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
