@@ -24,30 +24,30 @@
 
 !/.config
 /.config/*
+
+!/.config/dtrace
+!/.config/shell
+!/.config/jellybeans.itermcolors
+
 !/.config/fish
 /.config/fish/fish_history
 /.config/fish/config.fish.tmp
 /.config/fish/fishd.*
-!/.config/dtrace
-!/.config/shell
-!/.config/jellybeans.itermcolors
+
+!/.config/nvim
+/.config/nvim/*
+!/.config/nvim/autoload
+!/.config/nvim/autoload/pathogen.vim
+!/.config/nvim/backup
+/.config/nvim/backup/*
+!/.config/nvim/backup/.gitkeep
+!/.config/nvim/update
+!/.config/nvim/plugin_list
 
 !/.ssh
 /.ssh/*
 !/.ssh/ca-certificates.crt
 !/.ssh/config
-
-!/.vim
-/.vim/*
-!/.vim/autoload
-!/.vim/autoload/pathogen.vim
-!/.vim/backup
-/.vim/backup/*
-!/.vim/backup/.gitkeep
-!/.vim/update
-!/.vim/plugin_list
-!/.vimrc
-!/.gvimrc
 
 !/.zshrc
 !/.zshrc.d
