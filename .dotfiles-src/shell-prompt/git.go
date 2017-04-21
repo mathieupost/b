@@ -70,7 +70,7 @@ func gitInfo() string {
 		stash = fgWhite + strconv.Itoa(stashCount)
 	}
 
-	pending := "\x1b[31m"
+	pending := fgRed
 	if _, err := os.Stat(gitDir + "/rebase-merge"); err == nil {
 		pending += "ᴿ"
 	}
