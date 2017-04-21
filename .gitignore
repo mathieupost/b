@@ -29,6 +29,7 @@
 /.config/fish/config.fish.tmp
 /.config/fish/fishd.*
 !/.config/dtrace
+!/.config/shell
 !/.config/jellybeans.itermcolors
 
 !/.ssh
