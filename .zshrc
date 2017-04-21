@@ -19,7 +19,7 @@ export GPG_TTY=$(tty)
 # }}}
 # Aliases, functions {{{
 eval $(
-  cat ~/.sshrc.d/aliases \
+  cat ~/.config/shell/aliases \
     | grep -v '^#' \
     | grep -vE '^\s*$' \
     | sed 's/\$/\\$/' \
@@ -27,11 +27,10 @@ eval $(
     | sed 's/^\([^ :]*\)[[:space:]]*:[[:space:]]*\(.*\)/alias \1="\2";/'
 )
 
-function ]gs() { cd "$(_]gs "$@")"; }
-function ]gb() { cd "$(_]gb "$@")"; }
-function gh() { cd $(_gh "$@"); }
-function ghs() { cd $(_gh Shopify $1); }
-function ghb() { cd $(_gh burke $1); }
+while read line; do
+  eval "function ${line}() { cd \"\$(_${line} \"\$@\")\"; }"
+done < ~/.config/shell/cd-wrappers
+
 function git() {
   local toplevel=$(command git rev-parse --show-toplevel 2>/dev/null)
   if [[ "${toplevel}" == "${HOME}" ]] && [[ "$1" == "clean" ]]; then
@@ -42,7 +41,7 @@ function git() {
 }
 # }}}
 # gdircolors {{{
-eval $(gdircolors -b ~/.sshrc.d/LS_COLORS)
+eval $(gdircolors -b ~/.config/shell/LS_COLORS)
 alias ls="gls --color=auto -F"
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,comm'

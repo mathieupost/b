@@ -21,9 +21,13 @@ awk '
     gsub(/\|\|/, "; or", cmd)
     print "function "$1"; "cmd" $argv; end"
   }
-' < ~/.sshrc.d/aliases | while read line; eval "$line"; end
+' < ~/.config/shell/aliases | while read line; eval "$line"; end
 
-eval (gdircolors -c ~/.sshrc.d/LS_COLORS)
+eval (gdircolors -c ~/.config/shell/LS_COLORS)
+
+while read line;
+  eval "function $line; cd (_$line \$argv); end"
+end < ~/.config/shell/cd-wrappers
 # }}}
 
 # {{{ prompt configuration
@@ -132,14 +136,6 @@ function git
     command git $argv
   end
 end
-
-# {{{ cd wrappers
-function gh;  cd (_gh  $argv); end
-function ghs; cd (_ghs $argv); end
-function ghb; cd (_ghb $argv); end
-function ]gs; cd (_]gs $argv); end
-function ]gb; cd (_]gb $argv); end
-# }}}
 
 if test -f /opt/dev/dev.fish
   source /opt/dev/dev.fish
