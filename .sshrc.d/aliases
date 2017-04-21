@@ -1,5 +1,7 @@
 # vim: foldmethod=marker
 
+git-fuck-everything : git-abort ; git reset . ; git checkout .
+
 # Ubuntu / Remote {{{
 scc      : sudo chef-client
 sagu     : sudo apt-get update
