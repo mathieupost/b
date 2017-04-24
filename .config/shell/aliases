@@ -1,6 +1,6 @@
 # vim: foldmethod=marker
 
-git-fuck-everything : git-abort ; git reset . ; git checkout .
+git-fuck-everything : git-abort ; git reset . ; git checkout . ; git clean -f -d
 mk : minikube
 
 ls : gls --color=auto -F
