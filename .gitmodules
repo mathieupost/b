@@ -1,6 +1,3 @@
-[submodule ".zshrc.d/zsh-autocomplete"]
-	path = .zshrc.d/zsh-autocomplete
-	url = https://github.com/zsh-users/zsh-autosuggestions
 [submodule ".zshrc.d/zsh-autosuggestions"]
 	path = .zshrc.d/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
