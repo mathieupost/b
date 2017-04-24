@@ -6,9 +6,10 @@ import (
 	"os"
 	"os/exec"
 	"path"
-	"strconv"
 	"strings"
 )
+
+var superscripts = []string{"⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹"}
 
 func gitDir() (string, bool) {
 	cpath, e := os.Getwd()
@@ -61,7 +62,7 @@ func gitInfo() string {
 		ref = "⚬"
 	}
 
-	syncstat := "?"
+	syncstat := fgYellow + " ≟"
 	if branch != "" {
 		remoteSHA := []byte{}
 		localSHA, err := ioutil.ReadFile(gitDir + "/refs/heads/" + branch)
@@ -75,9 +76,9 @@ func gitInfo() string {
 				goto welp
 			}
 			if bytes.Compare(remoteSHA, localSHA) == 0 {
-				syncstat = "="
+				syncstat = ""
 			} else {
-				syncstat = "!="
+				syncstat = fgRed + " ≠"
 			}
 		}
 	}
@@ -92,7 +93,11 @@ welp:
 
 	stash := ""
 	if stashCount > 0 {
-		stash = fgWhite + strconv.Itoa(stashCount)
+		count := stashCount
+		if count > 9 {
+			count = 9
+		}
+		stash = fgWhite + superscripts[count]
 	}
 
 	pending := fgRed
@@ -106,5 +111,5 @@ welp:
 		pending += "ᴹ"
 	}
 
-	return " " + color + ref + stash + pending + syncstat
+	return " " + stash + color + ref + pending + syncstat
 }
