@@ -49,8 +49,10 @@ func gitInfo() string {
 		return " error"
 	}
 	ref := ""
+	branch := ""
 	if string(o[0:16]) == "ref: refs/heads/" {
 		ref = strings.TrimSpace(string(o[16:]))
+		branch = ref
 	} else {
 		ref = string(o[0:8])
 	}
@@ -58,6 +60,29 @@ func gitInfo() string {
 	if ref == "master" {
 		ref = "⚬"
 	}
+
+	syncstat := "?"
+	if branch != "" {
+		remoteSHA := []byte{}
+		localSHA, err := ioutil.ReadFile(gitDir + "/refs/heads/" + branch)
+		if err != nil {
+			goto welp
+		}
+
+		if _, err := os.Stat(gitDir + "/refs/remotes/origin/" + branch); err == nil {
+			remoteSHA, err = ioutil.ReadFile(gitDir + "/refs/remotes/origin/" + branch)
+			if err != nil {
+				goto welp
+			}
+			if bytes.Compare(remoteSHA, localSHA) == 0 {
+				syncstat = "="
+			} else {
+				syncstat = "!="
+			}
+		}
+	}
+
+welp:
 
 	stashCount := 0
 
@@ -81,5 +106,5 @@ func gitInfo() string {
 		pending += "ᴹ"
 	}
 
-	return " " + color + ref + stash + pending
+	return " " + color + ref + stash + pending + syncstat
 }
