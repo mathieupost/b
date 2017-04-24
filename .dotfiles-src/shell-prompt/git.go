@@ -56,7 +56,7 @@ func gitInfo() string {
 	}
 
 	if ref == "master" {
-		ref = "*"
+		ref = "⚬"
 	}
 
 	stashCount := 0
