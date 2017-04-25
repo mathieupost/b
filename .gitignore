@@ -43,6 +43,7 @@
 /.config/nvim/backup/*
 !/.config/nvim/backup/.gitkeep
 !/.config/nvim/update
+!/.config/nvim/init.vim
 !/.config/nvim/plugin_list
 
 !/.ssh
