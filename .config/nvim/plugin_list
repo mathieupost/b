@@ -1,4 +1,5 @@
 # Syntax / Language Support ##########################
+vim-ruby/vim-ruby               # ruby
 fatih/vim-go                    # go
 dag/vim-fish                    # fish
 cespare/vim-toml                # toml
