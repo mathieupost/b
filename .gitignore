@@ -83,6 +83,9 @@
 /Library/Application Support/Alfred 3/Alfred.alfredpreferences/*
 !/Library/Application Support/Alfred 3/Alfred.alfredpreferences/workflows
 
+!/Library/Preferences
+/Library/Preferences/*
+!/Library/Preferences/com.googlecode.iterm2.plist
 
 !/.tmux.conf
 
