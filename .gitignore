@@ -39,9 +39,6 @@
 /.config/nvim/*
 !/.config/nvim/autoload
 !/.config/nvim/autoload/pathogen.vim
-!/.config/nvim/backup
-/.config/nvim/backup/*
-!/.config/nvim/backup/.gitkeep
 !/.config/nvim/update
 !/.config/nvim/init.vim
 !/.config/nvim/plugin_list
