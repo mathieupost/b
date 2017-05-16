@@ -26,6 +26,7 @@ junegunn/vim-easy-align         # vipga
 tpope/vim-eunuch                # :Rename foo.rb
 tpope/vim-endwise               # add end, } after opening block
 ervandew/supertab               # smart completions
+meunierd/ale                    # linting
 
 # Buffer / Pane / File Management ####################
 tpope/vim-vinegar               # open netrw with -, other things
