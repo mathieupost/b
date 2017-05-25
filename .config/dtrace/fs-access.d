@@ -46,6 +46,7 @@ syscall::getxattr:entry        /pid == $target/ { printf("%s\t%s\n",     probefu
 syscall::setxattr:entry        /pid == $target/ { printf("%s\t%s\n",     probefunc, copyinstr(arg0)                  ); }
 syscall::listxattr:entry       /pid == $target/ { printf("%s\t%s\n",     probefunc, copyinstr(arg0)                  ); }
 syscall::removexattr:entry     /pid == $target/ { printf("%s\t%s\n",     probefunc, copyinstr(arg0)                  ); }
+syscall::lseek:entry           /pid == $target/ { printf("%s\t%s\n",     probefunc, p[pid, arg0]                     ); }
 syscall::fstat:entry           /pid == $target/ { printf("%s\t%s\n",     probefunc, p[pid, arg0]                     ); }
 syscall::fstat_extended:entry  /pid == $target/ { printf("%s\t%s\n",     probefunc, p[pid, arg0]                     ); }
 syscall::fstat64:entry         /pid == $target/ { printf("%s\t%s\n",     probefunc, p[pid, arg0]                     ); }

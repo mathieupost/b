@@ -28,7 +28,7 @@ appbindings.setup({"cmd", "ctrl"}, {
   [2] = nil,
   [3] = "com.google.Chrome",
   [4] = "com.tinyspeck.slackmacgap",
-  [5] = nil,
+  [5] = "com.culturedcode.ThingsMac",
   [6] = "com.apple.iChat",
   [7] = nil,
   [8] = nil,
