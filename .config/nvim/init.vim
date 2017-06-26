@@ -347,8 +347,13 @@ vnoremap <tab> %
 
 " ## Mappings {{{
 
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
 " ; instead of : {{{
-nnoremap ; :
+" nnoremap ; :
 " <A-;>
 nnoremap … ;
 " }}}
@@ -384,8 +389,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 " }}}
 
-" Delete line and enter insert mode
-nnoremap T ddO
 " Replace line with contents of yank ring
 nnoremap <leader>p Pjddkyy
 

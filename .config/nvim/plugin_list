@@ -10,6 +10,7 @@ vim-pandoc/vim-pandoc           # pandoc (1/2)
 vim-pandoc/vim-pandoc-syntax    # pandoc (2/2)
 othree/yajs.vim                 # JS syntax
 othree/es.next.syntax.vim       # ES7 syntax
+tomlion/vim-solidity
 
 # UI #################################################
 itchyny/lightline.vim           # status line
@@ -27,6 +28,7 @@ tpope/vim-eunuch                # :Rename foo.rb
 tpope/vim-endwise               # add end, } after opening block
 ervandew/supertab               # smart completions
 w0rp/ale                        # linting
+justinmk/vim-sneak
 
 # Buffer / Pane / File Management ####################
 tpope/vim-vinegar               # open netrw with -, other things

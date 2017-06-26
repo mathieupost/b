@@ -67,7 +67,7 @@ end
 
 caffeine.start()
 
-leader.new({"cmd"}, "`"):bindall({
+leader.new({"cmd", "shift"}, "`"):bindall({
   p = setupSecondaryScreen,
 
   r = reload,
