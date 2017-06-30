@@ -158,6 +158,10 @@ function git() {
   command git "$@"
 }
 
+function nix-activate() {
+  . ~/.nix-profile/etc/profile.d/nix.sh
+}
+
 source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/dev/dev.sh

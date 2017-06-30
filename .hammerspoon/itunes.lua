@@ -7,33 +7,35 @@ local _M = {}
 
 local iTunesID = "com.apple.iTunes"
 
-function ensureRunning()
-  local iTuneses = hs.application.applicationsForBundleID(iTunesID)
-  if #iTuneses == 0 then
-    return hs.application.launchOrFocusByBundleID(iTunesID)
+function ensureRunning(bundleID)
+  local apps = hs.application.applicationsForBundleID(bundleID)
+  if #apps == 0 then
+    return hs.application.launchOrFocusByBundleID(bundleID)
   end
-  iTuneses = hs.application.applicationsForBundleID(iTunesID)
-  return iTuneses[1]
+  apps = hs.application.applicationsForBundleID(bundleID)
+  return apps[1]
 end
 
-function setMiniPlayerState(iTunes, wantMiniPlayer)
-  local didChangeState = false
+-- iTunes: hs.application for iTunes
+-- want:   bool, indicating whether we want miniplayer (true) or library (false)
+-- return: bool, indicating whether we changed views
+function setMiniPlayerState(iTunes, want)
   local wins = iTunes:allWindows()
-  local haveMiniPlayer = #wins ~= 0 and wins[1]:title() == "MiniPlayer"
+  local have= #wins ~= 0 and wins[1]:title() == "MiniPlayer"
 
-  if wantMiniPlayer and not haveMiniPlayer then
+  if want and not have then
     iTunes:activate()
     iTunes:selectMenuItem({"Window", "Switch to MiniPlayer"})
     return true
   end
 
-  if haveMiniPlayer and not wantMiniPlayer then
+  if have and not want then
     iTunes:activate()
     iTunes:selectMenuItem({"Window", "Switch from MiniPlayer"})
     return true
   end
 
-  return false
+  return false -- state not changed
 end
 
 function toggleVisibility(app)
@@ -49,18 +51,23 @@ end
 -- toggle visibility if pressed again while library is active
 -- toggle back to library if miniplayer is active
 function _M.toggleLibrary()
-  local prevFocus = hs.window.focusedWindow():application()
-  local iTunes = ensureRunning()
+  local prevApp = hs.application.frontmostApplication()
+  local iTunesApp = ensureRunning(iTunesID)
 
-  if setMiniPlayerState(iTunes, false) then
+  if setMiniPlayerState(iTunesApp, false) then
     return
   end
 
-  if prevFocus and prevFocus:bundleID() == iTunesID then
-    return prevFocus:hide()
+  if prevApp == iTunesApp then
+    return iTunesApp:hide()
   end
 
-  iTunes:activate()
+  if #iTunesApp:allWindows() == 0 then
+    -- if there were no windows, press Cmd-0 to show the library
+    iTunesApp:selectMenuItem({"Window", "iTunes"})
+  end
+
+  iTunesApp:activate()
 end
 
 -- This is meant to be used with:
@@ -70,15 +77,15 @@ end
 -- switch to miniplayer if not currently active
 -- toggle visibility of miniplayer if active without stealing focus from current app
 function _M.toggleMiniPlayer()
-  local prevFocus = hs.window.focusedWindow():application()
-  local iTunes = ensureRunning()
+  local prevApp = hs.application.frontmostApplication()
+  local iTunesApp = ensureRunning(iTunesID)
 
-  if setMiniPlayerState(iTunes, true) then
-    return prevFocus:activate()
+  if setMiniPlayerState(iTunesApp, true) then
+    return prevApp:activate()
   end
 
-  prevFocus:activate()
-  toggleVisibility(iTunes)
+  prevApp:activate()
+  toggleVisibility(iTunesApp)
 end
 
 return _M
