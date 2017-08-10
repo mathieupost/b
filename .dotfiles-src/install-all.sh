@@ -9,3 +9,8 @@
   cd shell-prompt
   make install clean
 )
+
+(
+  cd hostname-fix
+  make install clean
+)
