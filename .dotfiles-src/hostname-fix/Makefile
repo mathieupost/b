@@ -2,12 +2,13 @@ TARGET=hostname-fix
 INSTALLDIR=$(HOME)/bin
 
 $(TARGET): $(TARGET).c
+	sudo rm -f $(TARGET)
 	cc -o $@ $<
 	sudo chown root:wheel $@
 	sudo chmod ug+s $@
 
 install: $(TARGET)
-	cp $< "$(HOME)/bin"
+	sudo cp -a $< "$(HOME)/bin"
 
 clean:
-	rm -f $(TARGET)
+	sudo rm -f $(TARGET)
