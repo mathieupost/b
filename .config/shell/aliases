@@ -1,5 +1,9 @@
 # vim: foldmethod=marker
 
+do,s  : dev open shipit
+do,pr : dev open pr
+
+
 git-fuck-everything : git-abort ; git reset . ; git checkout . ; git clean -f -d
 mk : minikube
 
