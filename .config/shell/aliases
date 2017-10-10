@@ -1,6 +1,6 @@
 # vim: foldmethod=marker
 
-do,s  : dev open shipi
+do,s  : dev open shipit
 do,pr : dev open pr
 
 
