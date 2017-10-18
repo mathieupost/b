@@ -110,12 +110,11 @@ func main() {
 	home := os.Getenv("HOME")
 	pers, _ := ioutil.ReadDir(home + "/.mail/p:INBOX/new")
 	shop, _ := ioutil.ReadDir(home + "/.mail/s:INBOX/new")
-	git, _ := ioutil.ReadDir(home + "/.mail/github/new")
 	color := nobold(noMailFG, otherBG)
-	if len(pers) > 0 || len(shop) > 0 || len(git) > 0 {
+	if len(pers) > 0 || len(shop) > 0 {
 		color = nobold(1, otherBG)
 	}
-	mails := fmt.Sprintf("%s %d:%d:%d", color, len(pers), len(shop), len(git))
+	mails := fmt.Sprintf("%s %d:%d", color, len(pers), len(shop))
 
 	stat, err := os.Stat(home + "/.mutt/mbsync.log")
 	threshold := time.Now().Add(-3 * time.Minute)
@@ -123,6 +122,8 @@ func main() {
 		mails = fmt.Sprintf("%s ?", nobold(1, otherBG))
 	}
 	t3 := time.Now()
+
+	obox, _ := ioutil.ReadFile("/tmp/octobox-notifications")
 
 	batt := fmt.Sprintf("%d", C.percentage())
 	power := fmt.Sprintf("%0.1fW", float64(C.power())/1e6)
@@ -155,6 +156,8 @@ func main() {
 			boringColor+" "+
 			Arrow0+
 			mails+
+			" "+Arrow0+
+			" "+string(obox)+
 
 			nobold(timeBG, otherBG)+" "+
 			Arrow1+nobold(hostnameBG, timeBG)+" "+

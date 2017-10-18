@@ -1,0 +1,81 @@
+#!/usr/bin/ruby --disable-gems
+
+require 'net/http'
+require 'cgi'
+require 'json'
+require 'open3'
+
+DEST = '/tmp/octobox-notifications'
+
+def fail(msg)
+  File.write(DEST, msg)
+  STDERR.write(msg)
+  exit 1
+end
+
+# required format: "user_id=1234; _octobox_session=1234%201234--1234"
+cookie, _, t = Open3.capture3(
+  'security',
+  'find-generic-password',
+  '-w', # print only the password
+  '-l', 'octobox-cookie' 
+)
+fail '?/0' unless t.success?
+
+Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
+  resp = http.get('/', 'Cookie' => cookie)
+  fail '?/1' unless resp.code.to_i == 200
+
+  pat = /<meta name="csrf-token" content="([^"]+)"/
+  unescaped = resp.body.scan(pat).flatten.first 
+  fail '?/2' unless unescaped
+
+  post_body = "_method=post&authenticity_token=#{CGI.escape(unescaped)}"
+  resp = http.post('/notifications/sync', post_body, 'Cookie' => cookie)
+  fail '?/3' unless resp.code.to_i == 302
+
+  resp = http.get('/notifications.json', 'Cookie' => cookie)
+  fail '?/4' unless resp.code.to_i == 200
+
+  data = JSON.parse(resp.body)
+
+  hints = {
+    'mention'          => 'ᵐ',
+    'team_mention'     => 'ᵗ',
+    'review_requested' => 'ʳ',
+    'subscribed'       => 'ˢ'
+  }
+
+  colours = {
+    'mention'          => '1',
+    'team_mention'     => '4',
+    'review_requested' => '1',
+    'subscribed'       => '4'
+  }
+
+  reasons = {
+    'mention'          => 0,
+    'team_mention'     => 0,
+    'review_requested' => 0,
+    'subscribed'       => 0
+  }
+
+  notifications = data.fetch('notifications')
+  notifications.each do |ntf|
+    next unless ntf.fetch('unread')
+    reason = ntf.fetch('reason')
+    fail reason unless reasons[reason]
+    reasons[reason] += 1
+  end
+
+  str = hints.map do |k, hint|
+    count = reasons.fetch(k)
+    if count > 0
+      "#[fg=colour#{colours[k]}]#{hint}#{count}"
+    else
+      "#[fg=colour246]#{hint}#{count}"
+    end
+  end.join
+
+  File.write(DEST, str)
+end
