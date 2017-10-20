@@ -182,8 +182,9 @@ class Orgit # :nodoc:
     resp.each_page do |page|
       STDERR.print('.')
       data.concat(page.map do |item|
+        next if item['name'] == 'vault-mirror'
         RemoteRepo.new(item['name'], Time.parse(item['pushed_at']), item['default_branch'])
-      end)
+      end.compact)
     end
     STDERR.puts(' done!')
     data
