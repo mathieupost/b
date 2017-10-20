@@ -1,0 +1,9 @@
+#!/bin/bash
+
+SRC=~/.dotfiles-src/orgit
+
+source /opt/dev/sh/chruby/chruby.sh
+chruby 2.3.3
+export BUNDLE_GEMFILE=$SRC/Gemfile
+exec $SRC/orgit "$@"
+

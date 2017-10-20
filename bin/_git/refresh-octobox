@@ -41,6 +41,7 @@ Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
 
   hints = {
     'mention'          => 'ᵐ',
+    'author'           => 'ᵃ',
     'team_mention'     => 'ᵗ',
     'review_requested' => 'ʳ',
     'subscribed'       => 'ˢ'
@@ -48,6 +49,7 @@ Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
 
   colours = {
     'mention'          => '1',
+    'author'           => '3',
     'team_mention'     => '4',
     'review_requested' => '1',
     'subscribed'       => '4'
@@ -55,6 +57,7 @@ Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
 
   reasons = {
     'mention'          => 0,
+    'author'           => 0,
     'team_mention'     => 0,
     'review_requested' => 0,
     'subscribed'       => 0
