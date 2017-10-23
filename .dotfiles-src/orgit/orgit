@@ -8,16 +8,29 @@ require 'bundler/setup'
 
 require 'json'
 require 'github_api'
+require_relative './github'
 
 class Orgit # :nodoc:
-  RemoteRepo = Struct.new(:name, :pushed_at, :default_branch)
   LocalRepo  = Struct.new(:name, :fetched_at, :ref)
 
-  Repo = Struct.new(:name, :pushed_at, :fetched_at, :default_branch, :ref) do
+  Repo = Struct.new(:name, :pushed_at, :fetched_at, :default_branch, :ref, :remote_sha) do
     def needs_clone?;   pushed_at && !fetched_at end
     def needs_delete?; !pushed_at &&  fetched_at end
-    def needs_fetch?;   pushed_at &&  fetched_at && fetched_at < pushed_at end
     def on_default_branch?; default_branch == ref end
+
+    def needs_fetch?(path)
+      path = File.expand_path(name, path)
+      # clone, not fetch
+      return false unless Dir.exist?(path)
+
+      # empty project
+      return false if remote_sha.nil?
+
+      o, t = Open3.capture2e('git', '-C', path, 'rev-parse', "refs/remotes/origin/#{default_branch}")
+      return true unless t.success?
+
+      o.chomp != remote_sha
+    end
   end
 
   class ParallelFetcher
@@ -78,7 +91,7 @@ class Orgit # :nodoc:
   end
 
   def repos_needing_update
-    repos.select(&:needs_fetch?)
+    repos.select { |r| r.needs_fetch?(@path) }
   end
 
   def delete_repo(repo)
@@ -101,8 +114,12 @@ class Orgit # :nodoc:
 
     path = File.expand_path(repo.name, @path)
 
-    fetch_head = File.read("#{path}/.git/FETCH_HEAD").split(/\s+/).first
-    return if fetch_head.nil? # there are no commits
+    begin
+      fetch_head = File.read("#{path}/.git/FETCH_HEAD").split(/\s+/).first
+      return if fetch_head.nil? # there are no commits
+    rescue Errno::ENOENT
+      return
+    end
 
     head, t = Open3.capture2e('git', '-C', path, 'rev-parse', 'HEAD')
     head = t.success? ? head.chomp : ''
@@ -112,17 +129,17 @@ class Orgit # :nodoc:
     unless head.empty?
       o, t = Open3.capture2e('git', '-C', path, 'status', '--porcelain')
       if !t.success? || !o.chomp.empty?
-        puts "cannot fast-forward repo with dirty working tree #{repo.name}"
+        puts "\x1b[1;31mcannot fast-forward repo with dirty working tree:\x1b[0m #{repo.name}"
         return
       end
       _, t = Open3.capture2e('git', '-C', path, 'merge-base', '--is-ancestor', head, fetch_head)
       unless t.success?
-        puts "cannot fast-forward repo with unpushed commits #{repo.name}"
+        puts "\x1b[1;31mcannot fast-forward repo with unpushed commits\x1b[0m #{repo.name}"
         return
       end
     end
 
-    reset_repo(path, fetch_head)
+    reset_repo(path, repo.remote_sha)
   end
 
   def repo_dirty?(repo)
@@ -134,8 +151,8 @@ class Orgit # :nodoc:
 
   private
 
-  def reset_repo(path, fetch_head)
-    _, t = Open3.capture2e('git', '-C', path, 'reset', '--hard', fetch_head)
+  def reset_repo(path, sha)
+    _, t = Open3.capture2e('git', '-C', path, 'reset', '--hard', sha)
     raise "??? #{o} / #{args.inspect}" unless t.success?
   end
 
@@ -146,12 +163,13 @@ class Orgit # :nodoc:
   def gen_repo_list
     repos = {}
     local_repos.each do |lr|
-      repos[lr.name] = Repo.new(lr.name, nil, lr.fetched_at, nil, lr.ref)
+      repos[lr.name] = Repo.new(lr.name, nil, lr.fetched_at, nil, lr.ref, nil)
     end
     remote_repos.each do |rr|
       repos[rr.name] ||= Repo.new(rr.name, nil, nil, nil, nil)
       repos[rr.name].pushed_at = rr.pushed_at
       repos[rr.name].default_branch = rr.default_branch
+      repos[rr.name].remote_sha = rr.sha
     end
     repos.map { |_, v| v }
   end
@@ -176,22 +194,11 @@ class Orgit # :nodoc:
   end
 
   def gen_remote_repo_list
-    STDERR.print('retrieving repository list...')
-    resp = github.repos.list(org: 'Shopify', per_page: 100)
-    data = []
-    resp.each_page do |page|
-      STDERR.print('.')
-      data.concat(page.map do |item|
-        next if item['name'] == 'vault-mirror'
-        RemoteRepo.new(item['name'], Time.parse(item['pushed_at']), item['default_branch'])
-      end.compact)
-    end
-    STDERR.puts(' done!')
-    data
+    github.repos
   end
 
   def github
-    @github ||= Github.new(oauth_token: oauth_token)
+    @github ||= Orgit::Github.new(oauth_token)
   end
 
   def oauth_token
@@ -239,15 +246,19 @@ module CLI
     orgit = Orgit.new('~/src/github.com/shopify')
 
     if orgit.extra_repos.any?
-      puts "found #{orgit.extra_repos} that don't exist on the remote."
+      puts "found #{orgit.extra_repos.size} that don't exist on the remote."
     end
     orgit.extra_repos.each do |repo|
       puts "delete extra repo? (#{repo.name})"
-      orgit.delete_repo(repo) if gets =~ /y/i
+      orgit.delete_repo(repo) if STDIN.gets =~ /y/i
     end
 
     to_fetch = (orgit.missing_repos + orgit.repos_needing_update)
-    puts "fetching #{to_fetch.size} repos..."
+    if to_fetch.size.zero?
+      puts "no new commits to fetch."
+    else
+      puts "fetching #{to_fetch.size} repos..."
+    end
     orgit.parallel_fetch(to_fetch)
 
     orgit.repos.each do |repo|
