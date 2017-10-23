@@ -26,8 +26,18 @@ class Orgit # :nodoc:
       # empty project
       return false if remote_sha.nil?
 
-      o, t = Open3.capture2e('git', '-C', path, 'rev-parse', "refs/remotes/origin/#{default_branch}")
-      return true unless t.success?
+      begin
+        o = File.read(File.expand_path(".git/refs/remotes/origin/#{default_branch}", path))
+      rescue Errno::ENOENT
+        o = File
+          .read(File.expand_path(".git/packed-refs", path))
+          .scan(%r{^([^\s]+)\s+refs/remotes/origin/#{Regexp.quote(default_branch)}$}m).flatten.first
+      end
+
+      if o.nil?
+        puts "\x1b[1;31mcouldn't determine status for repo: \x1b[0m#{File.basename(path)}"
+        return true
+      end
 
       o.chomp != remote_sha
     end
@@ -253,18 +263,24 @@ module CLI
       orgit.delete_repo(repo) if STDIN.gets =~ /y/i
     end
 
+    CLI.info "determining which repos need updating..."
     to_fetch = (orgit.missing_repos + orgit.repos_needing_update)
     if to_fetch.size.zero?
-      puts "no new commits to fetch."
+      CLI.info "no new commits to fetch."
     else
-      puts "fetching #{to_fetch.size} repos..."
+      CLI.info "fetching #{to_fetch.size} repos..."
     end
     orgit.parallel_fetch(to_fetch)
 
+    CLI.info "checking out latest code everywhere..."
     orgit.repos.each do |repo|
       next if repo.needs_delete?
       orgit.checkout_latest(repo)
     end
+  end
+
+  def self.info(msg)
+    puts "\x1b[1;3;34m%\x1b[0;3m #{msg}\x1b[0m"
   end
 end
 

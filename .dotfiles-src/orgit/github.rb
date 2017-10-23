@@ -20,7 +20,7 @@ class Orgit
 
     def repos
       rs = []
-      STDERR.print('retrieving repository list...')
+      STDERR.print("\x1b[1;3;34m%\x1b[0;3m retrieving repository list...")
       Net::HTTP.start('api.github.com', 443, use_ssl: true) do |http|
         cursor = nil
         loop do
@@ -30,7 +30,7 @@ class Orgit
           STDERR.print('.')
         end
       end
-      STDERR.puts(' done!')
+      STDERR.puts(" done!\x1b[0m")
       rs
     end
 
