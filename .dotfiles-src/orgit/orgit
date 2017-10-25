@@ -68,9 +68,9 @@ class Orgit # :nodoc:
               _, t = Open3.capture2e('git', 'clone', "git@github.com:shopify/#{repo.name}", path)
             end
             if t.success?
-              puts "\x1b[1;32m✓\x1b[0m #{repo.name} fetched"
+              puts "\x1b[1;32m✓\x1b[0m #{repo.name} fetched\n"
             else
-              puts "\x1b[1;31m✗\x1b[0m #{repo.name} fetch failed"
+              puts "\x1b[1;31m✗\x1b[0m #{repo.name} fetch failed\n"
             end
           end
         end
@@ -214,7 +214,7 @@ class Orgit # :nodoc:
       'security',
       'find-generic-password',
       '-w', # print only the password
-      '-l', 'github-oauth-repo' 
+      '-l', 'meta-cache-token' 
     )
     raise "security find-generic-password failed: #{err}" unless t.success?
     token
