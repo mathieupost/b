@@ -1,9 +1,0 @@
-up:
-  - ruby: 2.3.3
-  - bundler
-
-common_commands:
-  server: false
-  build: false
-  console: false
-  test: false
