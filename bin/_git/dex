@@ -5,5 +5,5 @@ SRC=~/src/github.com/shopify/dex
 source /opt/dev/sh/chruby/chruby.sh
 chruby 2.3.3
 export BUNDLE_GEMFILE=$SRC/Gemfile
-exec $SRC/dex "$@"
+exec $SRC/bin/dex "$@"
 
