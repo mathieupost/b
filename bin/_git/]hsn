@@ -1,5 +1,0 @@
-#!/bin/bash
-
-id=$1;shift
-project="$(_]g "${HOME}/src/github.com/Shopify" "$*")"
-open "https://github.com/Shopify/${project}/issues/${id}"

@@ -1,4 +1,0 @@
-#!/bin/bash
-
-project="$(_]g "${HOME}/src/github.com/Shopify" "$@")"
-open "https://github.com/Shopify/${project}/pulls/burke"

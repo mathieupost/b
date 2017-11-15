@@ -158,8 +158,16 @@ function git() {
   command git "$@"
 }
 
-function nix-activate() {
-  . ~/.nix-profile/etc/profile.d/nix.sh
+function ]g() {
+  dev cd "$@"
+}
+
+function ]gs() {
+  dev cd "$@"
+}
+
+function ]gb() {
+  dev cd "burke/$@"
 }
 
 source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
