@@ -101,9 +101,21 @@ func sampleCPU() (float64, float64, float64) {
 	s1.Load()
 	s2.Generate()
 	if err := s2.Dump(); err != nil {
-		// meh
+		return 0, 0, 0
 	}
 
 	diff := s2.Diff(s1)
-	return diff.userRatio(), diff.systemRatio(), diff.idleRatio()
+	ur := diff.userRatio()
+	sr := diff.systemRatio()
+	ir := diff.idleRatio()
+	if ur < 0 {
+		ur = -1
+	}
+	if sr < 0 {
+		sr = -1
+	}
+	if ir < 0 {
+		ir = -1
+	}
+	return ur, sr, ir
 }

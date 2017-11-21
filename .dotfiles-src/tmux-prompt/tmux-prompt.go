@@ -128,7 +128,7 @@ func main() {
 	batt := fmt.Sprintf("%d", C.percentage())
 	power := fmt.Sprintf("%0.1fW", float64(C.power())/1e6)
 
-	u, s, _ := sampleCPU()
+	// u, s, _ := sampleCPU()
 
 	t4 := time.Now()
 	secs := C.secondsOfBatteryRemaining()
@@ -151,7 +151,7 @@ func main() {
 			" "+power+
 			boringColor+" "+
 			Arrow0+" "+
-			fmt.Sprintf("%02d'%02d", int(u*100), int(s*100))+" "+
+			// fmt.Sprintf("%02d'%02d", uint64(u*100), uint64(s*100))+" "+
 			displayLoadAvgs(loadAvgs)+
 			boringColor+" "+
 			Arrow0+

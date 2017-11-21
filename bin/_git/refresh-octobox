@@ -44,6 +44,8 @@ Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
     'author'           => 'ᵃ',
     'team_mention'     => 'ᵗ',
     'review_requested' => 'ʳ',
+    'state_change'     => 'ᵟ',
+    'comment'          => 'ᶜ',
     'subscribed'       => 'ˢ'
   }
 
@@ -52,6 +54,8 @@ Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
     'author'           => '3',
     'team_mention'     => '4',
     'review_requested' => '1',
+    'state_change'     => '4',
+    'comment'          => '4',
     'subscribed'       => '4'
   }
 
@@ -60,6 +64,8 @@ Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
     'author'           => 0,
     'team_mention'     => 0,
     'review_requested' => 0,
+    'state_change'     => 0,
+    'comment'          => 0,
     'subscribed'       => 0
   }
 
