@@ -78,5 +78,5 @@ func mode() string {
 }
 
 func main() {
-	fmt.Printf("%s%s%s %s%s%s%s ", hostnameInfo(), pathInfo(), gitInfo(), statusAndPrompt(), mode(), fgReset, "%(1j.%j.)")
+	fmt.Printf("%s%s %s%s%s%s ", fgBlue+pathInfo(), gitInfo(), statusAndPrompt(), mode(), fgReset, "%(1j.%j.)")
 }

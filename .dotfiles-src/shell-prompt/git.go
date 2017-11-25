@@ -59,7 +59,7 @@ func gitInfo() string {
 	}
 
 	if ref == "master" {
-		ref = "⚬"
+		ref = "\uf401"
 	}
 
 	syncstat := fgYellow + " ≟"

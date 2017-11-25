@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+
+cd ~ || exit 1
+
+IFS=$'\n'
+for i in $(ls ~/.dotfiles-src/eblob | grep -E 'gpg$'); do
+  final_path="${i//--//}"
+  final_path="${final_path%.gpg}"
+  if [[ -f "${final_path}" ]]; then
+    echo "[ok] ${final_path}"
+  else
+    mkdir -p "$(dirname "${final_path}")"
+    gpg \
+      --output "${final_path}" \
+      --decrypt \
+      "$i"
+    echo "[done] ${final_path}"
+  fi
+done
+
