@@ -3,7 +3,6 @@ vim-ruby/vim-ruby               # ruby
 fatih/vim-go                    # go
 dag/vim-fish                    # fish
 cespare/vim-toml                # toml
-evanmiller/nginx-vim-syntax     # nginx
 djpohly/vim-gvpr                # gvpr
 rust-lang/rust.vim              # rust
 vim-pandoc/vim-pandoc           # pandoc (1/2)
@@ -17,6 +16,7 @@ itchyny/lightline.vim           # status line
 nanotech/jellybeans.vim
 morhetz/gruvbox                 # colorscheme
 airblade/vim-gitgutter          # status in gutter
+ryanoasis/vim-devicons
 
 # Editor Features ####################################
 tpope/vim-surround              # cs"'

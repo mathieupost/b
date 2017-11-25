@@ -345,6 +345,9 @@ runtime! macros/matchit.vim
 nnoremap <tab> %
 vnoremap <tab> %
 
+" let &t_ZH="\e[3m"
+" let &t_ZR="\e[23m"
+
 " ## Mappings {{{
 
 map f <Plug>Sneak_f
