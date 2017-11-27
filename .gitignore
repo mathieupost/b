@@ -5,6 +5,8 @@
 !/.gitignore
 !/.gitconfig
 
+!/.terminfo
+
 !/.mutt
 /.mutt/*
 !/.mutt/*muttrc
