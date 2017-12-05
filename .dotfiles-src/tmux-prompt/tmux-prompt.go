@@ -135,7 +135,7 @@ func main() {
 	mins := int(secs / 60.0)
 	battRem := fmt.Sprintf("%dm", mins)
 	if secs == -2 {
-		battRem = "⚡ "
+		battRem = "⚡"
 	}
 	if secs == -1 {
 		battRem = "⏳ "
