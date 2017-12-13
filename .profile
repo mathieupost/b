@@ -22,7 +22,6 @@ export PATH="/usr/local/texlive/2016basic/bin/x86_64-darwin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/bin/_git:$PATH"
 export PATH="$HOME/.gem/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="./node_modules/.bin:$PATH"
 export PATH="$HOME/src/google-cloud-sdk/bin:$PATH"
 
