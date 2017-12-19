@@ -43,3 +43,5 @@ vim-scripts/ReplaceWithRegister
 tpope/vim-unimpaired
 chazy/cscope_maps
 wellle/targets.vim
+
+vim-scripts/vim-auto-save
