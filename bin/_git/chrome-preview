@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require 'open3'
+
+CHROME_PREVIEW_URL = <<-OSASCRIPT.freeze
+  tell application "Google Chrome"
+    set notOpen to true
+    set windowList to every window
+    repeat with aWindow in windowList
+      set tabList to every tab of aWindow
+      repeat with atab in tabList
+        if (URL of atab contains "{{url}}") then
+          set notOpen to false
+          tell atab to reload
+        end if
+      end repeat
+    end repeat
+    if notOpen then
+      open location "{{url}}"
+    end if
+  end tell
+OSASCRIPT
+
+def preview_html(path)
+  url    = "file://#{File.expand_path(path)}"
+  script = CHROME_PREVIEW_URL.gsub(/{{url}}/, url)
+
+  _, s = Open3.capture2('osascript', stdin_data: script)
+  abort unless s.success?
+end
+
+abort "usage: #{$PROGRAM_NAME} <url>" if ARGV.size.zero?
+preview_html(ARGV.shift)
