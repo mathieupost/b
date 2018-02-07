@@ -1,0 +1,64 @@
+#!/usr/bin/ruby --disable-gems
+
+require 'net/http'
+require 'cgi'
+require 'json'
+require 'open3'
+require 'time'
+
+def fail(msg)
+  File.write(DEST, msg)
+  STDERR.write(msg)
+  exit 1
+end
+
+# required format: "user_id=1234; _octobox_session=1234%201234--1234"
+cookie, _, t = Open3.capture3(
+  'security',
+  'find-generic-password',
+  '-w', # print only the password
+  '-l', 'octobox-cookie' 
+)
+fail '?/0' unless t.success?
+
+REVIEW_REQUESTED = 'subscribed'.freeze
+
+Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
+  resp = http.get('/', 'Cookie' => cookie)
+  fail '?/1' unless resp.code.to_i == 200
+
+  pat = /<meta name="csrf-token" content="([^"]+)"/
+  unescaped = resp.body.scan(pat).flatten.first 
+  fail '?/2' unless unescaped
+
+  post_body = "_method=post&authenticity_token=#{CGI.escape(unescaped)}"
+  resp = http.post('/notifications/sync', post_body, 'Cookie' => cookie)
+  fail '?/3' unless resp.code.to_i == 302
+
+  resp = http.get('/notifications.json', 'Cookie' => cookie)
+  fail '?/4' unless resp.code.to_i == 200
+
+  data = JSON.parse(resp.body)
+
+  notifications = data.fetch('notifications')
+  notifications.each do |ntf|
+    # next unless ntf.fetch('unread')
+    reason = ntf.fetch('reason')
+    next unless reason == REVIEW_REQUESTED
+
+    now = Time.now
+    ca  = Time.parse(ntf.fetch('created_at'))
+    ua  = Time.parse(ntf.fetch('updated_at'))
+    ra  = Time.parse(ntf.fetch('last_read_at'))
+    hours_since_create = (now - ca) / 3600
+    hours_since_update = (now - ua) / 3600
+    hours_since_read   = (now - ra) / 3600
+
+    puts ntf.fetch('url')
+    puts format('created: %0.3f hours ago', hours_since_create)
+    puts format('updated: %0.3f hours ago', hours_since_update)
+    puts format('read:    %0.3f hours ago', hours_since_read)
+    puts
+  end
+
+end

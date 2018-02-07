@@ -19,12 +19,6 @@ Slave ":personal-local:INBOX"
 Create Both
 SyncState *
 
-Channel personal-github
-Master ":personal-remote:github"
-Slave ":personal-local:github"
-Create Both
-SyncState *
-
 Channel personal-pol
 Master ":personal-remote:pol"
 Slave ":personal-local:pol"

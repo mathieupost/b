@@ -53,7 +53,6 @@ alternates burke@libbey.me burke@burkelibbey.org b.libbey@gmail.com burke.libbey
 
 # Mailboxes to show in the sidebar.
 mailboxes +p:INBOX   +s:INBOX \
-          +github \
           +pol \
           +ruby-core \
           +notes \
@@ -130,14 +129,6 @@ bind pager R  group-reply
 
 # View attachments properly.
 bind attach <return> view-mailcap
-
-# urlview
-macro pager \Cb "<pipe-entry>urlview<enter>" "call urlview to open links"
-macro pager "\Cu" "<pipe-entry>tail -1 | grep github.com | xargs open<enter>" "call githubview to jump to PR or issue"
-
-macro index \Cb "<pipe-message>urlview<enter>" "call urlview to open links"
-macro index "\Cu" "<pipe-message>tail -1 | grep github.com | xargs open<enter>" "call githubview to jump to PR or issue"
-
 
 # Compose View Options -------------------------------
 set realname = "Burke Libbey"        # who am i?

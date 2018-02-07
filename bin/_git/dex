@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SRC=~/src/github.com/shopify/dex
+SRC=/dex/dex
 
 source /opt/dev/sh/chruby/chruby.sh
 chruby 2.3.3

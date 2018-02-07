@@ -31,6 +31,10 @@ while read line; do
   eval "function ${line}() { cd \"\$(_${line} \"\$@\")\"; }"
 done < ~/.config/shell/cd-wrappers
 
+function ghs() {
+  dev clone $1
+}
+
 eval $(gdircolors -b ~/.config/shell/LS_COLORS)
 # }}}
 # ZSH options and features {{{

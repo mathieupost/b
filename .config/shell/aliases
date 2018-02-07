@@ -45,7 +45,7 @@ mi       : gem install --no-ri --no-rdoc
 
 # }}}
 # Projects {{{
-shop     : ghs shopify
+shop     : dev cd shopify
 note     : ghb notes
 sruby    : gh ruby ruby
 # }}}
