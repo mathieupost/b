@@ -174,6 +174,17 @@ function ]gb() {
   dev cd "burke/$@"
 }
 
+function z() {
+  local srcpath
+  srcpath="$(
+    awk -F ' *= *' '
+      $1 == "[srcpath]" { sp = "yes" }
+      sp && $1 == "default" { print $2; exit }
+    ' < ~/.config/dev
+  )"
+  dev cd ${srcpath}/$(ls ${srcpath} | fzf --select-1 --query "$@")
+}
+
 source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/dev/dev.sh

@@ -29,6 +29,7 @@ tpope/vim-endwise               # add end, } after opening block
 ervandew/supertab               # smart completions
 w0rp/ale                        # linting
 justinmk/vim-sneak
+drmingdrmer/vim-toggle-quickfix
 
 # Buffer / Pane / File Management ####################
 tpope/vim-vinegar               # open netrw with -, other things

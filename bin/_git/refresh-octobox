@@ -13,78 +13,89 @@ def fail(msg)
   exit 1
 end
 
-# required format: "user_id=1234; _octobox_session=1234%201234--1234"
+token, _, t = Open3.capture3(
+  'security',
+  'find-generic-password',
+  '-w', # print only the password
+  '-l', 'octobox-token' 
+)
+fail '?/0' unless t.success?
+
 cookie, _, t = Open3.capture3(
   'security',
   'find-generic-password',
   '-w', # print only the password
   '-l', 'octobox-cookie' 
 )
-fail '?/0' unless t.success?
+fail '?/8' unless t.success?
+
+auth = {
+  'Authorization' => 'Bearer ' + token.strip,
+  # 'Cookie' => cookie.strip,
+}
+
+PR = "\u{e726}"
+ISSUE = "\u{f41b}"
+ISSUE_CLOSED = "\u{f41d}"
+
+def colour(which, urgent)
+  case which
+  when 'merged'
+    urgent ? 129 : 54
+  when 'open'
+    urgent ? 34 : 22
+  else # 'closed'
+    urgent ? 196 : 88
+  end
+end
 
 Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
-  resp = http.get('/', 'Cookie' => cookie)
+  resp = http.get('/', auth)
   fail '?/1' unless resp.code.to_i == 200
 
   pat = /<meta name="csrf-token" content="([^"]+)"/
   unescaped = resp.body.scan(pat).flatten.first 
   fail '?/2' unless unescaped
 
-  post_body = "_method=post&authenticity_token=#{CGI.escape(unescaped)}"
-  resp = http.post('/notifications/sync', post_body, 'Cookie' => cookie)
+  qs = "authenticity_token=#{CGI.escape(unescaped)}"
+  resp = http.get('/notifications/sync?'+qs, auth)
   fail '?/3' unless resp.code.to_i == 302
 
-  resp = http.get('/notifications.json', 'Cookie' => cookie)
+  resp = http.get('/notifications.json', auth)
   fail '?/4' unless resp.code.to_i == 200
+
+  html = http.get('/', auth)
+  fail '?/5' unless resp.code.to_i == 200
 
   data = JSON.parse(resp.body)
 
-  hints = {
-    'mention'          => 'ᵐ',
-    'author'           => 'ᵃ',
-    'team_mention'     => 'ᵗ',
-    'review_requested' => 'ʳ',
-    'state_change'     => 'ᵟ',
-    'comment'          => 'ᶜ',
-    'subscribed'       => 'ˢ'
-  }
+  urgent_reasons = %w(author review_requested mention)
 
-  colours = {
-    'mention'          => '1',
-    'author'           => '3',
-    'team_mention'     => '4',
-    'review_requested' => '1',
-    'state_change'     => '4',
-    'comment'          => '4',
-    'subscribed'       => '4'
-  }
-
-  reasons = {
-    'mention'          => 0,
-    'author'           => 0,
-    'team_mention'     => 0,
-    'review_requested' => 0,
-    'state_change'     => 0,
-    'comment'          => 0,
-    'subscribed'       => 0
-  }
+  items = []
 
   notifications = data.fetch('notifications')
   notifications.each do |ntf|
     next unless ntf.fetch('unread')
+    type = ntf.fetch('subject').fetch('type')
+    state = ntf.fetch('subject').fetch('state')
+
     reason = ntf.fetch('reason')
-    fail reason unless reasons[reason]
-    reasons[reason] += 1
+    urgent = urgent_reasons.include?(reason)
+
+    icon = case type
+    when 'Issue'
+      state == 'closed' ? ISSUE_CLOSED : ISSUE
+    when 'PullRequest'
+      PR
+    else
+      '?'
+    end
+
+    c = colour(state, urgent)
+
+    items << "#[fg=colour#{c}]#{icon}"
   end
 
-  str = hints.map do |k, hint|
-    count = reasons.fetch(k)
-    if count > 0
-      "#[fg=colour#{colours[k]}]#{hint}#{count}"
-    else
-      "#[fg=colour246]#{hint}#{count}"
-    end
-  end.join
 
-  File.write(DEST, str)
+  File.write(DEST, items.join(' '))
 end

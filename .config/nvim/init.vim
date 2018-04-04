@@ -435,8 +435,6 @@ nnoremap <leader>5 :TagbarToggle<cr>
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
-nnoremap <leader>m :make<CR>:copen<CR>
-
 " Align selection by some marker
 " e.g. gaip=
 xmap ga <Plug>(EasyAlign)
@@ -446,3 +444,22 @@ nmap ga <Plug>(EasyAlign)
 nnoremap <leader>6 *#:redraw<cr>:%s/<C-r><C-w>//gc<left><left><left>
 
 " }}}
+
+function! QuickFixToggle()
+  let curr = winnr()
+  for i in range(1, winnr('$'))
+    let bnum = winbufnr(i)
+    if getbufvar(bnum, '&buftype') == 'quickfix'
+      if curr != i
+        copen
+        return
+      endif
+      cclose
+      return
+    endif
+  endfor
+  copen
+endfunction 
+nnoremap <c-i> :call QuickFixToggle()<cr>
+
+nnoremap <leader>i :wa <bar> make<cr>

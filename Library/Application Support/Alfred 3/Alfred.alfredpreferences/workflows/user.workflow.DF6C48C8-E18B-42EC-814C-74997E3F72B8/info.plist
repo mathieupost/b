@@ -6,6 +6,19 @@
 	<string></string>
 	<key>connections</key>
 	<dict>
+		<key>3B3F2FC8-300A-4816-97AB-B5E152D3DEB4</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>5E06222A-D0A9-4226-BE66-53A7E317641C</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>EA4D836E-F7A1-452F-9EF5-163515B17A38</key>
 		<array>
 			<dict>
@@ -94,11 +107,65 @@
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>pyc</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>asdf...</string>
+				<key>script</key>
+				<string>~/bin/_git/pinyin-colorize "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>~/bin/_git/pinyin-colorize</string>
+				<key>subtext</key>
+				<string>zxcv</string>
+				<key>title</key>
+				<string>pyc</string>
+				<key>type</key>
+				<integer>8</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>3B3F2FC8-300A-4816-97AB-B5E152D3DEB4</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
 	<key>uidata</key>
 	<dict>
+		<key>3B3F2FC8-300A-4816-97AB-B5E152D3DEB4</key>
+		<dict>
+			<key>xpos</key>
+			<integer>260</integer>
+			<key>ypos</key>
+			<integer>270</integer>
+		</dict>
 		<key>5E06222A-D0A9-4226-BE66-53A7E317641C</key>
 		<dict>
 			<key>xpos</key>
