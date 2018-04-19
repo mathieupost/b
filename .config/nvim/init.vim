@@ -124,8 +124,8 @@ filetype plugin indent on
 " }}}
 
 " Python Bindings {{{
-let g:python_host_prog = '/usr/local/bin/python2'
-let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python_host_prog = '/Users/burke/.pyenv/shims/python2'
+let g:python3_host_prog = '/Users/burke/.pyenv/shims/python3'
 " }}}
 
 " ## Plugin/Feature Configuration {{{

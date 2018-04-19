@@ -97,5 +97,9 @@ Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
   end
 
 
-  File.write(DEST, items.join(' '))
+  if items.any?
+    File.write(DEST, items.join(' '))
+  else
+    File.write(DEST, '∅')
+  end
 end
