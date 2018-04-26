@@ -185,6 +185,23 @@ function z() {
   dev cd ${srcpath}/$(ls ${srcpath} | fzf --select-1 --query "$@")
 }
 
+zle-dev-open-pr() /opt/dev/bin/dev open pr
+zle -N zle-dev-open-pr
+bindkey 'ø' zle-dev-open-pr # Alt-O ABC Extended
+bindkey 'ʼ' zle-dev-open-pr # Alt-O Canadian English
+
+zle-dev-open-github() /opt/dev/bin/dev open github
+zle -N zle-dev-open-github
+bindkey '©' zle-dev-open-github # Alt-G ABC Extended & Canadian English
+
+zle-dev-open-shipit() /opt/dev/bin/dev open shipit
+zle -N zle-dev-open-shipit
+bindkey 'ß' zle-dev-open-shipit # Alt-S ABC Extended & Canadian English
+
+zle-dev-open-app() /opt/dev/bin/dev open app
+zle -N zle-dev-open-app
+bindkey '®' zle-dev-open-app # Alt-R ABC Extended & Canadian English
+
 source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/dev/dev.sh
