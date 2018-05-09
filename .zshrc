@@ -202,6 +202,30 @@ zle-dev-open-app() /opt/dev/bin/dev open app
 zle -N zle-dev-open-app
 bindkey '®' zle-dev-open-app # Alt-R ABC Extended & Canadian English
 
+zle-dev-cd(){ dev cd ${${(z)BUFFER}}; zle .beginning-of-line; zle .kill-line; zle .accept-line }
+zle -N zle-dev-cd
+bindkey '∂' zle-dev-cd # Alt-D Canadian English
+
+zle-dev-cd() {
+  dev cd "${${(z)BUFFER}}"
+  zle .beginning-of-line
+  zle .kill-line
+  zle .accept-line
+}
+zle -N zle-dev-cd
+bindkey '∂' zle-dev-cd # Alt-D Canadian English
+
+zle-checkout-branch() {
+  local branch
+  branch="$(git branch -l | fzf -f "${${(z)BUFFER}}" | awk '{print $1; exit}')" 
+  git checkout "${branch}" >/dev/null 2>&1
+  zle .beginning-of-line
+  zle .kill-line
+  zle .accept-line
+}
+zle -N zle-checkout-branch
+bindkey '∫' zle-checkout-branch # Alt-B Canadian English
+
 source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/dev/dev.sh

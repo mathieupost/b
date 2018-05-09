@@ -7,6 +7,8 @@
 
 !/.terminfo
 
+!/.taskrc
+
 !/.mutt
 /.mutt/*
 !/.mutt/*muttrc
