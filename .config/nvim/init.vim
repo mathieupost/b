@@ -300,6 +300,12 @@ augroup _fzf
   autocmd ColorScheme * call <sid>update_fzf_colors()
 augroup END
 
+set shell=/usr/local/bin/zsh
+augroup _term
+  autocmd TermOpen term://* set nonu nornu
+  " autocmd TermOpen term://* startinsert
+augroup END
+
 " }}}
 
 " }}}
@@ -372,6 +378,9 @@ augroup END
 " }}}
 
 " }}}
+
+tnoremap <Esc> <C-\><C-n>
+tnoremap kj <C-\><C-n>
 
 " Remember last location in file
 augroup remember_last_location

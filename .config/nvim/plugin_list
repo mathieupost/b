@@ -32,6 +32,7 @@ w0rp/ale                        # linting
 justinmk/vim-sneak
 drmingdrmer/vim-toggle-quickfix
 Valloric/YouCompleteMe
+tpope/vim-projectionist
 
 # Buffer / Pane / File Management ####################
 tpope/vim-vinegar               # open netrw with -, other things
