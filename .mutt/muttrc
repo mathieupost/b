@@ -1,8 +1,6 @@
 # http://stevelosh.com/blog/2012/10/the-homely-mutt/
 
-# source /Users/burke/.mutt/mutt-colors-solarized-dark-16.muttrc
-# source ~/.mutt/badwolf.muttrc
-source ~/.mutt/jellybeans.muttrc
+source "/Users/burke/.mutt/colors.sh|"
 
 set folder = "~/.mail"
 

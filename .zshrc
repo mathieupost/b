@@ -35,7 +35,12 @@ function ghs() {
   dev clone $1
 }
 
-eval $(gdircolors -b ~/.config/shell/LS_COLORS)
+if [[ "${TERM_BG}" == "light" ]]; then
+  eval $(gdircolors -b ~/.config/shell/dircolors.ansi-light)
+else
+  eval $(gdircolors -b ~/.config/shell/LS_COLORS)
+fi
+
 # }}}
 # ZSH options and features {{{
 # If a command is issued that can’t be executed as a normal command, and the
@@ -226,6 +231,16 @@ zle-checkout-branch() {
 zle -N zle-checkout-branch
 bindkey '∫' zle-checkout-branch # Alt-B Canadian English
 
+if [[ "${TERM_BG}" == "light" ]]; then
+  export TASKRC=~/.config/task/taskrc-light
+else
+  export TASKRC=~/.config/task/taskrc-dark
+fi
+
 source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [[ "${TERM_BG}" == "light" ]]; then
+  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=3'
+fi
+
 source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/dev/dev.sh

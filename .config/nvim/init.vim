@@ -108,17 +108,22 @@ endif
 " }}}
 
 " Syntax Highlighting {{{
-syntax on
-let g:jellybeans_use_term_italics = 1
-let g:jellybeans_overrides = {
-      \  'Search':     { 'guifg': 'fabd2f', 'guibg': '151515', 'attr': 'inverse' },
-      \  'IncSearch':  { 'guifg': 'fe8019', 'guibg': '151515', 'attr': 'inverse' },
-      \  'SpellBad':   { 'attr': '', 'guibg': '602020' },
-      \  'SpellCap':   { 'attr': '' },
-      \  'SpellRare':  { 'attr': '' },
-      \  'SpellLocal': { 'attr': '' }
-      \}
-colorscheme jellybeans
+" let g:jellybeans_use_term_italics = 1
+" let g:jellybeans_overrides = {
+"       \  'Search':     { 'guifg': 'fabd2f', 'guibg': '151515', 'attr': 'inverse' },
+"       \  'IncSearch':  { 'guifg': 'fe8019', 'guibg': '151515', 'attr': 'inverse' },
+"       \  'SpellBad':   { 'attr': '', 'guibg': '602020' },
+"       \  'SpellCap':   { 'attr': '' },
+"       \  'SpellRare':  { 'attr': '' },
+"       \  'SpellLocal': { 'attr': '' }
+"       \}
+
+if $TERM_BG == "light"
+  set background=light
+else
+  set background=dark
+endif
+colorscheme solarized
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on
 " }}}
@@ -186,7 +191,7 @@ endif
 
 " LightLine {{{
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'solarized',
       \ 'mode_map': { 'c': 'NORMAL' },
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
@@ -260,6 +265,41 @@ nnoremap <leader>T :BTags<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
+
+function! s:update_fzf_colors()
+  let rules =
+  \ { 'fg':      [['Normal',       'fg']],
+    \ 'bg':      [['Normal',       'bg']],
+    \ 'hl':      [['Comment',      'fg']],
+    \ 'fg+':     [['CursorColumn', 'fg'], ['Normal', 'fg']],
+    \ 'bg+':     [['CursorColumn', 'bg']],
+    \ 'hl+':     [['Statement',    'fg']],
+    \ 'info':    [['PreProc',      'fg']],
+    \ 'prompt':  [['Conditional',  'fg']],
+    \ 'pointer': [['Exception',    'fg']],
+    \ 'marker':  [['Keyword',      'fg']],
+    \ 'spinner': [['Label',        'fg']],
+    \ 'header':  [['Comment',      'fg']] }
+  let cols = []
+  for [name, pairs] in items(rules)
+    for pair in pairs
+      let code = synIDattr(synIDtrans(hlID(pair[0])), pair[1])
+      if !empty(name) && code > 0
+        call add(cols, name.':'.code)
+        break
+      endif
+    endfor
+  endfor
+  let s:orig_fzf_default_opts = get(s:, 'orig_fzf_default_opts', $FZF_DEFAULT_OPTS)
+  let $FZF_DEFAULT_OPTS = s:orig_fzf_default_opts .
+        \ empty(cols) ? '' : (' --color='.join(cols, ','))
+endfunction
+
+augroup _fzf
+  autocmd!
+  autocmd ColorScheme * call <sid>update_fzf_colors()
+augroup END
+
 " }}}
 
 " }}}

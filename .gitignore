@@ -7,11 +7,10 @@
 
 !/.terminfo
 
-!/.taskrc
-
 !/.mutt
 /.mutt/*
 !/.mutt/*muttrc
+!/.mutt/colors.sh
 !/.msmtprc
 !/.notmuch-config
 !/.mutt/Equifax_Secure_CA.cert
@@ -29,6 +28,7 @@
 !/.config
 /.config/*
 
+!/.config/task
 !/.config/dtrace
 !/.config/git
 !/.config/shell
@@ -90,5 +90,7 @@
 !/Library/Preferences/com.googlecode.iterm2.plist
 
 !/.tmux.conf
+!/.tmux-osx.conf
+!/.tmux-light.conf
 
 !/.crawlrc

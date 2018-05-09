@@ -17,6 +17,7 @@ nanotech/jellybeans.vim
 morhetz/gruvbox                 # colorscheme
 airblade/vim-gitgutter          # status in gutter
 ryanoasis/vim-devicons
+altercation/vim-colors-solarized
 
 # Editor Features ####################################
 tpope/vim-surround              # cs"'
