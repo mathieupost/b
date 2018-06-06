@@ -233,6 +233,7 @@ bindkey '∫' zle-checkout-branch # Alt-B Canadian English
 
 if [[ "${TERM_BG}" == "light" ]]; then
   export TASKRC=~/.config/task/taskrc-light
+  export FZF_DEFAULT_OPTS="--color=light"
 else
   export TASKRC=~/.config/task/taskrc-dark
 fi

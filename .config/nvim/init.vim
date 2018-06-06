@@ -512,3 +512,5 @@ endfunction
 nnoremap <c-i> :call QuickFixToggle()<cr>
 
 nnoremap <leader>i :wa <bar> make<cr>
+
+let g:go_fmt_command = "goimports"

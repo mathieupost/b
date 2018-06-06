@@ -23,6 +23,7 @@ altercation/vim-colors-solarized
 tpope/vim-surround              # cs"'
 tpope/vim-repeat                # cs"'...
 tpope/vim-commentary            # gcap
+jremmen/vim-ripgrep
 michaeljsmith/vim-indent-object # >aI
 junegunn/vim-easy-align         # vipga
 tpope/vim-eunuch                # :Rename foo.rb
