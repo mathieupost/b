@@ -88,6 +88,8 @@ set hidden
 set nocursorline
 set ruler
 set laststatus=2
+" write before make
+set autowrite
 " }}}
 
 " }}}
@@ -123,7 +125,7 @@ if $TERM_BG == "light"
 else
   set background=dark
 endif
-colorscheme solarized
+colorscheme gruvbox
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on
 " }}}
@@ -190,64 +192,69 @@ endif
 " }}}
 
 " LightLine {{{
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'mode_map': { 'c': 'NORMAL' },
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-      \ },
-      \ 'component_function': {
-      \   'modified': 'LightlineModified',
-      \   'readonly': 'LightlineReadonly',
-      \   'fugitive': 'LightlineFugitive',
-      \   'filename': 'LightlineFilename',
-      \   'fileformat': 'LightlineFileformat',
-      \   'filetype': 'LightlineFiletype',
-      \   'fileencoding': 'LightlineFileencoding',
-      \   'mode': 'LightlineMode',
-      \ },
-      \ }
+"
+let g:airline_theme='gruvbox'
+let g:airline_powerline_fonts = 1
 
-function! LightlineModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
+" let g:lightline = {
+"       \ 'colorscheme': 'solarized',
+"       \ 'mode_map': { 'c': 'NORMAL' },
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'modified': 'LightlineModified',
+"       \   'readonly': 'LightlineReadonly',
+"       \   'fugitive': 'LightlineFugitive',
+"       \   'filename': 'LightlineFilename',
+"       \   'fileformat': 'LightlineFileformat',
+"       \   'filetype': 'LightlineFiletype',
+"       \   'fileencoding': 'LightlineFileencoding',
+"       \   'mode': 'LightlineMode',
+"       \ },
+"       \ }
 
-function! LightlineReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
-endfunction
+" function! LightlineModified()
+"   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+" endfunction
 
-function! LightlineFilename()
-  return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? vimshell#get_status_string() :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-endfunction
+" function! LightlineReadonly()
+"   return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
+" endfunction
 
-function! LightlineFugitive()
-  if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
-    let branch = fugitive#head()
-    return branch !=# '' ? branch : ''
-  endif
-  return ''
-endfunction
+" function! LightlineFilename()
+"   return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+"         \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+"         \  &ft == 'unite' ? unite#get_status_string() :
+"         \  &ft == 'vimshell' ? vimshell#get_status_string() :
+"         \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+"         \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+" endfunction
 
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
+" function! LightlineFugitive()
+"   if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
+"     let branch = fugitive#head()
+"     return branch !=# '' ? branch : ''
+"   endif
+"   return ''
+" endfunction
 
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
+" function! LightlineFileformat()
+"   return winwidth(0) > 70 ? &fileformat : ''
+" endfunction
 
-function! LightlineFileencoding()
-  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
-endfunction
+" function! LightlineFiletype()
+"   return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+" endfunction
 
-function! LightlineMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
+" function! LightlineFileencoding()
+"   return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+" endfunction
+
+" function! LightlineMode()
+"   return winwidth(0) > 60 ? lightline#mode() : ''
+" endfunction
+
 " }}}
 
 " FZF {{{
@@ -308,6 +315,25 @@ augroup END
 
 " }}}
 
+" neosnippet {{{
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+" }}}
+
 " }}}
 
 " ## Per-Filetype Configuration {{{
@@ -324,14 +350,86 @@ augroup golang
   au!
   au BufNewFile,BufRead *.go set nolist
   au Filetype go set makeprg=go\ build\ ./...
+  " au Filetype go nnoremap <buffer> ∫ <Plug>(go-build) " alt+b
+  " au Filetype go nnoremap <buffer> ® <Plug>(go-run)   " alt+r
+
+  " alt+b
+  au Filetype go nmap <buffer> ∫ <Plug>(go-build)
+  " alt+r
+  au Filetype go nmap <buffer> ® <Plug>(go-run)
+  " alt+t
+  au Filetype go nmap <buffer> † <Plug>(go-test)
+  " alt+p
+  au Filetype go nmap <buffer> π :GoDeclsDir<cr>
+
+  " alt+l
+  au Filetype go nmap <buffer> ¬ :GoMetaLinter<cr>
+
+  au Filetype go nmap <buffer> <leader>gac <Plug>(go-alternate-edit)
+  au Filetype go nmap <buffer> <leader>gah <Plug>(go-alternate-split)
+  au Filetype go nmap <buffer> <leader>gav <Plug>(go-alternate-vertical)
+
+  " alt+9
+  au FileType go nmap <buffer> ª :DlvToggleBreakpoint<cr>
+  " alt+0
+  au FileType go nmap <buffer> º :DlvDebug<cr>
+
+  au FileType go nmap <buffer> √ :GoCoverageToggle<cr>
+
+  au FileType go nmap <buffer> <leader><space> :nohls <bar> :GoSameIdsClear<cr>
+
+  " alt+7
+  au FileType go nmap <buffer> ¶ :GoSameIds<cr>
+
+  " alt+f
+  au FileType go nmap <buffer> ƒ :GoReferrers<cr>
 augroup END
 
 set rtp+=/Users/burke/src/github.com/golang/lint/misc/vim
 
+" json tags (:GoAddTags) in snake_case
+let g:go_addtags_transform = "snakecase"
+
+let g:go_snippet_engine = "neosnippet"
+
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+
+" highlight occurrences of local on hover
+let g:go_auto_sameids = 0
+
+" type info in statusline
+let g:go_auto_type_info = 1
+
+let g:go_fmt_command = "goimports"
+
+" gometalinter configuration
+let g:go_metalinter_command = ""
+let g:go_metalinter_deadline = "10s"
+let g:go_metalinter_enabled = [
+    \ 'deadcode',
+    \ 'errcheck',
+    \ 'gas',
+    \ 'goconst',
+    \ 'gocyclo',
+    \ 'golint',
+    \ 'ineffassign',
+    \ 'vet',
+    \ 'vetshadow'
+\]
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+    " \ 'gosimple',
 " }}}
+
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
 
 " Rust {{{
 let g:rustfmt_autosave = 1
@@ -378,6 +476,11 @@ augroup END
 " }}}
 
 " }}}
+
+if has('nvim')
+  " Enable deoplete on startup
+  let g:deoplete#enable_at_startup = 1
+endif
 
 tnoremap <Esc> <C-\><C-n>
 tnoremap kj <C-\><C-n>
@@ -508,9 +611,10 @@ function! QuickFixToggle()
     endif
   endfor
   copen
-endfunction 
-nnoremap <c-i> :call QuickFixToggle()<cr>
+endfunction
+
+nnoremap ç :call QuickFixToggle()<cr> " alt+c
+nnoremap ∆ :cnext<cr> " alt+j
+nnoremap ˚ :cprev<cr> " alt+k
 
 nnoremap <leader>i :wa <bar> make<cr>
-
-let g:go_fmt_command = "goimports"

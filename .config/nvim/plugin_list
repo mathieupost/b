@@ -12,12 +12,13 @@ othree/es.next.syntax.vim       # ES7 syntax
 tomlion/vim-solidity
 
 # UI #################################################
-itchyny/lightline.vim           # status line
+# itchyny/lightline.vim           # status line
 nanotech/jellybeans.vim
 morhetz/gruvbox                 # colorscheme
 airblade/vim-gitgutter          # status in gutter
 ryanoasis/vim-devicons
 altercation/vim-colors-solarized
+vim-airline/vim-airline
 
 # Editor Features ####################################
 tpope/vim-surround              # cs"'
@@ -28,15 +29,20 @@ michaeljsmith/vim-indent-object # >aI
 junegunn/vim-easy-align         # vipga
 tpope/vim-eunuch                # :Rename foo.rb
 tpope/vim-endwise               # add end, } after opening block
+sebdah/vim-delve
+gregsexton/gitv
 ervandew/supertab               # smart completions
 w0rp/ale                        # linting
 justinmk/vim-sneak
 drmingdrmer/vim-toggle-quickfix
-Valloric/YouCompleteMe
+# Valloric/YouCompleteMe
 tpope/vim-projectionist
+Shougo/neosnippet.vim
+Shougo/neosnippet-snippets
+Shougo/deoplete.nvim
+AndrewRadev/splitjoin.vim
 
 # Buffer / Pane / File Management ####################
-tpope/vim-vinegar               # open netrw with -, other things
 junegunn/fzf.vim                # all the things
 
 # Panes / Larger features ############################

@@ -239,9 +239,9 @@ else
 fi
 
 source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
-if [[ "${TERM_BG}" == "light" ]]; then
+# if [[ "${TERM_BG}" == "light" ]]; then
   export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=3'
-fi
+# fi
 
 source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/dev/dev.sh
