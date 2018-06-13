@@ -382,7 +382,8 @@ augroup golang
   au FileType go nmap <buffer> ¶ :GoSameIds<cr>
 
   " alt+f
-  au FileType go nmap <buffer> ƒ :GoReferrers<cr>
+  " au FileType go nmap <buffer> ƒ :GoReferrers<cr>
+  au FileType go nmap <buffer> ƒ :GoCallers<cr>
 augroup END
 
 set rtp+=/Users/burke/src/github.com/golang/lint/misc/vim
@@ -597,24 +598,58 @@ nnoremap <leader>6 *#:redraw<cr>:%s/<C-r><C-w>//gc<left><left><left>
 
 " }}}
 
-function! QuickFixToggle()
+function! ListWhich()
   let curr = winnr()
   for i in range(1, winnr('$'))
-    let bnum = winbufnr(i)
-    if getbufvar(bnum, '&buftype') == 'quickfix'
-      if curr != i
-        copen
-        return
-      endif
-      cclose
-      return
+    let wid = win_getid(i)
+    let dict = getwininfo(wid)
+    if len(dict) > 0 && get(dict[0], 'quickfix', 0) && !get(dict[0], 'loclist', 0)
+      return ['q', i]
+    elseif len(dict) > 0 && get(dict[0], 'quickfix', 0) && get(dict[0], 'loclist', 0)
+      return ['l', i]
     endif
   endfor
-  copen
+  return [0, 0]
 endfunction
 
-nnoremap ç :call QuickFixToggle()<cr> " alt+c
-nnoremap ∆ :cnext<cr> " alt+j
-nnoremap ˚ :cprev<cr> " alt+k
+function! ToggleList()
+  let ret = ListWhich()
+  let curr = ret[1] == winnr()
+  if ret[0] == 'q'
+    if curr
+      cclose
+    else
+      copen
+    endif
+  elseif ret[0] == 'l'
+    if curr
+      lclose
+    else
+      lopen
+    endif
+  endif
+endfunction
+
+function! ListNext()
+  let ret = ListWhich()
+  if ret[0] == 'q'
+    cnext
+  elseif ret[0] == 'l'
+    lnext
+  endif
+endfunction
+
+function! ListPrev()
+  let ret = ListWhich()
+  if ret[0] == 'q'
+    cprev
+  elseif ret[0] == 'l'
+    lprev
+  endif
+endfunction
+
+nnoremap ç :call ToggleList()<cr>
+nnoremap ∆ :call ListNext()<cr>
+nnoremap ˚ :call ListPrev()<cr>
 
 nnoremap <leader>i :wa <bar> make<cr>
