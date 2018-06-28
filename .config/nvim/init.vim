@@ -378,8 +378,8 @@ augroup golang
 
   au FileType go nmap <buffer> <leader><space> :nohls <bar> :GoSameIdsClear<cr>
 
-  " alt+7
-  au FileType go nmap <buffer> ¶ :GoSameIds<cr>
+  " alt+8
+  au FileType go nmap <buffer> • :GoSameIds<cr>
 
   " alt+f
   " au FileType go nmap <buffer> ƒ :GoReferrers<cr>
