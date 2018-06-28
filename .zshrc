@@ -190,6 +190,13 @@ function z() {
   dev cd ${srcpath}/$(ls ${srcpath} | fzf --select-1 --query "$@")
 }
 
+function gogopr() {
+  git add -A .
+  git commit -a -m "$*"
+  git push origin "$(git branch | grep '*' | awk '{print $2}')"
+  dev open pr
+}
+
 zle-dev-open-pr() /opt/dev/bin/dev open pr
 zle -N zle-dev-open-pr
 bindkey 'ø' zle-dev-open-pr # Alt-O ABC Extended
