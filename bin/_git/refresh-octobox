@@ -74,6 +74,7 @@ Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
   items = []
 
   notifications = data.fetch('notifications')
+  File.write("/tmp/octobox", notifications.to_json)
   notifications.each do |ntf|
     next unless ntf.fetch('unread')
     type = ntf.fetch('subject').fetch('type')

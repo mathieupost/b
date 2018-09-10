@@ -1,6 +1,7 @@
 #!/usr/bin/ruby --disable-gems
 
 require 'json'
+require 'readline'
 
 data = JSON.load(File.read('/tmp/octobox'))
 
@@ -29,7 +30,8 @@ urgent_reasons = %w(author review_requested mention)
 
 printall=->(){
 data.each.with_index do |ntf, index|
-  next unless ntf.fetch('unread')
+  next if ntf.nil?
+  # next unless ntf.fetch('unread')
   type = ntf.fetch('subject').fetch('type')
   state = ntf.fetch('subject').fetch('state')
 
@@ -50,33 +52,40 @@ data.each.with_index do |ntf, index|
   id = ntf.fetch('web_url').split('/').last.sub(/#.*/, '')
   slug = "#{ntf.fetch('repo').fetch('name')}##{id}".sub(/^Shopify/, 'S').sub(/^burke/, 'b')
   title = ntf.fetch('subject').fetch('title')
-  puts "#{index}. \x1b[38;5;#{c}m#{icon}\x1b[0m \x1b[3m(#{slug})\x1b[0m :: #{title}"
+  puts "#{index}. \x1b[38;5;#{c}m#{icon}\x1b[0m \x1b[3m#{slug}\x1b[0m :: #{title}"
 end
 }
 
 open_index = ->(n) {
   web_url = data[n].fetch('web_url')
   id = data[n].fetch('id')
-  data.slice!(n)
+  data[n] = nil
   remove_id(id)
-  system("open", web_url)
+  # -g seems to not work with chrome :(
+  system('open', '-jgb', 'com.google.Chrome', web_url)
 }
 
 printall.()
 
-loop do
-  print '> '
-  $stdout.flush
-  case cmd = gets
+while buf = Readline.readline("> ", true)
+  case buf
+  when /^o\*/
+    data.each.with_index do |ntf, i|
+      next if ntf.nil?
+      open_index.(i)
+    end
   when /^o /
-    args = cmd.split(' ')
+    args = buf.split(' ')
+    args.shift
     args.each do |arg|
       index = arg.to_i
-      open_index.(arg.to_i)
+      open_index.(index)
     end
   when /^p/
     printall.()
   when /^q/
     break
   end
+
 end
+
