@@ -197,6 +197,10 @@ function gogopr() {
   dev open pr
 }
 
+zle-octobox() octobox
+zle -N zle-octobox
+bindkey '≈' zle-octobox # Alt-X Canadian English
+
 zle-dev-open-pr() /opt/dev/bin/dev open pr
 zle -N zle-dev-open-pr
 bindkey 'ø' zle-dev-open-pr # Alt-O ABC Extended
