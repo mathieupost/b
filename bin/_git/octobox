@@ -2,6 +2,8 @@
 
 require 'json'
 require 'readline'
+require 'open3'
+require 'net/http'
 
 data = JSON.load(File.read('/tmp/octobox'))
 
@@ -27,6 +29,16 @@ ISSUE = "\u{f41b}"
 ISSUE_CLOSED = "\u{f41d}"
 
 urgent_reasons = %w(author review_requested mention)
+
+token, _, t = Open3.capture3('security', 'find-generic-password', '-w', '-l', 'octobox-token')
+fail 'Cannot retrieve token' unless t.success?
+
+markread = ->(id) {
+notifications = Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
+  resp = http.post("/notifications/#{id}/mark_read.json", "", 'Authorization' => "Bearer #{token}", "X-Octobox-API" => "1")
+  fail "Cannot access octobox: #{resp}" unless resp.code.to_i == 200
+end
+}
 
 printall=->(){
 data.each.with_index do |ntf, index|
@@ -61,6 +73,7 @@ open_index = ->(n) {
   id = data[n].fetch('id')
   data[n] = nil
   remove_id(id)
+  markread.(id)
   # -g seems to not work with chrome :(
   system('open', '-jgb', 'com.google.Chrome', web_url)
 }
