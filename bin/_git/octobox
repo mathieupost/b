@@ -85,6 +85,7 @@ while buf = Readline.readline("> ", true)
   when /^o\*/
     data.each.with_index do |ntf, i|
       next if ntf.nil?
+      next unless ntf.fetch('unread')
       open_index.(i)
     end
   when /^o /
