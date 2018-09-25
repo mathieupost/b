@@ -8,10 +8,10 @@ export OPT_AOT_YAML=1
 export OPT_PRE_BOOTSCALE=1
 export OPT_TOXIPROXY_CACHE=1
 
-export EDITOR=vim
-export VISUAL=vim
-export GIT_EDITOR=vim
-export HOMEBREW_EDITOR=vim
+export EDITOR="code --wait"
+export VISUAL=$EDITOR
+export GIT_EDITOR=$EDITOR
+export HOMEBREW_EDITOR=$EDITOR
 
 export GOPATH="$HOME"
 export GOROOT_BOOTSTRAP="$HOME/src/go1.4"
@@ -24,6 +24,7 @@ export PATH="$HOME/bin/_git:$PATH"
 export PATH="$HOME/.gem/bin:$PATH"
 export PATH="./node_modules/.bin:$PATH"
 export PATH="$HOME/src/google-cloud-sdk/bin:$PATH"
+export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 
 export FZF_TMUX=1
 export NVIM_TUI_ENABLE_TRUE_COLOR=1
