@@ -1,0 +1,22 @@
+#!/bin/bash
+set -euo pipefail
+
+if [[ $# -ne 2 ]]; then
+  >&2 echo "usage: $0 <bindport> <targetport>"
+fi
+
+bind=$1
+target=$2
+
+fifo="${XDG_RUNTIME_DIR:-$HOME/.local/run}/prox.${bind}"
+logdir="${XDG_CACHE_HOME:-$HOME/.cache}/prox"
+
+mkdir -p "$(dirname "${fifo}")"
+mkdir -p "${logdir}"
+
+[[ -p "${fifo}" ]]   || mkfifo "${fifo}"
+
+while true; do
+  nc -k -l "${bind}" < "${fifo}" | tee -a "${logdir}/${bind}.in" \
+    | nc localhost "${target}" | tee -a "${logdir}/${bind}.out" 1>"${fifo}"
+done
