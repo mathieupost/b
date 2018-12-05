@@ -26,11 +26,11 @@ window.animationDuration = 0
 appbindings.setup({"cmd", "ctrl"}, {
   [1] = "com.googlecode.iterm2",
   [2] = nil,
-  [3] = "com.apple.Safari",
+  [3] = "com.google.Chrome",
   [4] = "com.tinyspeck.slackmacgap",
   [5] = "com.culturedcode.ThingsMac",
   [6] = "com.apple.iChat",
-  [7] = nil,
+  [7] = "com.apple.Mail",
   [8] = nil,
 })
 

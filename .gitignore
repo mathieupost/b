@@ -7,6 +7,8 @@
 
 !/.terminfo
 
+!/.spacemacs
+
 !/.mutt
 /.mutt/*
 !/.mutt/*muttrc

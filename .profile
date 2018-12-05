@@ -8,7 +8,7 @@ export OPT_AOT_YAML=1
 export OPT_PRE_BOOTSCALE=1
 export OPT_TOXIPROXY_CACHE=1
 
-export EDITOR="code --wait"
+export EDITOR="vim"
 export VISUAL=$EDITOR
 export GIT_EDITOR=$EDITOR
 export HOMEBREW_EDITOR=$EDITOR

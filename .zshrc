@@ -251,5 +251,7 @@ source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
 # fi
 
 
+source ~/.zshrc.d/zk.zsh
+
 source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/dev/dev.sh

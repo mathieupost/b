@@ -107,20 +107,22 @@ func main() {
 	loadAvgs, err := loadAvg()
 	t2 := time.Now()
 
-	home := os.Getenv("HOME")
-	pers, _ := ioutil.ReadDir(home + "/.mail/p:INBOX/new")
-	shop, _ := ioutil.ReadDir(home + "/.mail/s:INBOX/new")
-	color := nobold(noMailFG, otherBG)
-	if len(pers) > 0 || len(shop) > 0 {
-		color = nobold(1, otherBG)
-	}
-	mails := fmt.Sprintf("%s %d:%d", color, len(pers), len(shop))
+	// home := os.Getenv("HOME")
 
-	stat, err := os.Stat(home + "/.mutt/mbsync.log")
-	threshold := time.Now().Add(-3 * time.Minute)
-	if err != nil || stat.ModTime().Before(threshold) {
-		mails = fmt.Sprintf("%s ?", nobold(1, otherBG))
-	}
+	// pers, _ := ioutil.ReadDir(home + "/.mail/p:INBOX/new")
+	// shop, _ := ioutil.ReadDir(home + "/.mail/s:INBOX/new")
+	// color := nobold(noMailFG, otherBG)
+	// if len(pers) > 0 || len(shop) > 0 {
+	// 	color = nobold(1, otherBG)
+	// }
+	// mails := fmt.Sprintf("%s %d:%d", color, len(pers), len(shop))
+
+	// stat, err := os.Stat(home + "/.mutt/mbsync.log")
+	// threshold := time.Now().Add(-3 * time.Minute)
+	// if err != nil || stat.ModTime().Before(threshold) {
+	// 	mails = fmt.Sprintf("%s ?", nobold(1, otherBG))
+	// }
+
 	t3 := time.Now()
 
 	obox, _ := ioutil.ReadFile("/tmp/octobox-notifications")
@@ -155,8 +157,8 @@ func main() {
 			displayLoadAvgs(loadAvgs)+
 			boringColor+" "+
 			Arrow0+
-			mails+
-			" "+Arrow0+
+			// mails+
+			// " "+Arrow0+
 			" "+string(obox)+
 
 			nobold(timeBG, otherBG)+" "+
