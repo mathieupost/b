@@ -33,6 +33,7 @@
 !/.config/task
 !/.config/dtrace
 !/.config/git
+/.config/git/private
 !/.config/shell
 !/.config/jellybeans.itermcolors
 

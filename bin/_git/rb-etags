@@ -1,0 +1,3 @@
+#!/bin/sh
+
+find . -name test -prune -o -name .bundle -prune -o -type f -name '*.rb' -print | etags -

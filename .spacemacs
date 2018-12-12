@@ -2,6 +2,7 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -31,35 +32,55 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ruby
-     go
+     yaml
+     (ruby :variables
+           ruby-enable-enh-ruby-mode t
+           ruby-version-manager nil) ; we bind dev for this later
+     (go :variables
+         gofmt-command "goimports"
+         go-tab-width 4)
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     ;; auto-completion
+     (auto-completion :variables
+                      auto-completion-return-key-behavior 'complete
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-complete-with-key-sequence "jk"
+                      auto-completion-complete-with-key-sequence-delay 0.2
+                      auto-completion-private-snippets-directory nil)
      ;; better-defaults
      emacs-lisp
      git
+     ranger
+     emoji
+     osx
+     github
      markdown
      org
+     syntax-checking
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
-     version-control
      (version-control :variables
-     version-control-global-margin t
-                      version-control-diff-tool 'git-gutter)
+                      version-control-global-margin t
+                      version-control-diff-tool 'diff-hl)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages
+   '(
+     s f dash ht a ; extended stdlib type stuff
+     org-brain
+     org-ref
+     (dev :location local)
+     )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -122,7 +143,7 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
+   dotspacemacs-startup-lists '(;; (recents . 5)
                                 (projects . 7))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
@@ -305,6 +326,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (setq exec-path-from-shell-check-startup-files nil)
   )
 
 (defun dotspacemacs/user-config ()
@@ -314,11 +336,47 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (require 'dev)
+  (global-company-mode)
+  (setq-default evil-escape-delay 0.2)
   (define-key evil-normal-state-map (kbd "H") (kbd "^"))
   (define-key evil-normal-state-map (kbd "L") (kbd "$"))
   ;; Easier way to repeat macros, without having to move fingers.
   (define-key evil-normal-state-map (kbd "Q") (kbd "@q"))
+  (evil-set-initial-state 'org-brain-visualize-mode 'emacs)
   (setq-default evil-escape-key-sequence "kj")
+  (setq projectile-project-search-path '())
+  (setq reftex-default-bibliography '("~/org/ref/brain.bib"))
+  ;; ;; see org-ref for use of these variables
+  (setq org-ref-bibliography-notes "~/org/ref/notes.org"
+        org-ref-default-bibliography '("~/org/ref/brain.bib")
+        org-ref-pdf-directory "~/org/ref/bibtex-pdfs/")
+  (setq ruby-insert-encoding-magic-comment nil) ; don't add '# coding: utf-8'
+  (setq enh-ruby-add-encoding-comment-on-save nil)
+  (setq magit-todos-exclude-globs (quote ("vendor/*")))
+  (spacemacs/set-leader-keys
+    "ov" 'org-brain-visualize-random
+    "oV" 'org-brain-visualize)
+  (spacemacs/add-to-hooks 'dev-activate-env
+                          '(ruby-mode-hook enh-ruby-mode-hook))
+
+  (add-hook 'eshell-mode-hook
+            (lambda ()
+              (company-mode -1)
+              (setenv "TERM" "dumb-emacs-ansi"))
+            'append)
+
+  (defun eshell/-gs (arg)
+    (let* ((out (shell-command-to-string (concat "/opt/dev/bin/dev cd " arg)))
+           (path (cadr (s-split "cd:" (s-trim out)))))
+      (eshell/cd path)))
+
+  (add-hook 'eshell-directory-change-hook
+            (lambda ()
+              (dev-activate-env)
+              (setq eshell-path-env (getenv "PATH"))
+              (message (eshell/pwd))))
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -330,11 +388,10 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby mmm-mode markdown-toc markdown-mode gh-md org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter diff-hl smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub treepy graphql with-editor rainbow-mode rainbow-identifiers color-identifiers-mode go-guru go-eldoc go-mode ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (define-word yaml-mode xterm-color ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smeargle shell-pop rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv ranger rake rainbow-delimiters popwin persp-mode pbcopy paradox osx-trash osx-dictionary orgit org-ref org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file neotree multi-term move-text mmm-mode minitest markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum linum-relative link-hint launchctl indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md fuzzy flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help enh-ruby-mode emoji-cheat-sheet-plus elisp-slime-nav dumb-jump diminish diff-hl company-statistics company-quickhelp company-go company-emoji column-enforce-mode clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell a))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
