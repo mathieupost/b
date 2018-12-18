@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+ENV.each do |k, v|
+  next if k == '_'
+
+  if k.start_with?('NIX') 
+  elsif v =~ %r{nix-|/nix/}
+    v = v.split(":").map { |f| f =~ /nix/ ? f.sub(%r{^/nix/var/nix/profiles/(.*)/(bin|share|Library|lib|include|etc)}, "\x1b[37m/nix/var/nix/profiles/\x1b[1;32m\\1\x1b[0m/\\2\x1b[0m") : nil }.uniq.map { |f| f || "\x1b[37m...\x1b[0m" }.join("\x1b[37m:\x1b[0m")
+  else
+    next
+  end
+  puts "\x1b[1;34m#{k}\x1b[0;1m=\x1b[0m#{v}"
+end
