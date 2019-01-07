@@ -1,0 +1,8 @@
+#!/bin/bash
+if ! (mount | grep -q " on /pk "); then
+  echo >&2 $'\x1b[1;31mperkeepfs not mounted: aborting.\x1b[0m'
+  exit 1
+fi
+
+set -e
+rsync --archive --verbose --delete ~/org /pk/roots
