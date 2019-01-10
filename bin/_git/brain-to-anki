@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require 'uri'
+
+bib_contents = File.read('/Users/burke/org/ref/brain.bib')
+
+bib = {}
+
+bib_contents.scan(/@\w+{(.*?),.*?Author\s*=\s*{(.*?)}.*?Title\s*=\s*{(.*?)}/m).each do |slug, author, title|
+  bib[slug] = [author, title]
+end
+
+Dir.glob("/Users/burke/org/brain/**/*.org").each do |path|
+  contents = File.read(path)
+  title = contents.scan(/#\+TITLE: (.*)/).flatten.first
+  raise("note missing title: #{path}") unless title
+  id = URI.escape(title)
+
+  citation = contents.scan(/:RESOURCES:.*\[\[cite:(.*)\]\].*:END:/m).flatten.first
+  author, source = bib[citation]
+
+  contents.gsub!(/^\s*#.*$/, '')
+  contents.gsub!(/^:RESOURCES:.*?:END:\n/m, '')
+  contents.strip!
+
+  contents.gsub!(/\t/, '  ')
+
+  f = ->(w) { '"' + (w || '').gsub(/"/, '""') + '"' }
+  puts [id, f.(title), f.(contents), f.(author), f.(source)].join("\t")
+end
