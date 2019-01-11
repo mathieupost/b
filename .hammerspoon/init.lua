@@ -41,8 +41,9 @@ hs.hotkey.bind({"cmd", "ctrl"}, "m", itunes.toggleMiniPlayer)
 local function setupSecondaryScreen()
   local s = "Color LCD"
   layout.apply({
-    {"Slack",    nil, s, geometry.rect(0,    0,   0.65, 1),   nil, nil},
-    {"Messages", nil, s, geometry.rect(0.65, 0,   0.35, 1), nil, nil},
+    {"Slack",    nil, s, geometry.rect(0,    0,    0.65, 1),    nil, nil},
+    {"Things",   nil, s, geometry.rect(0.65, 0,    0.35, 0.38), nil, nil},
+    {"Messages", nil, s, geometry.rect(0.65, 0.38, 0.35, 0.62), nil, nil},
   })
 end
 
