@@ -37,3 +37,8 @@
 [url "galaxy::Shopify/"]
 	insteadOf = https://github.com/Shopify/
 	insteadOf = git@github.com:Shopify/
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

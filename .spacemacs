@@ -378,11 +378,6 @@ you should place your code here."
               (setq eshell-path-env (getenv "PATH"))
               (message (eshell/pwd))))
 
-  (setq dev---project-list (s-lines (shell-command-to-string (concat (dev-executable) " cd --list"))))
-  (defun dev-build-project-list ()
-    "Generate a list of all available projects that can be switched to."
-    dev---project-list)
-
   (with-eval-after-load "forge"
     (cl-defmethod forge-get-repository ((url string) &optional remote demand)
       "Return the repository at URL."
