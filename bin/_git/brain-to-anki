@@ -13,7 +13,7 @@ end
 Dir.glob("/Users/burke/org/brain/**/*.org").each do |path|
   contents = File.read(path)
   title = contents.scan(/#\+TITLE: (.*)/).flatten.first
-  raise("note missing title: #{path}") unless title
+  title = File.basename(path).sub(/\.org$/, '') unless title
   id = URI.escape(title)
 
   citation = contents.scan(/:RESOURCES:.*\[\[cite:(.*)\]\].*:END:/m).flatten.first
