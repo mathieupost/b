@@ -4,6 +4,7 @@ require 'net/http'
 require 'cgi'
 require 'json'
 require 'open3'
+require 'fileutils'
 
 DEST = '/tmp/octobox-notifications'
 
@@ -108,6 +109,13 @@ Net::HTTP.start('octobox.shopify.io', 443, use_ssl: true) do |http|
     c = colour(state, lra, urgent)
 
     items << "#[fg=colour#{c}]#{icon}"
+  end
+
+  if items.any?
+    FileUtils.mkdir_p("/tmp/kbd-data")
+    File.write("/tmp/kbd-data/1", "80")
+  else
+    FileUtils.rm_r("/tmp/kbd-data/1")
   end
 
   File.write(DEST, "#{other_count}/#{items.any? ? items.join(' ') : '∅'}")

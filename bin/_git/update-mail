@@ -1,0 +1,2 @@
+#!/bin/bash
+osascript ~/.dotfiles-src/update-mail.osascript
