@@ -3,9 +3,9 @@ tell application "Mail"
 end tell
 
 if a is greater than 0 then
-  set myFile to open for access ("/tmp/kbd-data/2") with write permission
+  set myFile to open for access ("/tmp/kbd-data/3") with write permission
   write (a as text) to myFile
   close access myFile
 else
-  tell application "Finder" to delete POSIX file "/tmp/kbd-data/2"
+  tell application "Finder" to delete POSIX file "/tmp/kbd-data/3"
 end if
