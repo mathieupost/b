@@ -1,11 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-open "https://read.amazon.com/kp/notebook?ft=true&v=21"
-
-echo "mash enter when done"
-read
-
 export PATH=/opt/dev/bin:$PATH
 
 cd ~/src/github.com/burke/kindle2anki/pdf-extract && shim dev run
