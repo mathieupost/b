@@ -1,5 +1,11 @@
 /*
 
+!/Documents
+/Documents/*
+!/Documents/Arduino
+/Documents/Arduino/*
+!/Documents/Arduino/Model01-Firmware
+
 !/.profile
 
 !/.gitignore
