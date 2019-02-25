@@ -1,10 +1,11 @@
 -- vim: foldmethod=marker
 
-local util        = require("util")
-local leader      = require("leader")
-local caffeine    = require("caffeine")
-local appbindings = require("appbindings")
-local itunes      = require("itunes")
+local util           = require("util")
+local leader         = require("leader")
+local caffeine       = require("caffeine")
+local appbindings    = require("appbindings")
+local browsebindings = require("browsebindings")
+local itunes         = require("itunes")
 
 local geometry      = hs.geometry
 local hotkey        = hs.hotkey
@@ -21,6 +22,15 @@ window.animationDuration = 0
 -- hotkey.bind({"cmd", "ctrl"}, "9", function()
 --   print(window.focusedWindow():application():bundleID())
 -- end)
+
+browsebindings.setup({"cmd", "ctrl", "option", "shift"}, {
+  ["o"] = "https://octobox.shopify.io",
+  ["t"] = "https://twitter.com",
+  ["n"] = "https://news.ycombinator.com",
+  ["f"] = "https://facebook.com",
+  ["i"] = "https://instapaper.com/u",
+  ["r"] = "https://reddit.com",
+})
 
 -- [2] = "com.apple.iTunes",
 appbindings.setup({"cmd", "ctrl"}, {
