@@ -30,6 +30,7 @@ browsebindings.setup({"cmd", "ctrl", "option", "shift"}, {
   ["f"] = "https://facebook.com",
   ["i"] = "https://instapaper.com/u",
   ["r"] = "https://reddit.com",
+  ["p"] = "https://github.com/pulls",
 })
 
 -- [2] = "com.apple.iTunes",

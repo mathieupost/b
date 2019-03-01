@@ -10,7 +10,7 @@
 #include "Kaleidoscope-Focus.h"
 #include "LEDUtils.h" // for hsvToRgb
 
-enum { R_Q, R_H, R_J, R_S, R_N, R_Y, R_P, B_O, B_T, B_F, B_N, B_I, B_R };
+enum { R_Q, R_H, R_J, R_S, R_N, R_Y, R_P, R_V, B_O, B_T, B_F, B_N, B_I, B_R, B_P };
 enum { ROOT, K_FN, K_ANY, K_BF, K_NUM };
 
 // To realign a block using vim-easy-align, type `gaip* `
@@ -56,21 +56,21 @@ KEYMAPS(
    ___, ___, ___, ___, /**/    /**/    /**/
    ___, /**/ /**/ /**/ /**/    /**/    /**/
 
-   ___, ___,    ___, ___,    ___,    ___, ___,
-   ___, ___,    ___, M(B_I), M(B_O), ___, ___,
-   /**/ ___,    ___, ___,    ___,    ___, ___,
-   ___, M(B_N), ___, ___,    ___,    ___, ___,
-   ___, ___,    ___, ___,    /**/    /**/ /**/
-   ___  /**/    /**/ /**/    /**/    /**/ /**/
+   ___, ___,    ___, ___,    ___,    ___,    ___,
+   ___, ___,    ___, M(B_I), M(B_O), M(B_P), ___,
+   /**/ ___,    ___, ___,    ___,    ___,    ___,
+   ___, M(B_N), ___, ___,    ___,    ___,    ___,
+   ___, ___,    ___, ___,    /**/    /**/    /**/
+   ___  /**/    /**/ /**/    /**/    /**/    /**/
 
   ), [K_BF] =  KEYMAP_STACKED (
 
-   ___, ___,    ___, ___, ___, ___, ___,
-   ___, M(R_Q), ___, ___, ___, ___, ___,
-   ___, M(R_S), ___, ___, ___, ___, /**/
-   ___, ___,    ___, ___, ___, ___, ___,
-   ___, ___,    ___, ___, /**/ /**/ /**/
-   ___, /**/    /**/ /**/ /**/ /**/ /**/
+   ___, ___,    ___, ___, ___,    ___, ___,
+   ___, M(R_Q), ___, ___, ___,    ___, ___,
+   ___, M(R_S), ___, ___, ___,    ___, /**/
+   ___, ___,    ___, ___, M(R_V), ___, ___,
+   ___, ___,    ___, ___, /**/    /**/ /**/
+   ___, /**/    /**/ /**/ /**/    /**/ /**/
 
    ___, ___,    ___,    ___,    ___, ___,    ___,
    ___, ___,    ___,    M(R_Y), ___, M(R_P), ___,
@@ -144,6 +144,7 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   BROWSE_MACRO(B_F, F);
   BROWSE_MACRO(B_I, I);
   BROWSE_MACRO(B_R, R);
+  BROWSE_MACRO(B_P, P);
 
   SLACK_MACRO(R_Q, "+1");
   SLACK_MACRO(R_H, "heart");
@@ -151,6 +152,7 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   SLACK_MACRO(R_S, "sciencedog");
   SLACK_MACRO(R_N, "neat");
   SLACK_MACRO(R_Y, "eyes");
+  SLACK_MACRO(R_V, "wave");
 
   case R_P:
     SLACK_REACT("parrotwave1", true);
