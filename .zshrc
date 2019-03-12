@@ -5,7 +5,7 @@ source ~/.profile
 fpath=("$HOME/.zshrc.d/autocomplete" "$fpath[@]")
 
 # Prompt {{{
-PROMPT='$(/Users/burke/bin/shell-prompt $? $KEYMAP)'
+PROMPT='$(/Users/burke/bin/shell-prompt "$?" "${__shadowenv_data%%:*}")'
 setopt prompt_subst
 # }}}
 # GPG Agent {{{

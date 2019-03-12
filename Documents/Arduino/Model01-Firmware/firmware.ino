@@ -10,7 +10,7 @@
 #include "Kaleidoscope-Focus.h"
 #include "LEDUtils.h" // for hsvToRgb
 
-enum { R_Q, R_H, R_J, R_S, R_N, R_Y, R_P, R_V, B_O, B_T, B_F, B_N, B_I, B_R, B_P };
+enum { R_M, R_Q, R_H, R_J, R_S, R_N, R_Y, R_P, R_V, B_O, B_T, B_F, B_N, B_I, B_R, B_P };
 enum { ROOT, K_FN, K_ANY, K_BF, K_NUM };
 
 // To realign a block using vim-easy-align, type `gaip* `
@@ -75,7 +75,7 @@ KEYMAPS(
    ___, ___,    ___,    ___,    ___, ___,    ___,
    ___, ___,    ___,    M(R_Y), ___, M(R_P), ___,
    /**/ M(R_H), M(R_J), ___,    ___, ___,    ___,
-   ___, M(R_N), ___,    ___,    ___, ___,    ___,
+   ___, M(R_N), M(R_M), ___,    ___, ___,    ___,
    ___, ___,    ___,    ___,    /**/ /**/    /**/
    ___  /**/    /**/    /**/    /**/ /**/    /**/
 
@@ -146,6 +146,7 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   BROWSE_MACRO(B_R, R);
   BROWSE_MACRO(B_P, P);
 
+  SLACK_MACRO(R_M, "memo");
   SLACK_MACRO(R_Q, "+1");
   SLACK_MACRO(R_H, "heart");
   SLACK_MACRO(R_J, "joy");

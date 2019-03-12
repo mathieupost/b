@@ -5,6 +5,7 @@ import (
 	"os"
 	"path"
 	"strconv"
+	"strings"
 )
 
 var (
@@ -23,27 +24,17 @@ func fgColor(color int) string {
 	return fmt.Sprintf("%%{\x1b[%dm%%}", color)
 }
 
-const darmok = "%{\x1b[38;5;51m%}d%{\x1b[38;5;45m%}a%{\x1b[38;5;39m%}r%{\x1b[38;5;33m%}m%{\x1b[38;5;27m%}o%{\x1b[38;5;21m%}k"
-
-func hostnameInfo() string {
-	hn, err := os.Hostname()
-	if err != nil {
-		hn = "error"
-	}
-	switch hn[0:6] {
-	case "darmok":
-		return darmok + fgBlue + ":"
-	default:
-		return fgYellow + hn + ":"
-	}
-}
-
 func pathInfo() string {
 	cwd, err := os.Getwd()
 	if err != nil {
 		cwd = "error"
 	}
-	return path.Base(cwd)
+	color := "%{\x1b[48;5;238m%}"
+	reset := "%{\x1b[0m%}"
+	if strings.HasPrefix(os.Args[2], "0000") || os.Args[2] == "" {
+		return path.Base(cwd)
+	}
+	return color + path.Base(cwd) + reset
 }
 
 func statusAndPrompt() string {
@@ -61,20 +52,7 @@ func statusAndPrompt() string {
 }
 
 func mode() string {
-	mode := fgCyan + ">"
-	if len(os.Args) >= 3 {
-		mode = os.Args[2]
-	}
-	if mode == "main" {
-		mode = fgCyan + ">"
-	}
-	if mode == "opp" {
-		mode = fgYellow + "<"
-	}
-	if mode == "vicmd" {
-		mode = fgMagenta + "<"
-	}
-	return mode
+	return fgCyan + ">"
 }
 
 func main() {
