@@ -1,7 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-
-export PATH=/opt/dev/bin:$PATH
-
-cd ~/src/github.com/burke/kindle2anki/pdf-extract && shim dev run
-cd ~/src/github.com/burke/kindle2anki && shim dev run

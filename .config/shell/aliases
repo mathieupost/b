@@ -41,7 +41,7 @@ bu       : bundle update
 bs       : bundle show
 bx       : bundle exec
 mu       : gem uninstall
-mi       : gem install --no-ri --no-rdoc
+mi       : gem install
 
 # }}}
 # Projects {{{
