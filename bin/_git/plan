@@ -7,6 +7,10 @@ git pull
 
 vim \~burke/plan.md
 
+if [[ -z $(git status -s) ]]; then
+  exit 0
+fi
+
 echo "commit+push plan?"
 
 while IFS= read -rn1 a; do
