@@ -6,7 +6,7 @@
 #include "Kaleidoscope.h"
 #include "Kaleidoscope-Macros.h"
 #include "Kaleidoscope-LEDControl.h"
-#include "Kaleidoscope-SpaceCadet.h"
+#include "Kaleidoscope-Qukeys.h"
 #include "Kaleidoscope-Focus.h"
 #include "LEDUtils.h" // for hsvToRgb
 
@@ -17,19 +17,19 @@ enum { ROOT, K_FN, K_ANY, K_BF, K_NUM };
 KEYMAPS(
   [ROOT] = KEYMAP_STACKED (
 
-   ___,          Key_1, Key_2, Key_3,           Key_4,         Key_5,       ShiftToLayer(K_NUM),
-   Key_Backtick, Key_Q, Key_W, Key_E,           Key_R,         Key_T,       Key_Tab,
-   Key_PageUp,   Key_A, Key_S, Key_D,           Key_F,         Key_G,       /**/
-   Key_PageDown, Key_Z, Key_X, Key_C,           Key_V,         Key_B,       Key_Escape,
-   /**/          /**/   /**/   Key_LeftControl, Key_Backspace, Key_LeftGui, Key_LeftShift,
-   /**/          /**/   /**/   /**/             /**/           /**/         ShiftToLayer(K_FN),
+   ___,          Key_1, Key_2, Key_3,           Key_4,         Key_5,                ShiftToLayer(K_NUM),
+   Key_Backtick, Key_Q, Key_W, Key_E,           Key_R,         Key_T,                Key_Tab,
+   Key_PageUp,   Key_A, Key_S, Key_D,           Key_F,         Key_G,                /**/
+   Key_PageDown, Key_Z, Key_X, Key_C,           Key_V,         Key_B,                Key_Escape,
+   /**/          /**/   /**/   Key_LeftBracket, Key_Backspace, Key_LeftCurlyBracket, Key_LeftParen,
+   /**/          /**/   /**/   /**/             /**/           /**/                  ShiftToLayer(K_FN),
 
-   ShiftToLayer(K_ANY), Key_6,       Key_7,        Key_8,            Key_9,      Key_0,         ShiftToLayer(K_NUM),
-   Key_Enter,           Key_Y,       Key_U,        Key_I,            Key_O,      Key_P,         Key_Equals,
-   /**/                 Key_H,       Key_J,        Key_K,            Key_L,      Key_Semicolon, Key_Quote,
-   ShiftToLayer(K_BF),  Key_N,       Key_M,        Key_Comma,        Key_Period, Key_Slash,     Key_Minus,
-   Key_RightShift,      Key_LeftAlt, Key_Spacebar, Key_RightControl, /**/        /**/           /**/
-   ShiftToLayer(K_FN)   /**/         /**/          /**/              /**/        /**/           /**/
+   ShiftToLayer(K_ANY), Key_6,                 Key_7,        Key_8,            Key_9,      Key_0,         ShiftToLayer(K_NUM),
+   Key_Enter,           Key_Y,                 Key_U,        Key_I,            Key_O,      Key_P,         Key_Equals,
+   /**/                 Key_H,                 Key_J,        Key_K,            Key_L,      Key_Semicolon, Key_Quote,
+   ShiftToLayer(K_BF),  Key_N,                 Key_M,        Key_Comma,        Key_Period, Key_Slash,     Key_Minus,
+   Key_RightParen,      Key_RightCurlyBracket, Key_Spacebar, Key_RightBracket, /**/        /**/           /**/
+   ShiftToLayer(K_FN)   /**/                   /**/          /**/              /**/        /**/           /**/
 
    ), [K_FN] = KEYMAP_STACKED (
 
@@ -98,17 +98,6 @@ KEYMAPS(
 
   )
 )
-
-static const int spaceCadetTimeout = 250;
-static kaleidoscope::SpaceCadet::KeyBinding spaceCadetMap[] = {
-  {  Key_LeftShift,     Key_LeftParen,          spaceCadetTimeout}
-  , {Key_RightShift,    Key_RightParen,         spaceCadetTimeout}
-  , {Key_LeftGui,       Key_LeftCurlyBracket,   spaceCadetTimeout}
-  , {Key_LeftAlt,       Key_RightCurlyBracket,  spaceCadetTimeout}
-  , {Key_LeftControl,   Key_LeftBracket,        spaceCadetTimeout}
-  , {Key_RightControl,  Key_RightBracket,       spaceCadetTimeout}
-  , SPACECADET_MAP_END
-};
 
 static void slackReactMacro(const char * search) {
   Macros.play(MACRO(D(LeftGui), D(LeftShift), T(Backslash), U(LeftShift), U(LeftGui)));
@@ -249,11 +238,11 @@ class : public kaleidoscope::LEDMode {
 } myLEDEffect;
 
 KALEIDOSCOPE_INIT_PLUGINS(
+  Qukeys,
   LEDControl,
   myLEDEffect,
   Macros,
-  Focus,
-  SpaceCadet
+  Focus
 );
 
 bool alertFocusHook(const char *command) {
@@ -282,14 +271,40 @@ bool alertFocusHook(const char *command) {
   return true;
 }
 
+/*
+  The layout used by qukeys:
+
+  r0c0, r0c1, r0c2, r0c3, r0c4, r0c5, r0c6,        r0c9,  r0c10, r0c11, r0c12, r0c13, r0c14, r0c15,
+  r1c0, r1c1, r1c2, r1c3, r1c4, r1c5, r1c6,        r1c9,  r1c10, r1c11, r1c12, r1c13, r1c14, r1c15,
+  r2c0, r2c1, r2c2, r2c3, r2c4, r2c5,                     r2c10, r2c11, r2c12, r2c13, r2c14, r2c15,
+  r3c0, r3c1, r3c2, r3c3, r3c4, r3c5, r2c6,        r2c9,  r3c10, r3c11, r3c12, r3c13, r3c14, r3c15,
+              r0c7, r1c7, r2c7, r3c7,                             r3c8,  r2c8,  r1c8, r0c8,
+                          r3c6,                                          r3c9,
+
+  This sets up qukeys to make the *c7,*c8 behave like:
+
+        r0c7 r1c7 r2c7 r3c7     r3c8  r2c8 r1c8 r0c8
+  TAP   [    \x08 {    (        )     }    \x20 ]
+  HOLD  CTRL \x08 GUI  SHIFT    SHIFT ALT  \x20 CTRL
+*/
+
 void setup() {
+  QUKEYS(
+    // layer (root=0), row, column
+    kaleidoscope::Qukey(0, 0, 7, Key_LeftControl),
+    kaleidoscope::Qukey(0, 2, 7, Key_LeftGui),
+    kaleidoscope::Qukey(0, 3, 7, Key_LeftShift),
+    kaleidoscope::Qukey(0, 3, 8, Key_RightShift),
+    kaleidoscope::Qukey(0, 2, 8, Key_LeftAlt),
+    kaleidoscope::Qukey(0, 0, 8, Key_RightControl),
+  )
+
   Serial.begin(9600);
 
   Kaleidoscope.setup();
 
   Focus.addHook(FOCUS_HOOK(alertFocusHook, "alert"));
 
-  SpaceCadet.map = spaceCadetMap;
   myLEDEffect.activate();
 }
 
