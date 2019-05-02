@@ -39,7 +39,7 @@ drmingdrmer/vim-toggle-quickfix
 tpope/vim-projectionist
 Shougo/neosnippet.vim
 Shougo/neosnippet-snippets
-Shougo/deoplete.nvim
+# Shougo/deoplete.nvim
 AndrewRadev/splitjoin.vim
 
 # Buffer / Pane / File Management ####################
