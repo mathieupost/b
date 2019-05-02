@@ -146,8 +146,8 @@ t50      : t 50
 t60      : t 60
 # }}}
 # {{{ dev
-dld      : dev load-dev
-dls      : dev load-system
+dld      : dev load-dev --no-backend
+dls      : dev load-system --no-backend
 # }}}
 
 mutt     : kick-gpg-agent && command mutt
