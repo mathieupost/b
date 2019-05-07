@@ -1,20 +1,7 @@
 #!/bin/bash
 # 920 x 1021
 
-case $1 in
-  safari)
-    osascript -e 'tell application "iTerm2" to set bounds of front window to {280, 280, 1200, 1301}'
-    osascript -e 'tell application "Safari" to set bounds of front window to {300, 300, 1220, 1321}'
-    osascript -e 'tell application "iTerm2" to activate'
-    osascript -e 'tell application "Safari" to activate'
-    ;;
-  iterm)
-    osascript -e 'tell application "Safari" to set bounds of front window to {280, 280, 1200, 1301}'
-    osascript -e 'tell application "iTerm2" to set bounds of front window to {300, 300, 1220, 1321}'
-    osascript -e 'tell application "Safari" to activate'
-    osascript -e 'tell application "iTerm2" to activate'
-    ;;
-  *)
-    >&2 echo no
-    ;;
-esac
+osascript -e 'tell application "iTerm2" to set bounds of front window to {1470, 280, 2390, 1301}'
+osascript -e 'tell application "Safari" to set bounds of front window to {1490, 300, 2410, 1321}'
+osascript -e 'tell application "iTerm2" to activate'
+osascript -e 'tell application "Safari" to activate'
