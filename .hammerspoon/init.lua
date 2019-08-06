@@ -36,13 +36,14 @@ browsebindings.setup({"cmd", "ctrl", "option", "shift"}, {
 -- [2] = "com.apple.iTunes",
 appbindings.setup({"cmd", "ctrl"}, {
   [1] = "com.googlecode.iterm2",
-  [2] = nil,
-  [3] = "com.google.Chrome",
+  [2] = nil, -- iTunes
+  [3] = "com.brave.Browser",
   [4] = "com.tinyspeck.slackmacgap",
   [5] = "com.culturedcode.ThingsMac",
   [6] = "com.apple.iChat",
   [7] = "com.apple.Mail",
-  [8] = nil,
+  [8] = "com.microsoft.vscode",
+  [9] = "com.kapeli.dashdoc",
 })
 
 hs.hotkey.bind({"cmd", "ctrl"}, "2", itunes.toggleLibrary)

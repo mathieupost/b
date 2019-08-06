@@ -19,21 +19,9 @@ Slave ":personal-local:INBOX"
 Create Both
 SyncState *
 
-Channel personal-pol
-Master ":personal-remote:pol"
-Slave ":personal-local:pol"
-Create Both
-SyncState *
-
 Channel personal-archive
 Master ":personal-remote:[Gmail]/All Mail"
 Slave ":personal-local:archive"
-Create Both
-SyncState *
-
-Channel personal-drafts
-Master ":personal-remote:[Gmail]/Drafts"
-Slave ":personal-local:drafts"
 Create Both
 SyncState *
 
@@ -43,91 +31,8 @@ Slave ":personal-local:sent"
 Create Both
 SyncState *
 
-Channel personal-flagged
-Master ":personal-remote:[Gmail]/Starred"
-Slave ":personal-local:flagged"
-Create Both
-SyncState *
-
-Channel personal-trash
-Master ":personal-remote:[Gmail]/Trash"
-Slave ":personal-local:trash"
-Create Both
-SyncState *
-
 Group personal
-Channel personal-trash
 Channel personal-inbox
-Channel personal-pol
-Channel personal-drafts
 Channel personal-sent
-Channel personal-flagged
 Channel personal-archive
-
-
-### SHOPIFY #########################################
-
-
-IMAPStore shopify-remote
-Host imap.gmail.com
-User burke.libbey@shopify.com
-PassCmd "sudo -u burke /usr/bin/security -v find-generic-password -g -a burke.libbey@shopify.com -s imap.gmail.com /Users/burke/Library/Keychains/login.keychain 2>&1 | grep '^password: ' | sed 's/.*\"\\(.*\\)\"/\\1/'"
-SSLType IMAPS
-AuthMech LOGIN
-CertificateFile /Users/burke/.mutt/Equifax_Secure_CA.cert
-
-MaildirStore shopify-local
-Path ~/.mail2/shopify
-Inbox ~/.mail2/shopify/INBOX
-
-Channel shopify-inbox
-Master ":shopify-remote:INBOX"
-Slave ":shopify-local:INBOX"
-Create Both
-SyncState *
-
-Channel shopify-ruby-core
-Master ":shopify-remote:ruby-core"
-Slave ":shopify-local:ruby-core"
-Create Both
-SyncState *
-
-Channel shopify-archive
-Master ":shopify-remote:[Gmail]/All Mail"
-Slave ":shopify-local:archive"
-Create Both
-SyncState *
-
-Channel shopify-drafts
-Master ":shopify-remote:[Gmail]/Drafts"
-Slave ":shopify-local:drafts"
-Create Both
-SyncState *
-
-Channel shopify-sent
-Master ":shopify-remote:[Gmail]/Sent Mail"
-Slave ":shopify-local:sent"
-Create Both
-SyncState *
-
-Channel shopify-flagged
-Master ":shopify-remote:[Gmail]/Starred"
-Slave ":shopify-local:flagged"
-Create Both
-SyncState *
-
-Channel shopify-trash
-Master ":shopify-remote:[Gmail]/Trash"
-Slave ":shopify-local:trash"
-Create Both
-SyncState *
-
-Group shopify
-Channel shopify-trash
-Channel shopify-inbox
-Channel shopify-ruby-core
-Channel shopify-drafts
-Channel shopify-sent
-Channel shopify-flagged
-Channel shopify-archive
 

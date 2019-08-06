@@ -253,5 +253,12 @@ source ~/.zshrc.d/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 source ~/.zshrc.d/zk.zsh
 
+export DEV_ALLOW_ITERM2_INTEGRATION=1
+source ~/.iterm2_shell_integration.zsh
+iterm2_print_user_vars() {
+  iterm2_set_user_var gitBranch $(git rev-parse --abbr-ref HEAD 2> /dev/null)
+}
+
 source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /opt/dev/dev.sh
+. "/Users/burke/.acme.sh/acme.sh.env"
