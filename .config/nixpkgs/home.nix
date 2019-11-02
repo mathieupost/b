@@ -17,6 +17,8 @@
     pinentry-program = ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
   '';
 
+  home.file.".config/LS_COLORS".text = builtins.readFile ./home/LS_COLORS;
+
   home.file.".crawlrc".text = ''
     runrest_stop_message += Your battlesphere wavers and loses cohesion.
     runrest_stop_message += You feel your bond with your battlesphere wane.
@@ -303,15 +305,17 @@
       export GPG_TTY=$(tty)
       # }}}
       # Generic Configuration {{{
-      while read line; do
-        eval "function ''${line}() { cd \"\$(_''${line} \"\$@\")\"; }"
-      done < ~/.config/shell/cd-wrappers
+      gh() { cd  "$(gh  "$@")" }
+      ghs() { cd "$(ghs "$@")" }
+      ghb() { cd "$(ghb "$@")" }
+      ]gs() { cd "$(]gs "$@")" }
+      ]gb() { cd "$(]gb "$@")" }
 
       function ghs() {
         dev clone $1
       }
 
-      eval $(/nix/var/nix/gcroots/coreutils/bin/dircolors -b ~/.config/shell/LS_COLORS)
+      eval $(/nix/var/nix/gcroots/coreutils/bin/dircolors -b ~/.config/LS_COLORS)
 
       # }}}
       # ZSH options and features {{{

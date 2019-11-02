@@ -12,14 +12,11 @@
 /Documents/Arduino/*
 !/Documents/Arduino/Model01-Firmware
 
-!/.terminfo
-
 !/.hammerspoon
 
 !/.dotfiles-src
 
 !/.config/dtrace
-!/.config/shell
 
 !/bin
 /bin/*
