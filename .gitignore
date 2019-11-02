@@ -16,8 +16,6 @@
 
 !/.dotfiles-src
 
-!/.config/dtrace
-
 !/bin
 /bin/*
 !/bin/_git
