@@ -4,13 +4,6 @@
 /.config/*
 
 !/.nixpkgs
-/.nixpkgs/*
-!/.nixpkgs/darwin-configuration.nix
-
-!/.config/nixpkgs
-/.config/nixpkgs/*
-!/.config/nixpkgs/home.nix
-!/.config/nixpkgs/home
 
 !/Documents
 /Documents/*
