@@ -8,6 +8,15 @@
     enable = true;
   };
 
+  programs.gpg = {
+    enable = true;
+  };
+
+  home.file.".gnupg/gpg-agent.conf".text = ''
+    disable-scdaemon
+    pinentry-program = ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
+  '';
+
   programs.ssh = {
     enable = true;
     matchBlocks."*" = {

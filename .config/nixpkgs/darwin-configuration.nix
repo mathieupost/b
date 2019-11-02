@@ -7,17 +7,18 @@ in
 
 {
   environment.systemPackages = with pkgs; [
-    google-cloud-sdk
-    htop
-    tree
-    zsh
-    ruby_2_6
-    jq
+    # tmux-prompt
     fzf
     git
+    google-cloud-sdk
+    htop
+    jq
+    pinentry_mac
     ripgrep
+    ruby_2_6
     shell-prompt
-    # tmux-prompt
+    tree
+    zsh
   ];
 
   environment.darwinConfig = "$HOME/.config/nixpkgs/darwin-configuration.nix";

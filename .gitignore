@@ -25,10 +25,6 @@
 !/.config/shell
 !/.config/jellybeans.itermcolors
 
-!/.gnupg
-/.gnupg/*
-!/.gnupg/gpg-agent.conf
-
 !/bin
 /bin/*
 !/bin/_git
