@@ -4,6 +4,10 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.broot = {
+    enable = true;
+  };
+
   programs.ssh = {
     enable = true;
     matchBlocks."*" = {
@@ -59,7 +63,7 @@
     enableCompletion = true;
     enableAutosuggestions = true;
     history = {
-      path = "~/.zsh_history";
+      path = "$HOME/.zsh_history";
       size = 50000;
       save = 50000;
     };
