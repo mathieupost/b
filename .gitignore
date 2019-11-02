@@ -10,8 +10,6 @@
 /Documents/Arduino/*
 !/Documents/Arduino/Model01-Firmware
 
-!/.profile
-
 !/.gitignore
 !/.gitconfig
 
@@ -41,9 +39,6 @@
 /.ssh/*
 !/.ssh/ca-certificates.crt
 !/.ssh/config
-
-!/.zshrc
-!/.zshrc.d
 
 !/.gnupg
 /.gnupg/*

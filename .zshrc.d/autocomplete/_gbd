@@ -1,9 +1,0 @@
-#compdef gbd
-
-_gbd() {
-  local branches; branches=(
-    $(git branch -l | awk '$1 != "*" { print $1 }')
-  )
-  _describe -t branches 'branches' branches
-}
-_gbd
