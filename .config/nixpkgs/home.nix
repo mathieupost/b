@@ -246,7 +246,7 @@
       fpath=("$HOME/.zshrc.d/autocomplete" "$fpath[@]")
 
       # Prompt {{{
-      PROMPT='$(/Users/burke/bin/shell-prompt "$?" "''${__shadowenv_data%%:*}")'
+      PROMPT='$(shell-prompt "$?" "''${__shadowenv_data%%:*}")'
       setopt prompt_subst
       # }}}
       # GPG Agent {{{
@@ -259,15 +259,6 @@
       export GPG_TTY=$(tty)
       # }}}
       # Generic Configuration {{{
-      eval $(
-        cat ~/.config/shell/aliases \
-          | grep -v '^#' \
-          | grep -vE '^\s*$' \
-          | sed 's/\$/\\$/' \
-          | sed 's/"/\\"/g' \
-          | sed 's/^\([^ :]*\)[[:space:]]*:[[:space:]]*\(.*\)/alias \1="\2";/'
-      )
-
       while read line; do
         eval "function ''${line}() { cd \"\$(_''${line} \"\$@\")\"; }"
       done < ~/.config/shell/cd-wrappers

@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
 
+let
+  shell-prompt = import ~/.dotfiles-src/shell-prompt/default.nix { pkgs = pkgs; };
+  tmux-prompt  = import ~/.dotfiles-src/tmux-prompt/default.nix { pkgs = pkgs; };
+
+in
+
 {
   environment.systemPackages = with pkgs; [
     google-cloud-sdk
@@ -11,6 +17,8 @@
     fzf
     git
     ripgrep
+    shell-prompt
+    # tmux-prompt
   ];
 
   services.nix-daemon.enable = true;
