@@ -4,6 +4,34 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.ssh = {
+    enable = true;
+    matchBlocks."*" = {
+      extraOptions = {
+        UseRoaming = "no";
+        KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
+        HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
+        Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr";
+        PubkeyAuthentication = "yes";
+        MACs = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com";
+        PasswordAuthentication = "no";
+        ChallengeResponseAuthentication = "no";
+        # UseKeychain = "yes";
+        AddKeysToAgent = "yes";
+      };
+    };
+
+    matchBlocks.mini = {
+      user = "administrator";
+      hostname = "208.52.154.14";
+    };
+
+    matchBlocks.sb = {
+      user = "root";
+      port = 2222;
+    };
+  };
+
   programs.git = {
     enable = true;
     userName = "Burke Libbey";

@@ -33,10 +33,6 @@
 !/.config/shell
 !/.config/jellybeans.itermcolors
 
-!/.ssh
-/.ssh/*
-!/.ssh/config
-
 !/.gnupg
 /.gnupg/*
 !/.gnupg/gpg-agent.conf
