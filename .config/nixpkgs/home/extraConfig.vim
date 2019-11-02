@@ -1,10 +1,5 @@
 " vim:foldmethod=marker foldlevel=0
 
-" Preamble {{{
-set shell=/bin/sh
-call pathogen#infect()
-" }}}
-
 " ## Settings {{{
 
 " map*leader {{{
@@ -20,10 +15,10 @@ set lazyredraw
 " }}}
 
 " Backup/swap/undo Directories {{{
-set backupdir=~/.config/nvim/backup
-set directory=~/.config/nvim/swaps
-set undodir=~/.config/nvim/undo
-set undofile
+" set backupdir=~/.config/nvim/backup
+" set directory=~/.config/nvim/swaps
+" set undodir=~/.config/nvim/undo
+" set undofile
 " }}}
 
 " Environment {{{ 
@@ -94,32 +89,20 @@ set autowrite
 
 " }}}
 
-" NeoVim {{{
-if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" NeoVim-specific {{{
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-  " Neovim takes a different approach to initializing the GUI. As It seems some
-  " Syntax and FileType autocmds don't get run all for the first file specified
-  " on the command line.  hack sidesteps that and makes sure we get a chance to
-  " get started. See https://github.com/neovim/neovim/issues/2953
-  augroup nvim
-    au!
-    au VimEnter * doautoa Syntax,FileType
-  augroup END
-endif
+" Neovim takes a different approach to initializing the GUI. As It seems some
+" Syntax and FileType autocmds don't get run all for the first file specified
+" on the command line.  hack sidesteps that and makes sure we get a chance to
+" get started. See https://github.com/neovim/neovim/issues/2953
+augroup nvim
+  au!
+  au VimEnter * doautoa Syntax,FileType
+augroup END
 " }}}
 
 " Syntax Highlighting {{{
-" let g:jellybeans_use_term_italics = 1
-" let g:jellybeans_overrides = {
-"       \  'Search':     { 'guifg': 'fabd2f', 'guibg': '151515', 'attr': 'inverse' },
-"       \  'IncSearch':  { 'guifg': 'fe8019', 'guibg': '151515', 'attr': 'inverse' },
-"       \  'SpellBad':   { 'attr': '', 'guibg': '602020' },
-"       \  'SpellCap':   { 'attr': '' },
-"       \  'SpellRare':  { 'attr': '' },
-"       \  'SpellLocal': { 'attr': '' }
-"       \}
-
 if $TERM_BG == "light"
   set background=light
 else
@@ -131,8 +114,8 @@ filetype plugin indent on
 " }}}
 
 " Python Bindings {{{
-let g:python_host_prog = '/Users/burke/.pyenv/shims/python2'
-let g:python3_host_prog = '/Users/burke/.pyenv/shims/python3'
+" let g:python_host_prog = '/Users/burke/.pyenv/shims/python2'
+" let g:python3_host_prog = '/Users/burke/.pyenv/shims/python3'
 " }}}
 
 " ## Plugin/Feature Configuration {{{
@@ -192,73 +175,12 @@ endif
 " }}}
 
 " LightLine {{{
-"
 let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
-
-" let g:lightline = {
-"       \ 'colorscheme': 'solarized',
-"       \ 'mode_map': { 'c': 'NORMAL' },
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'modified': 'LightlineModified',
-"       \   'readonly': 'LightlineReadonly',
-"       \   'fugitive': 'LightlineFugitive',
-"       \   'filename': 'LightlineFilename',
-"       \   'fileformat': 'LightlineFileformat',
-"       \   'filetype': 'LightlineFiletype',
-"       \   'fileencoding': 'LightlineFileencoding',
-"       \   'mode': 'LightlineMode',
-"       \ },
-"       \ }
-
-" function! LightlineModified()
-"   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-" endfunction
-
-" function! LightlineReadonly()
-"   return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
-" endfunction
-
-" function! LightlineFilename()
-"   return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-"         \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-"         \  &ft == 'unite' ? unite#get_status_string() :
-"         \  &ft == 'vimshell' ? vimshell#get_status_string() :
-"         \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-"         \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-" endfunction
-
-" function! LightlineFugitive()
-"   if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
-"     let branch = fugitive#head()
-"     return branch !=# '' ? branch : ''
-"   endif
-"   return ''
-" endfunction
-
-" function! LightlineFileformat()
-"   return winwidth(0) > 70 ? &fileformat : ''
-" endfunction
-
-" function! LightlineFiletype()
-"   return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-" endfunction
-
-" function! LightlineFileencoding()
-"   return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
-" endfunction
-
-" function! LightlineMode()
-"   return winwidth(0) > 60 ? lightline#mode() : ''
-" endfunction
-
 " }}}
 
 " FZF {{{
-set rtp+=/usr/local/opt/fzf
+" set rtp+=/usr/local/opt/fzf
 
 nnoremap <leader>j :Buffers<cr>
 nnoremap <leader><C-p> :Files<cr>
@@ -307,7 +229,7 @@ augroup _fzf
   autocmd ColorScheme * call <sid>update_fzf_colors()
 augroup END
 
-set shell=/usr/local/bin/zsh
+" set shell=/usr/local/bin/zsh
 augroup _term
   autocmd TermOpen term://* set nonu nornu
   " autocmd TermOpen term://* startinsert
@@ -386,7 +308,7 @@ augroup golang
   au FileType go nmap <buffer> ƒ :GoCallers<cr>
 augroup END
 
-set rtp+=/Users/burke/src/github.com/golang/lint/misc/vim
+" set rtp+=/Users/burke/src/github.com/golang/lint/misc/vim
 
 " json tags (:GoAddTags) in snake_case
 let g:go_addtags_transform = "snakecase"
@@ -575,8 +497,8 @@ inoremap ˚ <Esc>:m-2<CR>==gi
 vnoremap ˚ :m-2<CR>gv=gv
 " }}}
 
-nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
-nnoremap <leader>ev :edit ~/.config/nvim/init.vim<cr>
+" nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
+" nnoremap <leader>ev :edit ~/.config/nvim/init.vim<cr>
 
 nnoremap <leader>n <C-^>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>

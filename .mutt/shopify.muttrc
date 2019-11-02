@@ -1,7 +1,0 @@
-# vim:ft=muttrc
-
-set spoolfile = "+s:INBOX"
-set mbox      = "+s:archive"
-set postponed = "+s:drafts"
-set from      = "burke.libbey@shopify.com"
-set sendmail  = "/usr/local/bin/msmtp -C /Users/burke/.msmtprc -a burkelibbey"

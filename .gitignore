@@ -1,5 +1,9 @@
 /*
 
+!/.nixpkgs
+/.nixpkgs/*
+!/.nixpkgs/darwin-configuration.nix
+
 !/Documents
 /Documents/*
 !/Documents/Arduino
@@ -13,20 +17,6 @@
 
 !/.terminfo
 
-!/.spacemacs
-
-!/.mutt
-/.mutt/*
-!/.mutt/*muttrc
-!/.mutt/colors.sh
-!/.msmtprc
-!/.notmuch-config
-!/.mutt/Equifax_Secure_CA.cert
-!/.mutt/mailcap
-!/.mutt/view_attachment.sh
-!/.mbsyncrc
-!/.urlview
-
 !/.hammerspoon
 
 !/.agignore
@@ -36,25 +26,16 @@
 !/.config
 /.config/*
 
-!/.config/task
+!/.config/nixpkgs
+/.config/nixpkgs/*
+!/.config/nixpkgs/home.nix
+!/.config/nixpkgs/home
+
 !/.config/dtrace
 !/.config/git
 /.config/git/private
 !/.config/shell
 !/.config/jellybeans.itermcolors
-
-!/.config/fish
-/.config/fish/fish_history
-/.config/fish/config.fish.tmp
-/.config/fish/fishd.*
-
-!/.config/nvim
-/.config/nvim/*
-!/.config/nvim/autoload
-!/.config/nvim/autoload/pathogen.vim
-!/.config/nvim/update
-!/.config/nvim/init.vim
-!/.config/nvim/plugin_list
 
 !/.ssh
 /.ssh/*
@@ -85,14 +66,6 @@
 !/Library/LaunchAgents
 /Library/LaunchAgents/*
 !/Library/LaunchAgents/me.libbey.burke.*.plist
-
-!/Library/Application Support
-/Library/Application Support/*
-!/Library/Application Support/Alfred 3
-/Library/Application Support/Alfred 3/*
-!/Library/Application Support/Alfred 3/Alfred.alfredpreferences
-/Library/Application Support/Alfred 3/Alfred.alfredpreferences/*
-!/Library/Application Support/Alfred 3/Alfred.alfredpreferences/workflows
 
 !/Library/Preferences
 /Library/Preferences/*

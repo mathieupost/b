@@ -1,1 +1,0 @@
-/Users/burke/.config/fisherman/await/functions/await.fish

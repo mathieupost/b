@@ -36,9 +36,9 @@ function ghs() {
 }
 
 if [[ "${TERM_BG}" == "light" ]]; then
-  eval $(gdircolors -b ~/.config/shell/dircolors.ansi-light)
+  eval $(/nix/var/nix/gcroots/coreutils/bin/dircolors -b ~/.config/shell/dircolors.ansi-light)
 else
-  eval $(gdircolors -b ~/.config/shell/LS_COLORS)
+  eval $(/nix/var/nix/gcroots/coreutils/bin/dircolors -b ~/.config/shell/LS_COLORS)
 fi
 
 # }}}
@@ -259,6 +259,15 @@ iterm2_print_user_vars() {
   iterm2_set_user_var gitBranch $(git rev-parse --abbr-ref HEAD 2> /dev/null)
 }
 
+
+source ~/.nix-profile/etc/profile.d/nix.sh
+export NIX_REMOTE=daemon
+source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
+
 source ~/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /opt/dev/dev.sh
-. "/Users/burke/.acme.sh/acme.sh.env"
+if [ -f /opt/dev/dev.sh ]; then
+  source /opt/dev/dev.sh
+fi
+if [ -f ~/.acme.sh/acme.sh.env ]; then
+  . "/Users/burke/.acme.sh/acme.sh.env"
+fi
