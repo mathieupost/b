@@ -7,7 +7,6 @@ in
 
 {
   environment.systemPackages = with pkgs; [
-    # tmux-prompt
     fzf
     git
     google-cloud-sdk

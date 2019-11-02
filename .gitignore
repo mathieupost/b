@@ -1,4 +1,5 @@
 /*
+!/.gitignore
 
 !/.config
 /.config/*
@@ -11,26 +12,19 @@
 /Documents/Arduino/*
 !/Documents/Arduino/Model01-Firmware
 
-!/.gitignore
-
 !/.terminfo
 
 !/.hammerspoon
-
-!/.agignore
 
 !/.dotfiles-src
 
 !/.config/dtrace
 !/.config/shell
-!/.config/jellybeans.itermcolors
 
 !/bin
 /bin/*
 !/bin/_git
 !/bin/_git/*
-/bin/_git/,*
-!/bin/_git/,
 
 !/Library
 /Library/*
@@ -41,9 +35,3 @@
 !/Library/Preferences
 /Library/Preferences/*
 !/Library/Preferences/com.googlecode.iterm2.plist
-
-!/.tmux.conf
-!/.tmux-osx.conf
-!/.tmux-light.conf
-
-!/.crawlrc

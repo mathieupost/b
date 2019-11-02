@@ -17,6 +17,37 @@
     pinentry-program = ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
   '';
 
+  home.file.".crawlrc".text = ''
+    runrest_stop_message += Your battlesphere wavers and loses cohesion.
+    runrest_stop_message += You feel your bond with your battlesphere wane.
+    show_travel_trail    = true
+    travel_delay         = -1
+    rest_delay           = -1
+    explore_stop         = glowing_items, artefacts, runes
+    explore_stop         += greedy_pickup_smart, greedy_sacrificeable
+    explore_stop         += shops, altars, runed_doors
+    explore_stop         += stairs, portals, branches
+    explore_wall_bias    = 1
+    trapwalk_safe_hp     = dart:20,needle:15,arrow:35,bolt:45,spear:40,axe:45,blade:95
+    easy_eat_chunks      = true
+    auto_eat_chunks      = true
+    auto_drop_chunks     = never
+    sort_menus           = true : charged,equipped,identified,curse,art,ego,glowing,freshness,>qty,basename
+    autofight_stop       = 65
+    hp_colour            = 100:lightgrey, 99:green, 75:yellow, 50:red
+    force_more_message   += You are starting to lose your buoyancy
+    force_more_message   += Space (bends|warps horribly) around you
+    force_more_message   += danger:
+    force_more_message   += Found a gateway leading out of the Abyss
+    auto_sacrifice       = true
+    may_stab_brand       = hi:green
+  '';
+
+  home.file.".ripgreprc".text = ''
+    --max-columns=150
+    --max-columns-preview
+  '';
+
   programs.ssh = {
     enable = true;
     matchBlocks."*" = {
@@ -280,11 +311,7 @@
         dev clone $1
       }
 
-      if [[ "''${TERM_BG}" == "light" ]]; then
-        eval $(/nix/var/nix/gcroots/coreutils/bin/dircolors -b ~/.config/shell/dircolors.ansi-light)
-      else
-        eval $(/nix/var/nix/gcroots/coreutils/bin/dircolors -b ~/.config/shell/LS_COLORS)
-      fi
+      eval $(/nix/var/nix/gcroots/coreutils/bin/dircolors -b ~/.config/shell/LS_COLORS)
 
       # }}}
       # ZSH options and features {{{
@@ -419,14 +446,7 @@
       zle -N zle-checkout-branch
       bindkey '∫' zle-checkout-branch # Alt-B Canadian English
 
-      if [[ "''${TERM_BG}" == "light" ]]; then
-        export FZF_DEFAULT_OPTS="--color=light"
-      else
-      fi
-
-      # if [[ "''${TERM_BG}" == "light" ]]; then
-        export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=3'
-      # fi
+      export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=3'
 
       export DEV_ALLOW_ITERM2_INTEGRATION=1
       source ~/.iterm2_shell_integration.zsh
@@ -467,26 +487,28 @@
       }
     ];
 
-    sessionVariables = {
-      "NVIM_TUI_ENABLE_TRUE_COLOR" = "1";
-      "DISABLE_SPRING" = "0";
-      "OPT_SHOW" = "1";
-      "OPT_ISEQ_CACHE" = "0";
-      "OPT_AOT_RUBY" = "1";
-      "OPT_AOT_YAML" = "1";
-      "OPT_PRE_BOOTSCALE" = "1";
-      "OPT_TOXIPROXY_CACHE" = "1";
+    sessionVariables = rec {
+      NVIM_TUI_ENABLE_TRUE_COLOR = "1";
+      DISABLE_SPRING = "0";
+      OPT_SHOW = "1";
+      OPT_ISEQ_CACHE = "0";
+      OPT_AOT_RUBY = "1";
+      OPT_AOT_YAML = "1";
+      OPT_PRE_BOOTSCALE = "1";
+      OPT_TOXIPROXY_CACHE = "1";
 
-      "BOOTSNAP_PEDANTIC" = "1";
+      RIPGREP_CONFIG_PATH = ~/.ripgreprc;
 
-      "EDITOR" = "vim";
-      "VISUAL" = "vim";
-      "GIT_EDITOR" = "vim";
-      "XDG_CONFIG_HOME" = "$HOME/.config";
+      BOOTSNAP_PEDANTIC = "1";
 
-      "GOPATH" = "$HOME";
+      EDITOR = "vim";
+      VISUAL = EDITOR;
+      GIT_EDITOR = EDITOR;
+      XDG_CONFIG_HOME = "$HOME/.config";
 
-      "PATH" = "$HOME/bin/_git:$HOME/bin:$PATH";
+      GOPATH = "$HOME";
+
+      PATH = "$HOME/bin/_git:$HOME/bin:$PATH";
     };
     # envExtra
     # profileExtra
