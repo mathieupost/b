@@ -1,5 +1,0 @@
-#!/bin/bash
-set -xeuo pipefail
-
-go tool pprof -dot "$1" | dot -Tsvg > /tmp/prof.svg
-open -a "Firefox Nightly" /tmp/prof.svg

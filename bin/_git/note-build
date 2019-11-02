@@ -1,8 +1,0 @@
-#!/bin/bash
-set -euo pipefail
-
-md=$1
-html="${md//.md/.html}"
-~/src/github.com/burke/notes/.util/build-one < "${md}" > "${html}"
-chrome-preview "${html}"
-
