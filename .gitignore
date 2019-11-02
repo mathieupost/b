@@ -1,8 +1,16 @@
 /*
 
+!/.config
+/.config/*
+
 !/.nixpkgs
 /.nixpkgs/*
 !/.nixpkgs/darwin-configuration.nix
+
+!/.config/nixpkgs
+/.config/nixpkgs/*
+!/.config/nixpkgs/home.nix
+!/.config/nixpkgs/home
 
 !/Documents
 /Documents/*
@@ -11,7 +19,6 @@
 !/Documents/Arduino/Model01-Firmware
 
 !/.gitignore
-!/.gitconfig
 
 !/.terminfo
 
@@ -20,14 +27,6 @@
 !/.agignore
 
 !/.dotfiles-src
-
-!/.config
-/.config/*
-
-!/.config/nixpkgs
-/.config/nixpkgs/*
-!/.config/nixpkgs/home.nix
-!/.config/nixpkgs/home
 
 !/.config/dtrace
 !/.config/shell
@@ -43,11 +42,6 @@
 !/bin/_git/*
 /bin/_git/,*
 !/bin/_git/,
-
-!/.sshrc
-!/.sshrc.d
-
-!/.gemrc
 
 !/Library
 /Library/*
