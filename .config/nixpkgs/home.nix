@@ -4,6 +4,28 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.git = {
+    enable = true;
+    userName = "Burke Libbey";
+    userEmail = "burke@libbey.me";
+    extraConfig = {
+      hub.protocol = "https";
+      github.user = "burke";
+      color.ui = true;
+      pull.rebase = true;
+      merge.conflictstyle = "diff3";
+      credential.helper = "osxkeychain";
+      diff.algorithm = "patience";
+      protocol.version = "2";
+      url."https://github.com/Shopify/".insteadOf = [
+        "git@github.com:Shopify/"
+        "git@github.com:shopify/"
+        "ssh://git@github.com/Shopify/"
+        "ssh://git@github.com/shopify/"
+      ];
+    };
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
