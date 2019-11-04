@@ -2,7 +2,6 @@
 
 let
   shell-prompt = import ~/.dotfiles-src/shell-prompt/default.nix { pkgs = pkgs; };
-  tmux-prompt  = import ~/.dotfiles-src/tmux-prompt/default.nix { pkgs = pkgs; };
 in
 
 {
