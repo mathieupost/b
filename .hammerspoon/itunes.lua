@@ -5,7 +5,7 @@
 
 local _M = {}
 
-local iTunesID = "com.apple.iTunes"
+local iTunesID = "com.apple.Music"
 
 function ensureRunning(bundleID)
   local apps = hs.application.applicationsForBundleID(bundleID)

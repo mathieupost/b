@@ -52,7 +52,10 @@ func statusAndPrompt() string {
 }
 
 func mode() string {
-	return fgCyan + ">"
+	if os.Args[3] == "/opt/dev" {
+		return fgCyan + ">"
+	}
+	return fgYellow + ">"
 }
 
 func main() {
