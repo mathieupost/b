@@ -1,3 +1,0 @@
-#!/bin/bash
-
-/usr/local/bin/reattach-to-user-namespace /usr/local/bin/terminal-notifier -message "$*"

@@ -1,7 +1,0 @@
-#!/bin/bash
-# 920 x 1021
-
-osascript -e 'tell application "iTerm2" to set bounds of front window to {1470, 280, 2390, 1301}'
-osascript -e 'tell application "Safari" to set bounds of front window to {1490, 300, 2410, 1321}'
-osascript -e 'tell application "iTerm2" to activate'
-osascript -e 'tell application "Safari" to activate'

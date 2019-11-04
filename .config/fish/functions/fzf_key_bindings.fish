@@ -1,1 +1,0 @@
-/Users/burke/.vim/bundle/fzf/shell/key-bindings.fish
