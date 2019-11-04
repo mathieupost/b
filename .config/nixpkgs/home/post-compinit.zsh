@@ -9,7 +9,7 @@ zle_highlight=(isearch:underline)
 # Enable ..<TAB> -> ../
 zstyle ':completion:*' special-dirs true
 
-zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,comm'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
@@ -19,7 +19,7 @@ typeset WORDCHARS="*?_-.~[]=&;!#$%^(){}<>"
 
 function git() {
   local toplevel=$(command git rev-parse --show-toplevel 2>/dev/null)
-  if [[ "''${toplevel}" == "''${HOME}" ]] && [[ "$1" == "clean" ]]; then
+  if [[ "${toplevel}" == "${HOME}" ]] && [[ "$1" == "clean" ]]; then
     >&2 echo "Do NOT run git clean in this repository."
     return
   fi
@@ -46,7 +46,7 @@ function z() {
       sp && $1 == "default" { print $2; exit }
     ' < ~/.config/dev
   )"
-  dev cd ''${srcpath}/$(ls ''${srcpath} | fzf --select-1 --query "$@")
+  dev cd ${srcpath}/$(ls ${srcpath} | fzf --select-1 --query "$@")
 }
 
 function gogopr() {
@@ -73,12 +73,12 @@ zle-dev-open-app() /opt/dev/bin/dev open app
 zle -N zle-dev-open-app
 bindkey '®' zle-dev-open-app # Alt-R ABC Extended & Canadian English
 
-zle-dev-cd(){ dev cd ''${''${(z)BUFFER}}; zle .beginning-of-line; zle .kill-line; zle .accept-line }
+zle-dev-cd(){ dev cd ${${(z)BUFFER}}; zle .beginning-of-line; zle .kill-line; zle .accept-line }
 zle -N zle-dev-cd
 bindkey '∂' zle-dev-cd # Alt-D Canadian English
 
 zle-dev-cd() {
-  dev cd "''${''${(z)BUFFER}}"
+  dev cd "${${(z)BUFFER}}"
   zle .beginning-of-line
   zle .kill-line
   zle .accept-line
@@ -88,8 +88,8 @@ bindkey '∂' zle-dev-cd # Alt-D Canadian English
 
 zle-checkout-branch() {
   local branch
-  branch="$(git branch -l | fzf -f "''${''${(z)BUFFER}}" | awk '{print $1; exit}')" 
-  git checkout "''${branch}" >/dev/null 2>&1
+  branch="$(git branch -l | fzf -f "${${(z)BUFFER}}" | awk '{print $1; exit}')" 
+  git checkout "${branch}" >/dev/null 2>&1
   zle .beginning-of-line
   zle .kill-line
   zle .accept-line

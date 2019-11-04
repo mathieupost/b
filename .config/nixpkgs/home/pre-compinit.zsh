@@ -1,14 +1,14 @@
 fpath=("$HOME/.zshrc.d/autocomplete" "$fpath[@]")
 
 # Prompt {{{
-PROMPT='$(shell-prompt "$?" "''${__shadowenv_data%%:*}" "${__dev_source_dir}")'
+PROMPT='$(shell-prompt "$?" "${__shadowenv_data%%:*}" "${__dev_source_dir}")'
 setopt prompt_subst
 # }}}
 # GPG Agent {{{
 gpg-agent --daemon >/dev/null 2>&1
 function kick-gpg-agent {
   pid=$(ps xo pid,command | grep -E "^\d+ gpg-agent" | awk '{print $1}')
-  export GPG_AGENT_INFO=$HOME/.gnupg/S.gpg-agent:''${pid}:1
+  export GPG_AGENT_INFO=$HOME/.gnupg/S.gpg-agent:${pid}:1
 }
 kick-gpg-agent
 export GPG_TTY=$(tty)
