@@ -185,6 +185,7 @@
       # gitv
       # tabnine-vim
       ale                  # linting
+      nerdtree
       # vim-toggle-quickfix
       # neosnippet.vim
       # neosnippet-snippets

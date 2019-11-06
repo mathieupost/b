@@ -21,7 +21,8 @@ in
 
   environment.darwinConfig = "$HOME/.config/nixpkgs/darwin-configuration.nix";
 
-  services.nix-daemon.enable = true;
+  services.nix-daemon.enable = false;
+  nix.useDaemon = false;
   programs.zsh.enable = true;
   system.stateVersion = 4;
   nix.maxJobs = 4;

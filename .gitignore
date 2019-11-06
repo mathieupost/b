@@ -5,6 +5,7 @@
 /.config/*
 
 !/.config/nixpkgs
+/.config/nixpkgs/netrc
 /.config/nixpkgs/overlays/shopify-dev.nix
 
 !/Documents
