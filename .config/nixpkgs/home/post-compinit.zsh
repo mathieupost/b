@@ -106,7 +106,6 @@ iterm2_print_user_vars() {
 }
 
 source ~/.nix-profile/etc/profile.d/nix.sh
-export NIX_REMOTE=daemon
 source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
 if [ -f /opt/dev/dev.sh ]; then
