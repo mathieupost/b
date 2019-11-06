@@ -174,6 +174,8 @@
       vim-indent-object    # >aI
       vim-easy-align       # vipga
       vim-eunuch           # :Rename foo.rb
+      vim-sneak
+      supertab
       # vim-endwise        # add end, } after opening block
       # gitv
       # tabnine-vim
@@ -182,6 +184,7 @@
       # neosnippet.vim
       # neosnippet-snippets
       # splitjoin.vim
+      nerdtree
 
       # Buffer / Pane / File Management ####################
       fzf-vim              # all the things
