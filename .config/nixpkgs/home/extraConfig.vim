@@ -504,7 +504,8 @@ nnoremap <leader>n <C-^>
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 cnoremap %^ <C-R>=expand('%')<cr>
 
-nnoremap <leader>5 :GitGutterToggle<cr>
+nnoremap <leader>4 :NERDTree<cr>
+"nnoremap <leader>5 :GitGutterToggle<cr>
 nnoremap <leader>5 :TagbarToggle<cr>
 
 nmap ]h <Plug>GitGutterNextHunk
