@@ -43,15 +43,10 @@
       };
     };
 
-    matchBlocks.mini = {
-      user = "administrator";
-      hostname = "208.52.154.14";
-    };
-
-    matchBlocks.sb = {
-      user = "root";
-      port = 2222;
-    };
+    matchBlocks.tanagra = { hostname = "192.168.1.45"; extraOptions = { PasswordAuthentication = "yes"; }; };
+    matchBlocks.nix     = { hostname = "138.197.155.9"; };
+    matchBlocks.mini    = { hostname = "208.52.154.14";   user = "administrator";  };
+    matchBlocks.sb      = { hostname = "144.217.224.247"; user = "root"; port = 2222; };
   };
 
   programs.git = {
