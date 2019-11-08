@@ -110,6 +110,8 @@ source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
 if [ -f /opt/dev/dev.sh ]; then
   source /opt/dev/dev.sh
+elif [ -f ~/src/github.com/burke/minidev/dev.sh ]; then
+  source ~/src/github.com/burke/minidev/dev.sh
 fi
 if [ -f ~/.acme.sh/acme.sh.env ]; then
   . "/Users/burke/.acme.sh/acme.sh.env"
