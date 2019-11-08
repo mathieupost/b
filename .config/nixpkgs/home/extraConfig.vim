@@ -83,6 +83,7 @@ set hidden
 set nocursorline
 set ruler
 set laststatus=2
+set concealcursor=""
 " write before make
 set autowrite
 " }}}
@@ -361,7 +362,7 @@ let g:rustfmt_autosave = 1
 " Pandoc {{{
 augroup pandoc
   au!
-  au FileType pandoc,markdown set textwidth=100 tabstop=8
+  au FileType pandoc,markdown set textwidth=100 tabstop=8 concealcursor=""
   au FileType pandoc,markdown let &foldlevel = max(map(range(1, line('$')), 'foldlevel(v:val)'))
   au Syntax pandoc,markdown syntax sync fromstart
 augroup END
@@ -370,18 +371,19 @@ let g:pandoc#syntax#codeblocks#embeds#langs = ["c", "ruby", "bash=sh", "diff", "
 
 " Ruby {{{
 let g:ruby_indent_assignment_style = 'variable'
-augroup ruby_mode_extras
-  au!
-  au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,config.ru} set ft=ruby
-augroup END
 " }}}
 
 " Miscellaneous (txt,md,lua,js,python,ruby-c) {{{
 augroup misc_mode_extras
   au!
-  au BufRead,BufNewFile *.lua  set ft=lua
-  au BufRead,BufNewFile *.ronn set ft=markdown
-  au BufNewFile,BufRead *.json set ft=javascript
+  au BufRead,BufNewFile *.lua       set ft=lua
+  au BufRead,BufNewFile *.ronn      set ft=markdown
+  au BufRead,BufNewFile *.json      set ft=javascript
+  au BufRead,BufNewFile Gemfile     set ft=ruby
+  au BufRead,BufNewFile Rakefile    set ft=ruby
+  au BufRead,BufNewFile Vagrantfile set ft=ruby
+  au BufRead,BufNewFile config.ru   set ft=ruby
+  au BufRead,BufNewFile *.rbi       set ft=ruby
 augroup END
 
 function! s:setupWrapping()
