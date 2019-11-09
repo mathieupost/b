@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 let
-  shell-prompt = import ~/.dotfiles-src/shell-prompt { pkgs = pkgs; };
-  burkeutils   = import ~/.dotfiles-src/burkeutils { stdenvNoCC = pkgs.stdenvNoCC; };
+  shell-prompt = import /b/src/shell-prompt { pkgs = pkgs; };
+  burkeutils   = import /b/src/burkeutils   { stdenvNoCC = pkgs.stdenvNoCC; };
 in
 
 {
@@ -77,7 +77,7 @@ in
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
 
-  environment.darwinConfig = "$HOME/.config/nixpkgs/darwin-configuration.nix";
+  environment.darwinConfig = "/b/etc/nix/darwin.nix";
 
   services.nix-daemon.enable = false;
   nix.useDaemon = false;

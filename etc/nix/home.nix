@@ -17,7 +17,7 @@
     pinentry-program = ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
   '';
 
-  home.file.".config/LS_COLORS".source = ./home/LS_COLORS;
+  xdg.configFile.LS_COLORS.source = ./home/LS_COLORS;
 
   home.file.".crawlrc".source = ./home/crawlrc;
 
@@ -25,6 +25,12 @@
     --max-columns=150
     --max-columns-preview
   '';
+
+  home.file.".hammerspoon".source = /b/etc/hammerspoon;
+  home.file."Documents/Arduino/Model01-Firmware".source = /b/src/Model01-Firmware;
+
+  home.file."Library/LaunchAgents/me.libbey.burke.poll-octobox.plist".source       = ./home/me.libbey.burke.poll-octobox.plist;
+  home.file."Library/LaunchAgents/me.libbey.burke.kaleidoscope-relay.plist".source = ./home/me.libbey.burke.kaleidoscope-relay.plist;
 
   programs.ssh = {
     enable = true;
@@ -121,6 +127,7 @@
       OPT_PRE_BOOTSCALE = "1";
       OPT_TOXIPROXY_CACHE = "1";
 
+      HOME_MANAGER_CONFIG = /b/etc/nix/home.nix;
       RIPGREP_CONFIG_PATH = ~/.ripgreprc;
 
       BOOTSNAP_PEDANTIC = "1";
@@ -128,9 +135,9 @@
       EDITOR = "vim";
       VISUAL = EDITOR;
       GIT_EDITOR = EDITOR;
-      XDG_CONFIG_HOME = "$HOME/.config";
+      XDG_CONFIG_HOME = ~/.config;
 
-      GOPATH = "$HOME";
+      GOPATH = ~/.;
 
       PATH = "$HOME/bin:$PATH";
     };
