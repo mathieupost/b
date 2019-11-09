@@ -5,7 +5,7 @@
   <key>Label</key>
   <string>me.libbey.burke.poll-octobox.plist</string>
   <key>Program</key>
-  <string>/Users/burke/bin/_git/refresh-octobox</string>
+  <string>/run/current-system/sw/bin/refresh-octobox</string>
   <key>StartInterval</key>
   <integer>120</integer>
   <key>RunAtLoad</key>

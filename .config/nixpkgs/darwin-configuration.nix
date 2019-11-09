@@ -1,11 +1,13 @@
 { config, pkgs, ... }:
 
 let
-  shell-prompt = import ~/.dotfiles-src/shell-prompt/default.nix { pkgs = pkgs; };
+  shell-prompt = import ~/.dotfiles-src/shell-prompt { pkgs = pkgs; };
+  burkeutils   = import ~/.dotfiles-src/burkeutils { stdenvNoCC = pkgs.stdenvNoCC; };
 in
 
 {
   environment.systemPackages = with pkgs; [
+    burkeutils
     fzf
     git
     ctags
@@ -19,6 +21,34 @@ in
     tree
     zsh
   ];
+
+  programs.nix-index.enable = true;
+
+  # security.sandbox.profiles.kaleidoscope-relay.closure = [ pkgs.cacert pkgs.git ];
+  # security.sandbox.profiles.kaleidoscope-relay.writablePaths = [ "/src/nixpkgs" ];
+  # security.sandbox.profiles.kaleidoscope-relay.allowNetworking = true;
+
+  # security.sandbox.profiles.poll-octobox = {
+  #   closure = [ pkgs.cacert pkgs.ruby ];
+  #   readablePaths = [
+  #     "/usr/bin/security"
+  #   ];
+  #   writablePaths = [
+  #     "/tmp/octobox-notifications"
+  #     "/tmp/octobox"
+  #     "/tmp/kbd-data"
+  #   ];
+  #   allowNetworking = true;
+  # };
+
+  # launchd.user.agents.poll-octobox = {
+  #   command = "/usr/bin/sandbox-exec -f ${config.security.sandbox.profiles.fetch-nixpkgs-updates.profile} ${pkgs.ruby}/bin/ruby -C /src/nixpkgs fetch origin master";
+  #   environment.HOME = "";
+  #   environment.NIX_SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+  #   serviceConfig.KeepAlive = false;
+  #   serviceConfig.ProcessType = "Background";
+  #   serviceConfig.StartInterval = 360;
+  # };
 
   system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
   system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;

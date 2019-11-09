@@ -132,7 +132,7 @@
 
       GOPATH = "$HOME";
 
-      PATH = "$HOME/bin/_git:$HOME/bin:$PATH";
+      PATH = "$HOME/bin:$PATH";
     };
     # envExtra
     # profileExtra
