@@ -8,6 +8,7 @@ let
   hammerspoon        = callPackage /b/src/apps/hammerspoon.nix { };
   kaleidoscope-relay = callPackage /b/src/kaleidoscope-relay { };
   minidev            = callPackage /b/src/minidev { };
+  gcoreutils         = callPackage /b/src/gcoreutils { };
 
 in
 
@@ -19,6 +20,7 @@ in
   environment.systemPackages = with pkgs; [
     burkeutils
     fzf
+    gcoreutils
     git
     ctags
     google-cloud-sdk
