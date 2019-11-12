@@ -3,6 +3,7 @@
 let
   callPackage = pkgs.callPackage;
 
+  arduino            = callPackage /b/src/apps/arduino.nix { };
   shell-prompt       = callPackage /b/src/shell-prompt { };
   burkeutils         = callPackage /b/src/burkeutils { };
   hammerspoon        = callPackage /b/src/apps/hammerspoon.nix { };
@@ -18,6 +19,7 @@ in
   home-manager.useUserPackages = true;
 
   environment.systemPackages = with pkgs; [
+    arduino
     burkeutils
     fzf
     gcoreutils
