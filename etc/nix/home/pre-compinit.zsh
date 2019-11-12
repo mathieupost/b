@@ -1,10 +1,5 @@
-fpath=("$HOME/.zshrc.d/autocomplete" "$fpath[@]")
-
-# Prompt {{{
 PROMPT='$(shell-prompt "$?" "${__shadowenv_data%%:*}" "${__dev_source_dir}")'
-setopt prompt_subst
-# }}}
-# GPG Agent {{{
+
 gpg-agent --daemon >/dev/null 2>&1
 function kick-gpg-agent {
   pid=$(ps xo pid,command | grep -E "^\d+ gpg-agent" | awk '{print $1}')
@@ -12,20 +7,20 @@ function kick-gpg-agent {
 }
 kick-gpg-agent
 export GPG_TTY=$(tty)
-# }}}
-# Generic Configuration {{{
+
 gh() { cd  "$(gh  "$@")" }
 ghs() { cd "$(ghs "$@")" }
 ghb() { cd "$(ghb "$@")" }
 ]gs() { cd "$(]gs "$@")" }
 ]gb() { cd "$(]gb "$@")" }
+ghs() { dev clone $1 }
+]g()  { dev cd "$@" }
+]gs() { dev cd "$@" }
+]gb() { dev cd "burke/$@" }
 
-function ghs() {
-  dev clone $1
-}
+# Fancy substitutions in prompts
+setopt prompt_subst
 
-# }}}
-# ZSH options and features {{{
 # If a command is issued that can’t be executed as a normal command, and the
 # command is the name of a directory, perform the cd command to that directory.
 setopt AUTO_CD

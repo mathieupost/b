@@ -1,17 +1,21 @@
 { config, pkgs, ... }:
 
 let
-  shell-prompt = import /b/src/shell-prompt { pkgs = pkgs; };
-  burkeutils   = import /b/src/burkeutils   { stdenvNoCC = pkgs.stdenvNoCC; };
+  shell-prompt = import /b/src/shell-prompt         { buildGoModule = pkgs.buildGoModule; };
+  burkeutils   = import /b/src/burkeutils           { stdenvNoCC = pkgs.stdenvNoCC; };
+  hammerspoon  = import /b/src/apps/hammerspoon.nix { stdenv = pkgs.stdenv; fetchzip = pkgs.fetchzip; };
+  # anki       = import /b/src/apps/anki.nix        { stdenv = pkgs.stdenv; fetchurl = pkgs.fetchurl; undmg = pkgs.undmg; };
 in
 
 {
   environment.systemPackages = with pkgs; [
+    anki
     burkeutils
     fzf
     git
     ctags
     google-cloud-sdk
+    hammerspoon
     htop
     jq
     pinentry_mac
@@ -52,8 +56,8 @@ in
 
   system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
   system.defaults.NSGlobalDomain.ApplePressAndHoldEnabled = false;
-  system.defaults.NSGlobalDomain.InitialKeyRepeat = 10;
-  system.defaults.NSGlobalDomain.KeyRepeat = 1;
+  # system.defaults.NSGlobalDomain.InitialKeyRepeat = 10;
+  # system.defaults.NSGlobalDomain.KeyRepeat = 1;
   system.defaults.NSGlobalDomain.NSAutomaticCapitalizationEnabled = false;
   system.defaults.NSGlobalDomain.NSAutomaticDashSubstitutionEnabled = false;
   system.defaults.NSGlobalDomain.NSAutomaticPeriodSubstitutionEnabled = false;

@@ -15,47 +15,6 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
 typeset WORDCHARS="*?_-.~[]=&;!#$%^(){}<>"
 
-# }}}
-
-function git() {
-  local toplevel=$(command git rev-parse --show-toplevel 2>/dev/null)
-  if [[ "${toplevel}" == "${HOME}" ]] && [[ "$1" == "clean" ]]; then
-    >&2 echo "Do NOT run git clean in this repository."
-    return
-  fi
-  command git "$@"
-}
-
-function ]g() {
-  dev cd "$@"
-}
-
-function ]gs() {
-  dev cd "$@"
-}
-
-function ]gb() {
-  dev cd "burke/$@"
-}
-
-function z() {
-  local srcpath
-  srcpath="$(
-    awk -F ' *= *' '
-      $1 == "[srcpath]" { sp = "yes" }
-      sp && $1 == "default" { print $2; exit }
-    ' < ~/.config/dev
-  )"
-  dev cd ${srcpath}/$(ls ${srcpath} | fzf --select-1 --query "$@")
-}
-
-function gogopr() {
-  git add -A .
-  git commit -a -m "$*"
-  git push origin "$(git branch | grep '*' | awk '{print $2}')"
-  dev open pr
-}
-
 zle-dev-open-pr() /opt/dev/bin/dev open pr
 zle -N zle-dev-open-pr
 bindkey 'ø' zle-dev-open-pr # Alt-O ABC Extended
@@ -97,9 +56,6 @@ zle-checkout-branch() {
 zle -N zle-checkout-branch
 bindkey '∫' zle-checkout-branch # Alt-B Canadian English
 
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=3'
-
-export DEV_ALLOW_ITERM2_INTEGRATION=1
 source ~/.iterm2_shell_integration.zsh
 iterm2_print_user_vars() {
   iterm2_set_user_var gitBranch $(git rev-parse --abbr-ref HEAD 2> /dev/null)
