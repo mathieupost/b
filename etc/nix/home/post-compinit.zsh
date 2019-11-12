@@ -65,8 +65,8 @@ source ~/.nix-profile/etc/profile.d/nix.sh
 
 if [ -f /opt/dev/dev.sh ]; then
   source /opt/dev/dev.sh
-elif [ -f ~/src/github.com/burke/minidev/dev.sh ]; then
-  source ~/src/github.com/burke/minidev/dev.sh
+elif [ -f /run/current-system/sw/bin/dev ]; then
+  eval $(dev init)
 fi
 if [ -f ~/.acme.sh/acme.sh.env ]; then
   . "/Users/burke/.acme.sh/acme.sh.env"

@@ -21,6 +21,7 @@ in
     burkeutils
     fzf
     gcoreutils
+    minidev
     git
     ctags
     google-cloud-sdk
