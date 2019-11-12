@@ -21,6 +21,12 @@ let
 
       home.username = "burke";
       home.homeDirectory = "/Users/burke";
+
+      xdg.enable = true;
+      xdg.configHome = "/Users/burke/.config";
+      xdg.dataHome = "/Users/burke/.local/share";
+      xdg.cacheHome = "/Users/burke/.cache";
+
     };
   });
 
