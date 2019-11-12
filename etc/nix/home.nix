@@ -1,92 +1,20 @@
 { config, pkgs, ... }:
 
+let
+  callPackage = pkgs.callPackage;
+
+  minidev = callPackage /b/src/minidev { };
+
+in
+
 {
+  home.packages = [ minidev ];
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.bat.enable = true;
   programs.broot.enable = true;
   programs.gpg.enable = true;
-
-  programs.tmux = {
-    enable = true;
-    clock24 = true;
-    disableConfirmationPrompt = true;
-    keyMode = "vi";
-  };
-
-  programs.alacritty = {
-    enable = true;
-    # https://github.com/jwilm/alacritty/blob/master/alacritty.yml
-    settings = {
-      window = {
-        decorations = "none";
-        startup_mode = "Maximized";
-      };
-      scrolling.history = 0; # tmux.
-      font = {
-        normal      = { family = "OperatorMonoLig Nerd Font"; style = "Book"; };
-        bold        = { family = "OperatorMonoLig Nerd Font"; style = "Medium"; };
-        italic      = { family = "OperatorMonoLig Nerd Font"; style = "Book Italic"; };
-        bold_italic = { family = "OperatorMonoLig Nerd Font"; style = "Medium Italic"; };
-        size = 15.0;
-
-        # Thin stroke font rendering (macOS only)
-        #
-        # Thin strokes are suitable for retina displays, but for non-retina screens
-        # it is recommended to set `use_thin_strokes` to `false`
-        #
-        # macOS >= 10.14.x:
-        #
-        # If the font quality on non-retina display looks bad then set
-        # `use_thin_strokes` to `true` and enable font smoothing by running the
-        # following command:
-        #   `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
-        #
-        # This is a global setting and will require a log out or restart to take
-        # effect.
-        use_thin_strokes = true;
-
-        draw_bold_text_with_bright_colors = false;
-      };
-      colors = {
-        primary.background = "0x000000";
-        primary.foreground = "0xeaeaea";
-        cursor.text = "0x000000";
-        cursor.cursor = "0xffffff";
-        selection.text = "0xeaeaea";
-        selection.background = "0x404040";
-
-        normal = {
-          black = "0x000000";
-          red = "0xd54e53";
-          green = "0xb9ca4a";
-          yellow = "0xe6c547";
-          blue = "0x7aa6da";
-          magenta = "0xc397d8";
-          cyan = "0x70c0ba";
-          white = "0xeaeaea";
-        };
-
-        bright = {
-          black = "0x666666";
-          red = "0xff3334";
-          green = "0x9ec400";
-          yellow = "0xe7c547";
-          blue = "0x7aa6da";
-          magenta = "0xb77ee0";
-          cyan = "0x54ced6";
-          white = "0xffffff";
-        };
-      };
-
-      visual_bell.duration = 0; # disable
-
-      selection.semantic_escape_chars = ",│`|:\"' ()[]{}<>\t";
-      selection.save_to_clipboard = false; # since tmux will be doing the selecting...
-
-      alt_send_esc = false;
-    };
-  };
 
   home.file.".gnupg/gpg-agent.conf".text = ''
     disable-scdaemon

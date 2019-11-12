@@ -1,10 +1,14 @@
 { config, pkgs, ... }:
 
 let
-  shell-prompt = import /b/src/shell-prompt         { buildGoModule = pkgs.buildGoModule; };
-  burkeutils   = import /b/src/burkeutils           { stdenvNoCC = pkgs.stdenvNoCC; };
-  hammerspoon  = import /b/src/apps/hammerspoon.nix { stdenv = pkgs.stdenv; fetchzip = pkgs.fetchzip; };
-  # anki       = import /b/src/apps/anki.nix        { stdenv = pkgs.stdenv; fetchurl = pkgs.fetchurl; undmg = pkgs.undmg; };
+  callPackage = pkgs.callPackage;
+
+  shell-prompt       = callPackage /b/src/shell-prompt { };
+  burkeutils         = callPackage /b/src/burkeutils { };
+  hammerspoon        = callPackage /b/src/apps/hammerspoon.nix { };
+  kaleidoscope-relay = callPackage /b/src/kaleidoscope-relay { };
+  minidev            = callPackage /b/src/minidev { };
+
 in
 
 {
@@ -21,6 +25,7 @@ in
     hammerspoon
     htop
     jq
+    kaleidoscope-relay
     pinentry_mac
     ripgrep
     ruby_2_6
@@ -28,6 +33,7 @@ in
     tree
     zsh
   ];
+  environment.shells = [ pkgs.zsh ];
 
   programs.nix-index.enable = true;
 
