@@ -57,9 +57,6 @@ zle -N zle-checkout-branch
 bindkey '∫' zle-checkout-branch # Alt-B Canadian English
 
 source ~/.iterm2_shell_integration.zsh
-iterm2_print_user_vars() {
-  iterm2_set_user_var gitBranch $(git rev-parse --abbr-ref HEAD 2> /dev/null)
-}
 
 source ~/.nix-profile/etc/profile.d/nix.sh
 

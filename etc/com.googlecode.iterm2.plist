@@ -1358,7 +1358,7 @@
 					<key>algorithm</key>
 					<integer>1</integer>
 					<key>font</key>
-					<string>SourceCodeVariable-Roman 12</string>
+					<string>Menlo-Regular 11</string>
 				</dict>
 				<key>components</key>
 				<array>
@@ -1392,7 +1392,7 @@
 								<key>algorithm</key>
 								<integer>1</integer>
 								<key>font</key>
-								<string>SourceCodeVariable-Roman 12</string>
+								<string>Menlo-Regular 11</string>
 							</dict>
 						</dict>
 					</dict>
@@ -1426,7 +1426,7 @@
 								<key>algorithm</key>
 								<integer>1</integer>
 								<key>font</key>
-								<string>SourceCodeVariable-Roman 12</string>
+								<string>Menlo-Regular 11</string>
 							</dict>
 						</dict>
 					</dict>
@@ -1460,7 +1460,7 @@
 								<key>algorithm</key>
 								<integer>1</integer>
 								<key>font</key>
-								<string>SourceCodeVariable-Roman 12</string>
+								<string>Menlo-Regular 11</string>
 							</dict>
 						</dict>
 					</dict>
@@ -1494,7 +1494,7 @@
 								<key>algorithm</key>
 								<integer>1</integer>
 								<key>font</key>
-								<string>SourceCodeVariable-Roman 12</string>
+								<string>Menlo-Regular 11</string>
 							</dict>
 						</dict>
 					</dict>
@@ -1513,125 +1513,7 @@
 								<key>algorithm</key>
 								<integer>1</integer>
 								<key>font</key>
-								<string>SourceCodeVariable-Roman 12</string>
-							</dict>
-						</dict>
-					</dict>
-					<dict>
-						<key>class</key>
-						<string>iTermStatusBarJobComponent</string>
-						<key>configuration</key>
-						<dict>
-							<key>knobs</key>
-							<dict>
-								<key>base: compression resistance</key>
-								<integer>1</integer>
-								<key>base: priority</key>
-								<real>5</real>
-								<key>maxwidth</key>
-								<real>+infinity</real>
-								<key>minwidth</key>
-								<integer>0</integer>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.90000000000000002</real>
-									<key>Color Space</key>
-									<string>sRGB</string>
-									<key>Green Component</key>
-									<real>0.80999999999999994</real>
-									<key>Red Component</key>
-									<real>0.63</real>
-								</dict>
-							</dict>
-							<key>layout advanced configuration dictionary value</key>
-							<dict>
-								<key>algorithm</key>
-								<integer>1</integer>
-								<key>font</key>
-								<string>SourceCodeVariable-Roman 12</string>
-							</dict>
-						</dict>
-					</dict>
-					<dict>
-						<key>class</key>
-						<string>iTermStatusBarWorkingDirectoryComponent</string>
-						<key>configuration</key>
-						<dict>
-							<key>knobs</key>
-							<dict>
-								<key>base: compression resistance</key>
-								<integer>1</integer>
-								<key>base: priority</key>
-								<real>5</real>
-								<key>maxwidth</key>
-								<real>+infinity</real>
-								<key>minwidth</key>
-								<integer>0</integer>
-								<key>path</key>
-								<string>path</string>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.90000000000000002</real>
-									<key>Color Space</key>
-									<string>sRGB</string>
-									<key>Green Component</key>
-									<real>0.63</real>
-									<key>Red Component</key>
-									<real>0.63</real>
-								</dict>
-							</dict>
-							<key>layout advanced configuration dictionary value</key>
-							<dict>
-								<key>algorithm</key>
-								<integer>1</integer>
-								<key>font</key>
-								<string>SourceCodeVariable-Roman 12</string>
-							</dict>
-						</dict>
-					</dict>
-					<dict>
-						<key>class</key>
-						<string>iTermStatusBarGitComponent</string>
-						<key>configuration</key>
-						<dict>
-							<key>knobs</key>
-							<dict>
-								<key>base: compression resistance</key>
-								<integer>1</integer>
-								<key>base: priority</key>
-								<real>5</real>
-								<key>iTermStatusBarGitComponentPollingIntervalKey</key>
-								<real>2</real>
-								<key>maxwidth</key>
-								<real>+infinity</real>
-								<key>minwidth</key>
-								<integer>0</integer>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.90000000000000002</real>
-									<key>Color Space</key>
-									<string>sRGB</string>
-									<key>Green Component</key>
-									<real>0.63</real>
-									<key>Red Component</key>
-									<real>0.81000000000000039</real>
-								</dict>
-							</dict>
-							<key>layout advanced configuration dictionary value</key>
-							<dict>
-								<key>algorithm</key>
-								<integer>1</integer>
-								<key>font</key>
-								<string>SourceCodeVariable-Roman 12</string>
+								<string>Menlo-Regular 11</string>
 							</dict>
 						</dict>
 					</dict>
@@ -1669,7 +1551,7 @@
 								<key>algorithm</key>
 								<integer>1</integer>
 								<key>font</key>
-								<string>SourceCodeVariable-Roman 12</string>
+								<string>Menlo-Regular 11</string>
 							</dict>
 						</dict>
 					</dict>
@@ -1732,7 +1614,7 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{429, 687}</string>
+		<string>{453, 693}</string>
 	</dict>
 	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>

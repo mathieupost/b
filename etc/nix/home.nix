@@ -25,6 +25,8 @@ in
 
   home.file.".crawlrc".source = ./home/crawlrc;
 
+  home.file.".iterm2_shell_integration.zsh".source = ./home/.iterm2_shell_integration.zsh;
+
   home.file.".ripgreprc".text = ''
     --max-columns=150
     --max-columns-preview
