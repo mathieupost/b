@@ -8,8 +8,11 @@ let
 in
 
 {
+  imports = [ ./home-manager-nix-darwin-module.nix ];
+  home-manager.users.burke = import ./home.nix;
+  home-manager.useUserPackages = true;
+
   environment.systemPackages = with pkgs; [
-    anki
     burkeutils
     fzf
     git

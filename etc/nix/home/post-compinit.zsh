@@ -62,7 +62,6 @@ iterm2_print_user_vars() {
 }
 
 source ~/.nix-profile/etc/profile.d/nix.sh
-source ~/.nix-profile/etc/profile.d/hm-session-vars.sh
 
 if [ -f /opt/dev/dev.sh ]; then
   source /opt/dev/dev.sh
