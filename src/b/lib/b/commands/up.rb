@@ -12,6 +12,8 @@ module B
       end
 
       def call(_args, _name)
+        info('priming sudo cache...')
+        system('sudo', 'true')
         if dirty?
           warn("can't update {{green:#{B_DIR}}} because it is not clean; using current state...")
         else
@@ -58,7 +60,6 @@ module B
       end
 
       def darwin_rebuild
-        system('sudo', 'true')
         exec('darwin-rebuild', 'switch')
       end
 
