@@ -68,6 +68,3 @@ if [ -f /opt/dev/dev.sh ]; then
 elif [ -f /run/current-system/sw/bin/dev ]; then
   eval $(dev init)
 fi
-if [ -f ~/.acme.sh/acme.sh.env ]; then
-  . "/Users/burke/.acme.sh/acme.sh.env"
-fi

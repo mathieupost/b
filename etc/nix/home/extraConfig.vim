@@ -114,11 +114,6 @@ colorscheme gruvbox
 filetype plugin indent on
 " }}}
 
-" Python Bindings {{{
-" let g:python_host_prog = '/Users/burke/.pyenv/shims/python2'
-" let g:python3_host_prog = '/Users/burke/.pyenv/shims/python3'
-" }}}
-
 " ## Plugin/Feature Configuration {{{
 
 " Netrw {{{
@@ -308,8 +303,6 @@ augroup golang
   " au FileType go nmap <buffer> ƒ :GoReferrers<cr>
   au FileType go nmap <buffer> ƒ :GoCallers<cr>
 augroup END
-
-" set rtp+=/Users/burke/src/github.com/golang/lint/misc/vim
 
 " json tags (:GoAddTags) in snake_case
 let g:go_addtags_transform = "snakecase"

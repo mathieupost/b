@@ -26,6 +26,7 @@ in
 
   environment.systemPackages = with pkgs; [
     b
+    acme-sh
     arduino
     burkeutils
     fzf
