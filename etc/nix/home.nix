@@ -137,7 +137,7 @@ in
       OPT_TOXIPROXY_CACHE = "1";
 
       HOME_MANAGER_CONFIG = /b/etc/nix/home.nix;
-      RIPGREP_CONFIG_PATH = ~/.ripgreprc;
+      RIPGREP_CONFIG_PATH = "$HOME/.ripgreprc";
 
       BOOTSNAP_PEDANTIC = "1";
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3";
@@ -146,9 +146,9 @@ in
       EDITOR = "vim";
       VISUAL = EDITOR;
       GIT_EDITOR = EDITOR;
-      XDG_CONFIG_HOME = ~/.config;
+      XDG_CONFIG_HOME = "$HOME/.config";
 
-      GOPATH = ~/.;
+      GOPATH = "$HOME";
 
       PATH = "$HOME/bin:$PATH";
     };
