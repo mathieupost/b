@@ -18,8 +18,9 @@ in
 
   home.file.".gnupg/gpg-agent.conf".text = ''
     disable-scdaemon
+  '' + (if pkgs.stdenv.isDarwin then ''
     pinentry-program = ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
-  '';
+  '' else "");
 
   xdg.configFile.LS_COLORS.source = ./home/LS_COLORS;
 
@@ -31,6 +32,8 @@ in
     --max-columns=150
     --max-columns-preview
   '';
+
+  home.file.".config/nvim/backup/.keep".text = "";
 
   home.file.".hammerspoon".source = /b/etc/hammerspoon;
   home.file."Documents/Arduino/Model01-Firmware".source = /b/src/Model01-Firmware;
@@ -166,7 +169,7 @@ in
       vim-nix
       vim-ruby             # ruby
       vim-go               # go
-      vim-fish             # fish
+    # vim-fish             # fish
       # vim-toml           # toml
       # vim-gvpr           # gvpr
       rust-vim             # rust
@@ -189,7 +192,7 @@ in
       vim-indent-object    # >aI
       vim-easy-align       # vipga
       vim-eunuch           # :Rename foo.rb
-      vim-sneak
+    # vim-sneak
       supertab
       # vim-endwise        # add end, } after opening block
       # gitv

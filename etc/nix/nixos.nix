@@ -1,11 +1,5 @@
 let
 
-  home-manager = builtins.fetchTarball {
-    # latest 19.03 release as of 2019-06-11
-    url = "https://github.com/rycee/home-manager/archive/4f13f06b016d59420cafe34915abdd6b795d3416.tar.gz";
-    sha256 = "1chl04jimba1n1r4cqaq66kry4fy2xgsdgbqcl3rkw4ykd5yfcsc";
-  };
-
   secrets = import /b/secrets/secrets.nix;
 
   burke-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIjexceqtvEjM22RZNVwjD6WhtEvVtolIaXnc14zK5Wj burke@darmok";
@@ -16,7 +10,7 @@ in
   imports = [
     /etc/nixos/hardware-configuration.nix
     /etc/nixos/networking.nix # generated at runtime by nixos-infect
-    "${home-manager}/nixos"
+    <home-manager/nixos>
     /b/src/perkeepd.nix
   ];
 
@@ -102,27 +96,7 @@ in
     b2 = secrets.perkeep.b2;
   };
 
-  home-manager.users.burke = { 
-
-    programs.git = {
-      enable = true;
-      userName  = "Burke Libbey";
-      userEmail = "burke@libbey.me";
-    };
-
-    programs.vim = {
-      enable = true;
-      plugins = [ "vim-nix" ];
-      settings = { ignorecase = true; };
-      extraConfig = ''
-        set mouse=a
-        nmap L $
-        nmap H ^
-        imap kj <esc>
-      '';
-    };
-
-  };
+  home-manager.users.burke = import ./home.nix;
 
   users.users.burke = {
     isNormalUser = true;
