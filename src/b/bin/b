@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby --disable-gems
+#!/usr/bin/ruby --disable-gems
 # frozen_string_literal: true
 
 Encoding.default_external = Encoding::UTF_8
