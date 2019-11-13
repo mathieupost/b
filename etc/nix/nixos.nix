@@ -41,6 +41,7 @@ in
     tree
     zsh
   ];
+  environment.shells = [ pkgs.zsh ];
 
   boot.cleanTmpDir = true;
   boot.loader.grub.device = "nodev";
@@ -123,6 +124,7 @@ in
     isNormalUser = true;
     home = "/home/burke";
     description = "Burke Libbey";
+    shell = pkgs.zsh;
     extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = [ burke-ed25519 ];
   };
