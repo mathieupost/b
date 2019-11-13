@@ -169,7 +169,7 @@ in
       vim-nix
       vim-ruby             # ruby
       vim-go               # go
-    # vim-fish             # fish
+      vim-fish             # fish
       # vim-toml           # toml
       # vim-gvpr           # gvpr
       rust-vim             # rust
@@ -192,7 +192,7 @@ in
       vim-indent-object    # >aI
       vim-easy-align       # vipga
       vim-eunuch           # :Rename foo.rb
-    # vim-sneak
+      vim-sneak
       supertab
       # vim-endwise        # add end, } after opening block
       # gitv

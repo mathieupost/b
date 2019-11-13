@@ -1,3 +1,4 @@
+autoload -Uz promptinit
 promptinit
 # zsh-mime-setup
 autoload colors

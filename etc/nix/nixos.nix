@@ -1,12 +1,17 @@
+{ config, pkgs, ... }:
 let
-
   secrets = import /b/secrets/secrets.nix;
 
   burke-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIjexceqtvEjM22RZNVwjD6WhtEvVtolIaXnc14zK5Wj burke@darmok";
 
-in
+  callPackage = pkgs.callPackage;
 
-{ config, pkgs, ... }: {
+  shell-prompt       = callPackage /b/src/shell-prompt { };
+  burkeutils         = callPackage /b/src/burkeutils { };
+  minidev            = callPackage /b/src/minidev { };
+  gcoreutils         = callPackage /b/src/gcoreutils { };
+in
+{
   imports = [
     /etc/nixos/hardware-configuration.nix
     /etc/nixos/networking.nix # generated at runtime by nixos-infect
@@ -19,7 +24,23 @@ in
   system.autoUpgrade.flags = [ "-I" "nixpkgs=/home/burke/src/nixpkgs" ];
 
 
-  environment.systemPackages = with pkgs; [ home-manager htop git perkeep tree ];
+  environment.systemPackages = with pkgs; [
+    home-manager
+    perkeep
+    burkeutils
+    fzf
+    gcoreutils
+    minidev
+    ruby_2_6
+    git
+    ctags
+    htop
+    jq
+    ripgrep
+    shell-prompt
+    tree
+    zsh
+  ];
 
   boot.cleanTmpDir = true;
   boot.loader.grub.device = "nodev";
@@ -97,6 +118,28 @@ in
   };
 
   home-manager.users.burke = import ./home.nix;
+
+  # home-manager.users.burke = { 
+
+    # programs.git = {
+      # enable = true;
+      # userName  = "Burke Libbey";
+      # userEmail = "burke@libbey.me";
+    # };
+# 
+    # programs.vim = {
+      # enable = true;
+      # plugins = [ "vim-nix" ];
+      # settings = { ignorecase = true; };
+      # extraConfig = ''
+        # set mouse=a
+        # nmap L $
+        # nmap H ^
+        # imap kj <esc>
+      # '';
+    # };
+
+  # };
 
   users.users.burke = {
     isNormalUser = true;
