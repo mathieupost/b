@@ -20,9 +20,7 @@ in
   ];
 
   system.autoUpgrade.enable = true;
-  system.autoUpgrade.channel = https://nixos.org/channels/nixos-19.03;
-  system.autoUpgrade.flags = [ "-I" "nixpkgs=/home/burke/src/nixpkgs" ];
-
+  system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable;
 
   environment.systemPackages = with pkgs; [
     home-manager
