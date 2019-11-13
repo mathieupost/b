@@ -58,6 +58,14 @@ func mode() string {
 	return fgYellow + ">"
 }
 
+func pathColor() string {
+  if os.Getenv("SSH_CONNECTION") != "" {
+    return fgGreen
+  } else {
+    return fgBlue
+  }
+}
+
 func main() {
-	fmt.Printf("%s%s %s%s%s%s ", fgBlue+pathInfo(), gitInfo(), statusAndPrompt(), mode(), fgReset, "%(1j.%j.)")
+	fmt.Printf("%s%s %s%s%s%s ", pathColor()+pathInfo(), gitInfo(), statusAndPrompt(), mode(), fgReset, "%(1j.%j.)")
 }
