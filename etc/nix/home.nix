@@ -11,9 +11,9 @@ in
   home.packages = [ minidev ];
 
   xdg.enable = true;
-  xdg.configHome = "/Users/burke/.config";
-  xdg.dataHome = "/Users/burke/.local/share";
-  xdg.cacheHome = "/Users/burke/.cache";
+  xdg.configHome = "${config.home.homeDirectory}/.config";
+  xdg.dataHome = "${config.home.homeDirectory}/.local/share";
+  xdg.cacheHome = "${config.home.homeDirectory}/.cache";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
