@@ -10,6 +10,7 @@ let
   burkeutils         = callPackage /b/src/burkeutils { };
   minidev            = callPackage /b/src/minidev { };
   gcoreutils         = callPackage /b/src/gcoreutils { };
+  b                  = callPackage /b/src/b { };
 in
 {
   imports = [
@@ -23,6 +24,7 @@ in
   system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable;
 
   environment.systemPackages = with pkgs; [
+    b
     home-manager
     perkeep
     burkeutils

@@ -10,6 +10,7 @@ let
   kaleidoscope-relay = callPackage /b/src/kaleidoscope-relay { };
   minidev            = callPackage /b/src/minidev { };
   gcoreutils         = callPackage /b/src/gcoreutils { };
+  b                  = callPackage /b/src/b { };
 
 in
 
@@ -19,6 +20,7 @@ in
   home-manager.useUserPackages = true;
 
   environment.systemPackages = with pkgs; [
+    b
     arduino
     burkeutils
     fzf
