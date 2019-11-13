@@ -8,18 +8,20 @@ module B
       B_DIR = '/b'
 
       def self.help
-        "fetch the latest version of the repo and run darwin-rebuild or nixos-rebuild as appropriate"
+        'fetch the latest version of the repo and run darwin-rebuild or nixos-rebuild as appropriate'
       end
 
       def call(_args, _name)
         if dirty?
-          warn("can't update #{B_DIR} because it is not clean; using current state")
+          warn("can't update {{green:#{B_DIR}}} because it is not clean; using current state...")
         else
           checkout_master
+          info("pulling changes to {{green:#{B_DIR}}}...")
           pull_master
           update_submodules
         end
 
+        info('rebuilding system...')
         if mac?
           darwin_rebuild
         else
@@ -64,11 +66,15 @@ module B
       end
 
       def bail(msg)
-        abort("\x1b[1;31m#{msg}\x1b[0m")
+        abort(CLI::UI.fmt("{{bold:{{red:#{msg}}}}}"))
       end
 
       def warn(msg)
-        STDERR.puts("\x1b[1;33m#{msg}\x1b[0m")
+        CLI::UI.puts("{{bold:{{italic:{{yellow:#{msg}}}}}}}")
+      end
+
+      def info(msg)
+        CLI::UI.puts("{{bold:{{italic:{{blue:#{msg}}}}}}}")
       end
     end
   end
