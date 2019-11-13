@@ -58,6 +58,7 @@ module B
       end
 
       def darwin_rebuild
+        system('sudo', 'true')
         exec('darwin-rebuild', 'switch')
       end
 
