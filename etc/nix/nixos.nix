@@ -117,28 +117,6 @@ in
 
   home-manager.users.burke = import ./home.nix;
 
-  # home-manager.users.burke = { 
-
-    # programs.git = {
-      # enable = true;
-      # userName  = "Burke Libbey";
-      # userEmail = "burke@libbey.me";
-    # };
-# 
-    # programs.vim = {
-      # enable = true;
-      # plugins = [ "vim-nix" ];
-      # settings = { ignorecase = true; };
-      # extraConfig = ''
-        # set mouse=a
-        # nmap L $
-        # nmap H ^
-        # imap kj <esc>
-      # '';
-    # };
-
-  # };
-
   users.users.burke = {
     isNormalUser = true;
     home = "/home/burke";
