@@ -15,8 +15,7 @@ let
 in
 
 {
-  imports = [ <home-manager/nix-darwin> ];
-  home-manager.users.burke = import ./home.nix;
+  imports = [ <home-manager/nix-darwin> ./home.nix ];
   home-manager.useUserPackages = true;
 
   users.users.burke = {
