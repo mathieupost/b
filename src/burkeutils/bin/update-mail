@@ -1,4 +1,4 @@
-#!osascript
+#!/usr/bin/env osascript
 
 tell application "Mail"
   set a to unread count of inbox

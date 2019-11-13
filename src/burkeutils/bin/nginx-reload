@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/bin/bash
 ps aux | grep nginx | grep '[m]aster' | awk '{print $2}' | xargs kill -HUP
