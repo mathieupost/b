@@ -17,6 +17,7 @@ in
     /etc/nixos/hardware-configuration.nix
     /etc/nixos/networking.nix # generated at runtime by nixos-infect
     <home-manager/nixos>
+    ./home.nix
     /b/src/perkeepd.nix
   ];
 
@@ -117,8 +118,6 @@ in
     s3 = secrets.perkeep.s3;
     b2 = secrets.perkeep.b2;
   };
-
-  home-manager.users.burke = import ./home.nix;
 
   users.users.burke = {
     isNormalUser = true;
