@@ -48,3 +48,7 @@ Now:
 2. Install nix
 3. Install nix-darwin
 4. `darwin-rebuild switch -I darwin-config=/b/etc/nix/darwin.nix`
+
+## Usage
+
+`b up`
