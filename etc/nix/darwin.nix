@@ -15,9 +15,15 @@ let
 in
 
 {
-  imports = [ ./home-manager-nix-darwin-module.nix ];
+  imports = [ <home-manager/nix-darwin> ];
   home-manager.users.burke = import ./home.nix;
   home-manager.useUserPackages = true;
+
+  users.users.burke = {
+    home = "/Users/burke";
+    description = "Burke Libbey";
+    shell = pkgs.zsh;
+  };
 
   environment.systemPackages = with pkgs; [
     b

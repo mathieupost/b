@@ -10,6 +10,11 @@ in
 {
   home.packages = [ minidev ];
 
+  xdg.enable = true;
+  xdg.configHome = "/Users/burke/.config";
+  xdg.dataHome = "/Users/burke/.local/share";
+  xdg.cacheHome = "/Users/burke/.cache";
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.bat.enable = true;
@@ -146,7 +151,6 @@ in
       EDITOR = "vim";
       VISUAL = EDITOR;
       GIT_EDITOR = EDITOR;
-      XDG_CONFIG_HOME = "$HOME/.config";
 
       GOPATH = "$HOME";
 
