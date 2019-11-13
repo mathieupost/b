@@ -5,6 +5,7 @@ stdenvNoCC.mkDerivation {
   name = "b";
   src = ./.;
   buildPhase = "";
+  buildInputs = [ ruby ];
   installPhase = ''
     mkdir -p $out
     cp -a bin lib vendor $out
