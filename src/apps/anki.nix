@@ -1,13 +1,10 @@
-{ stdenv   ? (import <nixpkgs> {}).stdenv
-, fetchurl ? (import <nixpkgs> {}).fetchurl
-, undmg    ? (import <nixpkgs> {}).undmg
-}:
+{ stdenv ? (import <nixpkgs> { }).stdenv
+, fetchurl ? (import <nixpkgs> { }).fetchurl
+, undmg ? (import <nixpkgs> { }).undmg }:
 
-let
-  appName = "Anki";
-in
+let appName = "Anki";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "anki";
   version = "0.9.76";
 

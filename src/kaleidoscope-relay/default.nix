@@ -1,5 +1,4 @@
-{ buildGoModule ? (import <nixpkgs> {}).buildGoModule
-}:
+{ buildGoModule ? (import <nixpkgs> { }).buildGoModule }:
 buildGoModule {
   pname = "kaleidoscope-relay";
   version = "0.0.1";

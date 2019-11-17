@@ -1,6 +1,5 @@
-{ stdenvNoCC ? (import <nixpkgs> {}).stdenvNoCC
-, ruby       ? (import <nixpkgs> {}).ruby
-}:
+{ stdenvNoCC ? (import <nixpkgs> { }).stdenvNoCC
+, ruby ? (import <nixpkgs> { }).ruby }:
 stdenvNoCC.mkDerivation {
   name = "b";
   src = ./.;

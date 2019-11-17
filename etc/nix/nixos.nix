@@ -2,17 +2,17 @@
 let
   secrets = import /b/secrets/secrets.nix;
 
-  burke-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIjexceqtvEjM22RZNVwjD6WhtEvVtolIaXnc14zK5Wj burke@darmok";
+  burke-ed25519 =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIjexceqtvEjM22RZNVwjD6WhtEvVtolIaXnc14zK5Wj burke@darmok";
 
   callPackage = pkgs.callPackage;
 
-  shell-prompt       = callPackage /b/src/shell-prompt { };
-  burkeutils         = callPackage /b/src/burkeutils { };
-  minidev            = callPackage /b/src/minidev { };
-  gcoreutils         = callPackage /b/src/gcoreutils { };
-  b                  = callPackage /b/src/b { };
-in
-{
+  shell-prompt = callPackage /b/src/shell-prompt { };
+  burkeutils = callPackage /b/src/burkeutils { };
+  minidev = callPackage /b/src/minidev { };
+  gcoreutils = callPackage /b/src/gcoreutils { };
+  b = callPackage /b/src/b { };
+in {
   imports = [
     /etc/nixos/hardware-configuration.nix
     /etc/nixos/networking.nix # generated at runtime by nixos-infect
@@ -22,7 +22,7 @@ in
   ];
 
   system.autoUpgrade.enable = true;
-  system.autoUpgrade.channel = https://nixos.org/channels/nixos-unstable;
+  system.autoUpgrade.channel = "https://nixos.org/channels/nixos-unstable";
 
   environment.systemPackages = with pkgs; [
     b
@@ -70,8 +70,15 @@ in
   };
 
   services.nginx = let
-    defaultTLS = { enableACME = true; forceSSL = true; };
-    redirect = host: { enableACME = true; addSSL = true; globalRedirect = host; };
+    defaultTLS = {
+      enableACME = true;
+      forceSSL = true;
+    };
+    redirect = host: {
+      enableACME = true;
+      addSSL = true;
+      globalRedirect = host;
+    };
     static = root: defaultTLS // { locations."/" = { root = root; }; };
   in {
     enable = true;
@@ -91,7 +98,8 @@ in
     virtualHosts."burke.libbey.me" = static "/data/www/burke.libbey.me";
     virtualHosts."libbey.me" = redirect "burke.libbey.me";
 
-    virtualHosts."corinne.rikkelman.com" = static "/data/www/corinne.rikkelman.com";
+    virtualHosts."corinne.rikkelman.com" =
+      static "/data/www/corinne.rikkelman.com";
     virtualHosts."rikkelman.com" = redirect "corinne.rikkelman.com";
 
     virtualHosts."paulklassen.org" = static "/data/www/paulklassen.org";
@@ -99,7 +107,8 @@ in
     virtualHosts."duckface.ca" = static "/data/www/duckface.ca";
 
     virtualHosts."tty0.dev" = static "/data/www/tty0.dev" // {
-      locations."/nc19".extraConfig = "return 307 https://gist.github.com/burke/694d504be69998dbe4477f80ffa90951;";
+      locations."/nc19".extraConfig =
+        "return 307 https://gist.github.com/burke/694d504be69998dbe4477f80ffa90951;";
     };
 
   };
@@ -109,7 +118,7 @@ in
     listen = ":3179";
     baseURL = "https://pk.tty0.dev";
     https = false;
-    packRelated  = true;
+    packRelated = true;
     blobPath = "/data/perkeep/blobs";
     levelDB = "/data/perkeep/index.leveldb";
     identity = secrets.perkeep.identity;

@@ -3,18 +3,16 @@
 let
   callPackage = pkgs.callPackage;
 
-  arduino            = callPackage /b/src/apps/arduino.nix { };
-  shell-prompt       = callPackage /b/src/shell-prompt { };
-  burkeutils         = callPackage /b/src/burkeutils { };
-  hammerspoon        = callPackage /b/src/apps/hammerspoon.nix { };
+  arduino = callPackage /b/src/apps/arduino.nix { };
+  shell-prompt = callPackage /b/src/shell-prompt { };
+  burkeutils = callPackage /b/src/burkeutils { };
+  hammerspoon = callPackage /b/src/apps/hammerspoon.nix { };
   kaleidoscope-relay = callPackage /b/src/kaleidoscope-relay { };
-  minidev            = callPackage /b/src/minidev { };
-  gcoreutils         = callPackage /b/src/gcoreutils { };
-  b                  = callPackage /b/src/b { };
+  minidev = callPackage /b/src/minidev { };
+  gcoreutils = callPackage /b/src/gcoreutils { };
+  b = callPackage /b/src/b { };
 
-in
-
-{
+in {
   imports = [ <home-manager/nix-darwin> ./home.nix ];
   home-manager.useUserPackages = true;
 

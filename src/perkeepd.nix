@@ -8,44 +8,74 @@ let
   perkeepServerJSON = pkgs.writeText "perkeep-server.json" ''
     {
       "auth": "${cfg.auth}",
-      ${optionalString (cfg.baseURL != null) "\"baseURL\": \"${cfg.baseURL}\","}
+      ${optionalString (cfg.baseURL != null) ''"baseURL": "${cfg.baseURL}",''}
       "https": ${if cfg.https then "true" else "false"},
-      ${optionalString (cfg.httpsCert != null) "\"httpsCert\": \"${cfg.httpsCert}\","}
-      ${optionalString (cfg.httpsKey != null) "\"httpsKey\": \"${cfg.httpsKey}\","}
-      ${optionalString (cfg.camliNetIP != null) "\"camliNetIP\": \"${cfg.camliNetIP}\","}
-      ${optionalString (cfg.identity != null) "\"identity\": \"${cfg.identity}\","}
-      ${optionalString (cfg.identitySecretRing != null) "\"identitySecretRing\": \"${cfg.identitySecretRing}\","}
+      ${
+        optionalString (cfg.httpsCert != null)
+        ''"httpsCert": "${cfg.httpsCert}",''
+      }
+      ${
+        optionalString (cfg.httpsKey != null) ''"httpsKey": "${cfg.httpsKey}",''
+      }
+      ${
+        optionalString (cfg.camliNetIP != null)
+        ''"camliNetIP": "${cfg.camliNetIP}",''
+      }
+      ${
+        optionalString (cfg.identity != null) ''"identity": "${cfg.identity}",''
+      }
+      ${
+        optionalString (cfg.identitySecretRing != null)
+        ''"identitySecretRing": "${cfg.identitySecretRing}",''
+      }
       "shareHandler": ${if cfg.shareHandler then "true" else "false"},
-      ${optionalString (cfg.shareHandlerPath != null) "\"shareHandlerPath\": \"${cfg.shareHandlerPath}\","}
+      ${
+        optionalString (cfg.shareHandlerPath != null)
+        ''"shareHandlerPath": "${cfg.shareHandlerPath}",''
+      }
       "runIndex": ${if cfg.runIndex then "true" else "false"},
       "copyIndexToMemory": ${if cfg.copyIndexToMemory then "true" else "false"},
-      ${optionalString (cfg.sourceRoot != null) "\"sourceRoot\": \"${cfg.sourceRoot}\","}
+      ${
+        optionalString (cfg.sourceRoot != null)
+        ''"sourceRoot": "${cfg.sourceRoot}",''
+      }
 
       "memoryStorage": ${if cfg.memoryStorage then "true" else "false"},
-      ${optionalString (cfg.blobPath != null) "\"blobPath\": \"${cfg.blobPath}\","}
-      ${optionalString (cfg.s3 != null) "\"s3\": \"${cfg.s3}\","}
-      ${optionalString (cfg.b2 != null) "\"b2\": \"${cfg.b2}\","}
-      ${optionalString (cfg.googlecloudstorage != null) "\"googlecloudstorage\": \"${cfg.googlecloudstorage}\","}
+      ${
+        optionalString (cfg.blobPath != null) ''"blobPath": "${cfg.blobPath}",''
+      }
+      ${optionalString (cfg.s3 != null) ''"s3": "${cfg.s3}",''}
+      ${optionalString (cfg.b2 != null) ''"b2": "${cfg.b2}",''}
+      ${
+        optionalString (cfg.googlecloudstorage != null)
+        ''"googlecloudstorage": "${cfg.googlecloudstorage}",''
+      }
 
       "packRelated": ${if cfg.packRelated then "true" else "false"},
       "packBlobs": ${if cfg.packBlobs then "true" else "false"},
 
-      ${optionalString (cfg.sqlite != null) "\"sqlite\": \"${cfg.sqlite}\","}
-      ${optionalString (cfg.kvIndexFile != null) "\"kvIndexFile\": \"${cfg.kvIndexFile}\","}
-      ${optionalString (cfg.levelDB != null) "\"levelDB\": \"${cfg.levelDB}\","}
-      ${optionalString (cfg.mongo != null) "\"mongo\": \"${cfg.mongo}\","}
-      ${optionalString (cfg.mysql != null) "\"mysql\": \"${cfg.mysql}\","}
-      ${optionalString (cfg.postgres != null) "\"postgres\": \"${cfg.postgres}\","}
+      ${optionalString (cfg.sqlite != null) ''"sqlite": "${cfg.sqlite}",''}
+      ${
+        optionalString (cfg.kvIndexFile != null)
+        ''"kvIndexFile": "${cfg.kvIndexFile}",''
+      }
+      ${optionalString (cfg.levelDB != null) ''"levelDB": "${cfg.levelDB}",''}
+      ${optionalString (cfg.mongo != null) ''"mongo": "${cfg.mongo}",''}
+      ${optionalString (cfg.mysql != null) ''"mysql": "${cfg.mysql}",''}
+      ${
+        optionalString (cfg.postgres != null) ''"postgres": "${cfg.postgres}",''
+      }
       "memoryIndex": ${if cfg.memoryIndex then "true" else "false"},
 
-      ${optionalString (cfg.dbname != null) "\"dbname\": \"${cfg.dbname}\","}
-      ${optionalString (cfg.dbUnique != null) "\"dbUnique\": \"${cfg.dbUnique}\","}
+      ${optionalString (cfg.dbname != null) ''"dbname": "${cfg.dbname}",''}
+      ${
+        optionalString (cfg.dbUnique != null) ''"dbUnique": "${cfg.dbUnique}",''
+      }
 
       "listen": "${cfg.listen}"
     }
   '';
-in
-{
+in {
   options = {
     services.perkeepd = {
       enable = mkOption {
@@ -183,7 +213,7 @@ in
       shareHandlerPath = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =  ''
+        description = ''
           If non-empty, it specifies the URL prefix path to the share handler,
           and the shareHandler value is ignored (i.e the share handler is
           enabled). Example: "/public/".
@@ -378,11 +408,10 @@ in
         '';
       };
 
-
       dbname = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =  ''
+        description = ''
           optional name of the index database if MySQL, PostgreSQL, or MongoDB,
           is used. If empty, dbUnique is used as part of the database name.
         '';
@@ -417,7 +446,8 @@ in
       path = [ pkgs.perkeep pkgs.libjpeg ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.perkeep}/bin/perkeepd -configfile ${perkeepServerJSON}";
+        ExecStart =
+          "${pkgs.perkeep}/bin/perkeepd -configfile ${perkeepServerJSON}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "on-failure";
       };

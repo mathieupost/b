@@ -1,5 +1,4 @@
-{ buildGoModule ? (import <nixpkgs> {}).buildGoModule
-}:
+{ buildGoModule ? (import <nixpkgs> { }).buildGoModule }:
 buildGoModule {
   pname = "shell-prompt";
   version = "1.0";

@@ -1,7 +1,6 @@
-{ stdenvNoCC  ? (import <nixpkgs> {}).stdenvNoCC
-, coreutils   ? (import <nixpkgs> {}).coreutils
-, makeWrapper ? (import <nixpkgs> {}).makeWrapper
-}:
+{ stdenvNoCC ? (import <nixpkgs> { }).stdenvNoCC
+, coreutils ? (import <nixpkgs> { }).coreutils
+, makeWrapper ? (import <nixpkgs> { }).makeWrapper }:
 stdenvNoCC.mkDerivation {
   pname = "gcoreutils";
   version = "1.0.0";

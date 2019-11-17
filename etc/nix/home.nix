@@ -5,9 +5,7 @@ let
 
   minidev = callPackage /b/src/minidev { };
 
-in
-
-{
+in {
   home-manager.users.burke = {
     home.packages = [ minidev ];
 
@@ -26,13 +24,15 @@ in
       disable-scdaemon
     '' + (if pkgs.stdenv.isDarwin then ''
       pinentry-program = ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
-    '' else "");
+    '' else
+      "");
 
     xdg.configFile.LS_COLORS.source = ./home/LS_COLORS;
 
     home.file.".crawlrc".source = ./home/crawlrc;
 
-    home.file.".iterm2_shell_integration.zsh".source = ./home/.iterm2_shell_integration.zsh;
+    home.file.".iterm2_shell_integration.zsh".source =
+      ./home/.iterm2_shell_integration.zsh;
 
     home.file.".ripgreprc".text = ''
       --max-columns=150
@@ -42,21 +42,28 @@ in
     home.file.".config/nvim/backup/.keep".text = "";
 
     home.file.".hammerspoon".source = /b/etc/hammerspoon;
-    home.file."Documents/Arduino/Model01-Firmware".source = /b/src/Model01-Firmware;
+    home.file."Documents/Arduino/Model01-Firmware".source =
+      /b/src/Model01-Firmware;
 
-    home.file."Library/LaunchAgents/me.libbey.burke.poll-octobox.plist".source       = ./home/me.libbey.burke.poll-octobox.plist;
-    home.file."Library/LaunchAgents/me.libbey.burke.kaleidoscope-relay.plist".source = ./home/me.libbey.burke.kaleidoscope-relay.plist;
+    home.file."Library/LaunchAgents/me.libbey.burke.poll-octobox.plist".source =
+      ./home/me.libbey.burke.poll-octobox.plist;
+    home.file."Library/LaunchAgents/me.libbey.burke.kaleidoscope-relay.plist".source =
+      ./home/me.libbey.burke.kaleidoscope-relay.plist;
 
     programs.ssh = {
       enable = true;
       matchBlocks."*" = {
         extraOptions = {
           UseRoaming = "no";
-          KexAlgorithms = "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
-          HostKeyAlgorithms = "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
-          Ciphers = "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr";
+          KexAlgorithms =
+            "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256";
+          HostKeyAlgorithms =
+            "ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa";
+          Ciphers =
+            "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr";
           PubkeyAuthentication = "yes";
-          MACs = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com";
+          MACs =
+            "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com";
           PasswordAuthentication = "no";
           ChallengeResponseAuthentication = "no";
           # UseKeychain = "yes";
@@ -64,10 +71,20 @@ in
         };
       };
 
-      matchBlocks.tanagra = { hostname = "192.168.1.45"; extraOptions = { PasswordAuthentication = "yes"; }; };
-      matchBlocks.nix     = { hostname = "138.197.155.9"; };
-      matchBlocks.mini    = { hostname = "208.52.154.14";   user = "administrator";  };
-      matchBlocks.sb      = { hostname = "144.217.224.247"; user = "root"; port = 2222; };
+      matchBlocks.tanagra = {
+        hostname = "192.168.1.45";
+        extraOptions = { PasswordAuthentication = "yes"; };
+      };
+      matchBlocks.nix = { hostname = "138.197.155.9"; };
+      matchBlocks.mini = {
+        hostname = "208.52.154.14";
+        user = "administrator";
+      };
+      matchBlocks.sb = {
+        hostname = "144.217.224.247";
+        user = "root";
+        port = 2222;
+      };
     };
 
     programs.git = {
@@ -172,37 +189,37 @@ in
       plugins = with pkgs.vimPlugins; [
         # Syntax / Language Support ##########################
         vim-nix
-        vim-ruby             # ruby
-        vim-go               # go
-        vim-fish             # fish
+        vim-ruby # ruby
+        vim-go # go
+        vim-fish # fish
         # vim-toml           # toml
         # vim-gvpr           # gvpr
-        rust-vim             # rust
-        vim-pandoc           # pandoc (1/2)
-        vim-pandoc-syntax    # pandoc (2/2)
+        rust-vim # rust
+        vim-pandoc # pandoc (1/2)
+        vim-pandoc-syntax # pandoc (2/2)
         # yajs.vim           # JS syntax
         # es.next.syntax.vim # ES7 syntax
 
         # UI #################################################
-        gruvbox              # colorscheme
-        vim-gitgutter        # status in gutter
+        gruvbox # colorscheme
+        vim-gitgutter # status in gutter
         # vim-devicons
         vim-airline
 
         # Editor Features ####################################
-        vim-surround         # cs"'
-        vim-repeat           # cs"'...
-        vim-commentary       # gcap
+        vim-surround # cs"'
+        vim-repeat # cs"'...
+        vim-commentary # gcap
         # vim-ripgrep
-        vim-indent-object    # >aI
-        vim-easy-align       # vipga
-        vim-eunuch           # :Rename foo.rb
+        vim-indent-object # >aI
+        vim-easy-align # vipga
+        vim-eunuch # :Rename foo.rb
         vim-sneak
         supertab
         # vim-endwise        # add end, } after opening block
         # gitv
         # tabnine-vim
-        ale                  # linting
+        ale # linting
         nerdtree
         # vim-toggle-quickfix
         # neosnippet.vim
@@ -211,11 +228,11 @@ in
         nerdtree
 
         # Buffer / Pane / File Management ####################
-        fzf-vim              # all the things
+        fzf-vim # all the things
 
         # Panes / Larger features ############################
-        tagbar               # <leader>5
-        vim-fugitive         # Gblame
+        tagbar # <leader>5
+        vim-fugitive # Gblame
       ];
     };
   };
