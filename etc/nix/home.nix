@@ -116,7 +116,7 @@ in {
       enableCompletion = true;
       enableAutosuggestions = true;
       history = {
-        path = "$HOME/.zsh_history";
+        path = ".zsh_history";
         size = 50000;
         save = 50000;
       };
