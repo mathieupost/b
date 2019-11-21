@@ -2,6 +2,11 @@
 
 let
   callPackage = pkgs.callPackage;
+  cfg = config.home-manager.users.burke;
+
+  relativeXDGConfigPath = ".config";
+  relativeXDGDataPath = ".local/share";
+  relativeXDGCachePath = ".cache";
 
   minidev = callPackage /b/src/minidev { };
 
@@ -10,9 +15,9 @@ in {
     home.packages = [ minidev ];
 
     xdg.enable = true;
-    xdg.configHome = "${config.users.users.burke.home}/.config";
-    xdg.dataHome = "${config.users.users.burke.home}/.local/share";
-    xdg.cacheHome = "${config.users.users.burke.home}/.cache";
+    xdg.configHome = "${config.users.users.burke.home}/${relativeXDGConfigPath}";
+    xdg.dataHome = "${config.users.users.burke.home}/${relativeXDGDataPath}";
+    xdg.cacheHome = "${config.users.users.burke.home}/${relativeXDGCachePath}";
 
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
@@ -34,7 +39,7 @@ in {
     home.file.".iterm2_shell_integration.zsh".source =
       ./home/.iterm2_shell_integration.zsh;
 
-    home.file.".ripgreprc".text = ''
+    xdg.configFile."ripgrep/ripgreprc".text = ''
       --max-columns=150
       --max-columns-preview
     '';
@@ -116,14 +121,14 @@ in {
       enableCompletion = true;
       enableAutosuggestions = true;
       history = {
-        path = ".zsh_history";
+        path = "${relativeXDGDataPath}/zsh/.zsh_history";
         size = 50000;
         save = 50000;
       };
       shellAliases = import ./home/aliases.nix;
       defaultKeymap = "emacs";
       initExtraBeforeCompInit = ''
-        eval $(${pkgs.coreutils}/bin/dircolors -b ~/.config/LS_COLORS)
+        eval $(${pkgs.coreutils}/bin/dircolors -b ~/${relativeXDGConfigPath}/LS_COLORS)
         ${builtins.readFile ./home/pre-compinit.zsh}
       '';
       initExtra = builtins.readFile ./home/post-compinit.zsh;
@@ -160,7 +165,7 @@ in {
         OPT_TOXIPROXY_CACHE = "1";
 
         HOME_MANAGER_CONFIG = /b/etc/nix/home.nix;
-        RIPGREP_CONFIG_PATH = "$HOME/.ripgreprc";
+        RIPGREP_CONFIG_PATH = "${config.users.users.burke.home}/${cfg.xdg.configFile."ripgrep/ripgreprc".target}";
 
         BOOTSNAP_PEDANTIC = "1";
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3";
