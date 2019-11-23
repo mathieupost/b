@@ -27,11 +27,13 @@ in {
     acme-sh
     arduino
     burkeutils
+    discount
     emacs
     fd
     fzf
     gcoreutils
     minidev
+    fontconfig # to make doom doctor work
     git
     ctags
     google-cloud-sdk
@@ -39,10 +41,13 @@ in {
     htop
     jq
     kaleidoscope-relay
+    nixfmt
     pinentry_mac
     ripgrep
     ruby_2_6
+    shadowenv
     shell-prompt
+    shellcheck
     tree
     zsh
   ];
