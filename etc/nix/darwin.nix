@@ -27,6 +27,8 @@ in {
     acme-sh
     arduino
     burkeutils
+    emacs
+    fd
     fzf
     gcoreutils
     minidev
