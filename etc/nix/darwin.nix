@@ -13,7 +13,7 @@ let
   b = callPackage /b/src/b { };
 
 in {
-  imports = [ <home-manager/nix-darwin> ./home.nix ];
+  imports = [ ./nix-darwin-home-manager.nix ./home.nix ];
   home-manager.useUserPackages = true;
 
   users.users.burke = {

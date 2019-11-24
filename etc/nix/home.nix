@@ -12,10 +12,12 @@ let
 
 in {
   home-manager.users.burke = {
+
     home.packages = [ minidev ];
 
     xdg.enable = true;
-    xdg.configHome = "${config.users.users.burke.home}/${relativeXDGConfigPath}";
+    xdg.configHome =
+      "${config.users.users.burke.home}/${relativeXDGConfigPath}";
     xdg.dataHome = "${config.users.users.burke.home}/${relativeXDGDataPath}";
     xdg.cacheHome = "${config.users.users.burke.home}/${relativeXDGCachePath}";
 
@@ -24,6 +26,26 @@ in {
     programs.bat.enable = true;
     programs.broot.enable = true;
     programs.gpg.enable = true;
+
+    programs.doom = {
+      enable = true;
+
+      packages = ''
+        (package! shadowenv)
+      '';
+
+      config = ''
+        (evil-define-key 'normal 'global
+          "L" #'evil-end-of-line
+          "H" #'evil-first-non-blank)
+
+        (shadowenv-global-mode)
+      '';
+
+      modules.lang.go.enabled = true;
+      modules.lang.ruby.enabled = true;
+      modules.lang.rust.enabled = true;
+    };
 
     home.file.".gnupg/gpg-agent.conf".text = ''
       disable-scdaemon
@@ -156,18 +178,12 @@ in {
 
       sessionVariables = rec {
         NVIM_TUI_ENABLE_TRUE_COLOR = "1";
-        DISABLE_SPRING = "0";
-        OPT_SHOW = "1";
-        OPT_ISEQ_CACHE = "0";
-        OPT_AOT_RUBY = "1";
-        OPT_AOT_YAML = "1";
-        OPT_PRE_BOOTSCALE = "1";
-        OPT_TOXIPROXY_CACHE = "1";
 
         HOME_MANAGER_CONFIG = /b/etc/nix/home.nix;
-        RIPGREP_CONFIG_PATH = "${config.users.users.burke.home}/${cfg.xdg.configFile."ripgrep/ripgreprc".target}";
+        RIPGREP_CONFIG_PATH = "${config.users.users.burke.home}/${
+            cfg.xdg.configFile."ripgrep/ripgreprc".target
+          }";
 
-        BOOTSNAP_PEDANTIC = "1";
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3";
         DEV_ALLOW_ITERM2_INTEGRATION = "1";
 
@@ -177,7 +193,7 @@ in {
 
         GOPATH = "$HOME";
 
-        PATH = "$HOME/bin:$PATH";
+        PATH = "$HOME/.emacs.d/bin:$HOME/bin:$PATH";
       };
       # envExtra
       # profileExtra
