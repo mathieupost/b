@@ -187,7 +187,7 @@ in {
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3";
         DEV_ALLOW_ITERM2_INTEGRATION = "1";
 
-        EDITOR = "vim";
+        EDITOR = "emacs -nw";
         VISUAL = EDITOR;
         GIT_EDITOR = EDITOR;
 
