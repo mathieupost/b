@@ -61,7 +61,10 @@ in {
         company = enabled "the ultimate code completion backend" { };
         helm = disabled "the *other* search engine for love and life" { };
         ido = disabled "the other *other* search engine..." { };
-        ivy = enabled "a search engine for love and life" { };
+        ivy = enabled "a search engine for love and life" {
+          fuzzy = feature false null;
+          prescient = feature false null;
+        };
       };
 
       ui = {
