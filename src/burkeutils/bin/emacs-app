@@ -1,0 +1,2 @@
+#!/bin/sh
+open $(dirname $(dirname $(readlink $(which emacs))))/Applications/Emacs.app
