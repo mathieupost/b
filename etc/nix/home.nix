@@ -42,12 +42,15 @@ in {
         (shadowenv-global-mode)
 
         (setq doom-font (font-spec :family "OperatorMonoLig Nerd Font" :size 14))
-        ;; (setq doom-font (font-spec :family "PragmataPro" :size 14))
+        ;; (set-face-attribute 'font-lock-comment-face nil :foreground "#5B6268" :slant 'italic)
+
+        (setq doom-themes-enable-bold t
+              doom-themes-enable-italic t)
 
         (defun projectile-rescan-projects ()
           "Scan for projects at ~/src, etc."
           (interactive)
-          (let ((fpd (lambda (directory maxdepth)
+          (let ((f (lambda (directory maxdepth)
                       (interactive
                         (list (read-directory-name "Starting directory: ")))
                       (let ((subdirs (directory-files directory t)))
@@ -57,10 +60,10 @@ in {
                                       (not (member (file-name-nondirectory dir) '(".." "."))))
                               (if (projectile-project-p dir)
                                   (projectile-add-known-project dir)
-                                (when (> maxdepth 0) (fpd dir (- maxdepth 1))))))
+                                (when (> maxdepth 0) (funcall f dir (- maxdepth 1))))))
                           subdirs)))))
-            (fpd "/Users/burke/src" 3)
-            (fpd "/b" 0)))
+            (funcall f "/Users/burke/src" 3)
+            (funcall f "/b" 0)))
       '';
 
       modules.lang.go.enabled = true;
