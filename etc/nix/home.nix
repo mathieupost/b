@@ -41,6 +41,8 @@ in {
 
         (shadowenv-global-mode)
 
+        (setq doom-font (font-spec :family "OperatorMonoLig Nerd Font" :size 14))
+        ;; (setq doom-font (font-spec :family "PragmataPro" :size 14))
 
         (defun projectile-rescan-projects ()
           "Scan for projects at ~/src, etc."
@@ -64,6 +66,8 @@ in {
       modules.lang.go.enabled = true;
       modules.lang.ruby.enabled = true;
       modules.lang.rust.enabled = true;
+      # modules.ui.pretty-code.enabled = true;
+      # modules.ui.pretty-code.features.pragmata-pro = true;
       modules.ui.treemacs.enabled = true;
       modules.completion.ivy.features.fuzzy = true;
       modules.completion.ivy.features.prescient = true;

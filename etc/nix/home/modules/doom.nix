@@ -85,7 +85,12 @@ in {
           all = feature true "catch all popups that start with an asterisk";
           defaults = feature true "default popup rules";
         };
-        pretty-code = disabled "replace bits of code with pretty symbols" { };
+        pretty-code = disabled "replace bits of code with pretty symbols" {
+          fira = feature false null;
+          iosevka = feature false null;
+          hasklig = feature false null;
+          pragmata-pro = feature false null;
+        };
         tabs = disabled "an tab bar for Emacs" { };
         treemacs = disabled "a project drawer, like neotree but cooler" { };
         unicode = disabled "extended unicode support for various languages" { };
