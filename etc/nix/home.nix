@@ -45,6 +45,7 @@ in {
       modules.lang.go.enabled = true;
       modules.lang.ruby.enabled = true;
       modules.lang.rust.enabled = true;
+      modules.ui.treemacs.enabled = true;
       modules.completion.ivy.features.fuzzy = true;
       modules.completion.ivy.features.prescient = true;
     };
