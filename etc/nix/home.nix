@@ -40,6 +40,25 @@ in {
           "H" #'evil-first-non-blank)
 
         (shadowenv-global-mode)
+
+
+        (defun projectile-rescan-projects ()
+          "Scan for projects at ~/src, etc."
+          (interactive)
+          (let ((fpd (lambda (directory maxdepth)
+                      (interactive
+                        (list (read-directory-name "Starting directory: ")))
+                      (let ((subdirs (directory-files directory t)))
+                        (mapcar
+                          (lambda (dir)
+                            (when (and (file-directory-p dir)
+                                      (not (member (file-name-nondirectory dir) '(".." "."))))
+                              (if (projectile-project-p dir)
+                                  (projectile-add-known-project dir)
+                                (when (> maxdepth 0) (fpd dir (- maxdepth 1))))))
+                          subdirs)))))
+            (fpd "/Users/burke/src" 3)
+            (fpd "/b" 0)))
       '';
 
       modules.lang.go.enabled = true;
