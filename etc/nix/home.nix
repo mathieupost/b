@@ -92,6 +92,8 @@ in {
 
     xdg.configFile.LS_COLORS.source = ./home/LS_COLORS;
 
+    home.file.".config/karabiner/karabiner.json".source = ./home/karabiner.json;
+
     home.file.".crawlrc".source = ./home/crawlrc;
 
     home.file.".iterm2_shell_integration.zsh".source =
