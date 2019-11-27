@@ -27,6 +27,7 @@ in {
     programs.broot.enable = true;
     programs.gpg.enable = true;
 
+
     programs.doom = {
       enable = true;
 
@@ -35,14 +36,19 @@ in {
       '';
 
       config = ''
-        (evil-define-key 'normal 'global
-          "L" #'evil-end-of-line
-          "H" #'evil-first-non-blank)
+        (map! :n "L" #'evil-end-of-line)
+        (map! :n "H" #'evil-first-non-blank)
 
-        (shadowenv-global-mode)
+        ; (map! :neg "s-l" #'evil-window-right)
+        ; (map! :neg "s-h" #'evil-window-left)
+        ; (map! :neg "s-k" #'evil-window-up)
+        ; (map! :neg "s-j" #'evil-window-down)
+
+        (use-package! shadowenv
+          :config
+          (shadowenv-global-mode))
 
         (setq doom-font (font-spec :family "OperatorMonoLig Nerd Font" :size 14))
-        ;; (set-face-attribute 'font-lock-comment-face nil :foreground "#5B6268" :slant 'italic)
 
         (setq doom-themes-enable-bold t
               doom-themes-enable-italic t)
@@ -72,6 +78,7 @@ in {
       # modules.ui.pretty-code.enabled = true;
       # modules.ui.pretty-code.features.pragmata-pro = true;
       modules.ui.treemacs.enabled = true;
+      modules.ui.tabs.enabled = true;
       modules.completion.ivy.features.fuzzy = true;
       modules.completion.ivy.features.prescient = true;
     };
