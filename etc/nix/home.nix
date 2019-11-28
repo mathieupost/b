@@ -80,7 +80,7 @@ in {
       modules.ui.treemacs.enabled = true;
       modules.ui.tabs.enabled = true;
       modules.completion.ivy.features.fuzzy = true;
-      modules.completion.ivy.features.prescient = true;
+      modules.completion.ivy.features.prescient = false;
     };
 
     home.file.".gnupg/gpg-agent.conf".text = ''

@@ -57,6 +57,8 @@ zle-checkout-branch() {
 zle -N zle-checkout-branch
 bindkey '∫' zle-checkout-branch # Alt-B Canadian English
 
+nix-closure-size() { nix-store -q --size $(nix-store -qR $1 ) | awk '{ a+=$1 } END { print (a / 1024 / 1024 / 1024) "Gi" }'; }
+
 source ~/.iterm2_shell_integration.zsh
 
 if [ -f ~/.nix-profile/etc/profile.d/nix.sh ]; then
