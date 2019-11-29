@@ -99,11 +99,6 @@ in {
     home.file.".iterm2_shell_integration.zsh".source =
       ./home/.iterm2_shell_integration.zsh;
 
-    xdg.configFile."ripgrep/ripgreprc".text = ''
-      --max-columns=150
-      --max-columns-preview
-    '';
-
     home.file.".config/nvim/backup/.keep".text = "";
 
     home.file.".hammerspoon".source = /b/etc/hammerspoon;
@@ -218,9 +213,6 @@ in {
         NVIM_TUI_ENABLE_TRUE_COLOR = "1";
 
         HOME_MANAGER_CONFIG = /b/etc/nix/home.nix;
-        RIPGREP_CONFIG_PATH = "${config.users.users.burke.home}/${
-            cfg.xdg.configFile."ripgrep/ripgreprc".target
-          }";
 
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3";
         DEV_ALLOW_ITERM2_INTEGRATION = "1";
