@@ -8,6 +8,14 @@ function kick-gpg-agent {
 kick-gpg-agent
 export GPG_TTY=$(tty)
 
+function g8r() {
+  git rebase -i "$@" "$(git merge-base HEAD "${1:-master}")"
+}
+
+function g8u() {
+  git rebase "$@" "${1:-origin/master}"
+}
+
 gh() { cd  "$(gh  "$@")" }
 ghs() { cd "$(ghs "$@")" }
 ghb() { cd "$(ghb "$@")" }

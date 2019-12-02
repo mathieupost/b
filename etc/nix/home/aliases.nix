@@ -56,7 +56,6 @@
   gzri =
     "git log -30 --format=oneline | fzf | cut -d ' ' -f 1 | xargs git rebase -i";
 
-  grim = "git rebase -i master";
   gtl = "git tag -l";
   ga = "git add";
   gap = "git add -p";
