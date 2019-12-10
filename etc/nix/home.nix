@@ -104,8 +104,6 @@ in {
     home.file."Documents/Arduino/Model01-Firmware".source =
       /b/src/Model01-Firmware;
 
-    home.file."Library/LaunchAgents/me.libbey.burke.poll-octobox.plist".source =
-      ./home/me.libbey.burke.poll-octobox.plist;
     home.file."Library/LaunchAgents/me.libbey.burke.kaleidoscope-relay.plist".source =
       ./home/me.libbey.burke.kaleidoscope-relay.plist;
 
