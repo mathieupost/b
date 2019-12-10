@@ -39,11 +39,11 @@ appbindings.setup({"cmd", "ctrl"}, {
   [2] = "com.apple.Music",
   [3] = "com.brave.Browser",
   [4] = "com.tinyspeck.slackmacgap",
-  [5] = "com.apple.Reminders",
+  [5] = "org.gnu.Emacs",
   [6] = "com.apple.iChat",
-  [7] = "com.apple.Mail",
+  [7] = nil,
   [8] = "com.microsoft.vscode",
-  [9] = "com.kapeli.dashdoc",
+  [9] = nil,
 })
 
 -- hs.hotkey.bind({"cmd", "ctrl"}, "2", itunes.toggleLibrary)

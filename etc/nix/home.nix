@@ -78,7 +78,6 @@ in {
       # modules.ui.pretty-code.enabled = true;
       # modules.ui.pretty-code.features.pragmata-pro = true;
       modules.ui.treemacs.enabled = true;
-      modules.ui.tabs.enabled = true;
       modules.completion.ivy.features.fuzzy = true;
       modules.completion.ivy.features.prescient = false;
     };
@@ -217,7 +216,7 @@ in {
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=3";
         DEV_ALLOW_ITERM2_INTEGRATION = "1";
 
-        EDITOR = "emacs-nw";
+        EDITOR = "vim";
         VISUAL = EDITOR;
         GIT_EDITOR = EDITOR;
 
