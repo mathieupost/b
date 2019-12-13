@@ -24,7 +24,7 @@ window.animationDuration = 0
 -- end)
 
 browsebindings.setup({"cmd", "ctrl", "option", "shift"}, {
-  ["o"] = "https://github.com/notififications/beta",
+  ["o"] = "https://github.com/notifications/beta",
   ["t"] = "https://twitter.com",
   ["n"] = "https://news.ycombinator.com",
   ["f"] = "https://facebook.com",
