@@ -11,6 +11,7 @@ let
   minidev = callPackage /b/src/minidev { };
   gcoreutils = callPackage /b/src/gcoreutils { };
   b = callPackage /b/src/b { };
+  ndoc = callPackage /b/src/ndoc { };
 
 in {
   imports = [ ./nix-darwin-home-manager.nix ./home.nix ];
@@ -38,6 +39,7 @@ in {
     ctags
     google-cloud-sdk
     hammerspoon
+    ndoc
     htop
     jq
     kaleidoscope-relay

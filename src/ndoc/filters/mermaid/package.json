@@ -1,0 +1,12 @@
+{
+  "name": "mermaid-filter",
+  "version": "0.0.1",
+  "description": "deps",
+  "license": "MIT",
+  "bin": {
+    "mmdc": "./mmdc"
+  },
+  "dependencies": {
+    "mermaid.cli": "^0.5.1"
+  }
+}
