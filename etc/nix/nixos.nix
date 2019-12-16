@@ -93,7 +93,7 @@ in {
     virtualHosts."pk.tty0.dev" = defaultTLS // {
       locations."/" = {
         proxyWebsockets = true;
-        proxyPass = "http://localhost:3179";
+        proxyPass = "http://${config.services.perkeepd.listen}";
       };
     };
 
@@ -118,7 +118,7 @@ in {
 
   services.perkeepd = {
     enable = true;
-    listen = ":3179";
+    listen = "127.0.0.1:3179";
     baseURL = "https://pk.tty0.dev";
     https = false;
     packRelated = true;
