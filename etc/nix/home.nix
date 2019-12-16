@@ -11,7 +11,7 @@ let
   minidev = callPackage /b/src/minidev { };
 
 in {
-  home-manager.users.burke = {
+  home-manager.users.burke = lib.recursiveUpdate {
 
     home.packages = [ minidev ];
 
@@ -230,7 +230,7 @@ in {
         vim-fugitive # Gblame
       ];
     };
-  } // (lib.optionalAttrs pkgs.stdenv.isDarwin {
+  } (lib.optionalAttrs pkgs.stdenv.isDarwin {
     programs.doom = {
       enable = true;
 
