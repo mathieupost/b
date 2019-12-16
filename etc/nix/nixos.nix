@@ -108,7 +108,8 @@ in {
 
     virtualHosts."duckface.ca" = static /b/src/duckface.ca;
 
-    virtualHosts."tty0.dev" = static /b/src/tty0.dev // {
+    virtualHosts."tty0.dev" = defaultTLS // {
+      locations."/".root = /b/src/tty0.dev;
       locations."/nc19".extraConfig =
         "return 307 https://gist.github.com/burke/694d504be69998dbe4477f80ffa90951;";
     };
