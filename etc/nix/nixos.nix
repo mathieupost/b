@@ -97,7 +97,7 @@ in {
       };
     };
 
-    virtualHosts."notes-beta.burke.libbey.me" = static (import /b/src/notes {});
+    virtualHosts."notes.burke.libbey.me" = static (import /b/src/notes {});
     virtualHosts."burke.libbey.me" = static "/data/www/burke.libbey.me";
     virtualHosts."libbey.me" = redirect "burke.libbey.me";
 
