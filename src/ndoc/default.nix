@@ -2,6 +2,7 @@
 , pkgs ? import nixpkgs {}
 , pandoc ? pkgs.pandoc
 , stdenv ? pkgs.stdenv
+, ruby ? pkgs.ruby
 , makeWrapper ? pkgs.makeWrapper
 , graphviz ? pkgs.graphviz
 , gnuplot ? pkgs.gnuplot
@@ -36,12 +37,13 @@ stdenv.mkDerivation {
   src = ./.;
   buildPhase = "";
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ graphviz pandoc gnuplot mathjaxNodeCLI phantomjs mermaid ];
+  buildInputs = [ ruby graphviz pandoc gnuplot mathjaxNodeCLI phantomjs mermaid ];
   installPhase = ''
     cp -r . $out
     chmod +x $out/bin/ndoc
     wrapProgram $out/bin/ndoc \
       --prefix PATH : ${pandoc}/bin \
+      --prefix PATH : ${ruby}/bin \
       --prefix PATH : ${graphviz}/bin \
       --prefix PATH : ${gnuplot}/bin \
       --prefix PATH : ${phantomjs}/bin \

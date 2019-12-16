@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'date'
+require 'yaml'
+
+puts(<<HEADER)
+---
+title: |
+  <a href="https://github.com/burke/notes">@burke's notes</a>
+subtitle: |
+  Various disorganized notes for my own benefit.
+author: Burke Libbey
+...
+HEADER
+
+def name(s)
+  s =~ %r{^/nix/store/[a-z0-9]{32}-(.*)\.md$}
+  $1
+end
+
+ARGV
+  .map { |s| [name(s), YAML.load_file(s)] } # [["my-post", {...}], ...]
+  .sort_by { |_, f| f['date'] }       # (Date object)
+  .reverse                            # (newest first)
+  .each do |target, header|
+    title  = header['title']          # "On the Merit of A"
+    puts %(* [#{title}](/#{target}/))   # (markdown <li><a>...)
+  end

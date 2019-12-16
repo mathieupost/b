@@ -6,6 +6,8 @@ module Cache # :nodoc:
   CACHE = File.expand_path("~/.cache/ndoc")
 
   def self.fetch(raw_key)
+    return yield
+    # TODO
     key = Digest::SHA256.hexdigest(raw_key)
 
     begin

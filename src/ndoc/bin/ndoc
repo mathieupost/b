@@ -10,7 +10,7 @@ module NoteBuilder # :nodoc:
   SELF = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
   ROOT = File.expand_path('../../', SELF)
 
-  PANDOC = ['pandoc', '--verbose'].freeze
+  PANDOC = ['pandoc', '--verbose', '-V', 'lang=english'].freeze
 
   FILTERS = [
     '--filter', "#{ROOT}/filters/mathjax/filter",
