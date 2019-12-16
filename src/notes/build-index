@@ -6,7 +6,7 @@ require 'yaml'
 puts(<<HEADER)
 ---
 title: |
-  <a href="https://github.com/burke/notes">@burke's notes</a>
+  <a href="https://github.com/burke/b/tree/master/src/notes">@burke's notes</a>
 subtitle: |
   Various disorganized notes for my own benefit.
 author: Burke Libbey
