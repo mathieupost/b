@@ -69,4 +69,5 @@ if [ -f /opt/dev/dev.sh ]; then
   source /opt/dev/dev.sh
 elif [ -f /run/current-system/sw/bin/dev ]; then
   eval $(dev init)
+  eval "$(shadowenv init zsh)"
 fi

@@ -69,6 +69,8 @@ in {
     challengeResponseAuthentication = false;
   };
 
+  virtualisation.docker.enable = true;
+
   services.nginx = let
     defaultTLS = {
       enableACME = true;
@@ -134,7 +136,7 @@ in {
     home = "/home/burke";
     description = "Burke Libbey";
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "docker" ];
     openssh.authorizedKeys.keys = [ burke-ed25519 ];
   };
 }
