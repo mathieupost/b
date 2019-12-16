@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   callPackage = pkgs.callPackage;
@@ -28,59 +28,6 @@ in {
     programs.gpg.enable = true;
 
 
-    programs.doom = {
-      enable = true;
-
-      packages = ''
-        (package! shadowenv)
-      '';
-
-      config = ''
-        (map! :n "L" #'evil-end-of-line)
-        (map! :n "H" #'evil-first-non-blank)
-
-        ; (map! :neg "s-l" #'evil-window-right)
-        ; (map! :neg "s-h" #'evil-window-left)
-        ; (map! :neg "s-k" #'evil-window-up)
-        ; (map! :neg "s-j" #'evil-window-down)
-
-        (use-package! shadowenv
-          :config
-          (shadowenv-global-mode))
-
-        (setq doom-font (font-spec :family "OperatorMonoLig Nerd Font" :size 14))
-
-        (setq doom-themes-enable-bold t
-              doom-themes-enable-italic t)
-
-        (defun projectile-rescan-projects ()
-          "Scan for projects at ~/src, etc."
-          (interactive)
-          (let ((f (lambda (directory maxdepth)
-                      (interactive
-                        (list (read-directory-name "Starting directory: ")))
-                      (let ((subdirs (directory-files directory t)))
-                        (mapcar
-                          (lambda (dir)
-                            (when (and (file-directory-p dir)
-                                      (not (member (file-name-nondirectory dir) '(".." "."))))
-                              (if (projectile-project-p dir)
-                                  (projectile-add-known-project dir)
-                                (when (> maxdepth 0) (funcall f dir (- maxdepth 1))))))
-                          subdirs)))))
-            (funcall f "/Users/burke/src" 3)
-            (funcall f "/b" 0)))
-      '';
-
-      modules.lang.go.enabled = true;
-      modules.lang.ruby.enabled = true;
-      modules.lang.rust.enabled = true;
-      # modules.ui.pretty-code.enabled = true;
-      # modules.ui.pretty-code.features.pragmata-pro = true;
-      modules.ui.treemacs.enabled = true;
-      modules.completion.ivy.features.fuzzy = true;
-      modules.completion.ivy.features.prescient = false;
-    };
 
     home.file.".gnupg/gpg-agent.conf".text = ''
       disable-scdaemon
@@ -283,5 +230,59 @@ in {
         vim-fugitive # Gblame
       ];
     };
-  };
+  } // (lib.optionalAttrs pkgs.stdenv.isDarwin {
+    programs.doom = {
+      enable = true;
+
+      packages = ''
+        (package! shadowenv)
+      '';
+
+      config = ''
+        (map! :n "L" #'evil-end-of-line)
+        (map! :n "H" #'evil-first-non-blank)
+
+        ; (map! :neg "s-l" #'evil-window-right)
+        ; (map! :neg "s-h" #'evil-window-left)
+        ; (map! :neg "s-k" #'evil-window-up)
+        ; (map! :neg "s-j" #'evil-window-down)
+
+        (use-package! shadowenv
+          :config
+          (shadowenv-global-mode))
+
+        (setq doom-font (font-spec :family "OperatorMonoLig Nerd Font" :size 14))
+
+        (setq doom-themes-enable-bold t
+              doom-themes-enable-italic t)
+
+        (defun projectile-rescan-projects ()
+          "Scan for projects at ~/src, etc."
+          (interactive)
+          (let ((f (lambda (directory maxdepth)
+                      (interactive
+                        (list (read-directory-name "Starting directory: ")))
+                      (let ((subdirs (directory-files directory t)))
+                        (mapcar
+                          (lambda (dir)
+                            (when (and (file-directory-p dir)
+                                      (not (member (file-name-nondirectory dir) '(".." "."))))
+                              (if (projectile-project-p dir)
+                                  (projectile-add-known-project dir)
+                                (when (> maxdepth 0) (funcall f dir (- maxdepth 1))))))
+                          subdirs)))))
+            (funcall f "/Users/burke/src" 3)
+            (funcall f "/b" 0)))
+      '';
+
+      modules.lang.go.enabled = true;
+      modules.lang.ruby.enabled = true;
+      modules.lang.rust.enabled = true;
+      # modules.ui.pretty-code.enabled = true;
+      # modules.ui.pretty-code.features.pragmata-pro = true;
+      modules.ui.treemacs.enabled = true;
+      modules.completion.ivy.features.fuzzy = true;
+      modules.completion.ivy.features.prescient = false;
+    };
+  });
 }
