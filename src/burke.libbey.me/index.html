@@ -1,0 +1,104 @@
+<!doctype html>
+<head>
+<title>Burke Libbey</title>
+<meta charset="UTF-8">
+<meta name="author" content="Burke Libbey">
+<meta name="viewport" content="width=400px, maximum-scale=1, user-scalable=yes" />
+<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+
+<style>
+body {
+  color: #fff;
+  background: #111;
+  margin: 0;
+  font: 24px/1.2em 'VT323', monospace;
+}
+
+h1 {
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2em;
+  font-size: 1em;
+}
+
+h1::before {
+  content: "% ";
+  color: #0f0;
+}
+
+div::after {
+  content: "▮";
+  font-size: 1.5em;
+  position: absolute;
+  margin: 0.08em 0 0 0.08em;
+  animation: blink-animation 1s steps(5, start) infinite;
+  -webkit-animation: blink-animation 1s steps(5, start) infinite;
+}
+
+ul::after {
+  content: "%";
+  color: #0f0;
+}
+
+@keyframes blink-animation {
+  to {visibility: hidden;}
+}
+@-webkit-keyframes blink-animation {
+  to {visibility: hidden;}
+}
+
+div {
+  margin: 4em auto 2em auto;
+  width: 13em;
+}
+
+ul::before {
+  margin-left: -0.06em;
+  content: "┌───────────────────";
+  color: #0ff;
+}
+
+li:last-child::after {
+  margin-left: -0.06em;
+  content: " └───────────────────";
+  color: #0ff;
+}
+
+li::before {
+  content: "| ";
+  color: #0ff;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+a {
+  text-decoration: none;
+  color: #0f0;
+}
+
+.c {
+  color: #666; !important
+}
+</style>
+</head>
+
+<body>
+  <div>
+    <h1>Burke Libbey</h1>
+    <ul>
+      <li>GitHub: <a href="https://github.com/burke">@burke</a></li>
+      <li>Twitter: <a href="https://twitter.com/burkelibbey">@burkelibbey</a></li>
+      <li>Email: <a href="mailto:burke@libbey.me">burke@libbey.me</a></li>
+      <li>iMessage: <a href="sms:burke@libbey.me">burke@libbey.me</a></li>
+      <li>Working at: <a href="http://shopify.com" title="Shopify">Shopify</a></li>
+      <li>Blog: <a href="http://notes.burke.libbey.me">Not-Quite-a-Blog</a></li>
+    </ul>
+  </div>
+</body>
+</html>

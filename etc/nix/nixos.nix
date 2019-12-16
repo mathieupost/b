@@ -98,18 +98,17 @@ in {
     };
 
     virtualHosts."notes.burke.libbey.me" = static (import /b/src/notes {});
-    virtualHosts."burke.libbey.me" = static "/data/www/burke.libbey.me";
+    virtualHosts."burke.libbey.me" = static /b/src/burke.libbey.me;
     virtualHosts."libbey.me" = redirect "burke.libbey.me";
 
-    virtualHosts."corinne.rikkelman.com" =
-      static "/data/www/corinne.rikkelman.com";
+    virtualHosts."corinne.rikkelman.com" = static /b/src/corinne.rikkelman.com;
     virtualHosts."rikkelman.com" = redirect "corinne.rikkelman.com";
 
-    virtualHosts."paulklassen.org" = static "/data/www/paulklassen.org";
+    virtualHosts."paulklassen.org" = static /b/src/paulklassen.org;
 
-    virtualHosts."duckface.ca" = static "/data/www/duckface.ca";
+    virtualHosts."duckface.ca" = static /b/src/duckface.ca;
 
-    virtualHosts."tty0.dev" = static "/data/www/tty0.dev" // {
+    virtualHosts."tty0.dev" = static /b/src/tty0.dev // {
       locations."/nc19".extraConfig =
         "return 307 https://gist.github.com/burke/694d504be69998dbe4477f80ffa90951;";
     };
