@@ -251,7 +251,12 @@ in {
           :config
           (shadowenv-global-mode))
 
-        (setq doom-font (font-spec :family "OperatorMonoLig Nerd Font" :size 14))
+        (after! eshell
+          (add-hook 'eshell-mode-hook (lambda () (define-key eshell-mode-map "\C-k" 'eshell/clear))))
+
+        (add-hook 'emacs-startup-hook (lambda () (setq gc-cons-threshold 800000)))
+
+        (setq doom-font (font-spec :family "PragmataPro Liga" :size 16))
 
         (setq doom-themes-enable-bold t
               doom-themes-enable-italic t)

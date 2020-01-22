@@ -243,7 +243,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>530 493 620 392 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1680 1050 0 0 1680 1050 </string>
+	<string>0 869 730 571 0 0 2560 1440 </string>
 	<key>NeverWarnAboutShortLivedSessions_34B64FEA-C239-4C87-9B7F-70D62510572D</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_34B64FEA-C239-4C87-9B7F-70D62510572D_selection</key>
@@ -908,7 +908,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>OperatorMonoLigNerdFontC-Book 16</string>
+			<string>PragmataProMonoLiga-Regular 18</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1200,6 +1200,11 @@
 		<string>3.3.7beta3</string>
 		<string>3.3.7beta4</string>
 	</array>
+	<key>NoSyncBFPRecents</key>
+	<array>
+		<string>PragmataPro</string>
+		<string>PragmataPro Mono Liga</string>
+	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
 	<key>NoSyncFrame_SharedPreferences</key>
@@ -1207,16 +1212,18 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{958, 1132}</string>
+		<string>{1354, 976}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>E90E107E-A7F2-4530-BD9D-4430A6865765</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>4</integer>
+	<integer>8</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
-	<real>595370910.65257001</real>
+	<real>597264450.22017896</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
 	<true/>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncRecordedVariables</key>
 	<dict>
 		<key>0</key>
@@ -1584,6 +1591,14 @@
 				<true/>
 				<key>name</key>
 				<string>currentTab.currentSession.lastCommand</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
+				<string>currentTab.currentSession.terminalWindowName</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -1965,16 +1980,16 @@
 	</dict>
 	<key>NoSyncSearchHistory2</key>
 	<array>
-		<string>home-mana</string>
-		<string>git-con</string>
-		<string>home-manager-files</string>
-		<string>home.nix</string>
-		<string>ls_col</string>
-		<string>burke</string>
-		<string>/users</string>
-		<string>files</string>
-		<string>users</string>
-		<string>nix-rpofic</string>
+		<string>mini_racer</string>
+		<string>memcac</string>
+		<string>error</string>
+		<string>stc</string>
+		<string>with-v8-include</string>
+		<string>profiles</string>
+		<string>/usr/bin</string>
+		<string>rake</string>
+		<string>mkmf.log</string>
+		<string>clang.out</string>
 	</array>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
 	<real>595198110.65238798</real>
