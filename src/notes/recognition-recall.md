@@ -36,7 +36,7 @@ digraph {
 
 I use a tool called [Hammerspoon](https://www.hammerspoon.org/) to create a few keybindings to
 mostly eliminate this recognition-based loop from my day-to-day computer usage. Each application
-that I commonly used is [bound to its own (recall-based) key
+that I commonly use is [bound to its own (recall-based) key
 chord](https://github.com/burke/b/blob/4e688f4a317bf88afb737af995340f9c8145a233/etc/hammerspoon/init.lua#L37-L47):
 
 ```lua
