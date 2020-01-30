@@ -49,6 +49,24 @@ Now:
 3. Install nix-darwin
 4. `darwin-rebuild switch -I darwin-config=/b/etc/nix/darwin.nix`
 
+Or on a shopify laptop:
+
+Set `~/.nix-channels` to:
+
+```
+https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin
+https://github.com/rycee/home-manager/archive/f5c9303cedd67a57121f0cbe69b585fb74ba82d9.tar.gz home-manager
+https://nixos.org/channels/nixpkgs-19.09-darwin nixpkgs
+https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
+```
+
+1. Clone this to `/b`
+1. Run `dev update`
+1. `nix-channel --update`
+1. `export NIX_PATH=darwin-config=/b/etc/nix/darwin.nix:$NIX_PATH`
+1. `nix-build '<darwin>' -A installer --out-link /tmp/nix-darwin && /tmp/nix-darwin/bin/darwin-installer`
+1. `darwin-rebuild switch`
+
 ## Usage
 
 `b up`
