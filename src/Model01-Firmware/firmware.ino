@@ -12,7 +12,7 @@
 
 enum {
   R_M, R_Q, R_H, R_J, R_S, R_N, R_Y, R_V, B_O, B_T, B_F, B_N, B_I, B_R, B_P,
-  A_Q, A_W, A_E, A_R, A_T, A_A, A_S, A_D, A_F, A_Z, A_EN, A_I, A_P, A_H, A_J, A_K, A_L, A_N, A_CM, A_DT, A_SP,
+  A_0, A_1, A_2, A_3, A_Q, A_W, A_E, A_R, A_T, A_A, A_S, A_D, A_F, A_Z, A_EN, A_I, A_P, A_H, A_J, A_K, A_L, A_N, A_CM, A_DT, A_SP,
   A2_SP, A2_H, A2_L, A2_K, A2_J, A2_1, A2_2, A2_3, A2_4, A2_5, A2_6, A2_7, A2_8, A2_9, A2_0, A2_W, A2_E, A2_R, A2_Q, A2_T, A2_AL, A2_AR
 };
 enum { ROOT, K_FN, K_ANY, K_BF, K_AMETHYST, K_AMETHYST2 };
@@ -85,14 +85,14 @@ KEYMAPS(
 
   ), [K_AMETHYST] =  KEYMAP_STACKED (
 
-   ___, ___,    ___,    ___,    ___,    ___,    ___,
+   ___, M(A_1), M(A_2), M(A_3), ___,    ___,    ___,
    ___, M(A_Q), M(A_W), M(A_E), M(A_R), M(A_T), ___,
    ___, M(A_A), M(A_S), M(A_D), M(A_F), ___,    /**/
    ___, M(A_Z), ___,    ___,    ___,    ___,    ___,
    /**/ /**/    /**/    ___,    ___,    ___,    ___,
    /**/ /**/    /**/    /**/    /**/    /**/    ___,
 
-   ___,                       ___,    ___,     ___,     ___,     ___,    ___,
+   ___,                       ___,    ___,     ___,     ___,     M(A_0), ___,
    M(A_EN),                   ___,    ___,     M(A_I),  ___,     M(A_P), ___,
    /**/                       M(A_H), M(A_J),  M(A_K),  M(A_L),  ___,    ___,
    ShiftToLayer(K_AMETHYST2), M(A_N), ___,     M(A_CM), M(A_DT), ___,    ___,
@@ -172,6 +172,10 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   BROWSE_MACRO(B_R, R);
   BROWSE_MACRO(B_P, P);
 
+  AMETHYST_MACRO(A_0, 0);
+  AMETHYST_MACRO(A_1, 1);
+  AMETHYST_MACRO(A_2, 2);
+  AMETHYST_MACRO(A_3, 3);
   AMETHYST_MACRO(A_A, A);
   AMETHYST_MACRO(A_CM, Comma);
   AMETHYST_MACRO(A_D, D);
