@@ -51,13 +51,11 @@ Now:
 
 Or on a shopify laptop:
 
-Set `~/.nix-channels` to:
+Add to `~/.nix-channels`:
 
 ```
 https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin
 https://github.com/rycee/home-manager/archive/f5c9303cedd67a57121f0cbe69b585fb74ba82d9.tar.gz home-manager
-https://nixos.org/channels/nixpkgs-19.09-darwin nixpkgs
-https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
 ```
 
 1. Clone this to `/b`

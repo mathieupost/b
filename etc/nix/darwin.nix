@@ -47,7 +47,7 @@ in {
     pinentry_mac
     ripgrep
     ruby_2_6
-    (import <nixpkgs-unstable> {}).shadowenv
+    shadowenv
     shell-prompt
     shellcheck
     tree
