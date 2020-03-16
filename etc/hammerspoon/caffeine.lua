@@ -7,9 +7,9 @@ local Caffeinator = {}
 
 local function setState(menubarItem, state)
   if state then
-    menubarItem:setIcon("caffeine-on.pdf")
+    menubarItem:setIcon("/Users/burke/.hammerspoon/caffeine-on.pdf")
   else
-    menubarItem:setIcon("caffeine-off.pdf")
+    menubarItem:setIcon("/Users/burke/.hammerspoon/caffeine-off.pdf")
   end
 end
 

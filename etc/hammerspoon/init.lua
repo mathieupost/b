@@ -30,7 +30,7 @@ browsebindings.setup({"cmd", "ctrl", "option", "shift"}, {
   ["f"] = "https://facebook.com",
   ["i"] = "https://instapaper.com/u",
   ["r"] = "https://reddit.com",
-  ["p"] = "https://github.com/pulls",
+  ["p"] = "https://octobox.shopify.io",
 })
 
 -- [2] = "com.apple.iTunes",
@@ -41,7 +41,7 @@ appbindings.setup({"cmd", "ctrl"}, {
   [4] = "com.tinyspeck.slackmacgap",
   [5] = "org.gnu.Emacs",
   [6] = "com.apple.iChat",
-  [7] = nil,
+  [7] = "org.whispersystems.signal-desktop",
   [8] = "com.microsoft.vscode",
   [9] = nil,
 })
