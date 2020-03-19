@@ -24,13 +24,13 @@ window.animationDuration = 0
 -- end)
 
 browsebindings.setup({"cmd", "ctrl", "option", "shift"}, {
-  ["o"] = "https://github.com/notifications/beta",
+  ["o"] = "https://octobox.shopify.io",
   ["t"] = "https://twitter.com",
   ["n"] = "https://news.ycombinator.com",
   ["f"] = "https://facebook.com",
   ["i"] = "https://instapaper.com/u",
   ["r"] = "https://reddit.com",
-  ["p"] = "https://octobox.shopify.io",
+  ["p"] = "https://github.com/pulls",
 })
 
 -- [2] = "com.apple.iTunes",
