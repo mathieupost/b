@@ -5,7 +5,11 @@ function _M.hideShowHotkey(bundleID)
     -- if the app is already focused, hide it
     local focus = hs.window.focusedWindow()
     if focus and focus:application():bundleID() == bundleID then
-      return focus:application():hide()
+      if hs.application.applicationsForBundleID("com.amethyst.Amethyst")[1]:isRunning() then
+        return
+      else
+        return focus:application():hide()
+      end
     end
 
     -- if the app is running and has at least one window, just activate it
