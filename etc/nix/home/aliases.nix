@@ -5,7 +5,7 @@
   git-fuck-everything =
     "git-abort ; git reset . ; git checkout . ; git clean -f -d";
 
-  ls = "gls --color=auto -F";
+  ls = "ls --color=auto -F";
 
   # u/uu/uuu/... {{{
   u = "cd ..";

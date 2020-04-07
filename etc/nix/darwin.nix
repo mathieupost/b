@@ -45,7 +45,7 @@ in {
     kaleidoscope-relay
     nixfmt
     pinentry_mac
-    ripgrep
+    # ripgrep
     ruby_2_6
     shadowenv
     shell-prompt

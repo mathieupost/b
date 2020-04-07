@@ -10,6 +10,11 @@ let
 
   minidev = callPackage /b/src/minidev { };
 
+  ls-colors = pkgs.runCommand "ls-colors" {} ''
+    mkdir -p $out/bin $out/share
+    cp ${pkgs.coreutils}/bin/ls $out/bin/ls
+  '';
+
 in {
   home-manager.users.burke = lib.recursiveUpdate {
 
@@ -27,16 +32,12 @@ in {
     programs.broot.enable = true;
     programs.gpg.enable = true;
 
-
-
     home.file.".gnupg/gpg-agent.conf".text = ''
       disable-scdaemon
     '' + (if pkgs.stdenv.isDarwin then ''
       pinentry-program = ${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac
     '' else
       "");
-
-    xdg.configFile.LS_COLORS.source = ./home/LS_COLORS;
 
     home.file.".config/karabiner/karabiner.json".source = ./home/karabiner.json;
 
@@ -127,7 +128,7 @@ in {
       shellAliases = import ./home/aliases.nix;
       defaultKeymap = "emacs";
       initExtraBeforeCompInit = ''
-        eval $(${pkgs.coreutils}/bin/dircolors -b ~/${relativeXDGConfigPath}/LS_COLORS)
+        eval $(${pkgs.coreutils}/bin/dircolors -b ${./home/LS_COLORS})
         ${builtins.readFile ./home/pre-compinit.zsh}
       '';
       initExtra = builtins.readFile ./home/post-compinit.zsh;
