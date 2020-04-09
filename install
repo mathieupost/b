@@ -18,5 +18,11 @@ export NIX_PATH=home-manager=$HOME/.nix-defexpr/channels/home-manager:$NIX_PATH
 nix-channel --update
 export NIX_PATH=darwin-config=/b/etc/nix/darwin.nix:$NIX_PATH
 echo $NIX_PATH
+sudo rm /etc/shells /etc/zprofile /etc/zshrc
 nix-build '<darwin>' -A installer --out-link /tmp/nix-darwin && /tmp/nix-darwin/bin/darwin-installer
+
+# Isn't it supposed to do this? It doesn't.
+rm -rf /run/*
+ln -shf /nix/store/$(ls /nix/store | grep darwin-system- | grep -v drv | head -1) /run/current-system
+
 /run/current-system/sw/bin/darwin-rebuild switch

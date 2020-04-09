@@ -4,6 +4,8 @@
 <dict>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
+	<key>ApplePressAndHoldEnabled</key>
+	<false/>
 	<key>AppleScrollAnimationEnabled</key>
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
@@ -201,12 +203,18 @@
 	<true/>
 	<key>IRMemory</key>
 	<integer>4</integer>
+	<key>LoadFromFindPasteboard</key>
+	<false/>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>/b/etc</string>
+	<string>~/Desktop</string>
+	<key>NSNavLastUserSetHideExtensionButtonState</key>
+	<true/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{799, 448}</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
+	<string>{841, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -249,15 +257,15 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
-	<string>880 744 799 448 0 0 2560 1440 </string>
+	<string>1299 710 841 470 0 0 3440 1417 </string>
 	<key>NSWindow Frame ProfilesPanel</key>
 	<string>2546 618 735 382 0 0 3440 1417 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>530 493 620 392 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>814 759 1060 493 0 0 3440 1417 </string>
+	<string>774 0 1891 1417 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>860 0 1720 1417 0 0 3440 1417 </string>
+	<string>-1680 390 1680 1027 -1680 390 1680 1027 </string>
 	<key>NeverWarnAboutShortLivedSessions_34B64FEA-C239-4C87-9B7F-70D62510572D</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_34B64FEA-C239-4C87-9B7F-70D62510572D_selection</key>
@@ -2172,6 +2180,7 @@
 	<key>NoSyncAllAppVersions</key>
 	<array>
 		<string>3.3.7beta3</string>
+		<string>3.3.9</string>
 		<string>3.3.7beta4</string>
 	</array>
 	<key>NoSyncBFPRecents</key>
@@ -2180,17 +2189,21 @@
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
+	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt</key>
+	<true/>
+	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt_selection</key>
+	<integer>1</integer>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
 		<string>{{0, 0}, {3440, 1440}}</string>
 		<key>topLeft</key>
-		<string>{2267, 883}</string>
+		<string>{1723, 1016}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>E90E107E-A7F2-4530-BD9D-4430A6865765</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>14</integer>
+	<integer>20</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>597264450.22017896</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -2951,19 +2964,6 @@
 			</dict>
 		</array>
 	</dict>
-	<key>NoSyncSearchHistory2</key>
-	<array>
-		<string>spooling</string>
-		<string>gemfile.lock</string>
-		<string>gemfile.o</string>
-		<string>nix/pkgs/</string>
-		<string>ni/pkgs/</string>
-		<string>n/pkgs/</string>
-		<string>/pkgs/</string>
-		<string>pkgs/</string>
-		<string>baseruby</string>
-		<string>base-ruby</string>
-	</array>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
 	<real>595198110.65238798</real>
 	<key>PerPaneBackgroundImage</key>
@@ -3022,7 +3022,7 @@
 	<key>SeparateStatusBarsPerPane</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>ShowPaneTitles</key>
 	<false/>
 	<key>SoundForEsc</key>
@@ -3050,6 +3050,6 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.7beta4</string>
+	<string>3.3.9</string>
 </dict>
 </plist>
