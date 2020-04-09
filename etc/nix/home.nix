@@ -10,15 +10,20 @@ let
 
   minidev = callPackage /b/src/minidev { };
 
-  ls-colors = pkgs.runCommand "ls-colors" {} ''
+  LS_COLORS = pkgs.fetchgit {
+    url = "https://github.com/trapd00r/LS_COLORS";
+    sha256 = "1yw4qz152r9jsg4v4n592gngfvwkcrkj68hrhm6n6d0qj6f6qf68";
+  };
+  ls-colors = pkgs.runCommand "ls-colors" { } ''
     mkdir -p $out/bin $out/share
-    cp ${pkgs.coreutils}/bin/ls $out/bin/ls
+    ln -s ${pkgs.coreutils}/bin/ls $out/bin/ls
+    ln -s ${pkgs.coreutils}/bin/dircolors $out/bin/dircolors
+    cp ${LS_COLORS}/LS_COLORS $out/share/LS_COLORS
   '';
-
 in {
   home-manager.users.burke = lib.recursiveUpdate {
 
-    home.packages = [ minidev ];
+    home.packages = [ ls-colors minidev ];
 
     xdg.enable = true;
     xdg.configHome =
