@@ -12,7 +12,8 @@ let
 
   LS_COLORS = pkgs.fetchgit {
     url = "https://github.com/trapd00r/LS_COLORS";
-    sha256 = "1yw4qz152r9jsg4v4n592gngfvwkcrkj68hrhm6n6d0qj6f6qf68";
+    rev = "6fb72eecdcb533637f5a04ac635aa666b736cf50";
+    sha256 = "0czqgizxq7ckmqw9xbjik7i1dfwgc1ci8fvp1fsddb35qrqi857a";
   };
   ls-colors = pkgs.runCommand "ls-colors" { } ''
     mkdir -p $out/bin $out/share
