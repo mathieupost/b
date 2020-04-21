@@ -57,4 +57,12 @@ setopt COMPLETE_IN_WORD
 setopt auto_pushd
 setopt append_history
 
+# Show a highlighted '%' when the final line of output lacks a trailing
+# newline. Without this, the prompt overdraws that final line.
+setopt PROMPT_SP
+
+# I don't use the !!/etc. commands, so this means I don't have to carefully
+# quote/escape '!' in (e.g.) git commit messages.
+unsetopt PROMPT_BANG
+
 unsetopt MULTIOS

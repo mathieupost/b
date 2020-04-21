@@ -59,11 +59,11 @@ func mode() string {
 }
 
 func pathColor() string {
-  if os.Getenv("SSH_CONNECTION") != "" {
-    return fgGreen
-  } else {
-    return fgBlue
-  }
+	if os.Getenv("SSH_CONNECTION") != "" {
+		return fgGreen
+	} else {
+		return fgBlue
+	}
 }
 
 func main() {
