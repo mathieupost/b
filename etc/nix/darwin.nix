@@ -14,9 +14,6 @@ let
   ndoc = callPackage /b/src/ndoc { };
 
 in {
-  imports = [ ./nix-darwin-home-manager.nix ./home.nix ];
-  home-manager.useUserPackages = true;
-
   users.users.burke = {
     home = "/Users/burke";
     description = "Burke Libbey";
@@ -25,7 +22,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     b
-    acme-sh
+    # acme-sh
     arduino
     burkeutils
     discount
@@ -33,6 +30,7 @@ in {
     fd
     fzf
     gcoreutils
+    home-manager
     minidev
     fontconfig # to make doom doctor work
     git
@@ -45,7 +43,7 @@ in {
     kaleidoscope-relay
     nixfmt
     pinentry_mac
-    # ripgrep
+    ripgrep
     ruby_2_6
     shadowenv
     shell-prompt

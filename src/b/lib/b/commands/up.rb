@@ -29,6 +29,7 @@ module B
         else
           nixos_rebuild
         end
+        home_manager_switch
       end
 
       private
@@ -60,11 +61,15 @@ module B
       end
 
       def darwin_rebuild
-        exec('darwin-rebuild', 'switch')
+        abort unless system('darwin-rebuild', 'switch')
+      end
+
+      def home_manager_switch
+        exec('home-manager', 'switch')
       end
 
       def nixos_rebuild
-        exec('sudo', 'nixos-rebuild', 'switch')
+        abort unless system('sudo', 'nixos-rebuild', 'switch')
       end
 
       def bail(msg)
