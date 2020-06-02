@@ -199,8 +199,14 @@ in {
       # yajs.vim           # JS syntax
       # es.next.syntax.vim # ES7 syntax
 
+      (pkgs.vimUtils.buildVimPluginFrom2Nix {
+        pname = "bbox";
+        version = "2020-05-27";
+        src = /b/src/bbox;
+      })
+
       # UI #################################################
-      gruvbox # colorscheme
+      # gruvbox # colorscheme
       vim-gitgutter # status in gutter
       # vim-devicons
       vim-airline
