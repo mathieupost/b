@@ -23,8 +23,10 @@ propped on a [cheap little shelf](https://www.umbra.com/products/showcase-floati
 is sort of mediocre).
 * Lens: [Canon EF-S 24mm f/2.8
 STM](https://www.google.com/search?q=canon+24mm+ef-2+2.8+stm&oq=canon+24mm+ef-2+2.8+stm&aqs=chrome..69i57.10352j0j1&sourceid=chrome&ie=UTF-8)
-* Lighting: [Koncept Z-Bar task lamp](https://www.koncept.com/Z-Bar), generally turned up to max and
-pointed at the wall behind the camera
+* Lighting: [Elgato Key Light](https://www.elgato.com/en/gaming/key-light). Still fiddling with
+settings, but during overcast ambient light I've used 3800K/30%.
+* I'd like to get an Elgato Cam Link 4k to replace my current software solution (below), but they're
+sold out everywhere and mine is still on backorder.
 
 ## Software
 
