@@ -713,5 +713,6 @@ TERM xterm-color
 TERM xterm-debian
 # }}}
 
+*ru.nix 38;5;51;1;3
 
 # vim: ft=dircolors:fdm=marker:et:sw=2:

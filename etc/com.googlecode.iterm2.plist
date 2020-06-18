@@ -263,7 +263,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>530 493 620 392 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>774 0 1891 1417 0 0 3440 1417 </string>
+	<string>988 307 1900 1051 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>-1680 390 1680 1027 -1680 390 1680 1027 </string>
 	<key>NeverWarnAboutShortLivedSessions_34B64FEA-C239-4C87-9B7F-70D62510572D</key>
@@ -2198,12 +2198,12 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {3440, 1440}}</string>
 		<key>topLeft</key>
-		<string>{1723, 1016}</string>
+		<string>{1664, 1011}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>E90E107E-A7F2-4530-BD9D-4430A6865765</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>20</integer>
+	<integer>23</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>597264450.22017896</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -3004,6 +3004,8 @@
 	<key>PrefsCustomFolder</key>
 	<string>/b/etc</string>
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
+	<false/>
+	<key>PromptOnQuit</key>
 	<false/>
 	<key>SUEnableAutomaticChecks</key>
 	<false/>
