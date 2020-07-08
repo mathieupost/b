@@ -50,7 +50,7 @@ appbindings.setup({"cmd", "ctrl"}, {
   [5] = "org.gnu.Emacs",
   [6] = "com.apple.iChat",
   [7] = "org.whispersystems.signal-desktop",
-  [8] = "com.microsoft.vscode",
+  [8] = "org.gnu.Emacs",
   [9] = nil,
 })
 
