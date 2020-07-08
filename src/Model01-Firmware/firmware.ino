@@ -11,7 +11,7 @@
 #include "kaleidoscope/plugin/LEDControl/LEDUtils.h" // hsvToRgb
 
 enum {
-  R_M, R_Q, R_H, R_J, R_S, R_N, R_Y, R_V, B_O, B_T, B_F, B_N, B_I, B_R, B_P,
+  R_M, R_Q, R_H, R_J, R_S, R_N, R_Y, R_V, B_C, B_O, B_T, B_F, B_N, B_I, B_R, B_P,
   A_0, A_1, A_2, A_3, A_Q, A_W, A_E, A_R, A_T, A_A, A_S, A_D, A_F, A_Z, A_EN, A_I, A_P, A_H, A_J, A_K, A_L, A_N, A_CM, A_DT, A_SP,
   A2_SP, A2_H, A2_L, A2_K, A2_J, A2_1, A2_2, A2_3, A2_4, A2_5, A2_6, A2_7, A2_8, A2_9, A2_0, A2_W, A2_E, A2_R, A2_Q, A2_T, A2_AL, A2_AR
 };
@@ -53,12 +53,12 @@ KEYMAPS(
 
   ), [K_ANY] =  KEYMAP_STACKED (
 
-   ___, ___, ___, ___, ___,    ___,    ___,
-   ___, ___, ___, ___, M(B_R), M(B_T), ___,
-   ___, ___, ___, ___, M(B_F), ___,    /**/
-   ___, ___, ___, ___, ___,    ___,    ___,
-   /**/ /**/ /**/ ___, ___,    ___,    ___,
-   /**/ /**/ /**/ /**/ /**/    /**/    ___,
+   ___, ___, ___, ___,    ___,    ___,    ___,
+   ___, ___, ___, ___,    M(B_R), M(B_T), ___,
+   ___, ___, ___, ___,    M(B_F), ___,    /**/
+   ___, ___, ___, M(B_C), ___,    ___,    ___,
+   /**/ /**/ /**/ ___,    ___,    ___,    ___,
+   /**/ /**/ /**/ /**/    /**/    /**/    ___,
 
    ___, ___,    ___, ___,    ___,    ___,    ___,
    ___, ___,    ___, M(B_I), M(B_O), M(B_P), ___,
@@ -164,6 +164,7 @@ static void slackReactMacro(const char * search) {
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
   switch (macroIndex) {
 
+  BROWSE_MACRO(B_C, C);
   BROWSE_MACRO(B_O, O);
   BROWSE_MACRO(B_N, N);
   BROWSE_MACRO(B_T, T);

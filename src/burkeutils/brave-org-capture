@@ -1,0 +1,7 @@
+#!/bin/bash
+
+exec osascript <<OSASCRIPT
+tell application "Brave Browser"
+  execute front window's active tab javascript "location.href ='org-protocol://capture?template=c&url='+  encodeURIComponent(location.href) +  '&title=' + encodeURIComponent(document.title) +  '&body=' + encodeURIComponent(window.getSelection())"
+end tell
+OSASCRIPT

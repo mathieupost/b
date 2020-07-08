@@ -24,6 +24,7 @@ window.animationDuration = 0
 -- end)
 
 browsebindings.setup({"cmd", "ctrl", "option", "shift"}, {
+  -- ["c"] = (...different...)
   ["o"] = "https://octobox.shopify.io",
   ["t"] = "https://twitter.com",
   ["n"] = "https://news.ycombinator.com",
@@ -32,6 +33,13 @@ browsebindings.setup({"cmd", "ctrl", "option", "shift"}, {
   ["r"] = "https://reddit.com",
   ["p"] = "https://github.com/pulls",
 })
+hs.hotkey.bind({"cmd", "ctrl", "option", "shift"}, "c", function()
+  hs.osascript.applescript(
+    "tell application \"Brave Browser\"\n" ..
+    "  execute front window's active tab javascript \"location.href ='org-protocol://capture?template=c&url='+  encodeURIComponent(location.href) +  '&title=' + encodeURIComponent(document.title) +  '&body=' + encodeURIComponent(window.getSelection())\"\n" ..
+    "end tell"
+  )
+end)
 
 -- [2] = "com.apple.iTunes",
 appbindings.setup({"cmd", "ctrl"}, {
