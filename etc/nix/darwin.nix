@@ -26,7 +26,6 @@ in {
     arduino
     burkeutils
     discount
-    emacs
     fd
     fzf
     gcoreutils
