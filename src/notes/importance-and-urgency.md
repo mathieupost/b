@@ -60,9 +60,9 @@ disagree?
 ## Disagreement
 
 If **Sender IU** is high Importance, high Urgency, the Sender will often choose methods of
-communication that, within the culture, have high and **Adjusted IU**. The Receiver decodes the
-medium and adjustments on their end into a mental model of the **Sender IU**. I guess if we want to
-introduce yet another term, we could call this **Inferred Sender IU**.
+communication that, within the culture, have high **Natural IU** and **Adjusted IU**. The Receiver
+decodes the medium and adjustments on their end into a mental model of the **Sender IU**. I guess if
+we want to introduce yet another term, we could call this **Inferred Sender IU**.
 
 If the **Inferred Sender IU** and the **Receiver IU** mismatch often enough, the Receiver's internal
 modelling of the **Natural IU** and **Adjusted IU** will start to diverge from the cultural design
