@@ -60,6 +60,9 @@ in {
 
   programs.ssh = {
     enable = true;
+    extraOptionOverrides = {
+      Include = "/Users/burke/.bespin/ssh/config";
+    };
     matchBlocks."*" = {
       extraOptions = {
         UseRoaming = "no";
