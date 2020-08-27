@@ -25,7 +25,7 @@ window.animationDuration = 0
 
 browsebindings.setup({"cmd", "ctrl", "option", "shift"}, {
   -- ["c"] = (...different...)
-  ["o"] = "https://octobox.shopify.io",
+  ["o"] = "https://github.com/notifications",
   ["t"] = "https://twitter.com",
   ["n"] = "https://news.ycombinator.com",
   ["f"] = "https://facebook.com",
