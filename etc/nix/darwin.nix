@@ -7,13 +7,16 @@ let
   shell-prompt = callPackage /b/src/shell-prompt { };
   burkeutils = callPackage /b/src/burkeutils { };
   hammerspoon = callPackage /b/src/apps/hammerspoon.nix { };
-  kaleidoscope-relay = callPackage /b/src/kaleidoscope-relay { };
+  # kaleidoscope-relay = callPackage /b/src/kaleidoscope-relay { };
   minidev = callPackage /b/src/minidev { };
   gcoreutils = callPackage /b/src/gcoreutils { };
   b = callPackage /b/src/b { };
   ndoc = callPackage /b/src/ndoc { };
 
 in {
+  # imports = [ ./nix-darwin-home-manager.nix ./home.nix ];
+  # home-manager.useUserPackages = true;
+
   users.users.burke = {
     home = "/Users/burke";
     description = "Burke Libbey";
@@ -29,7 +32,6 @@ in {
     fd
     fzf
     gcoreutils
-    home-manager
     minidev
     fontconfig # to make doom doctor work
     git
@@ -39,10 +41,10 @@ in {
     ndoc
     htop
     jq
-    kaleidoscope-relay
+    # kaleidoscope-relay
     nixfmt
     pinentry_mac
-    ripgrep
+    # ripgrep
     ruby_2_6
     shadowenv
     shell-prompt

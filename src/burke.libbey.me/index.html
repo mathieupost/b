@@ -24,16 +24,6 @@ h1 {
   font-style: italic;
 }
 
-h1::before {
-  content: "# ";
-  color: #ccc;
-}
-
-h1::after {
-  content: ".nix";
-  color: #ccc;
-}
-
 div {
   margin: 4em auto 2em auto;
   width: 13em;
@@ -44,21 +34,6 @@ dl {
   margin: 0;
   padding: 0;
   display: inline;
-}
-
-dl::before {
-  margin-left: -0.06em;
-  content: "{";
-  color: #0ff;
-  display: block;
-}
-
-dl:last-child::after {
-  margin-left: -0.06em;
-  display: block;
-  content: "}";
-  color: #0ff;
-  clear: left;
 }
 
 dt {
@@ -72,27 +47,6 @@ dd {
   margin-left: 0.45em;
 }
 
-dd::before {
-  content: "=";
-  margin-right: 0.45em;
-  color: #0ff;
-}
-
-dd::after {
-  content: ";";
-  color: #0ff;
-}
-
-dd a::before {
-  content: "\"";
-  color: #aa0;
-}
-
-dd a::after {
-  content: "\"";
-  color: #aa0;
-}
-
 a {
   text-decoration: none;
   color: #0f0;
@@ -103,14 +57,12 @@ a {
 <body>
   <div>
     <h1>Burke Libbey</h1>
-    <dl>
-      <dt>github</dt><dd><a href="https://github.com/burke">@burke</a></dd>
-      <dt>twitter</dt><dd><a href="https://twitter.com/burkelibbey">@burkelibbey</a></dd>
-      <dt>email</dt><dd><a href="mailto:burke@libbey.me">burke@libbey.me</a></dd>
-      <dt>imessage</dt><dd><a href="sms:burke@libbey.me">burke@libbey.me</a></dd>
-      <dt>working-at</dt><dd><a href="http://shopify.com" title="Shopify">Shopify</a></dd>
-      <dt>notes</dt><dd><a href="http://notes.burke.libbey.me">Not-Quite-a-Blog</a></dd>
-    </dl>
+    <p>hey i guess normally people put links to profiles on various sites here
+    but you can just <a
+    href="https://www.google.com/search?q=burke+libbey">google my name</a>;
+  there's only one of me</p>
+    <p>email me at <a href="mailto:burke@libbey.me">burke@libbey.me</a></p>
+    <p>or read <a href="https://notes.burke.libbey.me">some stuff I wrote</a></p>
   </div>
 </body>
 </html>

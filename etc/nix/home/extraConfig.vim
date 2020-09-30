@@ -568,6 +568,80 @@ function! ListPrev()
   endif
 endfunction
 
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_preview_window = 'right:50%'
+let g:fzf_tags_command = 'bash -c "build-ctags"'
+
+let g:fzf_history_dir = '~/.fzf-history'
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --hidden --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let options = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  if a:fullscreen
+    let options = fzf#vim#with_preview(options)
+  endif
+  call fzf#vim#grep(initial_command, 1, options, a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+" Completely use RG, don't use fzf's fuzzy-matching
+map <C-g> :RG<CR>
+map <Space>/ :execute 'Rg ' . expand('<cword>')<CR>
+map <leader>/ :execute 'Rg ' . input('Rg/')<CR>
+
+" map <C-g> :Rg<CR>
+" map <leader>/ :execute 'RG ' . input('Rg/')<CR>
+" map <Space>/ :execute 'RG ' . input('Rg/', expand('<cword>'))<CR>
+
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--tiebreak=begin']}), <bang>0)
+map <C-t> :Files<CR>
+
+
+
+
+
+function! ZettelkastenSetup()
+  if expand("%:t") !~ '^[0-9]\+'
+    return
+  endif
+  " syn region mkdFootnotes matchgroup=mkdDelimiter start="\[\["    end="\]\]"
+
+  inoremap <expr> <plug>(fzf-complete-path-custom) fzf#vim#complete#path("rg --files -t md \| sed 's/^/[[/g' \| sed 's/$/]]/'")
+  imap <buffer> [[ <plug>(fzf-complete-path-custom)
+
+  function! s:CompleteTagsReducer(lines)
+    if len(a:lines) == 1
+      return "#" . a:lines[0]
+    else
+      return split(a:lines[1], '\t ')[1]
+    end
+  endfunction
+
+  inoremap <expr> <plug>(fzf-complete-tags) fzf#vim#complete(fzf#wrap({
+        \ 'source': 'bash -lc "zk-tags-raw"',
+        \ 'options': '--multi --ansi --nth 2 --print-query --exact --header "Enter without a selection creates new tag"',
+        \ 'reducer': function('<sid>CompleteTagsReducer')
+        \ }))
+  imap <buffer> # <plug>(fzf-complete-tags)
+endfunction
+
+" Don't know why I can't get FZF to return {2}
+function! InsertSecondColumn(line)
+  " execute 'read !echo ' .. split(a:e[0], '\t')[1]
+  exe 'normal! o' .. split(a:line, '\t')[1]
+endfunction
+
+command! ZKR call fzf#run(fzf#wrap({
+        \ 'source': 'ruby ~/.bin/zk-related.rb "' .. bufname("%") .. '"',
+        \ 'options': '--ansi --exact --nth 2',
+        \ 'sink':    function("InsertSecondColumn")
+      \}))
+
+autocmd BufNew,BufNewFile,BufRead ~/Documents/Zettelkasten/*.md call ZettelkastenSetup()
+
 nnoremap ç :call ToggleList()<cr>
 nnoremap ∆ :call ListNext()<cr>
 nnoremap ˚ :call ListPrev()<cr>
