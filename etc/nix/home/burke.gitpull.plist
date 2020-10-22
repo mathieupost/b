@@ -6,7 +6,7 @@
  <string>burke.gitpull</string>
  <key>ProgramArguments</key>
  <array>
-   <string>/Users/burke/.nix-profile/bin/launchd-gitpull</string>
+   <string>/run/current-system/sw/bin/launchd-gitpull</string>
  </array>
  <key>StandardErrorPath</key>
  <string>/tmp/burke.gitpull.err</string>
