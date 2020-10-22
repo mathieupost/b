@@ -1,0 +1,14 @@
+#!/usr/bin/ruby --disable-gems
+
+repos = ['/b/r']
+
+puts "% starting"
+repos.each do |repo|
+  puts "% considering #{repo}"
+  age = Time.now - File.mtime("#{repo}/.git/FETCH_HEAD")
+  if age > 300
+    puts "% updating #{repo}"
+    system('git', '-C', repo, 'pull')
+  end
+end
+puts "% done"
