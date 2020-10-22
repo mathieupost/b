@@ -2,7 +2,7 @@
 , ruby ? (import <nixpkgs> { }).ruby, bash ? (import <nixpkgs> { }).bash }:
 stdenvNoCC.mkDerivation {
   pname = "burkeutils";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = ./bin;
 
