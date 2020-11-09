@@ -109,9 +109,7 @@ if $TERM_BG == "light"
 else
   set background=dark
 endif
-
-colorscheme bbox
-
+colorscheme gruvbox
 " load the plugin and indent settings for the detected filetype
 filetype plugin indent on
 " }}}
@@ -173,7 +171,7 @@ endif
 " }}}
 
 " LightLine {{{
-let g:airline_theme='bbox'
+let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
 " }}}
 
