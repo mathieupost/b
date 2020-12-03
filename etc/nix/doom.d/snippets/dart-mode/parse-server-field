@@ -1,0 +1,6 @@
+# key: psf
+# name: Parse server field
+# --
+static const String key${1:$(capitalize yas-text)} = '${1:$(capitalize yas-text)}';
+$2 get $1 => get<$2>(key${1:$(capitalize yas-text)});
+set $1($2 $1) => set<$2>(key${1:$(capitalize yas-text)}, $1);

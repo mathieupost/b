@@ -1,0 +1,497 @@
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+;; Place your private configuration here! Remember, you do not need to run 'doom
+;; sync' after modifying this file!
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(setq user-full-name "Mathieu Post"
+      user-mail-address "mathieupost@gmail.com")
+
+;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
+;; are the three important ones:
+;;
+;; + `doom-font'
+;; + `doom-variable-pitch-font'
+;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;;   presentations or streaming.
+;;
+;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
+;; font string. You generally only need these two:
+(setq doom-font (font-spec :family "JetBrains Mono" :size 14)
+      doom-theme 'doom-one
+      split-width-threshold nil)
+
+(setq-default fill-column 120)
+
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+(setq org-directory "~/Org/"
+      org-roam-directory org-directory
+      m9t/org-agenda-directory (concat org-directory "agenda/")
+      deft-directory org-directory
+      zotero-bib (concat org-directory "zotero.bib")
+      reftex-default-bibliography '(zotero-bib)
+      org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f" "rm *-blx.bib")
+      +latex-viewers nil)
+
+(use-package! org
+  :config
+  ;; (map! :leader
+  ;;       :prefix "n"
+  ;;       "c" #'org-capture)
+  ;; (map! :map org-mode-map
+  ;;       "M-n" #'outline-next-visible-heading
+  ;;       "M-p" #'outline-previous-visible-heading)
+  (setq org-src-window-setup 'current-window
+        org-return-follows-link t
+        ;; org-confirm-babel-evaluate nil
+        org-use-speed-commands t
+        org-catch-invisible-edits 'show
+        org-preview-latex-image-directory "/tmp/ltximg/"
+        ;; org-structure-template-alist '(("a" . "export ascii")
+        ;;                                ("c" . "center")
+        ;;                                ("C" . "comment")
+        ;;                                ("e" . "example")
+        ;;                                ("E" . "export")
+        ;;                                ("h" . "export html")
+        ;;                                ("l" . "export latex")
+        ;;                                ("q" . "quote")
+        ;;                                ("s" . "src")
+        ;;                                ("v" . "verse")
+        ;;                                ("el" . "src emacs-lisp")
+        ;;                                ("d" . "definition")
+        ;;                                ("t" . "theorem"))
+        )
+  (with-eval-after-load 'flycheck
+    (flycheck-add-mode 'proselint 'org-mode))
+  )
+
+(after! org
+  (defun m9t/org-archive-done-tasks ()
+    "Archive all done tasks."
+    (interactive)
+    (org-map-entries 'org-archive-subtree "/DONE" 'file))
+  (setq org-agenda-files (directory-files m9t/org-agenda-directory t "\.org$")))
+
+(add-hook! org-mode
+  (setq-default fill-column 80)
+  (setq org-latex-logfiles-extensions (append org-latex-logfiles-extensions '("tex" "bib" "bbl"))))
+
+(setq org-capture-templates
+        `(("i" "inbox" entry (file ,(concat m9t/org-agenda-directory "inbox.org"))
+           "* TODO %?")
+          ("e" "email" entry (file+headline ,(concat m9t/org-agenda-directory "emails.org") "Emails")
+               "* TODO [#A] Reply: %a :@home:@school:"
+               :immediate-finish t)
+          ("c" "org-protocol-capture" entry (file ,(concat m9t/org-agenda-directory "inbox.org"))
+               "* TODO [[%:link][%:description]]\n\n %i"
+               :immediate-finish t)
+          ("w" "Weekly Review" entry (file+olp+datetree ,(concat m9t/org-agenda-directory "reviews.org"))
+           (file ,(concat m9t/org-agenda-directory "templates/weekly_review.org")))
+          ("r" "Reading" todo ""
+               ((org-agenda-files '(,(concat m9t/org-agenda-directory "reading.org")))))))
+
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+        (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")))
+
+(setq org-tag-alist (quote (("@errand" . ?e)
+                            ("@office" . ?o)
+                            ("@home" . ?h)
+                            ("@school" . ?s)
+                            (:newline)
+                            ("WAITING" . ?w)
+                            ("HOLD" . ?H)
+                            ("CANCELLED" . ?c))))
+
+(setq org-fast-tag-selection-single-key nil)
+(setq org-refile-use-outline-path 'file
+      org-outline-path-complete-in-steps nil)
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+(setq org-refile-targets '(("next.org" :level . 0)
+                           ("someday.org" :level . 0)
+                           ("work.org" :level . 0)
+                           ("reading.org" :level . 1)
+                           ("projects.org" :maxlevel . 1)))
+
+(defvar m9t/org-agenda-bulk-process-key ?f
+  "Default key for bulk processing inbox items.")
+
+(defun m9t/org-process-inbox ()
+  "Called in org-agenda-mode, processes all inbox items."
+  (interactive)
+  (org-agenda-bulk-mark-regexp "inbox:")
+  (m9t/bulk-process-entries))
+
+(defvar m9t/org-current-effort "1:00"
+  "Current effort for agenda items.")
+
+(defun m9t/my-org-agenda-set-effort (effort)
+  "Set the effort property for the current headline."
+  (interactive
+   (list (read-string (format "Effort [%s]: " m9t/org-current-effort) nil nil m9t/org-current-effort)))
+  (setq m9t/org-current-effort effort)
+  (org-agenda-check-no-diary)
+  (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
+                       (org-agenda-error)))
+         (buffer (marker-buffer hdmarker))
+         (pos (marker-position hdmarker))
+         (inhibit-read-only t)
+         newhead)
+    (org-with-remote-undo buffer
+      (with-current-buffer buffer
+        (widen)
+        (goto-char pos)
+        (org-show-context 'agenda)
+        (funcall-interactively 'org-set-effort nil m9t/org-current-effort)
+        (end-of-line 1)
+        (setq newhead (org-get-heading)))
+      (org-agenda-change-all-lines newhead hdmarker))))
+
+(defun m9t/org-agenda-process-inbox-item ()
+  "Process a single item in the org-agenda."
+  (org-with-wide-buffer
+   (org-agenda-set-tags)
+   (org-agenda-priority)
+   (call-interactively 'm9t/my-org-agenda-set-effort)
+   (org-agenda-refile nil nil t)))
+
+(defun m9t/bulk-process-entries ()
+  (if (not (null org-agenda-bulk-marked-entries))
+      (let ((entries (reverse org-agenda-bulk-marked-entries))
+            (processed 0)
+            (skipped 0))
+        (dolist (e entries)
+          (let ((pos (text-property-any (point-min) (point-max) 'org-hd-marker e)))
+            (if (not pos)
+                (progn (message "Skipping removed entry at %s" e)
+                       (cl-incf skipped))
+              (goto-char pos)
+              (let (org-loop-over-headlines-in-active-region) (funcall 'm9t/org-agenda-process-inbox-item))
+              ;; `post-command-hook' is not run yet.  We make sure any
+              ;; pending log note is processed.
+              (when (or (memq 'org-add-log-note (default-value 'post-command-hook))
+                        (memq 'org-add-log-note post-command-hook))
+                (org-add-log-note))
+              (cl-incf processed))))
+        (org-agenda-redo)
+        (unless org-agenda-persistent-marks (org-agenda-bulk-unmark-all))
+        (message "Acted on %d entries%s%s"
+                 processed
+                 (if (= skipped 0)
+                     ""
+                   (format ", skipped %d (disappeared before their turn)"
+                           skipped))
+                 (if (not org-agenda-persistent-marks) "" " (kept marked)")))))
+
+(defun m9t/org-inbox-capture ()
+  (interactive)
+  "Capture a task in agenda mode."
+  (org-capture nil "i"))
+
+(setq org-agenda-bulk-custom-functions `((,m9t/org-agenda-bulk-process-key m9t/org-agenda-process-inbox-item)))
+
+(map! :map org-agenda-mode-map
+      "i" #'org-agenda-clock-in
+      "r" #'m9t/org-process-inbox
+      "R" #'org-agenda-refile
+      "c" #'m9t/org-inbox-capture)
+
+(defun m9t/set-todo-state-next ()
+  "Visit each parent task and change NEXT states to TODO"
+  (org-todo "NEXT"))
+
+(add-hook 'org-clock-in-hook 'm9t/set-todo-state-next 'append)
+
+(use-package! org-clock-convenience
+  :bind (:map org-agenda-mode-map
+              ("<S-up>" . org-clock-convenience-timestamp-up)
+              ("<S-down>" . org-clock-convenience-timestamp-down)
+              ("o" . org-clock-convenience-fill-gap)
+              ("e" . org-clock-convenience-fill-gap-both)))
+
+(use-package! org-agenda
+  :init
+  (map! "<f1>" #'m9t/switch-to-agenda)
+  (setq org-agenda-block-separator nil
+        org-agenda-start-with-log-mode t)
+  (defun m9t/switch-to-agenda ()
+    (interactive)
+    (org-agenda nil " "))
+  :config
+  (setq org-columns-default-format "%40ITEM(Task) %Effort(EE){:} %CLOCKSUM(Time Spent) %SCHEDULED(Scheduled) %DEADLINE(Deadline)")
+  (setq org-agenda-custom-commands `((" " "Agenda"
+                                      ((agenda ""
+                                               ((org-agenda-span 'week)
+                                                (org-deadline-warning-days 365)))
+                                       (todo "TODO"
+                                             ((org-agenda-overriding-header "To Refile")
+                                              (org-agenda-files '(,(concat m9t/org-agenda-directory "inbox.org")))))
+                                       (todo "TODO"
+                                             ((org-agenda-overriding-header "Emails")
+                                              (org-agenda-files '(,(concat m9t/org-agenda-directory "emails.org")))))
+                                       (todo "NEXT"
+                                             ((org-agenda-overriding-header "In Progress")
+                                              (org-agenda-files '(,(concat m9t/org-agenda-directory "someday.org")
+                                                                  ,(concat m9t/org-agenda-directory "projects.org")
+                                                                  ,(concat m9t/org-agenda-directory "next.org")))
+                                              ))
+                                       (todo "TODO"
+                                             ((org-agenda-overriding-header "Projects")
+                                              (org-agenda-files '(,(concat m9t/org-agenda-directory "projects.org")
+                                                                  ,(concat m9t/org-agenda-directory "work.org")))))
+                                       (todo "TODO"
+                                             ((org-agenda-overriding-header "One-off Tasks")
+                                              (org-agenda-files '(,(concat m9t/org-agenda-directory "next.org")))
+                                              (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled)))))))))
+
+(use-package! org-roam
+  :commands (org-roam-insert org-roam-find-file org-roam-switch-to-buffer org-roam)
+  :hook
+  (after-init . org-roam-mode)
+  :custom-face
+  (org-roam-link ((t (:inherit org-link :foreground "#005200"))))
+  :init
+  (map! :leader
+        :prefix "n"
+        :desc "org-roam" "l" #'org-roam
+        :desc "org-roam-insert" "i" #'org-roam-insert
+        :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
+        :desc "org-roam-find-file" "f" #'org-roam-find-file
+        :desc "org-roam-show-graph" "g" #'org-roam-show-graph
+        :desc "org-roam-insert" "i" #'org-roam-insert
+        :desc "org-roam-capture" "c" #'org-roam-capture)
+  (setq org-roam-directory "/home/m9t/Dropbox/org/braindump/org/"
+        org-roam-db-location "/home/m9t/org-roam.db"
+        org-roam-db-gc-threshold most-positive-fixnum
+        org-roam-graph-exclude-matcher "private"
+        org-roam-tag-sources '(prop last-directory)
+        org-id-link-to-org-use-id t)
+  :config
+  (setq org-roam-capture-templates
+        '(("l" "lit" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "lit/${slug}"
+           :head "#+setupfile:./hugo_setup.org
+#+hugo_slug: ${slug}
+#+title: ${title}\n"
+           :unnarrowed t)
+          ("c" "concept" plain (function org-roam--capture-get-point)
+           "%?"
+           :file-name "concepts/${slug}"
+           :head "#+setupfile:./hugo_setup.org
+#+hugo_slug: ${slug}
+#+title: ${title}\n"
+           :unnarrowed t)
+          ("p" "private" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "private/${slug}"
+           :head "#+title: ${title}\n"
+           :unnarrowed t)))
+  (setq org-roam-capture-ref-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "lit/${slug}"
+           :head "#+setupfile:./hugo_setup.org
+#+roam_key: ${ref}
+#+hugo_slug: ${slug}
+#+roam_tags: website
+#+title: ${title}
+- source :: ${ref}"
+           :unnarrowed t))))
+
+(use-package! org-roam-protocol
+  :after org-protocol)
+
+(use-package company-org-roam
+  :when (featurep! :completion company)
+  :after org-roam
+  :config
+  (set-company-backend! 'org-mode '(company-org-roam company-yasnippet company-dabbrev)))
+
+(after! (org-roam)
+  (winner-mode +1)
+  (map! :map winner-mode-map
+        "<M-right>" #'winner-redo
+        "<M-left>" #'winner-undo))
+
+(after! (org ox-hugo)
+  (defun m9t/conditional-hugo-enable ()
+    (save-excursion
+      (if (cdr (assoc "SETUPFILE" (org-roam--extract-global-props '("SETUPFILE"))))
+          (org-hugo-auto-export-mode +1)
+        (org-hugo-auto-export-mode -1))))
+  (add-hook 'org-mode-hook #'m9t/conditional-hugo-enable))
+
+(use-package! org-journal
+  :bind
+  ("C-c n j" . org-journal-new-entry)
+  ("C-c n t" . org-journal-today)
+  :config
+  (setq org-journal-date-prefix "#+TITLE: "
+        org-journal-file-format "%Y-%m-%d.org"
+        org-journal-dir org-directory
+        org-journal-carryover-items nil)
+  (defun org-journal-today ()
+    (interactive)
+    (org-journal-new-entry t)))
+
+(defun insert-date ()
+  "Insert a timestamp according to locale's date and time format."
+  (interactive)
+  (insert (format-time-string "%c" (current-time))))
+
+(after! ivy
+  (map! :map ivy-minibuffer-map
+        "S-SPC" nil)
+  (add-to-list 'ivy-re-builders-alist '(counsel-projectile-find-file . ivy--regex-plus)))
+
+(use-package! spell-fu
+  :commands (spell-fu-mode)
+  :init
+  (add-hook 'text-mode-hook #'spell-fu-mode))
+
+;; HOTFIX
+(require 'org-journal)
+
+;; (use-package org-ref
+;;   :config
+;;   (setq org-ref-completion-library 'org-ref-ivy-cite
+;;         org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex
+;;         org-ref-default-bibliography (list zotero-bib)
+;;         org-ref-bibliography-notes (concat org-directory "bibnotes.org")
+;;         org-ref-note-title-format "* TODO %y - %t\n :PROPERTIES:\n  :Custom_ID: %k\n  :NOTER_DOCUMENT: %F\n :ROAM_KEY: cite:%k\n  :AUTHOR: %9a\n  :JOURNAL: %j\n  :YEAR: %y\n  :VOLUME: %v\n  :PAGES: %p\n  :DOI: %D\n  :URL: %U\n :END:\n\n"
+;;         org-ref-notes-directory org-directory
+;;         org-ref-notes-function 'orb-edit-notes
+;;         ))
+
+(use-package org-roam-bibtex
+  :after (org-roam)
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :config
+  (setq orb-preformat-keywords
+        '("=key=" "title" "url" "file" "author-or-editor" "keywords"))
+  (setq orb-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point)
+           ""
+           :file-name "${slug}"
+           :head ,(concat
+                   "#+setupfile: ./hugo_setup.org\n"
+                   "#+title: ${=key=}: ${title}\n"
+                   "#+roam_key: ${ref}\n\n"
+                   "* ${title}\n"
+                   "  :PROPERTIES:\n"
+                   "  :Custom_ID: ${=key=}\n"
+                   "  :URL: ${url}\n"
+                   "  :AUTHOR: ${author-or-editor}\n"
+                   "  :NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n"
+                   "  :NOTER_PAGE: \n"
+                   "  :END:\n")
+           :unnarrowed t))))
+
+(use-package! bibtex-completion
+  :config
+  (setq bibtex-completion-notes-path org-directory
+        bibtex-completion-bibliography zotero-bib
+        bibtex-completion-pdf-field "file"
+        bibtex-completion-notes-template-multiple-files
+         (concat
+          "#+title: ${title}\n"
+          "#+roam_key: cite:${=key=}\n"
+          "* TODO Notes\n"
+          ":PROPERTIES:\n"
+          ":Custom_ID: ${=key=}\n"
+          ":NOTER_DOCUMENT: %(orb-process-file-field \"${=key=}\")\n"
+          ":AUTHOR: ${author-abbrev}\n"
+          ":JOURNAL: ${journaltitle}\n"
+          ":DATE: ${date}\n"
+          ":YEAR: ${year}\n"
+          ":DOI: ${doi}\n"
+          ":URL: ${url}\n"
+          ":END:\n\n"
+          )))
+
+(use-package org-noter
+  :after (:any org pdf-view)
+  :config
+  (setq
+   ;; The WM can handle splits
+   ;; org-noter-notes-window-location 'horizontal-split
+   ;; Please stop opening frames
+   ;; org-noter-always-create-frame nil
+   ;; I want to see the whole file
+   org-noter-hide-other nil
+   ;; Everything is relative to the main notes file
+   org-noter-notes-search-path (list org-directory)))
+
+(use-package! org-roam-server)
+
+(defun m9t/open-with (arg)
+  "Open visited file in default external program.
+When in dired mode, open file under the cursor.
+With a prefix ARG always prompt for command to use."
+  (interactive "P")
+  (let* ((current-file-name
+          (if (eq major-mode 'dired-mode)
+              (dired-get-file-for-visit)
+            buffer-file-name))
+         (open (pcase system-type
+                 (`darwin "open")
+                 ((or `gnu `gnu/linux `gnu/kfreebsd) "xdg-open")))
+         (program (if (or arg (not open))
+                      (read-shell-command "Open current file with: ")
+                    open)))
+    (call-process program nil 0 nil current-file-name)))
+
+(map! "C-c o o" 'm9t/open-with)
+
+;; (use-package! org-gcal
+;;   :commands (org-gcal-sync)
+;;   :config
+;;   (setq org-gcal-client-id (password-store-get "gmail/org-gcal-client")
+;;         org-gcal-client-secret (password-store-get "gmail/org-gcal-secret")
+;;         org-gcal-file-alist `(("dckbhpq9bq13m03llerl09slgo@group.calendar.google.com" . ,(concat m9t/org-agenda-directory "calendars/lab.org"))
+;;                               ("m9tkuan95@gmail.com" . ,(concat m9t/org-agenda-directory "calendars/personal.org")))))
+
+(use-package! protobuf-mode
+  :mode "\\.proto$"
+  :config
+  (defconst my-protobuf-style
+    '((c-basic-offset . 2)
+      (indent-tabs-mode . nil)))
+  (add-hook 'protobuf-mode-hook
+            (lambda () (c-add-style "my-style" my-protobuf-style t))))
+
+(after! lsp-ui
+  (setq lsp-ui-sideline-show-hover
+        (not lsp-ui-sideline-show-hover))
+  (lsp-ui-sideline--run))
+
+(after! treemacs
+  (treemacs-git-mode 'extended)
+  (add-to-list 'treemacs-pre-file-insert-predicates #'treemacs-is-file-git-ignored?))
+
+(use-package! chezmoi)
+
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq display-line-numbers-type t)
+
+
+;; Here are some additional functions/macros that could help you configure Doom:
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c g k').
+;; This will open documentation for it, including demos of how they are used.
+;;
+;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
+;; they are implemented.
